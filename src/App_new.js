@@ -75,7 +75,7 @@ function AppContent() {
 
   const fetchProblems = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/problems`);
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/problems`);
       const data = await response.json();
       if (response.ok) {
         setProblems(data);
@@ -88,7 +88,7 @@ function AppContent() {
   // === AUTHENTICATION HANDLERS ===
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/login`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -150,7 +150,7 @@ function AppContent() {
         companyName: formData.userType === 'company' ? formData.companyName : undefined
       };
 
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/register`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupPayload),
@@ -238,7 +238,7 @@ function AppContent() {
       const token = localStorage.getItem('token');
       const companyName = currentUser?.companyName || currentUser?.username || 'Anonymous Company';
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/problems`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/problems`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -279,7 +279,7 @@ function AppContent() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/problems/${problemId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/problems/${problemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -335,7 +335,7 @@ function AppContent() {
         implementationApproach: ideaSubmission.implementationApproach.trim()
       };
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/ideas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

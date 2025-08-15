@@ -1,5 +1,6 @@
 /* src/App.css */
 /* Modern Professional Theme - Sleek Dark Mode */
+
 :root {
   /* Modern Color Palette */
   --bg-primary: #121212;
@@ -8,7 +9,7 @@
   --text-primary: #E5E5E5;
   --text-secondary: #B3B3B3;
   --accent-color: #00ADB5;
-  --accent-secondary: #007B82;
+  --accent-secondary: #ff0808;
   --accent-light: #4DD0E1;
   
   /* Professional Gradients */

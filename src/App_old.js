@@ -253,7 +253,7 @@ function AppContent() {
     // --- Fetch problems from backend ---
     const fetchInitialProblems = async () => {
       try {
-        const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+        const apiUrl = process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api';
         const response = await fetch(`${apiUrl}/problems`);
         
         if (response.ok) {
@@ -293,7 +293,7 @@ function AppContent() {
       if (token) {
         try {
           // Fetch fresh user data from the server
-          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/profile`, {
+          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/profile`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -562,7 +562,7 @@ function AppContent() {
     if (token) {
       try {
         console.log('🔄 Refreshing user data from server...');
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/profile`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Cache-Control': 'no-cache',
@@ -641,7 +641,7 @@ function AppContent() {
       
       console.log('💡 Submitting idea:', submissionData);
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/ideas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -724,7 +724,7 @@ function AppContent() {
           quiz: formData.quiz
         });
         
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/problems`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/problems`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
