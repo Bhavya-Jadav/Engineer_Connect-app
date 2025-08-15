@@ -6,7 +6,7 @@ const getApiUrl = () => {
   }
   
   // Development environment
-  return process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+  return process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api';
 };
 
 export const API_BASE_URL = getApiUrl();
