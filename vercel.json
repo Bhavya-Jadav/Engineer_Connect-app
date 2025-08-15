@@ -1,9 +1,8 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "engineer_connect-app/build",
+  "outputDirectory": "build",
   "installCommand": "npm install",
-  // ...functions section removed...
   "rewrites": [
     { "source": "/api/:match*", "destination": "/api/:match*" },
     { "source": "/(.*)", "destination": "/index.html" }
