@@ -200,7 +200,7 @@ const CompanyDashboard = ({
         formData.append('attachments', file);
       });
 
-      const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app'}`.replace(/\/api$/, '') + '/api/files/upload';
+      const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + '/api/files/upload';
       console.log('Upload URL:', uploadUrl);
       console.log('Token exists:', !!localStorage.getItem('token'));
 
@@ -369,7 +369,7 @@ const CompanyDashboard = ({
   const handleUpdateProblem = async (problemId, problemData) => {
     try {
       const token = localStorage.getItem('token');
-      const updateUrl = `${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app'}`.replace(/\/api$/, '') + `/api/problems/${problemId}`;
+      const updateUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + `/api/problems/${problemId}`;
       
       console.log('Update URL:', updateUrl);
       console.log('Problem data:', problemData);
@@ -411,7 +411,7 @@ const CompanyDashboard = ({
       console.log('🔑 CLIENT: Token exists?', !!token);
       console.log('🔑 CLIENT: Token preview:', token ? token.substring(0, 30) + '...' : 'NO TOKEN');
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/ideas/problem/${problemId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas/problem/${problemId}`, {
         method: 'GET',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -456,7 +456,7 @@ const CompanyDashboard = ({
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/ideas`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas`, {
         method: 'GET',
         headers: { 
           'Authorization': `Bearer ${token}`,

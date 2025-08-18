@@ -62,7 +62,7 @@ const UserProfilePanel = ({ user, isOpen, onClose, onUserUpdate }) => {
   const handleProfileUpdate = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/profile`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const UserProfilePanel = ({ user, isOpen, onClose, onUserUpdate }) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/change-password`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ const UserProfilePanel = ({ user, isOpen, onClose, onUserUpdate }) => {
     formData.append('profilePicture', profilePicture);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/profile-picture`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/profile-picture`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -228,7 +228,7 @@ const UserProfilePanel = ({ user, isOpen, onClose, onUserUpdate }) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/users/delete-account`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/delete-account`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
