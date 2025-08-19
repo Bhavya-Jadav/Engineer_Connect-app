@@ -26,7 +26,13 @@ const ProfilePage = ({
     year: currentUser?.year || '',
     skills: currentUser?.skills || [],
     role: currentUser?.role || '',
-    companyName: currentUser?.companyName || ''
+    companyName: currentUser?.companyName || '',
+    // Extended resume fields
+    education: currentUser?.education || [],
+    courses: currentUser?.courses || [],
+    languages: currentUser?.languages || [],
+    achievements: currentUser?.achievements || [],
+    projects: currentUser?.projects || []
   });
   const [newSkill, setNewSkill] = useState('');
 
@@ -44,7 +50,13 @@ const ProfilePage = ({
         year: currentUser.year || '',
         skills: currentUser.skills || [],
         role: currentUser.role || '',
-        companyName: currentUser.companyName || ''
+        companyName: currentUser.companyName || '',
+        // Extended resume fields
+        education: currentUser.education || [],
+        courses: currentUser.courses || [],
+        languages: currentUser.languages || [],
+        achievements: currentUser.achievements || [],
+        projects: currentUser.projects || []
       });
     }
   }, [currentUser]);
@@ -83,20 +95,192 @@ const ProfilePage = ({
   };
 
   const handleAddSkill = () => {
-    if (newSkill.trim() && !profileData.skills.includes(newSkill.trim())) {
-      setProfileData({
-        ...profileData,
-        skills: [...profileData.skills, newSkill.trim()]
-      });
-      setNewSkill('');
+    if (newSkill.trim()) {
+      const skillExists = profileData.skills.some(skill => 
+        (typeof skill === 'string' ? skill : skill.name) === newSkill.trim()
+      );
+      if (!skillExists) {
+        setProfileData({
+          ...profileData,
+          skills: [...profileData.skills, { name: newSkill.trim(), proficiency: 'Beginner' }]
+        });
+        setNewSkill('');
+      }
     }
   };
 
-  const handleRemoveSkill = (skillToRemove) => {
-    setProfileData({
-      ...profileData,
-      skills: profileData.skills.filter(skill => skill !== skillToRemove)
-    });
+  const removeSkill = (skillToRemove) => {
+    setProfileData(prev => ({
+      ...prev,
+      skills: prev.skills.filter(skill => 
+        (typeof skill === 'string' ? skill : skill.name) !== skillToRemove
+      )
+    }));
+  };
+
+  const addEducation = () => {
+    setProfileData(prev => ({
+      ...prev,
+      education: [...prev.education, {
+        id: Date.now(),
+        degree: '',
+        institute: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+      }]
+    }));
+  };
+
+  const removeEducation = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      education: prev.education.filter(edu => edu.id !== id)
+    }));
+  };
+
+  const updateEducation = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      education: prev.education.map(edu => 
+        edu.id === id ? { ...edu, [field]: value } : edu
+      )
+    }));
+  };
+
+  const addCourse = () => {
+    setProfileData(prev => ({
+      ...prev,
+      courses: [...prev.courses, {
+        id: Date.now(),
+        name: '',
+        provider: '',
+        completionDate: '',
+        certificateLink: ''
+      }]
+    }));
+  };
+
+  const removeCourse = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      courses: prev.courses.filter(course => course.id !== id)
+    }));
+  };
+
+  const updateCourse = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      courses: prev.courses.map(course => 
+        course.id === id ? { ...course, [field]: value } : course
+      )
+    }));
+  };
+
+  const addLanguage = () => {
+    setProfileData(prev => ({
+      ...prev,
+      languages: [...prev.languages, {
+        id: Date.now(),
+        name: '',
+        proficiency: 'Beginner'
+      }]
+    }));
+  };
+
+  const removeLanguage = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      languages: prev.languages.filter(lang => lang.id !== id)
+    }));
+  };
+
+  const updateLanguage = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      languages: prev.languages.map(lang => 
+        lang.id === id ? { ...lang, [field]: value } : lang
+      )
+    }));
+  };
+
+  const addAchievement = () => {
+    setProfileData(prev => ({
+      ...prev,
+      achievements: [...prev.achievements, {
+        id: Date.now(),
+        title: '',
+        description: '',
+        date: ''
+      }]
+    }));
+  };
+
+  const removeAchievement = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      achievements: prev.achievements.filter(ach => ach.id !== id)
+    }));
+  };
+
+  const updateAchievement = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      achievements: prev.achievements.map(ach => 
+        ach.id === id ? { ...ach, [field]: value } : ach
+      )
+    }));
+  };
+
+  const addProject = () => {
+    setProfileData(prev => ({
+      ...prev,
+      projects: [...prev.projects, {
+        id: Date.now(),
+        title: '',
+        description: '',
+        technologies: '',
+        link: ''
+      }]
+    }));
+  };
+
+  const removeProject = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      projects: prev.projects.filter(proj => proj.id !== id)
+    }));
+  };
+
+  const updateProject = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      projects: prev.projects.map(proj => 
+        proj.id === id ? { ...proj, [field]: value } : proj
+      )
+    }));
+  };
+
+  const updateSkillProficiency = (skillIndex, proficiency) => {
+    setProfileData(prev => ({
+      ...prev,
+      skills: prev.skills.map((skill, index) => 
+        index === skillIndex ? 
+          (typeof skill === 'string' ? { name: skill, proficiency } : { ...skill, proficiency }) :
+          skill
+      )
+    }));
+  };
+
+  const updateSkillName = (skillIndex, name) => {
+    setProfileData(prev => ({
+      ...prev,
+      skills: prev.skills.map((skill, index) => 
+        index === skillIndex ? 
+          (typeof skill === 'string' ? { name, proficiency: 'Beginner' } : { ...skill, name }) :
+          skill
+      )
+    }));
   };
 
   const handleContinue = () => {
@@ -434,16 +618,360 @@ const ProfilePage = ({
                     </button>
                   </div>
                   <div className="skills-list-modern">
-                    {profileData.skills.map((skill, index) => (
-                      <span key={index} className="skill-tag-modern">
-                        <span className="skill-text">{skill}</span>
-                        <button onClick={() => handleRemoveSkill(skill)} className="skill-remove">
-                          <i className="fas fa-times"></i>
-                        </button>
-                      </span>
-                    ))}
+                    {profileData.skills.map((skill, index) => {
+                      const skillName = typeof skill === 'string' ? skill : skill.name;
+                      const skillProficiency = typeof skill === 'string' ? 'Beginner' : skill.proficiency;
+                      return (
+                        <div key={index} className="skill-with-proficiency">
+                          <input
+                            type="text"
+                            value={skillName}
+                            onChange={(e) => updateSkillName(index, e.target.value)}
+                            className="skill-name-input"
+                            placeholder="Skill name"
+                          />
+                          <select
+                            value={skillProficiency}
+                            onChange={(e) => updateSkillProficiency(index, e.target.value)}
+                            className="skill-proficiency-select"
+                          >
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Expert">Expert</option>
+                          </select>
+                          <button onClick={() => removeSkill(skillName)} className="skill-remove-btn">
+                            <i className="fas fa-times"></i>
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
+
+                {/* Extended Resume Sections for Students */}
+                {(profileData.role === 'student' || userRole === 'student') && (
+                  <>
+                    {/* Education Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-icon">
+                          <i className="fas fa-university"></i>
+                        </div>
+                        <div className="section-title">
+                          <h3>Education</h3>
+                          <p>Your educational background</p>
+                        </div>
+                        <button type="button" onClick={addEducation} className="add-section-btn">
+                          <i className="fas fa-plus"></i> Add Education
+                        </button>
+                      </div>
+                      {profileData.education.map((edu) => (
+                        <div key={edu.id} className="dynamic-entry">
+                          <div className="entry-header">
+                            <h4>Education Entry</h4>
+                            <button type="button" onClick={() => removeEducation(edu.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Degree</label>
+                              <input
+                                type="text"
+                                value={edu.degree}
+                                onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
+                                placeholder="e.g., Bachelor of Computer Science"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Institute</label>
+                              <input
+                                type="text"
+                                value={edu.institute}
+                                onChange={(e) => updateEducation(edu.id, 'institute', e.target.value)}
+                                placeholder="e.g., MIT"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Start Date</label>
+                              <input
+                                type="month"
+                                value={edu.startDate}
+                                onChange={(e) => updateEducation(edu.id, 'startDate', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>End Date</label>
+                              <input
+                                type="month"
+                                value={edu.endDate}
+                                onChange={(e) => updateEducation(edu.id, 'endDate', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern full-width">
+                              <label>Description</label>
+                              <textarea
+                                value={edu.description}
+                                onChange={(e) => updateEducation(edu.id, 'description', e.target.value)}
+                                placeholder="Relevant coursework, achievements, GPA, etc."
+                                rows="3"
+                                className="input-modern"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Courses Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-icon">
+                          <i className="fas fa-certificate"></i>
+                        </div>
+                        <div className="section-title">
+                          <h3>Courses & Certifications</h3>
+                          <p>Online courses and certifications</p>
+                        </div>
+                        <button type="button" onClick={addCourse} className="add-section-btn">
+                          <i className="fas fa-plus"></i> Add Course
+                        </button>
+                      </div>
+                      {profileData.courses.map((course) => (
+                        <div key={course.id} className="dynamic-entry">
+                          <div className="entry-header">
+                            <h4>Course Entry</h4>
+                            <button type="button" onClick={() => removeCourse(course.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Course Name</label>
+                              <input
+                                type="text"
+                                value={course.name}
+                                onChange={(e) => updateCourse(course.id, 'name', e.target.value)}
+                                placeholder="e.g., Full Stack Web Development"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Provider</label>
+                              <input
+                                type="text"
+                                value={course.provider}
+                                onChange={(e) => updateCourse(course.id, 'provider', e.target.value)}
+                                placeholder="e.g., Coursera, Udemy, edX"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Completion Date</label>
+                              <input
+                                type="month"
+                                value={course.completionDate}
+                                onChange={(e) => updateCourse(course.id, 'completionDate', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Certificate Link</label>
+                              <input
+                                type="url"
+                                value={course.certificateLink}
+                                onChange={(e) => updateCourse(course.id, 'certificateLink', e.target.value)}
+                                placeholder="https://..."
+                                className="input-modern"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Languages Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-icon">
+                          <i className="fas fa-language"></i>
+                        </div>
+                        <div className="section-title">
+                          <h3>Languages</h3>
+                          <p>Languages you speak</p>
+                        </div>
+                        <button type="button" onClick={addLanguage} className="add-section-btn">
+                          <i className="fas fa-plus"></i> Add Language
+                        </button>
+                      </div>
+                      {profileData.languages.map((lang) => (
+                        <div key={lang.id} className="dynamic-entry">
+                          <div className="entry-header">
+                            <h4>Language Entry</h4>
+                            <button type="button" onClick={() => removeLanguage(lang.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Language</label>
+                              <input
+                                type="text"
+                                value={lang.name}
+                                onChange={(e) => updateLanguage(lang.id, 'name', e.target.value)}
+                                placeholder="e.g., English, Spanish, French"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Proficiency</label>
+                              <select
+                                value={lang.proficiency}
+                                onChange={(e) => updateLanguage(lang.id, 'proficiency', e.target.value)}
+                                className="input-modern"
+                              >
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="Native">Native</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Achievements Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-icon">
+                          <i className="fas fa-trophy"></i>
+                        </div>
+                        <div className="section-title">
+                          <h3>Achievements</h3>
+                          <p>Awards, honors, and accomplishments</p>
+                        </div>
+                        <button type="button" onClick={addAchievement} className="add-section-btn">
+                          <i className="fas fa-plus"></i> Add Achievement
+                        </button>
+                      </div>
+                      {profileData.achievements.map((ach) => (
+                        <div key={ach.id} className="dynamic-entry">
+                          <div className="entry-header">
+                            <h4>Achievement Entry</h4>
+                            <button type="button" onClick={() => removeAchievement(ach.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Title</label>
+                              <input
+                                type="text"
+                                value={ach.title}
+                                onChange={(e) => updateAchievement(ach.id, 'title', e.target.value)}
+                                placeholder="e.g., Dean's List, Hackathon Winner"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Date</label>
+                              <input
+                                type="month"
+                                value={ach.date}
+                                onChange={(e) => updateAchievement(ach.id, 'date', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern full-width">
+                              <label>Description</label>
+                              <textarea
+                                value={ach.description}
+                                onChange={(e) => updateAchievement(ach.id, 'description', e.target.value)}
+                                placeholder="Describe your achievement and its significance"
+                                rows="3"
+                                className="input-modern"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Projects Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-icon">
+                          <i className="fas fa-project-diagram"></i>
+                        </div>
+                        <div className="section-title">
+                          <h3>Projects</h3>
+                          <p>Personal and academic projects</p>
+                        </div>
+                        <button type="button" onClick={addProject} className="add-section-btn">
+                          <i className="fas fa-plus"></i> Add Project
+                        </button>
+                      </div>
+                      {profileData.projects.map((proj) => (
+                        <div key={proj.id} className="dynamic-entry">
+                          <div className="entry-header">
+                            <h4>Project Entry</h4>
+                            <button type="button" onClick={() => removeProject(proj.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Project Title</label>
+                              <input
+                                type="text"
+                                value={proj.title}
+                                onChange={(e) => updateProject(proj.id, 'title', e.target.value)}
+                                placeholder="e.g., E-commerce Website"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Technologies Used</label>
+                              <input
+                                type="text"
+                                value={proj.technologies}
+                                onChange={(e) => updateProject(proj.id, 'technologies', e.target.value)}
+                                placeholder="e.g., React, Node.js, MongoDB"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern full-width">
+                              <label>Description</label>
+                              <textarea
+                                value={proj.description}
+                                onChange={(e) => updateProject(proj.id, 'description', e.target.value)}
+                                placeholder="Describe the project, your role, and key features"
+                                rows="3"
+                                className="input-modern"
+                              />
+                            </div>
+                            <div className="form-group-modern">
+                              <label>Project Link/Demo</label>
+                              <input
+                                type="url"
+                                value={proj.link}
+                                onChange={(e) => updateProject(proj.id, 'link', e.target.value)}
+                                placeholder="https://github.com/... or live demo link"
+                                className="input-modern"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             ) : (
               <div className="profile-display-modern">

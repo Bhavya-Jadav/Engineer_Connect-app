@@ -147,11 +147,16 @@ function AppContent() {
 
       showNotification('Google authentication successful!', 'success');
       
-      // Redirect to profile page for new users or users with incomplete profiles
-      if (!data.name || !data.email || data.authMethod === 'google') {
+      // Check if profile is complete
+      const isProfileComplete = data.name && data.email && data.phone && data.bio && 
+        (data.role === 'student' ? (data.university && data.course && data.year) : 
+         data.role === 'company' ? data.companyName : true);
+      
+      // Redirect to profile page only for incomplete profiles
+      if (!isProfileComplete) {
         navigate('/profile');
       } else {
-        // Redirect based on role for existing users
+        // Redirect based on role for complete profiles
         if (data.role === 'admin' || data.role === 'company') {
           navigate('/dashboard');
         } else {
