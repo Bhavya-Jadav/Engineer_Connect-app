@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { API_BASE_URL } from '../utils/api';
 
 const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
   const handleGoogleSuccess = async (credentialResponse) => {
@@ -14,8 +15,8 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
         picture: decoded.picture
       };
 
-      // Send to backend
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/google-auth`, {
+      // Send to backend using the correct API URL
+      const response = await fetch(`${API_BASE_URL}/users/google-auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
           size="large"
           text="continue_with"
           shape="rectangular"
-          width="100%"
+          width={400}
           useOneTap={false}
         />
       </div>
