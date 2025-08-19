@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
-import '../styles/auth.css';
 
 const ProfilePage = ({ 
   currentUser, 
