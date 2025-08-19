@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoogleLoginButton from './GoogleLogin';
+import ForgotPasswordModal from './ForgotPasswordModal';
 
 const Login = ({ loginData, setLoginData, handleLogin, setCurrentView, handleBack, onGoogleSuccess, onGoogleError, isLoading }) => {
   const navigate = useNavigate();
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   return (
     <div className="auth-container">
@@ -75,6 +77,17 @@ const Login = ({ loginData, setLoginData, handleLogin, setCurrentView, handleBac
             />
           </div>
           
+          {/* Forgot Password Link */}
+          <div className="forgot-password-section">
+            <button 
+              type="button" 
+              className="forgot-password-link"
+              onClick={() => setShowForgotPassword(true)}
+            >
+              Forgot your password?
+            </button>
+          </div>
+          
           <button type="submit" className="btn btn-primary auth-btn" disabled={isLoading}>
             {isLoading ? (
               <>
@@ -104,6 +117,12 @@ const Login = ({ loginData, setLoginData, handleLogin, setCurrentView, handleBac
             <i className="fas fa-arrow-right"></i>
           </button>
         </div>
+        
+        {/* Forgot Password Modal */}
+        <ForgotPasswordModal 
+          isOpen={showForgotPassword}
+          onClose={() => setShowForgotPassword(false)}
+        />
       </div>
     </div>
   );
