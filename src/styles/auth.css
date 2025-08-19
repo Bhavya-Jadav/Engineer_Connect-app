@@ -650,15 +650,50 @@
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-/* Continue Button Modern */
-.profile-continue-modern {
-  text-align: center;
-  margin-top: 50px;
-  padding-top: 40px;
-  border-top: 1px solid #ecf0f1;
+/* Continue Section Modern */
+.profile-continue-section {
+  margin-top: 60px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
 }
 
-.btn-continue {
+.continue-divider {
+  height: 4px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  width: 100%;
+}
+
+.continue-content {
+  padding: 40px;
+  text-align: center;
+  background: white;
+  position: relative;
+}
+
+.continue-title {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.continue-description {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-continue-modern {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -672,20 +707,42 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-continue:hover {
+.btn-continue-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-continue-modern:hover::before {
+  left: 100%;
+}
+
+.btn-continue-modern:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
 
-.continue-note-modern {
+.btn-continue-modern:active {
+  transform: translateY(-1px);
+}
+
+.continue-note {
   margin-top: 20px;
-  color: #7f8c8d;
-  font-size: 0.95rem;
+  color: #95a5a6;
+  font-size: 0.9rem;
   font-style: italic;
+  opacity: 0.8;
 }
 
 /* Responsive Design */
@@ -777,10 +834,22 @@
     padding: 12px 20px;
   }
   
-  .btn-continue {
+  .btn-continue-modern {
     width: 100%;
     justify-content: center;
     padding: 16px 24px;
+    font-size: 1rem;
+  }
+  
+  .continue-content {
+    padding: 30px 20px;
+  }
+  
+  .continue-title {
+    font-size: 1.5rem;
+  }
+  
+  .continue-description {
     font-size: 1rem;
   }
 }

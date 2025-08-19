@@ -174,7 +174,7 @@ const ProfilePage = ({
           </div>
         )}
 
-        <div className="profile-content" style={{ paddingBottom: '100px' }}>
+        <div className="profile-content">
           <div className="profile-card">
             {/* Profile Header */}
             <div className="profile-header-modern">
@@ -542,17 +542,24 @@ const ProfilePage = ({
             )}
 
             {/* Continue Button */}
-            <div className="profile-continue-modern" style={{ position: 'sticky', bottom: 0, background: 'white' }}>
-              <button 
-                className="btn-continue"
-                onClick={handleContinue}
-              >
-                <span>Continue to EngineerConnect</span>
-                <i className="fas fa-arrow-right"></i>
-              </button>
-              <p className="continue-note-modern">
-                You can always edit your profile later from your account settings
-              </p>
+            <div className="profile-continue-section">
+              <div className="continue-divider"></div>
+              <div className="continue-content">
+                <h3 className="continue-title">Ready to get started?</h3>
+                <p className="continue-description">
+                  Your profile is {getProfileCompletionPercentage()}% complete. You can always update it later.
+                </p>
+                <button 
+                  className="btn-continue-modern"
+                  onClick={handleContinue}
+                >
+                  <span>Continue to EngineerConnect</span>
+                  <i className="fas fa-arrow-right"></i>
+                </button>
+                <p className="continue-note">
+                  You can edit your profile anytime from your account settings
+                </p>
+              </div>
             </div>
           </div>
         </div>
