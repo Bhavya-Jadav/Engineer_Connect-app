@@ -131,7 +131,7 @@ const StudentFeed = ({
   // Function to handle file download
   const handleFileClick = async (attachment) => {
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app';
       const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
       const downloadUrl = `${cleanBaseUrl}/api/files/download/${attachment.fileName}`;
       
