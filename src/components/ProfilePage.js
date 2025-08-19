@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import { API_BASE_URL } from '../utils/api';
 
 const ProfilePage = ({ 
   currentUser, 
@@ -48,7 +49,7 @@ const ProfilePage = ({
   const handleProfileUpdate = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/users/profile`, {
+      const response = await fetch(`${API_BASE_URL}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -59,11 +60,9 @@ const ProfilePage = ({
 
       if (response.ok) {
         const updatedUser = await response.json();
-        // Update local storage and state
         localStorage.setItem('user', JSON.stringify(updatedUser.user));
         showMessage('success', 'Profile updated successfully!');
         setIsEditing(false);
-        // Trigger a page refresh to update the current user
         window.location.reload();
       } else {
         const error = await response.json();
@@ -93,12 +92,17 @@ const ProfilePage = ({
   };
 
   const handleContinue = () => {
-    // Redirect to the main app based on user role
     if (userRole === 'admin') {
       setCurrentView('companyDashboard');
     } else {
       setCurrentView('branchSelect');
     }
+  };
+
+  const getProfileCompletionPercentage = () => {
+    const fields = ['name', 'email', 'bio', 'phone', 'university', 'course', 'year'];
+    const completedFields = fields.filter(field => profileData[field] && profileData[field].trim() !== '');
+    return Math.round((completedFields.length / fields.length) * 100);
   };
 
   return (
@@ -115,68 +119,113 @@ const ProfilePage = ({
       />
       
       <div className="profile-page-container">
-        <div className="profile-page-header">
-          <div className="profile-page-title">
-            <h1>Complete Your Profile</h1>
-            <p>Tell us more about yourself to get the most out of EngineerConnect</p>
+        {/* Hero Section */}
+        <div className="profile-hero">
+          <div className="profile-hero-content">
+            <div className="profile-hero-text">
+              <h1>Complete Your Profile</h1>
+              <p>Build your professional presence and connect with the engineering community</p>
+            </div>
+            <div className="profile-completion-indicator">
+              <div className="completion-circle">
+                <svg viewBox="0 0 36 36" className="completion-ring">
+                  <path
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="#e6e6e6"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="#3498db"
+                    strokeWidth="2"
+                    strokeDasharray={`${getProfileCompletionPercentage()}, 100`}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="completion-text">
+                  <span className="completion-percentage">{getProfileCompletionPercentage()}%</span>
+                  <span className="completion-label">Complete</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Message Display */}
         {message.text && (
-          <div className={`message-bar ${message.type}`}>
-            <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
-            <span>{message.text}</span>
+          <div className={`message-toast ${message.type}`}>
+            <div className="message-content">
+              <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
+              <span>{message.text}</span>
+            </div>
+            <button className="message-close" onClick={() => setMessage({ type: '', text: '' })}>
+              <i className="fas fa-times"></i>
+            </button>
           </div>
         )}
 
-        <div className="profile-page-content">
-          <div className="profile-completion-card">
-            <div className="profile-header">
-              <div className="profile-avatar">
-                {currentUser?.profilePicture ? (
-                  <img src={currentUser.profilePicture} alt="Profile" />
-                ) : (
-                  <div className="avatar-placeholder">
-                    <i className="fas fa-user"></i>
+        <div className="profile-content">
+          <div className="profile-card">
+            {/* Profile Header */}
+            <div className="profile-header-modern">
+              <div className="profile-avatar-section">
+                <div className="profile-avatar-modern">
+                  {currentUser?.profilePicture ? (
+                    <img src={currentUser.profilePicture} alt="Profile" />
+                  ) : (
+                    <div className="avatar-placeholder-modern">
+                      <i className="fas fa-user"></i>
+                    </div>
+                  )}
+                  <div className="avatar-badge">
+                    <i className="fas fa-camera"></i>
                   </div>
-                )}
+                </div>
+                <div className="profile-info-modern">
+                  <h2>{currentUser?.name || currentUser?.username || 'User'}</h2>
+                  <p className="profile-username-modern">@{currentUser?.username}</p>
+                  <div className="profile-role-badge">
+                    <i className={`fas ${userRole === 'admin' ? 'fa-building' : 'fa-graduation-cap'}`}></i>
+                    {userRole === 'admin' ? 'Company Admin' : 'Student'}
+                  </div>
+                </div>
               </div>
               
-              <div className="profile-info">
-                <h2>{currentUser?.name || currentUser?.username || 'User'}</h2>
-                <p className="profile-username">@{currentUser?.username}</p>
-                <p className="profile-role">
-                  {userRole === 'admin' ? 'Company Admin' : 'Student'}
-                </p>
-              </div>
-              
-              <div className="profile-actions">
+              <div className="profile-actions-modern">
                 {!isEditing ? (
                   <button 
-                    className="btn btn-primary"
+                    className="btn-edit-profile"
                     onClick={() => setIsEditing(true)}
                   >
                     <i className="fas fa-edit"></i>
-                    Edit Profile
+                    <span>Edit Profile</span>
                   </button>
                 ) : (
-                  <div className="edit-actions">
+                  <div className="edit-actions-modern">
                     <button 
-                      className="btn btn-secondary"
+                      className="btn-cancel"
                       onClick={() => setIsEditing(false)}
                     >
-                      Cancel
+                      <i className="fas fa-times"></i>
+                      <span>Cancel</span>
                     </button>
                     <button 
-                      className="btn btn-primary"
+                      className="btn-save"
                       onClick={handleProfileUpdate}
                       disabled={isLoading}
                     >
                       {isLoading ? (
-                        <><i className="fas fa-spinner fa-spin"></i> Saving...</>
+                        <>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Saving...</span>
+                        </>
                       ) : (
-                        <><i className="fas fa-save"></i> Save Changes</>
+                        <>
+                          <i className="fas fa-save"></i>
+                          <span>Save Changes</span>
+                        </>
                       )}
                     </button>
                   </div>
@@ -184,72 +233,97 @@ const ProfilePage = ({
               </div>
             </div>
 
+            {/* Profile Content */}
             {isEditing ? (
-              <div className="profile-edit-form">
-                <div className="form-section">
-                  <h3><i className="fas fa-user"></i> Personal Information</h3>
-                  <div className="form-grid">
-                    <div className="form-group">
+              <div className="profile-edit-modern">
+                {/* Personal Information */}
+                <div className="form-section-modern">
+                  <div className="section-header">
+                    <div className="section-icon">
+                      <i className="fas fa-user"></i>
+                    </div>
+                    <div className="section-title">
+                      <h3>Personal Information</h3>
+                      <p>Basic details about yourself</p>
+                    </div>
+                  </div>
+                  <div className="form-grid-modern">
+                    <div className="form-group-modern">
                       <label>Full Name</label>
                       <input
                         type="text"
                         value={profileData.name}
                         onChange={(e) => setProfileData({...profileData, name: e.target.value})}
                         placeholder="Enter your full name"
+                        className="input-modern"
                       />
                     </div>
 
-                    <div className="form-group">
-                      <label>Email</label>
+                    <div className="form-group-modern">
+                      <label>Email Address</label>
                       <input
                         type="email"
                         value={profileData.email}
                         onChange={(e) => setProfileData({...profileData, email: e.target.value})}
                         placeholder="Enter your email"
+                        className="input-modern"
                       />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-modern">
                       <label>Phone Number</label>
                       <input
                         type="tel"
                         value={profileData.phone}
                         onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
                         placeholder="Enter your phone number"
+                        className="input-modern"
                       />
                     </div>
                   </div>
                 </div>
 
+                {/* Academic Information for Students */}
                 {userRole === 'student' && (
-                  <div className="form-section">
-                    <h3><i className="fas fa-graduation-cap"></i> Academic Information</h3>
-                    <div className="form-grid">
-                      <div className="form-group">
+                  <div className="form-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-graduation-cap"></i>
+                      </div>
+                      <div className="section-title">
+                        <h3>Academic Information</h3>
+                        <p>Your educational background</p>
+                      </div>
+                    </div>
+                    <div className="form-grid-modern">
+                      <div className="form-group-modern">
                         <label>University</label>
                         <input
                           type="text"
                           value={profileData.university}
                           onChange={(e) => setProfileData({...profileData, university: e.target.value})}
                           placeholder="Enter your university"
+                          className="input-modern"
                         />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group-modern">
                         <label>Course/Major</label>
                         <input
                           type="text"
                           value={profileData.course}
                           onChange={(e) => setProfileData({...profileData, course: e.target.value})}
                           placeholder="Enter your course"
+                          className="input-modern"
                         />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group-modern">
                         <label>Year of Study</label>
                         <select
                           value={profileData.year}
                           onChange={(e) => setProfileData({...profileData, year: e.target.value})}
+                          className="input-modern"
                         >
                           <option value="">Select year</option>
                           <option value="1st Year">1st Year</option>
@@ -264,38 +338,58 @@ const ProfilePage = ({
                   </div>
                 )}
 
-                <div className="form-section">
-                  <h3><i className="fas fa-info-circle"></i> About</h3>
-                  <div className="form-group">
+                {/* About Section */}
+                <div className="form-section-modern">
+                  <div className="section-header">
+                    <div className="section-icon">
+                      <i className="fas fa-info-circle"></i>
+                    </div>
+                    <div className="section-title">
+                      <h3>About</h3>
+                      <p>Tell us about yourself</p>
+                    </div>
+                  </div>
+                  <div className="form-group-modern full-width">
                     <label>Bio</label>
                     <textarea
                       value={profileData.bio}
                       onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
-                      placeholder="Tell us about yourself..."
+                      placeholder="Share your story, interests, and what drives you..."
                       rows="4"
+                      className="input-modern"
                     />
                   </div>
                 </div>
 
-                <div className="form-section">
-                  <h3><i className="fas fa-code"></i> Skills & Expertise</h3>
-                  <div className="skills-input">
+                {/* Skills Section */}
+                <div className="form-section-modern">
+                  <div className="section-header">
+                    <div className="section-icon">
+                      <i className="fas fa-code"></i>
+                    </div>
+                    <div className="section-title">
+                      <h3>Skills & Expertise</h3>
+                      <p>Showcase your technical skills</p>
+                    </div>
+                  </div>
+                  <div className="skills-input-modern">
                     <input
                       type="text"
                       value={newSkill}
                       onChange={(e) => setNewSkill(e.target.value)}
-                      placeholder="Add a skill..."
+                      placeholder="Add a skill (e.g., JavaScript, Python, React)"
                       onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
+                      className="input-modern"
                     />
-                    <button onClick={handleAddSkill} className="add-skill-btn">
+                    <button onClick={handleAddSkill} className="add-skill-btn-modern">
                       <i className="fas fa-plus"></i>
                     </button>
                   </div>
-                  <div className="skills-list">
+                  <div className="skills-list-modern">
                     {profileData.skills.map((skill, index) => (
-                      <span key={index} className="skill-tag">
-                        {skill}
-                        <button onClick={() => handleRemoveSkill(skill)}>
+                      <span key={index} className="skill-tag-modern">
+                        <span className="skill-text">{skill}</span>
+                        <button onClick={() => handleRemoveSkill(skill)} className="skill-remove">
                           <i className="fas fa-times"></i>
                         </button>
                       </span>
@@ -304,60 +398,92 @@ const ProfilePage = ({
                 </div>
               </div>
             ) : (
-              <div className="profile-display">
-                <div className="profile-section">
-                  <h3><i className="fas fa-user"></i> Personal Information</h3>
-                  <div className="profile-details">
-                    <div className="detail-item">
-                      <span className="detail-label">Name:</span>
-                      <span className="detail-value">{profileData.name || 'Not provided'}</span>
+              <div className="profile-display-modern">
+                {/* Personal Information Display */}
+                <div className="profile-section-modern">
+                  <div className="section-header">
+                    <div className="section-icon">
+                      <i className="fas fa-user"></i>
                     </div>
-                    <div className="detail-item">
-                      <span className="detail-label">Email:</span>
-                      <span className="detail-value">{profileData.email || 'Not provided'}</span>
+                    <div className="section-title">
+                      <h3>Personal Information</h3>
                     </div>
-                    <div className="detail-item">
-                      <span className="detail-label">Phone:</span>
-                      <span className="detail-value">{profileData.phone || 'Not provided'}</span>
+                  </div>
+                  <div className="profile-details-modern">
+                    <div className="detail-item-modern">
+                      <span className="detail-label-modern">Full Name</span>
+                      <span className="detail-value-modern">{profileData.name || 'Not provided'}</span>
+                    </div>
+                    <div className="detail-item-modern">
+                      <span className="detail-label-modern">Email Address</span>
+                      <span className="detail-value-modern">{profileData.email || 'Not provided'}</span>
+                    </div>
+                    <div className="detail-item-modern">
+                      <span className="detail-label-modern">Phone Number</span>
+                      <span className="detail-value-modern">{profileData.phone || 'Not provided'}</span>
                     </div>
                   </div>
                 </div>
 
+                {/* Academic Information Display for Students */}
                 {userRole === 'student' && (
-                  <div className="profile-section">
-                    <h3><i className="fas fa-graduation-cap"></i> Academic Information</h3>
-                    <div className="profile-details">
-                      <div className="detail-item">
-                        <span className="detail-label">University:</span>
-                        <span className="detail-value">{profileData.university || 'Not provided'}</span>
+                  <div className="profile-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-graduation-cap"></i>
                       </div>
-                      <div className="detail-item">
-                        <span className="detail-label">Course:</span>
-                        <span className="detail-value">{profileData.course || 'Not provided'}</span>
+                      <div className="section-title">
+                        <h3>Academic Information</h3>
                       </div>
-                      <div className="detail-item">
-                        <span className="detail-label">Year:</span>
-                        <span className="detail-value">{profileData.year || 'Not provided'}</span>
+                    </div>
+                    <div className="profile-details-modern">
+                      <div className="detail-item-modern">
+                        <span className="detail-label-modern">University</span>
+                        <span className="detail-value-modern">{profileData.university || 'Not provided'}</span>
+                      </div>
+                      <div className="detail-item-modern">
+                        <span className="detail-label-modern">Course/Major</span>
+                        <span className="detail-value-modern">{profileData.course || 'Not provided'}</span>
+                      </div>
+                      <div className="detail-item-modern">
+                        <span className="detail-label-modern">Year of Study</span>
+                        <span className="detail-value-modern">{profileData.year || 'Not provided'}</span>
                       </div>
                     </div>
                   </div>
                 )}
 
+                {/* About Display */}
                 {profileData.bio && (
-                  <div className="profile-section">
-                    <h3><i className="fas fa-info-circle"></i> About</h3>
-                    <div className="profile-bio">
+                  <div className="profile-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-info-circle"></i>
+                      </div>
+                      <div className="section-title">
+                        <h3>About</h3>
+                      </div>
+                    </div>
+                    <div className="profile-bio-modern">
                       {profileData.bio}
                     </div>
                   </div>
                 )}
 
+                {/* Skills Display */}
                 {profileData.skills.length > 0 && (
-                  <div className="profile-section">
-                    <h3><i className="fas fa-code"></i> Skills & Expertise</h3>
-                    <div className="skills-display">
+                  <div className="profile-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-code"></i>
+                      </div>
+                      <div className="section-title">
+                        <h3>Skills & Expertise</h3>
+                      </div>
+                    </div>
+                    <div className="skills-display-modern">
                       {profileData.skills.map((skill, index) => (
-                        <span key={index} className="skill-badge">
+                        <span key={index} className="skill-badge-modern">
                           {skill}
                         </span>
                       ))}
@@ -367,15 +493,16 @@ const ProfilePage = ({
               </div>
             )}
 
-            <div className="profile-continue">
+            {/* Continue Button */}
+            <div className="profile-continue-modern">
               <button 
-                className="btn btn-primary btn-large"
+                className="btn-continue"
                 onClick={handleContinue}
               >
+                <span>Continue to EngineerConnect</span>
                 <i className="fas fa-arrow-right"></i>
-                Continue to EngineerConnect
               </button>
-              <p className="continue-note">
+              <p className="continue-note-modern">
                 You can always edit your profile later from your account settings
               </p>
             </div>
