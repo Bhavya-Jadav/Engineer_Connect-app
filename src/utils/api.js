@@ -2,7 +2,7 @@
 const getApiUrl = () => {
   // Check if we're running in production
   if (process.env.NODE_ENV === 'production') {
-    return process.env.REACT_APP_API_BASE_URL || window.location.origin + '/api';
+    return process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api';
   }
   
   // Development environment

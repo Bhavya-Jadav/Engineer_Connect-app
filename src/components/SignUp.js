@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import GoogleLoginButton from './GoogleLogin';
 
-const SignUp = ({ signupData, setSignupData, handleSignUp, setCurrentView, handleBack }) => {
+const SignUp = ({ signupData, setSignupData, handleSignUp, setCurrentView, handleBack, onGoogleSuccess, onGoogleError, isLoading }) => {
   const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
@@ -169,11 +170,27 @@ const SignUp = ({ signupData, setSignupData, handleSignUp, setCurrentView, handl
           </div>
         )}
         
-        <button type="submit" className="btn btn-primary auth-btn">
-          <i className="fas fa-user-plus"></i>
-          <span>Create Account</span>
+        <button type="submit" className="btn btn-primary auth-btn" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <i className="fas fa-spinner fa-spin"></i>
+              <span>Creating Account...</span>
+            </>
+          ) : (
+            <>
+              <i className="fas fa-user-plus"></i>
+              <span>Create Account</span>
+            </>
+          )}
         </button>
       </form>
+
+      {/* Google Sign Up */}
+      <GoogleLoginButton 
+        onGoogleSuccess={onGoogleSuccess}
+        onGoogleError={onGoogleError}
+        isLoading={isLoading}
+      />
       
       <div className="auth-footer">
         <p>Already have an account?</p>

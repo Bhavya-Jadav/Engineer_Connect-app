@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import './App.css';
 import { API_BASE_URL } from './utils/api';
 
@@ -11,6 +12,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import QuizModal from './components/QuizModal';
 import UserProfilePanel from './components/UserProfilePanel';
+import ProfilePage from './components/ProfilePage';
 import Home from './components/Home';
 import StudentFeed from './components/StudentFeed';
 import IdeaSubmissionModal from './components/IdeaSubmissionModal';
@@ -24,6 +26,7 @@ function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // === APPLICATION STATE ===
   const [problems, setProblems] = useState([]);
@@ -114,25 +117,11 @@ function AppContent() {
     }
   };
 
-  const handleLogin = async (_username, _password) => {
-  const username = _username || loginData.username;
-  const password = _password || loginData.password;
-
-  try {
-    console.log('Login attempt with:', { username, password });
-    const response = await fetch(`${API_BASE_URL}/users/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-
-    console.log('Login response status:', response.status);
-    console.log('Login response ok:', response.ok);
-
-    const data = await response.json();
-    console.log('Login response data:', data);
-
-    if (response.ok) {
+  // === GOOGLE AUTHENTICATION HANDLERS ===
+  const handleGoogleSuccess = async (data) => {
+    try {
+      setIsLoading(true);
+      
       const userData = {
         _id: data._id,
         username: data.username,
@@ -141,12 +130,13 @@ function AppContent() {
         role: data.role,
         university: data.university,
         companyName: data.companyName,
-        profilePicture: data.profilePicture?.includes('placeholder') ? null : data.profilePicture,
+        profilePicture: data.profilePicture,
         phone: data.phone,
         bio: data.bio,
         course: data.course,
         year: data.year,
-        skills: data.skills || []
+        skills: data.skills || [],
+        authMethod: data.authMethod
       };
 
       localStorage.setItem('token', data.token);
@@ -155,27 +145,108 @@ function AppContent() {
       setUserRole(data.role);
       setCurrentUser(userData);
 
-      if (data.role === 'admin' || data.role === 'company') {
-        navigate('/dashboard');
+      showNotification('Google authentication successful!', 'success');
+      
+      // Redirect to profile page for new users or users with incomplete profiles
+      if (!data.name || !data.email || data.authMethod === 'google') {
+        navigate('/profile');
       } else {
-        navigate('/feed');
+        // Redirect based on role for existing users
+        if (data.role === 'admin' || data.role === 'company') {
+          navigate('/dashboard');
+        } else {
+          navigate('/feed');
+        }
       }
-      showNotification('Login successful!', 'success');
+      
       return true;
-    } else {
-      showNotification(data.message || 'Login failed', 'error');
+    } catch (error) {
+      console.error("Google auth error:", error);
+      showNotification('Google authentication failed', 'error');
       return false;
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error("Login error:", error);
-    showNotification('Login error occurred', 'error');
-    return false;
-  }
-};
+  };
 
+  const handleGoogleError = (error) => {
+    console.error("Google auth error:", error);
+    showNotification(error || 'Google authentication failed', 'error');
+  };
+
+  const handleLogin = async (_username, _password) => {
+    const username = _username || loginData.username;
+    const password = _password || loginData.password;
+
+    try {
+      setIsLoading(true);
+      console.log('Login attempt with:', { username, password });
+      const response = await fetch(`${API_BASE_URL}/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      console.log('Login response status:', response.status);
+      console.log('Login response ok:', response.ok);
+
+      const data = await response.json();
+      console.log('Login response data:', data);
+
+      if (response.ok) {
+        const userData = {
+          _id: data._id,
+          username: data.username,
+          name: data.name,
+          email: data.email,
+          role: data.role,
+          university: data.university,
+          companyName: data.companyName,
+          profilePicture: data.profilePicture?.includes('placeholder') ? null : data.profilePicture,
+          phone: data.phone,
+          bio: data.bio,
+          course: data.course,
+          year: data.year,
+          skills: data.skills || [],
+          authMethod: data.authMethod
+        };
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setIsLoggedIn(true);
+        setUserRole(data.role);
+        setCurrentUser(userData);
+
+        // Redirect to profile page for users with incomplete profiles
+        if (!data.name || !data.email) {
+          navigate('/profile');
+        } else {
+          // Redirect based on role
+          if (data.role === 'admin' || data.role === 'company') {
+            navigate('/dashboard');
+          } else {
+            navigate('/feed');
+          }
+        }
+        
+        showNotification('Login successful!', 'success');
+        return true;
+      } else {
+        showNotification(data.message || 'Login failed', 'error');
+        return false;
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      showNotification('Login error occurred', 'error');
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSignUp = async (formData) => {
     try {
+      setIsLoading(true);
       console.log('🔨 SIGNUP DEBUG - Form data received:', formData);
       
       const signupPayload = {
@@ -202,8 +273,33 @@ function AppContent() {
       const data = await response.json();
       console.log('🔨 SIGNUP DEBUG - Response data:', data);
       if (response.ok) {
-        showNotification('Account created successfully! Please login.', 'success');
-        navigate('/login');
+        // After successful signup, redirect to profile page
+        const userData = {
+          _id: data._id,
+          username: data.username,
+          name: data.name,
+          email: data.email,
+          role: data.role,
+          university: data.university,
+          companyName: data.companyName,
+          profilePicture: data.profilePicture,
+          phone: data.phone,
+          bio: data.bio,
+          course: data.course,
+          year: data.year,
+          skills: data.skills || [],
+          authMethod: data.authMethod
+        };
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setIsLoggedIn(true);
+        setUserRole(data.role);
+        setCurrentUser(userData);
+
+        showNotification('Account created successfully! Please complete your profile.', 'success');
+        navigate('/profile');
+        
         setSignupData({
           username: '', email: '', password: '', userType: '', 
           university: '', branch: '', companyName: ''
@@ -214,6 +310,8 @@ function AppContent() {
     } catch (error) {
       console.error("Signup error:", error);
       showNotification('Signup error occurred', 'error');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -520,6 +618,9 @@ function AppContent() {
               handleLogin={handleLogin} 
               setCurrentView={setCurrentView}
               handleBack={handleBack}
+              onGoogleSuccess={handleGoogleSuccess}
+              onGoogleError={handleGoogleError}
+              isLoading={isLoading}
             />
           </>
         } />
@@ -543,6 +644,9 @@ function AppContent() {
               handleSignUp={handleSignUp} 
               setCurrentView={setCurrentView}
               handleBack={handleBack}
+              onGoogleSuccess={handleGoogleSuccess}
+              onGoogleError={handleGoogleError}
+              isLoading={isLoading}
             />
           </>
         } />
@@ -579,6 +683,19 @@ function AppContent() {
             handleLogout={handleLogout}
             setCurrentView={setCurrentView}
             handleBack={handleBack}
+            onProfileClick={handleProfileClick}
+          />
+        } />
+
+        {/* Profile Page Route */}
+        <Route path="/profile" element={
+          <ProfilePage
+            currentUser={currentUser}
+            isLoggedIn={isLoggedIn}
+            userRole={userRole}
+            handleLogout={handleLogout}
+            setCurrentView={setCurrentView}
+            onBack={handleBack}
             onProfileClick={handleProfileClick}
           />
         } />
@@ -632,7 +749,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <AppContent />
+      </GoogleOAuthProvider>
     </Router>
   );
 }
