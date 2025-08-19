@@ -24,7 +24,9 @@ const ProfilePage = ({
     university: currentUser?.university || '',
     course: currentUser?.course || '',
     year: currentUser?.year || '',
-    skills: currentUser?.skills || []
+    skills: currentUser?.skills || [],
+    role: currentUser?.role || '',
+    companyName: currentUser?.companyName || ''
   });
   const [newSkill, setNewSkill] = useState('');
 
@@ -40,7 +42,9 @@ const ProfilePage = ({
         university: currentUser.university || '',
         course: currentUser.course || '',
         year: currentUser.year || '',
-        skills: currentUser.skills || []
+        skills: currentUser.skills || [],
+        role: currentUser.role || '',
+        companyName: currentUser.companyName || ''
       });
     }
   }, [currentUser]);
@@ -263,6 +267,19 @@ const ProfilePage = ({
                       />
                     </div>
 
+                    {/* Role selection - one-time, only student/company */}
+                    <div className="form-group-modern">
+                      <label>User Type</label>
+                      {profileData.role ? (
+                        <input type="text" className="input-modern" value={profileData.role} disabled />
+                      ) : (
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                          <label><input type="radio" name="role" value="student" checked={profileData.role === 'student'} onChange={(e)=>setProfileData({ ...profileData, role: e.target.value })} /> Student</label>
+                          <label><input type="radio" name="role" value="company" checked={profileData.role === 'company'} onChange={(e)=>setProfileData({ ...profileData, role: e.target.value })} /> Company</label>
+                        </div>
+                      )}
+                    </div>
+
                     <div className="form-group-modern">
                       <label>Email Address</label>
                       <input
@@ -288,7 +305,7 @@ const ProfilePage = ({
                 </div>
 
                 {/* Academic Information for Students */}
-                {userRole === 'student' && (
+                {(profileData.role === 'student' || userRole === 'student') && (
                   <div className="form-section-modern">
                     <div className="section-header">
                       <div className="section-icon">
@@ -337,6 +354,33 @@ const ProfilePage = ({
                           <option value="Graduate">Graduate</option>
                           <option value="Postgraduate">Postgraduate</option>
                         </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Company Information for Companies/Admin */}
+                {(profileData.role === 'company' || userRole === 'company' || userRole === 'admin') && (
+                  <div className="form-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-building"></i>
+                      </div>
+                      <div className="section-title">
+                        <h3>Company Information</h3>
+                        <p>Provide your company details</p>
+                      </div>
+                    </div>
+                    <div className="form-grid-modern">
+                      <div className="form-group-modern">
+                        <label>Company Name</label>
+                        <input
+                          type="text"
+                          value={profileData.companyName}
+                          onChange={(e)=>setProfileData({ ...profileData, companyName: e.target.value })}
+                          placeholder="Enter company name"
+                          className="input-modern"
+                        />
                       </div>
                     </div>
                   </div>
