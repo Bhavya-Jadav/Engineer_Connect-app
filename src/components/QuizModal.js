@@ -21,7 +21,7 @@ const QuizModal = ({ quiz, problem, onClose, onSubmit }) => {
   useEffect(() => {
     const checkExistingResponse = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/quiz/response/${problem._id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/quiz/response/${problem._id}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -51,7 +51,7 @@ const QuizModal = ({ quiz, problem, onClose, onSubmit }) => {
   const handleRetakeQuiz = async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/quiz/response/${problem._id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/quiz/response/${problem._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -202,7 +202,7 @@ const QuizModal = ({ quiz, problem, onClose, onSubmit }) => {
     try {
       const timeSpent = (quiz.timeLimit * 60) - timeLeft;
       
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/quiz/submit`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'https://backend-production-2368.up.railway.app/api'}/quiz/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

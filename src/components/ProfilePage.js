@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import { API_BASE_URL } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
+import '../styles/auth.css';
 
 const ProfilePage = ({ 
   currentUser, 
@@ -25,6 +27,8 @@ const ProfilePage = ({
     skills: currentUser?.skills || []
   });
   const [newSkill, setNewSkill] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser) {
@@ -93,9 +97,9 @@ const ProfilePage = ({
 
   const handleContinue = () => {
     if (userRole === 'admin') {
-      setCurrentView('companyDashboard');
+      navigate('/dashboard');
     } else {
-      setCurrentView('branchSelect');
+      navigate('/feed');
     }
   };
 
