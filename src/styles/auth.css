@@ -226,7 +226,8 @@
   width: 100%;
   max-width: 900px;
   position: relative;
-  overflow: hidden;
+  /* allow full content to render (fixes hidden sections/buttons) */
+  overflow: visible;
 }
 
 .profile-card::before {

@@ -174,7 +174,7 @@ const ProfilePage = ({
           </div>
         )}
 
-        <div className="profile-content">
+        <div className="profile-content" style={{ paddingBottom: '100px' }}>
           <div className="profile-card">
             {/* Profile Header */}
             <div className="profile-header-modern">
@@ -542,7 +542,7 @@ const ProfilePage = ({
             )}
 
             {/* Continue Button */}
-            <div className="profile-continue-modern">
+            <div className="profile-continue-modern" style={{ position: 'sticky', bottom: 0, background: 'white' }}>
               <button 
                 className="btn-continue"
                 onClick={handleContinue}
