@@ -34,62 +34,27 @@
 
 .google-login-wrapper {
   margin: 20px 0;
-}
-
-.google-login-btn-custom {
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 12px;
-  background: linear-gradient(145deg, #ffffff, #f8f9fa);
-  color: #1f2937;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.08);
+  align-items: center;
 }
 
-.google-login-btn-custom:hover:not(:disabled) {
+/* Style the Google Login button container */
+.google-login-wrapper > div {
+  width: 100% !important;
+  max-width: 350px;
+}
+
+/* Override Google button styles for better integration */
+.google-login-wrapper iframe {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.google-login-wrapper:hover iframe {
   transform: translateY(-1px);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 2px 6px rgba(0, 0, 0, 0.1);
-  border-color: rgba(66, 133, 244, 0.3);
-}
-
-.google-login-btn-custom:active {
-  transform: translateY(0);
-  box-shadow: 
-    0 1px 4px rgba(0, 0, 0, 0.1),
-    0 1px 2px rgba(0, 0, 0, 0.08);
-}
-
-.google-login-btn-custom:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.google-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.google-text {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3) !important;
 }
 
 .google-login-info {
@@ -1179,13 +1144,8 @@
     min-width: auto;
   }
   
-  .google-login-btn-custom {
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-  
-  .google-text {
-    font-size: 14px;
+  .google-login-wrapper > div {
+    max-width: 100% !important;
   }
   
   .forgot-password-section {
