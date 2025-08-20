@@ -226,7 +226,7 @@ const CompanyDashboard = ({
       console.log('Upload success result:', result);
       
       // Merge with existing attachments instead of replacing
-      const newAttachments = [...uploadedAttachments, ...result.files];
+      const newAttachments = [...uploadedAttachments, result.file];
       setUploadedAttachments(newAttachments);
       setSelectedFiles([]);
       return newAttachments;
