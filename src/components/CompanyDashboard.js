@@ -196,8 +196,7 @@ const CompanyDashboard = ({
     try {
       const formData = new FormData();
       selectedFiles.forEach(file => {
-        console.log('Adding file to formData:', file.name, file.type, file.size);
-        formData.append('attachments', file);
+        formData.append('file', file);
       });
 
       const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + '/api/files/upload';
