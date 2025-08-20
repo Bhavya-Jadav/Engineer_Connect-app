@@ -138,34 +138,37 @@ const StudentFeed = ({
       // Fetch the file as a blob
       const response = await fetch(downloadUrl);
       if (!response.ok) {
+        // Handle 404 specifically for Railway ephemeral storage
+        if (response.status === 404) {
+          alert(`File "${attachment.originalName || attachment.fileName}" is not available.\n\nThis happens because Railway uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
+          return;
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
       // Get the file as a blob
       const blob = await response.blob();
       
-      // Create a blob URL
-      const blobUrl = window.URL.createObjectURL(blob);
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(blob);
       
-      // Create a temporary link and trigger download
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = attachment.originalName; // Use original filename for download
-      link.style.display = 'none';
+      // Create a temporary anchor element and trigger download
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = attachment.originalName || attachment.fileName;
       
-      // Add to DOM, click, and remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Append to body, click, and remove
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       
-      // Clean up the blob URL
-      setTimeout(() => {
-        window.URL.revokeObjectURL(blobUrl);
-      }, 100);
+      // Clean up the temporary URL
+      window.URL.revokeObjectURL(url);
       
     } catch (error) {
       console.error('Error downloading file:', error);
-      alert('Error downloading file. Please try again.');
+      alert('File download failed. Please try again or contact support if the issue persists.');
     }
   };
 
