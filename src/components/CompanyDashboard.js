@@ -49,6 +49,7 @@ const CompanyDashboard = ({
   
   // Admin User Management states
   const [showUserManagement, setShowUserManagement] = useState(false);
+  const [showStatistics, setShowStatistics] = useState(false);
   const [userStats, setUserStats] = useState({
     totalUsers: 0,
     students: 0,
@@ -1436,6 +1437,16 @@ const CompanyDashboard = ({
                 {isLoadingAllIdeas ? 'Loading...' : 'View All Ideas'}
               </button>
               
+              {/* Admin Statistics Button */}
+              <button 
+                className="btn btn-success" 
+                onClick={() => setShowStatistics(true)}
+                style={{ marginLeft: '1rem' }}
+              >
+                <i className="fas fa-chart-bar"></i> 
+                Statistics
+              </button>
+
               {/* Admin User Management Button */}
               <button 
                 className="btn btn-info" 
@@ -1924,6 +1935,102 @@ const CompanyDashboard = ({
             )}
           </div>
         </div>
+
+        {/* Statistics Modal */}
+        {showStatistics && userRole === 'admin' && (
+          <div className="modal-overlay">
+            <div className="modal statistics-modal">
+              <div className="modal-header">
+                <h3><i className="fas fa-chart-bar"></i> Platform Statistics</h3>
+                <button 
+                  className="close-btn" 
+                  onClick={() => setShowStatistics(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              
+              <div className="modal-body">
+                <div className="stats-overview">
+                  <div className="stats-grid">
+                    <div className="stat-card total">
+                      <div className="stat-icon">
+                        <i className="fas fa-users"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{userStats.totalUsers}</h3>
+                        <p>Total Users</p>
+                      </div>
+                    </div>
+                    <div className="stat-card students">
+                      <div className="stat-icon">
+                        <i className="fas fa-graduation-cap"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{userStats.students}</h3>
+                        <p>Students</p>
+                      </div>
+                    </div>
+                    <div className="stat-card companies">
+                      <div className="stat-icon">
+                        <i className="fas fa-building"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{userStats.companies}</h3>
+                        <p>Companies</p>
+                      </div>
+                    </div>
+                    <div className="stat-card admins">
+                      <div className="stat-icon">
+                        <i className="fas fa-shield-alt"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{userStats.admins}</h3>
+                        <p>Admins</p>
+                      </div>
+                    </div>
+                    <div className="stat-card recent">
+                      <div className="stat-icon">
+                        <i className="fas fa-user-plus"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{userStats.recentRegistrations}</h3>
+                        <p>New (30 days)</p>
+                      </div>
+                    </div>
+                    <div className="stat-card problems">
+                      <div className="stat-icon">
+                        <i className="fas fa-tasks"></i>
+                      </div>
+                      <div className="stat-info">
+                        <h3>{problems?.length || 0}</h3>
+                        <p>Total Problems</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="live-stats-section">
+                  <h4><i className="fas fa-pulse"></i> Live Statistics</h4>
+                  <div className="live-stats-info">
+                    <p><i className="fas fa-info-circle"></i> Statistics are updated in real-time when users register or when roles are changed.</p>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => {
+                        // Trigger stats refresh
+                        if (typeof fetchUserStats === 'function') {
+                          fetchUserStats();
+                        }
+                      }}
+                    >
+                      <i className="fas fa-sync-alt"></i> Refresh Stats
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* User Management Modal */}
         {showUserManagement && userRole === 'admin' && (
