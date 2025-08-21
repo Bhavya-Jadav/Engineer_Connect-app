@@ -539,7 +539,11 @@ const CompanyDashboard = ({
   const fetchUserStats = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/admin/stats`, {
+      const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      
+      const response = await fetch(`${API_BASE_URL}/admin/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -562,6 +566,10 @@ const CompanyDashboard = ({
     setUsersLoading(true);
     try {
       const token = localStorage.getItem('token');
+      const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      
       const params = new URLSearchParams({
         page: currentPage,
         limit: 10,
@@ -569,7 +577,7 @@ const CompanyDashboard = ({
         search: userSearchTerm
       });
 
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/admin/users?${params}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/users?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -2266,10 +2274,19 @@ const CompanyDashboard = ({
 
   {/* Delete Confirmation Modal */}
   {showDeleteModal && (
-    <div className="modal-overlay">
-      <div className="modal delete-modal">
+    <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
+      <div className="modal delete-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3><i className="fas fa-exclamation-triangle"></i> Confirm Delete</h3>
+          <button 
+            className="close-btn" 
+            onClick={() => {
+              setShowDeleteModal(false);
+              setSelectedUser(null);
+            }}
+          >
+            <i className="fas fa-times"></i>
+          </button>
         </div>
         <div className="modal-body">
           <p>Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?</p>
@@ -2298,10 +2315,20 @@ const CompanyDashboard = ({
 
   {/* Change Role Modal */}
   {showRoleModal && (
-    <div className="modal-overlay">
-      <div className="modal role-modal">
+    <div className="modal-overlay" onClick={() => setShowRoleModal(false)}>
+      <div className="modal role-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3><i className="fas fa-user-tag"></i> Change User Role</h3>
+          <button 
+            className="close-btn" 
+            onClick={() => {
+              setShowRoleModal(false);
+              setSelectedUser(null);
+              setNewRole('');
+            }}
+          >
+            <i className="fas fa-times"></i>
+          </button>
         </div>
         <div className="modal-body">
           <p>Change role for <strong>{selectedUser?.name || selectedUser?.username}</strong></p>
