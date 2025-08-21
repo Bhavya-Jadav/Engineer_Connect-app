@@ -269,7 +269,7 @@ const AdminDashboard = ({
 
         {/* Tab Content */}
         {activeTab === 'overview' && (
-          <>
+          <div className="overview-content">
             {/* Statistics Cards */}
             <div className="stats-grid">
           <div className="stat-card total">
@@ -463,8 +463,7 @@ const AdminDashboard = ({
             </div>
           )}
         </div>
-      </div>
-          </>
+          </div>
         )}
 
         {/* Post Problems Tab */}
