@@ -65,8 +65,6 @@ const CompanyDashboard = ({
   const [userSearchTerm, setUserSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [showRoleModal, setShowRoleModal] = useState(false);
-  const [newRole, setNewRole] = useState('');
   
   // Skills filter for individual problem ideas
   const [skillsFilter, setSkillsFilter] = useState(''); // For filtering by skills
@@ -108,14 +106,35 @@ const CompanyDashboard = ({
     }
   };
 
-  const handleChangeRole = async () => {
+  const handleChangeRole = async (user) => {
+    const roles = ['student', 'company', 'admin'];
+    const currentRole = user.role;
+    const availableRoles = roles.filter(role => role !== currentRole);
+    
+    const roleOptions = availableRoles.map((role, index) => `${index + 1}. ${role}`).join('\n');
+    const selectedOption = window.prompt(
+      `Change role for "${user.name || user.username}"?\n\nCurrent role: ${currentRole}\n\nSelect new role:\n${roleOptions}\n\nEnter number (1-${availableRoles.length}) or cancel:`
+    );
+    
+    if (!selectedOption) {
+      return; // User cancelled
+    }
+    
+    const roleIndex = parseInt(selectedOption) - 1;
+    if (isNaN(roleIndex) || roleIndex < 0 || roleIndex >= availableRoles.length) {
+      alert('Invalid selection. Please try again.');
+      return;
+    }
+    
+    const newRole = availableRoles[roleIndex];
+    
     try {
       const token = localStorage.getItem('token');
       const API_BASE_URL = process.env.NODE_ENV === 'production' 
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
       
-      const response = await fetch(`${API_BASE_URL}/admin/users/${selectedUser._id}/role`, {
+      const response = await fetch(`${API_BASE_URL}/admin/users/${user._id}/role`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -125,15 +144,15 @@ const CompanyDashboard = ({
       });
 
       if (response.ok) {
+        setUsers(users.map(u => 
+          u._id === user._id 
+            ? { ...u, role: newRole }
+            : u
+        ));
         alert(`User role changed to ${newRole} successfully`);
-        fetchUsers();
-        fetchUserStats();
-        setShowRoleModal(false);
-        setSelectedUser(null);
-        setNewRole('');
       } else {
-        const error = await response.json();
-        alert(error.message || 'Failed to change user role');
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message || 'Failed to change user role'}`);
       }
     } catch (error) {
       console.error('Error changing user role:', error);
@@ -2212,13 +2231,9 @@ const CompanyDashboard = ({
                       <td>{user.email}</td>
                       <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                       <td className="actions">
-                        <button
+                        <button 
                           className="action-btn change-role"
-                          onClick={() => {
-                            setSelectedUser(user);
-                            setNewRole(user.role);
-                            setShowRoleModal(true);
-                          }}
+                          onClick={() => handleChangeRole(user)}
                           title="Change Role"
                         >
                           <i className="fas fa-user-tag"></i>
@@ -2274,228 +2289,6 @@ const CompanyDashboard = ({
   )}
 
 
-  {/* Change Role Modal */}
-  {showRoleModal && (
-    <div 
-      className="modal-overlay" 
-      onClick={() => setShowRoleModal(false)}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000
-      }}
-    >
-      <div 
-        className="modal role-modal" 
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-          maxWidth: '400px',
-          width: '90%',
-          maxHeight: '80vh',
-          overflow: 'auto'
-        }}
-      >
-        <div 
-          className="modal-header"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '20px 24px',
-            borderBottom: '1px solid #e0e0e0',
-            background: '#f8f9fa',
-            borderRadius: '12px 12px 0 0'
-          }}
-        >
-          <h3 style={{ margin: 0, color: '#333', fontSize: '1.2rem', fontWeight: 600 }}>
-            <i className="fas fa-user-tag"></i> Change User Role
-          </h3>
-          <button 
-            className="close-btn" 
-            onClick={() => {
-              setShowRoleModal(false);
-              setSelectedUser(null);
-              setNewRole('');
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '1.2rem',
-              color: '#666',
-              cursor: 'pointer',
-              padding: '4px',
-              borderRadius: '4px'
-            }}
-          >
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-        <div 
-          className="modal-body"
-          style={{ padding: '24px' }}
-        >
-          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5 }}>
-            Change role for <strong>{selectedUser?.name || selectedUser?.username}</strong>
-          </p>
-          <div 
-            className="role-selection"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              marginTop: '16px'
-            }}
-          >
-            <label style={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-              padding: '12px',
-              border: newRole === 'student' ? '2px solid #007bff' : '2px solid #e0e0e0',
-              borderRadius: '8px',
-              background: newRole === 'student' ? '#f8f9ff' : 'transparent'
-            }}>
-              <input
-                type="radio"
-                value="student"
-                checked={newRole === 'student'}
-                onChange={(e) => setNewRole(e.target.value)}
-                style={{ marginRight: '12px' }}
-              />
-              <span style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '0.95rem',
-                color: newRole === 'student' ? '#007bff' : '#333',
-                fontWeight: newRole === 'student' ? 600 : 'normal'
-              }}>
-                <i className="fas fa-graduation-cap" style={{ color: '#28a745' }}></i>
-                Student
-              </span>
-            </label>
-            <label style={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-              padding: '12px',
-              border: newRole === 'company' ? '2px solid #007bff' : '2px solid #e0e0e0',
-              borderRadius: '8px',
-              background: newRole === 'company' ? '#f8f9ff' : 'transparent'
-            }}>
-              <input
-                type="radio"
-                value="company"
-                checked={newRole === 'company'}
-                onChange={(e) => setNewRole(e.target.value)}
-                style={{ marginRight: '12px' }}
-              />
-              <span style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '0.95rem',
-                color: newRole === 'company' ? '#007bff' : '#333',
-                fontWeight: newRole === 'company' ? 600 : 'normal'
-              }}>
-                <i className="fas fa-building" style={{ color: '#17a2b8' }}></i>
-                Company
-              </span>
-            </label>
-            <label style={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-              padding: '12px',
-              border: newRole === 'admin' ? '2px solid #007bff' : '2px solid #e0e0e0',
-              borderRadius: '8px',
-              background: newRole === 'admin' ? '#f8f9ff' : 'transparent'
-            }}>
-              <input
-                type="radio"
-                value="admin"
-                checked={newRole === 'admin'}
-                onChange={(e) => setNewRole(e.target.value)}
-                style={{ marginRight: '12px' }}
-              />
-              <span style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '0.95rem',
-                color: newRole === 'admin' ? '#007bff' : '#333',
-                fontWeight: newRole === 'admin' ? 600 : 'normal'
-              }}>
-                <i className="fas fa-shield-alt" style={{ color: '#dc3545' }}></i>
-                Admin
-              </span>
-            </label>
-          </div>
-        </div>
-        <div 
-          className="modal-actions"
-          style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'flex-end',
-            padding: '20px 24px',
-            borderTop: '1px solid #e0e0e0',
-            background: '#f8f9fa',
-            borderRadius: '0 0 12px 12px'
-          }}
-        >
-          <button 
-            className="btn btn-secondary" 
-            onClick={() => {
-              setShowRoleModal(false);
-              setSelectedUser(null);
-              setNewRole('');
-            }}
-            style={{
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              background: '#6c757d',
-              color: 'white'
-            }}
-          >
-            Cancel
-          </button>
-          <button 
-            className="btn btn-primary" 
-            onClick={handleChangeRole}
-            disabled={newRole === selectedUser?.role}
-            style={{
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              background: newRole === selectedUser?.role ? '#ccc' : '#007bff',
-              color: 'white',
-              opacity: newRole === selectedUser?.role ? 0.6 : 1
-            }}
-          >
-            Change Role
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
       </div>
     </div>
   );
