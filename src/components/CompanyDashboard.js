@@ -71,6 +71,71 @@ const CompanyDashboard = ({
   // Skills filter for individual problem ideas
   const [skillsFilter, setSkillsFilter] = useState(''); // For filtering by skills
 
+  // User management functions
+  const handleDeleteUser = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      
+      const response = await fetch(`${API_BASE_URL}/admin/users/${selectedUser._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        alert('User deleted successfully');
+        fetchUsers();
+        fetchUserStats();
+        setShowDeleteModal(false);
+        setSelectedUser(null);
+      } else {
+        const error = await response.json();
+        alert(error.message || 'Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('Error deleting user');
+    }
+  };
+
+  const handleChangeRole = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      
+      const response = await fetch(`${API_BASE_URL}/admin/users/${selectedUser._id}/role`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ role: newRole })
+      });
+
+      if (response.ok) {
+        alert(`User role changed to ${newRole} successfully`);
+        fetchUsers();
+        fetchUserStats();
+        setShowRoleModal(false);
+        setSelectedUser(null);
+        setNewRole('');
+      } else {
+        const error = await response.json();
+        alert(error.message || 'Failed to change user role');
+      }
+    } catch (error) {
+      console.error('Error changing user role:', error);
+      alert('Error changing user role');
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -526,61 +591,6 @@ const CompanyDashboard = ({
     }
   };
 
-  const handleDeleteUser = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/admin/users/${selectedUser._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        alert('User deleted successfully');
-        fetchUsers();
-        fetchUserStats();
-        setShowDeleteModal(false);
-        setSelectedUser(null);
-      } else {
-        const error = await response.json();
-        alert(error.message || 'Failed to delete user');
-      }
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('Error deleting user');
-    }
-  };
-
-  const handleChangeRole = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/admin/users/${selectedUser._id}/role`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ role: newRole })
-      });
-
-      if (response.ok) {
-        alert(`User role changed to ${newRole} successfully`);
-        fetchUsers();
-        fetchUserStats();
-        setShowRoleModal(false);
-        setSelectedUser(null);
-        setNewRole('');
-      } else {
-        const error = await response.json();
-        alert(error.message || 'Failed to change user role');
-      }
-    } catch (error) {
-      console.error('Error changing user role:', error);
-      alert('Error changing user role');
-    }
-  };
 
   const handleUserSearch = (e) => {
     e.preventDefault();
