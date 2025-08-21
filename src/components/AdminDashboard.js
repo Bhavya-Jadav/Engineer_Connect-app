@@ -48,7 +48,12 @@ const AdminDashboard = ({
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Admin stats received:', data);
         setStats(data);
+      } else {
+        console.error('Failed to fetch stats:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
       }
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -77,8 +82,13 @@ const AdminDashboard = ({
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Admin users received:', data);
         setUsers(data.users);
         setTotalPages(data.totalPages);
+      } else {
+        console.error('Failed to fetch users:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
       }
     } catch (error) {
       console.error('Error fetching users:', error);
