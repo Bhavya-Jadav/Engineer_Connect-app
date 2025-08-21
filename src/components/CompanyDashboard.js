@@ -65,7 +65,6 @@ const CompanyDashboard = ({
   const [userSearchTerm, setUserSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [newRole, setNewRole] = useState('');
   
@@ -73,14 +72,22 @@ const CompanyDashboard = ({
   const [skillsFilter, setSkillsFilter] = useState(''); // For filtering by skills
 
   // User management functions
-  const handleDeleteUser = async () => {
+  const handleDeleteUser = async (user) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete user "${user.name || user.username}"?\n\nThis action cannot be undone.`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       const API_BASE_URL = process.env.NODE_ENV === 'production' 
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
       
-      const response = await fetch(`${API_BASE_URL}/admin/users/${selectedUser._id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/users/${user._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -89,14 +96,11 @@ const CompanyDashboard = ({
       });
 
       if (response.ok) {
+        setUsers(users.filter(u => u._id !== user._id));
         alert('User deleted successfully');
-        fetchUsers();
-        fetchUserStats();
-        setShowDeleteModal(false);
-        setSelectedUser(null);
       } else {
-        const error = await response.json();
-        alert(error.message || 'Failed to delete user');
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message || 'Failed to delete user'}`);
       }
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -2219,14 +2223,10 @@ const CompanyDashboard = ({
                         >
                           <i className="fas fa-user-tag"></i>
                         </button>
-                        <button
-                          className="action-btn delete"
-                          onClick={() => {
-                            setSelectedUser(user);
-                            setShowDeleteModal(true);
-                          }}
+                        <button 
+                          className="btn btn-sm btn-danger" 
+                          onClick={() => handleDeleteUser(user)}
                           title="Delete User"
-                          disabled={user._id === currentUser?._id}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -2273,126 +2273,6 @@ const CompanyDashboard = ({
     </div>
   )}
 
-  {/* Delete Confirmation Modal */}
-  {showDeleteModal && selectedUser && (
-    <div 
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 10000
-      }}
-      onClick={() => {
-        setShowDeleteModal(false);
-        setSelectedUser(null);
-      }}
-    >
-      <div 
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: 'white',
-          borderRadius: '8px',
-          padding: '0',
-          minWidth: '400px',
-          maxWidth: '500px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-          fontFamily: 'Arial, sans-serif'
-        }}
-      >
-        <div 
-          style={{
-            padding: '20px 24px',
-            borderBottom: '1px solid #e0e0e0',
-            background: '#f8f9fa',
-            borderRadius: '8px 8px 0 0',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <h3 style={{ margin: 0, color: '#dc3545', fontSize: '18px', fontWeight: 'bold' }}>
-            ⚠️ Confirm Delete
-          </h3>
-          <button 
-            onClick={() => {
-              setShowDeleteModal(false);
-              setSelectedUser(null);
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '20px',
-              color: '#666',
-              cursor: 'pointer',
-              padding: '5px',
-              borderRadius: '4px'
-            }}
-          >
-            ✕
-          </button>
-        </div>
-        <div style={{ padding: '24px' }}>
-          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5, fontSize: '16px' }}>
-            Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?
-          </p>
-          <p style={{ color: '#dc3545', fontWeight: 500, fontSize: '14px', margin: 0 }}>
-            This action cannot be undone.
-          </p>
-        </div>
-        <div 
-          style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'flex-end',
-            padding: '20px 24px',
-            borderTop: '1px solid #e0e0e0',
-            background: '#f8f9fa',
-            borderRadius: '0 0 8px 8px'
-          }}
-        >
-          <button 
-            onClick={() => {
-              setShowDeleteModal(false);
-              setSelectedUser(null);
-            }}
-            style={{
-              padding: '12px 24px',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              fontSize: '14px',
-              background: '#6c757d',
-              color: 'white'
-            }}
-          >
-            Cancel
-          </button>
-          <button 
-            onClick={handleDeleteUser}
-            style={{
-              padding: '12px 24px',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              fontSize: '14px',
-              background: '#dc3545',
-              color: 'white'
-            }}
-          >
-            Delete User
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
 
   {/* Change Role Modal */}
   {showRoleModal && (
