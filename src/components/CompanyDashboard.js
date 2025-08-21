@@ -2274,53 +2274,52 @@ const CompanyDashboard = ({
   )}
 
   {/* Delete Confirmation Modal */}
-  {showDeleteModal && (
+  {showDeleteModal && selectedUser && (
     <div 
-      className="modal-overlay" 
-      onClick={() => setShowDeleteModal(false)}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 1000
+        zIndex: 10000
+      }}
+      onClick={() => {
+        setShowDeleteModal(false);
+        setSelectedUser(null);
       }}
     >
       <div 
-        className="modal delete-modal" 
         onClick={(e) => e.stopPropagation()}
         style={{
           background: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          borderRadius: '8px',
+          padding: '0',
+          minWidth: '400px',
           maxWidth: '500px',
-          width: '90%',
-          maxHeight: '80vh',
-          overflow: 'auto'
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          fontFamily: 'Arial, sans-serif'
         }}
       >
         <div 
-          className="modal-header"
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
             padding: '20px 24px',
             borderBottom: '1px solid #e0e0e0',
             background: '#f8f9fa',
-            borderRadius: '12px 12px 0 0'
+            borderRadius: '8px 8px 0 0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
         >
-          <h3 style={{ margin: 0, color: '#dc3545', fontSize: '1.2rem', fontWeight: 600 }}>
-            <i className="fas fa-exclamation-triangle"></i> Confirm Delete
+          <h3 style={{ margin: 0, color: '#dc3545', fontSize: '18px', fontWeight: 'bold' }}>
+            ⚠️ Confirm Delete
           </h3>
           <button 
-            className="close-btn" 
             onClick={() => {
               setShowDeleteModal(false);
               setSelectedUser(null);
@@ -2328,29 +2327,25 @@ const CompanyDashboard = ({
             style={{
               background: 'none',
               border: 'none',
-              fontSize: '1.2rem',
+              fontSize: '20px',
               color: '#666',
               cursor: 'pointer',
-              padding: '4px',
+              padding: '5px',
               borderRadius: '4px'
             }}
           >
-            <i className="fas fa-times"></i>
+            ✕
           </button>
         </div>
-        <div 
-          className="modal-body"
-          style={{ padding: '24px' }}
-        >
-          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5 }}>
+        <div style={{ padding: '24px' }}>
+          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5, fontSize: '16px' }}>
             Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?
           </p>
-          <p style={{ color: '#dc3545', fontWeight: 500, fontSize: '0.9rem', margin: 0 }}>
+          <p style={{ color: '#dc3545', fontWeight: 500, fontSize: '14px', margin: 0 }}>
             This action cannot be undone.
           </p>
         </div>
         <div 
-          className="modal-actions"
           style={{
             display: 'flex',
             gap: '12px',
@@ -2358,22 +2353,21 @@ const CompanyDashboard = ({
             padding: '20px 24px',
             borderTop: '1px solid #e0e0e0',
             background: '#f8f9fa',
-            borderRadius: '0 0 12px 12px'
+            borderRadius: '0 0 8px 8px'
           }}
         >
           <button 
-            className="btn btn-secondary" 
             onClick={() => {
               setShowDeleteModal(false);
               setSelectedUser(null);
             }}
             style={{
-              padding: '10px 20px',
+              padding: '12px 24px',
               border: 'none',
               borderRadius: '6px',
               fontWeight: 500,
               cursor: 'pointer',
-              fontSize: '0.9rem',
+              fontSize: '14px',
               background: '#6c757d',
               color: 'white'
             }}
@@ -2381,15 +2375,14 @@ const CompanyDashboard = ({
             Cancel
           </button>
           <button 
-            className="btn btn-danger" 
             onClick={handleDeleteUser}
             style={{
-              padding: '10px 20px',
+              padding: '12px 24px',
               border: 'none',
               borderRadius: '6px',
               fontWeight: 500,
               cursor: 'pointer',
-              fontSize: '0.9rem',
+              fontSize: '14px',
               background: '#dc3545',
               color: 'white'
             }}
