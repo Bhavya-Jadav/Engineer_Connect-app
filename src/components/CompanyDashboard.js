@@ -1,6 +1,7 @@
 // src/components/CompanyDashboard.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
+import '../styles/modals.css';
 
 const CompanyDashboard = ({ 
   problems, 
