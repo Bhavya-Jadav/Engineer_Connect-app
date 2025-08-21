@@ -27,6 +27,28 @@ const AdminDashboard = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [showStatistics, setShowStatistics] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  
+  // Problem posting state
+  const [showProblemForm, setShowProblemForm] = useState(false);
+  const [problemFormData, setProblemFormData] = useState({
+    company: 'Admin',
+    branch: '',
+    title: '',
+    description: '',
+    videoUrl: '',
+    difficulty: 'beginner',
+    tags: [],
+    quiz: {
+      questions: [{ question: '', options: ['', '', '', ''], correctAnswer: 0 }]
+    }
+  });
+  const [newTag, setNewTag] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  
+  // Ideas and solutions state
+  const [allProblems, setAllProblems] = useState([]);
+  const [allIdeas, setAllIdeas] = useState([]);
+  const [ideasLoading, setIdeasLoading] = useState(false);
 
   const API_BASE_URL = process.env.NODE_ENV === 'production' 
     ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
@@ -35,7 +57,10 @@ const AdminDashboard = ({
   useEffect(() => {
     fetchStats();
     fetchUsers();
-  }, [currentPage, roleFilter, searchTerm]);
+    if (activeTab === 'ideas') {
+      fetchAllIdeas();
+    }
+  }, [currentPage, roleFilter, searchTerm, activeTab]);
 
   const fetchStats = async () => {
     try {
@@ -175,6 +200,139 @@ const AdminDashboard = ({
     } catch (error) {
       console.error('Error changing user role:', error);
       alert('Error changing user role');
+    }
+  };
+
+  // Problem posting functions
+  const handleProblemInputChange = (e) => {
+    const { name, value } = e.target;
+    setProblemFormData({ ...problemFormData, [name]: value });
+  };
+
+  const handleQuizChange = (questionIndex, field, value, optionIndex = null) => {
+    const updatedQuiz = { ...problemFormData.quiz };
+    if (field === 'question') {
+      updatedQuiz.questions[questionIndex].question = value;
+    } else if (field === 'option') {
+      updatedQuiz.questions[questionIndex].options[optionIndex] = value;
+    } else if (field === 'correctAnswer') {
+      updatedQuiz.questions[questionIndex].correctAnswer = parseInt(value);
+    }
+    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
+  };
+
+  const addQuestion = () => {
+    const updatedQuiz = { ...problemFormData.quiz };
+    updatedQuiz.questions.push({
+      question: '',
+      options: ['', '', '', ''],
+      correctAnswer: 0
+    });
+    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
+  };
+
+  const removeQuestion = (questionIndex) => {
+    const updatedQuiz = { ...problemFormData.quiz };
+    updatedQuiz.questions.splice(questionIndex, 1);
+    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
+  };
+
+  const handleAddTag = () => {
+    if (newTag.trim() && !problemFormData.tags.includes(newTag.trim())) {
+      setProblemFormData({
+        ...problemFormData,
+        tags: [...problemFormData.tags, newTag.trim()]
+      });
+      setNewTag('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    setProblemFormData({
+      ...problemFormData,
+      tags: problemFormData.tags.filter(tag => tag !== tagToRemove)
+    });
+  };
+
+  const handleProblemSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      const formDataToSend = new FormData();
+      
+      // Add form fields
+      Object.keys(problemFormData).forEach(key => {
+        if (key === 'tags') {
+          formDataToSend.append(key, JSON.stringify(problemFormData[key]));
+        } else if (key === 'quiz') {
+          formDataToSend.append(key, JSON.stringify(problemFormData[key]));
+        } else {
+          formDataToSend.append(key, problemFormData[key]);
+        }
+      });
+
+      // Add files
+      selectedFiles.forEach(file => {
+        formDataToSend.append('attachments', file);
+      });
+
+      const response = await fetch(`${API_BASE_URL}/problems`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formDataToSend
+      });
+
+      if (response.ok) {
+        alert('Problem posted successfully!');
+        // Reset form
+        setProblemFormData({
+          company: 'Admin',
+          branch: '',
+          title: '',
+          description: '',
+          videoUrl: '',
+          difficulty: 'beginner',
+          tags: [],
+          quiz: {
+            questions: [{ question: '', options: ['', '', '', ''], correctAnswer: 0 }]
+          }
+        });
+        setSelectedFiles([]);
+        setShowProblemForm(false);
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message || 'Failed to post problem'}`);
+      }
+    } catch (error) {
+      console.error('Error posting problem:', error);
+      alert('Error posting problem');
+    }
+  };
+
+  // Fetch all ideas and solutions
+  const fetchAllIdeas = async () => {
+    setIdeasLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/admin/ideas`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAllIdeas(data.ideas || []);
+      } else {
+        console.error('Failed to fetch ideas');
+      }
+    } catch (error) {
+      console.error('Error fetching ideas:', error);
+    } finally {
+      setIdeasLoading(false);
     }
   };
 
@@ -489,22 +647,217 @@ const AdminDashboard = ({
               <h2><i className="fas fa-plus-circle"></i> Post Engineering Problems</h2>
               <p>Create and manage engineering problems for students to solve</p>
             </div>
-            <div className="action-buttons">
-              <button 
-                className="action-btn primary"
-                onClick={() => setCurrentView('companyDashboard')}
-              >
-                <i className="fas fa-plus"></i>
-                <span>Create New Problem</span>
-              </button>
-              <button 
-                className="action-btn secondary"
-                onClick={() => setCurrentView('problemsList')}
-              >
-                <i className="fas fa-list"></i>
-                <span>View All Problems</span>
-              </button>
-            </div>
+            
+            {!showProblemForm ? (
+              <div className="action-buttons">
+                <button 
+                  className="action-btn primary"
+                  onClick={() => setShowProblemForm(true)}
+                >
+                  <i className="fas fa-plus"></i>
+                  <span>Create New Problem</span>
+                </button>
+              </div>
+            ) : (
+              <div className="problem-form-container">
+                <div className="form-header">
+                  <h3>Create New Problem</h3>
+                  <button 
+                    className="close-form-btn"
+                    onClick={() => setShowProblemForm(false)}
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+                
+                <form onSubmit={handleProblemSubmit} className="problem-form">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Branch/Department</label>
+                      <input
+                        type="text"
+                        name="branch"
+                        value={problemFormData.branch}
+                        onChange={handleProblemInputChange}
+                        placeholder="e.g., Computer Science, Mechanical Engineering"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Difficulty Level</label>
+                      <select
+                        name="difficulty"
+                        value={problemFormData.difficulty}
+                        onChange={handleProblemInputChange}
+                        required
+                      >
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Problem Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={problemFormData.title}
+                      onChange={handleProblemInputChange}
+                      placeholder="Enter a clear, descriptive title"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Problem Description</label>
+                    <textarea
+                      name="description"
+                      value={problemFormData.description}
+                      onChange={handleProblemInputChange}
+                      placeholder="Describe the problem in detail..."
+                      rows="6"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Video URL (Optional)</label>
+                    <input
+                      type="url"
+                      name="videoUrl"
+                      value={problemFormData.videoUrl}
+                      onChange={handleProblemInputChange}
+                      placeholder="https://youtube.com/watch?v=..."
+                    />
+                  </div>
+
+                  {/* Tags Section */}
+                  <div className="form-group">
+                    <label>Tags</label>
+                    <div className="tags-input-container">
+                      <div className="tag-input-wrapper">
+                        <input
+                          type="text"
+                          value={newTag}
+                          onChange={(e) => setNewTag(e.target.value)}
+                          placeholder="Add tags (e.g., algorithms, web-development)"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleAddTag();
+                            }
+                          }}
+                        />
+                        <button type="button" onClick={handleAddTag} className="add-tag-btn">
+                          <i className="fas fa-plus"></i>
+                        </button>
+                      </div>
+                      <div className="tags-display">
+                        {problemFormData.tags.map((tag, index) => (
+                          <span key={index} className="tag">
+                            {tag}
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveTag(tag)}
+                              className="remove-tag"
+                            >
+                              <i className="fas fa-times"></i>
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quiz Section */}
+                  <div className="quiz-section">
+                    <h4>Quiz Questions</h4>
+                    {problemFormData.quiz.questions.map((question, questionIndex) => (
+                      <div key={questionIndex} className="question-container">
+                        <div className="question-header">
+                          <h5>Question {questionIndex + 1}</h5>
+                          {problemFormData.quiz.questions.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeQuestion(questionIndex)}
+                              className="remove-question-btn"
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          )}
+                        </div>
+                        
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            placeholder="Enter your question"
+                            value={question.question}
+                            onChange={(e) => handleQuizChange(questionIndex, 'question', e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="options-container">
+                          {question.options.map((option, optionIndex) => (
+                            <div key={optionIndex} className="option-row">
+                              <input
+                                type="radio"
+                                name={`correct-${questionIndex}`}
+                                checked={question.correctAnswer === optionIndex}
+                                onChange={() => handleQuizChange(questionIndex, 'correctAnswer', optionIndex)}
+                              />
+                              <input
+                                type="text"
+                                placeholder={`Option ${optionIndex + 1}`}
+                                value={option}
+                                onChange={(e) => handleQuizChange(questionIndex, 'option', e.target.value, optionIndex)}
+                                required
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    
+                    <button type="button" onClick={addQuestion} className="add-question-btn">
+                      <i className="fas fa-plus"></i> Add Question
+                    </button>
+                  </div>
+
+                  {/* File Upload */}
+                  <div className="form-group">
+                    <label>Attachments (Optional)</label>
+                    <input
+                      type="file"
+                      multiple
+                      onChange={(e) => setSelectedFiles(Array.from(e.target.files))}
+                      className="file-input"
+                    />
+                    {selectedFiles.length > 0 && (
+                      <div className="selected-files">
+                        {selectedFiles.map((file, index) => (
+                          <span key={index} className="file-tag">
+                            {file.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="form-actions">
+                    <button type="button" onClick={() => setShowProblemForm(false)} className="cancel-btn">
+                      Cancel
+                    </button>
+                    <button type="submit" className="submit-btn">
+                      <i className="fas fa-paper-plane"></i>
+                      Post Problem
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
           </div>
         )}
 
@@ -515,22 +868,85 @@ const AdminDashboard = ({
               <h2><i className="fas fa-lightbulb"></i> Student Ideas & Solutions</h2>
               <p>Review and manage student submissions and ideas</p>
             </div>
-            <div className="action-buttons">
-              <button 
-                className="action-btn primary"
-                onClick={() => setCurrentView('ideaList')}
-              >
-                <i className="fas fa-eye"></i>
-                <span>View All Ideas</span>
-              </button>
-              <button 
-                className="action-btn secondary"
-                onClick={() => setCurrentView('solutionReview')}
-              >
-                <i className="fas fa-check-circle"></i>
-                <span>Review Solutions</span>
-              </button>
-            </div>
+            
+            {ideasLoading ? (
+              <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Loading ideas...</p>
+              </div>
+            ) : (
+              <div className="ideas-content">
+                {allIdeas.length === 0 ? (
+                  <div className="no-ideas">
+                    <i className="fas fa-lightbulb"></i>
+                    <h3>No Ideas Found</h3>
+                    <p>No student ideas or solutions have been submitted yet.</p>
+                  </div>
+                ) : (
+                  <div className="ideas-grid">
+                    {allIdeas.map((idea, index) => (
+                      <div key={idea._id || index} className="idea-card">
+                        <div className="idea-header">
+                          <h4>{idea.title || 'Untitled Idea'}</h4>
+                          <div className="idea-meta">
+                            <span className="author">
+                              <i className="fas fa-user"></i>
+                              {idea.author?.name || idea.author?.username || 'Anonymous'}
+                            </span>
+                            <span className="date">
+                              <i className="fas fa-calendar"></i>
+                              {formatDate(idea.createdAt || idea.submittedAt)}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="idea-content">
+                          <p>{idea.description || idea.content || 'No description available'}</p>
+                          
+                          {idea.problemId && (
+                            <div className="related-problem">
+                              <i className="fas fa-link"></i>
+                              <span>Related to: {idea.problemId.title || 'Problem'}</span>
+                            </div>
+                          )}
+                          
+                          {idea.tags && idea.tags.length > 0 && (
+                            <div className="idea-tags">
+                              {idea.tags.map((tag, tagIndex) => (
+                                <span key={tagIndex} className="tag">{tag}</span>
+                              ))}
+                            </div>
+                          )}
+                          
+                          {idea.attachments && idea.attachments.length > 0 && (
+                            <div className="idea-attachments">
+                              <i className="fas fa-paperclip"></i>
+                              <span>{idea.attachments.length} attachment(s)</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="idea-actions">
+                          <button className="view-btn" onClick={() => {
+                            // You can implement a detailed view modal here
+                            alert(`Viewing idea: ${idea.title || 'Untitled'}`);
+                          }}>
+                            <i className="fas fa-eye"></i>
+                            View Details
+                          </button>
+                          
+                          {idea.status && (
+                            <span className={`status-badge ${idea.status}`}>
+                              {idea.status}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 
