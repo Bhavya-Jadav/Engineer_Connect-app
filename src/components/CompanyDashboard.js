@@ -591,7 +591,7 @@ const CompanyDashboard = ({
               <i className="fas fa-cogs"></i>
               <div className="skills-list">
                 {student.skills.map((skill, index) => (
-                  <span key={index} className="skill-tag">{skill}</span>
+                  <span key={index} className="skill-tag">{typeof skill === 'string' ? skill : skill.name || skill}</span>
                 ))}
               </div>
             </div>
@@ -721,7 +721,7 @@ const CompanyDashboard = ({
                   <h3><i className="fas fa-cogs"></i> Skills & Expertise</h3>
                   <div className="skills-grid">
                     {selectedStudentIdea.student.skills.map((skill, index) => (
-                      <span key={index} className="skill-badge">{skill}</span>
+                      <span key={index} className="skill-badge">{typeof skill === 'string' ? skill : skill.name || skill}</span>
                     ))}
                   </div>
                 </div>
@@ -905,7 +905,7 @@ const CompanyDashboard = ({
                       <strong>Skills:</strong>
                       <div className="skills-tags">
                         {idea.student.skills.slice(0, 3).map((skill, index) => (
-                          <span key={index} className="skill-tag">{skill}</span>
+                          <span key={index} className="skill-tag">{typeof skill === 'string' ? skill : skill.name || skill}</span>
                         ))}
                         {idea.student.skills.length > 3 && (
                           <span className="skill-tag more">+{idea.student.skills.length - 3} more</span>
@@ -1127,7 +1127,7 @@ const CompanyDashboard = ({
                                   <div className="skills-tags">
                                     {idea.student.skills.slice(0, 3).map((skill, skillIndex) => (
                                       <span key={skillIndex} className="skill-tag">
-                                        {skill}
+                                        {typeof skill === 'string' ? skill : skill.name || skill}
                                       </span>
                                     ))}
                                     {idea.student.skills.length > 3 && (

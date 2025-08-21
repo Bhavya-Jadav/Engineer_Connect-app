@@ -57,7 +57,7 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
           size="large"
           text="continue_with"
           shape="rectangular"
-          width={350}
+          width={340}
           useOneTap={false}
         />
       </div>

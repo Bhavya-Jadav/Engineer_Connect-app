@@ -1060,7 +1060,7 @@ const ProfilePage = ({
                     <div className="skills-display-modern">
                       {profileData.skills.map((skill, index) => (
                         <span key={index} className="skill-badge-modern">
-                          {skill}
+                          {typeof skill === 'string' ? skill : skill.name || skill}
                         </span>
                       ))}
                     </div>

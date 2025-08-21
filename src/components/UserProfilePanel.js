@@ -412,14 +412,17 @@ const UserProfilePanel = ({ user, isOpen, onClose, onUserUpdate }) => {
                   </button>
                 </div>
                 <div className="skills-list">
-                  {profileData.skills.map((skill, index) => (
+                  {profileData.skills.map((skill, index) => {
+                    const skillName = typeof skill === 'string' ? skill : skill.name || skill;
+                    return (
                     <span key={index} className="skill-tag">
-                      {skill}
-                      <button onClick={() => handleRemoveSkill(skill)}>
+                      {skillName}
+                      <button onClick={() => handleRemoveSkill(skillName)}>
                         <i className="fas fa-times"></i>
                       </button>
                     </span>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

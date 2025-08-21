@@ -165,7 +165,7 @@ const UserProfileView = ({
                   <div className="profile-skills-display">
                     {currentUser.skills.map((skill, index) => (
                       <span key={index} className="skill-badge-display">
-                        {skill}
+                        {typeof skill === 'string' ? skill : skill.name || skill}
                       </span>
                     ))}
                   </div>
