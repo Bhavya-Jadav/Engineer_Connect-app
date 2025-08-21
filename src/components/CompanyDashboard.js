@@ -2249,8 +2249,9 @@ const CompanyDashboard = ({
       </div>
     </div>
   )}
-</div>
-);
+      </div>
+    </div>
+  );
 };
 
 export default CompanyDashboard;
