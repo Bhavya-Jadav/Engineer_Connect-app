@@ -8,6 +8,7 @@ import { API_BASE_URL } from './utils/api';
 // Import components
 import Header from './components/Header';
 import CompanyDashboard from './components/CompanyDashboard';
+import AdminDashboard from './components/AdminDashboard';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import QuizModal from './components/QuizModal';
@@ -678,18 +679,29 @@ function AppContent() {
 
         {/* Company Dashboard Route */}
         <Route path="/dashboard" element={
-          <CompanyDashboard
-            problems={problems}
-            onSubmitProblem={handleSubmitProblem}
-            onDeleteProblem={handleDeleteProblem}
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-            userRole={userRole}
-            handleLogout={handleLogout}
-            setCurrentView={setCurrentView}
-            handleBack={handleBack}
-            onProfileClick={handleProfileClick}
-          />
+          userRole === 'admin' ? (
+            <AdminDashboard
+              isLoggedIn={isLoggedIn}
+              currentUser={currentUser}
+              userRole={userRole}
+              handleLogout={handleLogout}
+              setCurrentView={setCurrentView}
+              onProfileClick={handleProfileClick}
+            />
+          ) : (
+            <CompanyDashboard
+              problems={problems}
+              onSubmitProblem={handleSubmitProblem}
+              onDeleteProblem={handleDeleteProblem}
+              isLoggedIn={isLoggedIn}
+              currentUser={currentUser}
+              userRole={userRole}
+              handleLogout={handleLogout}
+              setCurrentView={setCurrentView}
+              handleBack={handleBack}
+              onProfileClick={handleProfileClick}
+            />
+          )
         } />
 
         {/* Profile Page Route */}
