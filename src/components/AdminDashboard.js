@@ -242,27 +242,43 @@ const AdminDashboard = ({
           <div className="admin-actions">
             <button 
               className={`admin-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-              onClick={() => setActiveTab('overview')}
+              onClick={() => {
+                setActiveTab('overview');
+                setShowStatistics(false);
+              }}
             >
-              <i className="fas fa-tachometer-alt"></i> Overview
+              <i className="fas fa-tachometer-alt"></i>
+              <span>Overview</span>
             </button>
             <button 
               className={`admin-tab-btn ${activeTab === 'problems' ? 'active' : ''}`}
-              onClick={() => setActiveTab('problems')}
+              onClick={() => {
+                setActiveTab('problems');
+                setShowStatistics(false);
+              }}
             >
-              <i className="fas fa-plus-circle"></i> Post Problems
+              <i className="fas fa-plus-circle"></i>
+              <span>Post Problems</span>
             </button>
             <button 
               className={`admin-tab-btn ${activeTab === 'ideas' ? 'active' : ''}`}
-              onClick={() => setActiveTab('ideas')}
+              onClick={() => {
+                setActiveTab('ideas');
+                setShowStatistics(false);
+              }}
             >
-              <i className="fas fa-lightbulb"></i> View Ideas
+              <i className="fas fa-lightbulb"></i>
+              <span>View Ideas</span>
             </button>
             <button 
-              className="statistics-btn"
-              onClick={() => setShowStatistics(!showStatistics)}
+              className={`statistics-btn ${showStatistics ? 'active' : ''}`}
+              onClick={() => {
+                setShowStatistics(!showStatistics);
+                setActiveTab('');
+              }}
             >
-              <i className="fas fa-chart-bar"></i> Statistics
+              <i className="fas fa-chart-bar"></i>
+              <span>Statistics</span>
             </button>
           </div>
         </div>
@@ -475,16 +491,18 @@ const AdminDashboard = ({
             </div>
             <div className="action-buttons">
               <button 
-                className="btn btn-primary"
+                className="action-btn primary"
                 onClick={() => setCurrentView('companyDashboard')}
               >
-                <i className="fas fa-plus"></i> Create New Problem
+                <i className="fas fa-plus"></i>
+                <span>Create New Problem</span>
               </button>
               <button 
-                className="btn btn-secondary"
+                className="action-btn secondary"
                 onClick={() => setCurrentView('problemsList')}
               >
-                <i className="fas fa-list"></i> View All Problems
+                <i className="fas fa-list"></i>
+                <span>View All Problems</span>
               </button>
             </div>
           </div>
@@ -499,16 +517,18 @@ const AdminDashboard = ({
             </div>
             <div className="action-buttons">
               <button 
-                className="btn btn-primary"
+                className="action-btn primary"
                 onClick={() => setCurrentView('ideaList')}
               >
-                <i className="fas fa-eye"></i> View All Ideas
+                <i className="fas fa-eye"></i>
+                <span>View All Ideas</span>
               </button>
               <button 
-                className="btn btn-secondary"
+                className="action-btn secondary"
                 onClick={() => setCurrentView('solutionReview')}
               >
-                <i className="fas fa-check-circle"></i> Review Solutions
+                <i className="fas fa-check-circle"></i>
+                <span>Review Solutions</span>
               </button>
             </div>
           </div>

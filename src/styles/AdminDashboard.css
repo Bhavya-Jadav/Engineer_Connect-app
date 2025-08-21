@@ -360,16 +360,17 @@
 }
 
 .pagination-info {
-  font-weight: 500;
-  color: #2c3e50;
+  font-weight: 600;
+  color: #333;
 }
 
-/* Loading States */
+/* Loading */
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 50px;
   height: 60vh;
   color: white;
 }
