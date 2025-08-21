@@ -25,7 +25,6 @@ const AdminDashboard = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [newRole, setNewRole] = useState('');
 
@@ -99,10 +98,18 @@ const AdminDashboard = ({
     }
   };
 
-  const handleDeleteUser = async () => {
+  const handleDeleteUser = async (user) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete user "${user.name || user.username}"?\n\nThis action cannot be undone.`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE_URL}/admin/users/${selectedUser._id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/users/${user._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -114,8 +121,6 @@ const AdminDashboard = ({
         alert('User deleted successfully');
         fetchUsers();
         fetchStats();
-        setShowDeleteModal(false);
-        setSelectedUser(null);
       } else {
         const error = await response.json();
         alert(error.message || 'Failed to delete user');
@@ -374,10 +379,7 @@ const AdminDashboard = ({
                         </button>
                         <button
                           className="action-btn delete"
-                          onClick={() => {
-                            setSelectedUser(user);
-                            setShowDeleteModal(true);
-                          }}
+                          onClick={() => handleDeleteUser(user)}
                           title="Delete User"
                           disabled={user._id === currentUser?._id}
                         >
@@ -418,37 +420,6 @@ const AdminDashboard = ({
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal delete-modal">
-            <div className="modal-header">
-              <h3><i className="fas fa-exclamation-triangle"></i> Confirm Delete</h3>
-            </div>
-            <div className="modal-body">
-              <p>Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?</p>
-              <p className="warning-text">This action cannot be undone.</p>
-            </div>
-            <div className="modal-actions">
-              <button 
-                className="btn btn-secondary" 
-                onClick={() => {
-                  setShowDeleteModal(false);
-                  setSelectedUser(null);
-                }}
-              >
-                Cancel
-              </button>
-              <button 
-                className="btn btn-danger" 
-                onClick={handleDeleteUser}
-              >
-                Delete User
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Change Role Modal */}
       {showRoleModal && (
