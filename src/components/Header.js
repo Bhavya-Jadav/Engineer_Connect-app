@@ -80,6 +80,12 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
               </div>
             </div>
             
+            {/* Desktop Edit Profile Button */}
+            <button className="btn btn-secondary edit-profile-btn desktop-only" onClick={() => navigate('/profile')}>
+              <i className="fas fa-edit"></i>
+              <span className="btn-text">Edit Profile</span>
+            </button>
+            
             {/* Mobile Menu Button */}
             <div className="mobile-only" ref={mobileMenuRef}>
               <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
@@ -116,6 +122,10 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
                     <button className="mobile-menu-item" onClick={handleMobileProfileClick}>
                       <i className="fas fa-user"></i>
                       <span>View Profile</span>
+                    </button>
+                    <button className="mobile-menu-item" onClick={() => { setShowMobileMenu(false); navigate('/profile'); }}>
+                      <i className="fas fa-edit"></i>
+                      <span>Edit Profile</span>
                     </button>
                     <button className="mobile-menu-item logout" onClick={handleMobileLogout}>
                       <i className="fas fa-sign-out-alt"></i>

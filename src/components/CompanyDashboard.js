@@ -1103,6 +1103,24 @@ const CompanyDashboard = ({
                                   Course not specified
                                 </span>
                               )}
+                              {idea.student?.year && (
+                                <span className="year">
+                                  <i className="fas fa-calendar-alt"></i>
+                                  {idea.student.year}
+                                </span>
+                              )}
+                              {idea.student?.phone && (
+                                <span className="phone">
+                                  <i className="fas fa-phone"></i>
+                                  {idea.student.phone}
+                                </span>
+                              )}
+                              {idea.student?.email && (
+                                <span className="email">
+                                  <i className="fas fa-envelope"></i>
+                                  {idea.student.email}
+                                </span>
+                              )}
                               {idea.student?.skills && Array.isArray(idea.student.skills) && idea.student.skills.length > 0 ? (
                                 <div className="student-skills">
                                   <i className="fas fa-tags"></i>
