@@ -2275,30 +2275,107 @@ const CompanyDashboard = ({
 
   {/* Delete Confirmation Modal */}
   {showDeleteModal && (
-    <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
-      <div className="modal delete-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h3><i className="fas fa-exclamation-triangle"></i> Confirm Delete</h3>
+    <div 
+      className="modal-overlay" 
+      onClick={() => setShowDeleteModal(false)}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+      }}
+    >
+      <div 
+        className="modal delete-modal" 
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          maxWidth: '500px',
+          width: '90%',
+          maxHeight: '80vh',
+          overflow: 'auto'
+        }}
+      >
+        <div 
+          className="modal-header"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '20px 24px',
+            borderBottom: '1px solid #e0e0e0',
+            background: '#f8f9fa',
+            borderRadius: '12px 12px 0 0'
+          }}
+        >
+          <h3 style={{ margin: 0, color: '#dc3545', fontSize: '1.2rem', fontWeight: 600 }}>
+            <i className="fas fa-exclamation-triangle"></i> Confirm Delete
+          </h3>
           <button 
             className="close-btn" 
             onClick={() => {
               setShowDeleteModal(false);
               setSelectedUser(null);
             }}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '1.2rem',
+              color: '#666',
+              cursor: 'pointer',
+              padding: '4px',
+              borderRadius: '4px'
+            }}
           >
             <i className="fas fa-times"></i>
           </button>
         </div>
-        <div className="modal-body">
-          <p>Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?</p>
-          <p className="warning-text">This action cannot be undone.</p>
+        <div 
+          className="modal-body"
+          style={{ padding: '24px' }}
+        >
+          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5 }}>
+            Are you sure you want to delete user <strong>{selectedUser?.name || selectedUser?.username}</strong>?
+          </p>
+          <p style={{ color: '#dc3545', fontWeight: 500, fontSize: '0.9rem', margin: 0 }}>
+            This action cannot be undone.
+          </p>
         </div>
-        <div className="modal-actions">
+        <div 
+          className="modal-actions"
+          style={{
+            display: 'flex',
+            gap: '12px',
+            justifyContent: 'flex-end',
+            padding: '20px 24px',
+            borderTop: '1px solid #e0e0e0',
+            background: '#f8f9fa',
+            borderRadius: '0 0 12px 12px'
+          }}
+        >
           <button 
             className="btn btn-secondary" 
             onClick={() => {
               setShowDeleteModal(false);
               setSelectedUser(null);
+            }}
+            style={{
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              background: '#6c757d',
+              color: 'white'
             }}
           >
             Cancel
@@ -2306,6 +2383,16 @@ const CompanyDashboard = ({
           <button 
             className="btn btn-danger" 
             onClick={handleDeleteUser}
+            style={{
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              background: '#dc3545',
+              color: 'white'
+            }}
           >
             Delete User
           </button>
@@ -2316,10 +2403,50 @@ const CompanyDashboard = ({
 
   {/* Change Role Modal */}
   {showRoleModal && (
-    <div className="modal-overlay" onClick={() => setShowRoleModal(false)}>
-      <div className="modal role-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h3><i className="fas fa-user-tag"></i> Change User Role</h3>
+    <div 
+      className="modal-overlay" 
+      onClick={() => setShowRoleModal(false)}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+      }}
+    >
+      <div 
+        className="modal role-modal" 
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          maxWidth: '400px',
+          width: '90%',
+          maxHeight: '80vh',
+          overflow: 'auto'
+        }}
+      >
+        <div 
+          className="modal-header"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '20px 24px',
+            borderBottom: '1px solid #e0e0e0',
+            background: '#f8f9fa',
+            borderRadius: '12px 12px 0 0'
+          }}
+        >
+          <h3 style={{ margin: 0, color: '#333', fontSize: '1.2rem', fontWeight: 600 }}>
+            <i className="fas fa-user-tag"></i> Change User Role
+          </h3>
           <button 
             className="close-btn" 
             onClick={() => {
@@ -2327,58 +2454,149 @@ const CompanyDashboard = ({
               setSelectedUser(null);
               setNewRole('');
             }}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '1.2rem',
+              color: '#666',
+              cursor: 'pointer',
+              padding: '4px',
+              borderRadius: '4px'
+            }}
           >
             <i className="fas fa-times"></i>
           </button>
         </div>
-        <div className="modal-body">
-          <p>Change role for <strong>{selectedUser?.name || selectedUser?.username}</strong></p>
-          <div className="role-selection">
-            <label>
+        <div 
+          className="modal-body"
+          style={{ padding: '24px' }}
+        >
+          <p style={{ margin: '0 0 16px 0', color: '#555', lineHeight: 1.5 }}>
+            Change role for <strong>{selectedUser?.name || selectedUser?.username}</strong>
+          </p>
+          <div 
+            className="role-selection"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              marginTop: '16px'
+            }}
+          >
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              padding: '12px',
+              border: newRole === 'student' ? '2px solid #007bff' : '2px solid #e0e0e0',
+              borderRadius: '8px',
+              background: newRole === 'student' ? '#f8f9ff' : 'transparent'
+            }}>
               <input
                 type="radio"
                 value="student"
                 checked={newRole === 'student'}
                 onChange={(e) => setNewRole(e.target.value)}
+                style={{ marginRight: '12px' }}
               />
-              <span className="role-option student">
-                <i className="fas fa-graduation-cap"></i>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '0.95rem',
+                color: newRole === 'student' ? '#007bff' : '#333',
+                fontWeight: newRole === 'student' ? 600 : 'normal'
+              }}>
+                <i className="fas fa-graduation-cap" style={{ color: '#28a745' }}></i>
                 Student
               </span>
             </label>
-            <label>
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              padding: '12px',
+              border: newRole === 'company' ? '2px solid #007bff' : '2px solid #e0e0e0',
+              borderRadius: '8px',
+              background: newRole === 'company' ? '#f8f9ff' : 'transparent'
+            }}>
               <input
                 type="radio"
                 value="company"
                 checked={newRole === 'company'}
                 onChange={(e) => setNewRole(e.target.value)}
+                style={{ marginRight: '12px' }}
               />
-              <span className="role-option company">
-                <i className="fas fa-building"></i>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '0.95rem',
+                color: newRole === 'company' ? '#007bff' : '#333',
+                fontWeight: newRole === 'company' ? 600 : 'normal'
+              }}>
+                <i className="fas fa-building" style={{ color: '#17a2b8' }}></i>
                 Company
               </span>
             </label>
-            <label>
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              padding: '12px',
+              border: newRole === 'admin' ? '2px solid #007bff' : '2px solid #e0e0e0',
+              borderRadius: '8px',
+              background: newRole === 'admin' ? '#f8f9ff' : 'transparent'
+            }}>
               <input
                 type="radio"
                 value="admin"
                 checked={newRole === 'admin'}
                 onChange={(e) => setNewRole(e.target.value)}
+                style={{ marginRight: '12px' }}
               />
-              <span className="role-option admin">
-                <i className="fas fa-shield-alt"></i>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '0.95rem',
+                color: newRole === 'admin' ? '#007bff' : '#333',
+                fontWeight: newRole === 'admin' ? 600 : 'normal'
+              }}>
+                <i className="fas fa-shield-alt" style={{ color: '#dc3545' }}></i>
                 Admin
               </span>
             </label>
           </div>
         </div>
-        <div className="modal-actions">
+        <div 
+          className="modal-actions"
+          style={{
+            display: 'flex',
+            gap: '12px',
+            justifyContent: 'flex-end',
+            padding: '20px 24px',
+            borderTop: '1px solid #e0e0e0',
+            background: '#f8f9fa',
+            borderRadius: '0 0 12px 12px'
+          }}
+        >
           <button 
             className="btn btn-secondary" 
             onClick={() => {
               setShowRoleModal(false);
               setSelectedUser(null);
               setNewRole('');
+            }}
+            style={{
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              background: '#6c757d',
+              color: 'white'
             }}
           >
             Cancel
@@ -2387,6 +2605,17 @@ const CompanyDashboard = ({
             className="btn btn-primary" 
             onClick={handleChangeRole}
             disabled={newRole === selectedUser?.role}
+            style={{
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              background: newRole === selectedUser?.role ? '#ccc' : '#007bff',
+              color: 'white',
+              opacity: newRole === selectedUser?.role ? 0.6 : 1
+            }}
           >
             Change Role
           </button>
