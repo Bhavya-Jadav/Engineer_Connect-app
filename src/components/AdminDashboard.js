@@ -49,6 +49,7 @@ const AdminDashboard = ({
   const [allProblems, setAllProblems] = useState([]);
   const [allIdeas, setAllIdeas] = useState([]);
   const [ideasLoading, setIdeasLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const API_BASE_URL = process.env.NODE_ENV === 'production' 
     ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
@@ -203,38 +204,29 @@ const AdminDashboard = ({
     }
   };
 
-  // Problem posting functions
-  const handleProblemInputChange = (e) => {
-    const { name, value } = e.target;
-    setProblemFormData({ ...problemFormData, [name]: value });
-  };
+  const fetchAllIdeas = async () => {
+    setIdeasLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/ideas`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
-  const handleQuizChange = (questionIndex, field, value, optionIndex = null) => {
-    const updatedQuiz = { ...problemFormData.quiz };
-    if (field === 'question') {
-      updatedQuiz.questions[questionIndex].question = value;
-    } else if (field === 'option') {
-      updatedQuiz.questions[questionIndex].options[optionIndex] = value;
-    } else if (field === 'correctAnswer') {
-      updatedQuiz.questions[questionIndex].correctAnswer = parseInt(value);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('All ideas received:', data);
+        setAllIdeas(data);
+      } else {
+        console.error('Failed to fetch ideas:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching ideas:', error);
+    } finally {
+      setIdeasLoading(false);
     }
-    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
-  };
-
-  const addQuestion = () => {
-    const updatedQuiz = { ...problemFormData.quiz };
-    updatedQuiz.questions.push({
-      question: '',
-      options: ['', '', '', ''],
-      correctAnswer: 0
-    });
-    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
-  };
-
-  const removeQuestion = (questionIndex) => {
-    const updatedQuiz = { ...problemFormData.quiz };
-    updatedQuiz.questions.splice(questionIndex, 1);
-    setProblemFormData({ ...problemFormData, quiz: updatedQuiz });
   };
 
   const handleAddTag = () => {
@@ -254,34 +246,146 @@ const AdminDashboard = ({
     });
   };
 
-  const handleProblemSubmit = async (e) => {
-    e.preventDefault();
+  const handleQuestionChange = (index, field, value) => {
+    const updatedQuestions = [...problemFormData.quiz.questions];
+    if (field === 'question') {
+      updatedQuestions[index].question = value;
+    } else if (field.startsWith('option')) {
+      const optionIndex = parseInt(field.split('_')[1]);
+      updatedQuestions[index].options[optionIndex] = value;
+    } else if (field === 'correctAnswer') {
+      updatedQuestions[index].correctAnswer = parseInt(value);
+    }
+    setProblemFormData({
+      ...problemFormData,
+      quiz: { ...problemFormData.quiz, questions: updatedQuestions }
+    });
+  };
+
+  const addQuestion = () => {
+    setProblemFormData({
+      ...problemFormData,
+      quiz: {
+        ...problemFormData.quiz,
+        questions: [...problemFormData.quiz.questions, 
+          { question: '', options: ['', '', '', ''], correctAnswer: 0 }
+        ]
+      }
+    });
+  };
+
+  const removeQuestion = (index) => {
+    if (problemFormData.quiz.questions.length > 1) {
+      const updatedQuestions = problemFormData.quiz.questions.filter((_, i) => i !== index);
+      setProblemFormData({
+        ...problemFormData,
+        quiz: { ...problemFormData.quiz, questions: updatedQuestions }
+      });
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(prev => [...prev, ...files]);
+  };
+
+  const removeFile = (index) => {
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const uploadFiles = async () => {
+    if (selectedFiles.length === 0) return [];
+
     try {
-      const token = localStorage.getItem('token');
-      const formDataToSend = new FormData();
-      
-      // Add form fields
-      Object.keys(problemFormData).forEach(key => {
-        if (key === 'tags') {
-          formDataToSend.append(key, JSON.stringify(problemFormData[key]));
-        } else if (key === 'quiz') {
-          formDataToSend.append(key, JSON.stringify(problemFormData[key]));
-        } else {
-          formDataToSend.append(key, problemFormData[key]);
-        }
+      const formData = new FormData();
+      selectedFiles.forEach(file => {
+        formData.append('file', file);
       });
 
-      // Add files
-      selectedFiles.forEach(file => {
-        formDataToSend.append('attachments', file);
+      const uploadUrl = `${API_BASE_URL.replace('/api', '')}/api/files/upload`;
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
       });
+
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+
+      const result = await response.json();
+      return result.file ? [result.file] : [];
+    } catch (error) {
+      console.error('File upload error:', error);
+      alert('File upload failed. Please try again.');
+      return [];
+    }
+  };
+
+  const handleSubmitProblem = async (e) => {
+    e.preventDefault();
+    
+    if (!problemFormData.title.trim() || !problemFormData.description.trim()) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    const hasValidQuiz = problemFormData.quiz.questions.every(q => 
+      q.question.trim() !== '' && 
+      q.options.every(opt => opt.trim() !== '')
+    );
+    
+    if (!hasValidQuiz) {
+      alert('Please fill in all quiz questions and options');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // Upload files first if any are selected
+      let attachments = [];
+      if (selectedFiles.length > 0) {
+        attachments = await uploadFiles();
+      }
+
+      // Prepare quiz data
+      const quizData = {
+        enabled: true,
+        questions: problemFormData.quiz.questions.map(q => ({
+          question: q.question,
+          type: 'multiple-choice',
+          options: q.options.map((opt, index) => ({
+            text: opt,
+            isCorrect: index === q.correctAnswer
+          }))
+        })),
+        title: `${problemFormData.title} Quiz`,
+        description: 'Complete this quiz to submit your idea',
+        timeLimit: 30,
+        passingScore: 70
+      };
+      
+      const problemData = {
+        company: 'Admin',
+        branch: problemFormData.branch,
+        title: problemFormData.title,
+        description: problemFormData.description,
+        videoUrl: problemFormData.videoUrl.trim() || null,
+        difficulty: problemFormData.difficulty,
+        tags: problemFormData.tags,
+        quiz: quizData,
+        attachments: attachments
+      };
 
       const response = await fetch(`${API_BASE_URL}/problems`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
         },
-        body: formDataToSend
+        body: JSON.stringify(problemData)
       });
 
       if (response.ok) {
@@ -300,39 +404,17 @@ const AdminDashboard = ({
           }
         });
         setSelectedFiles([]);
+        setNewTag('');
         setShowProblemForm(false);
       } else {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.message || 'Failed to post problem'}`);
+        const error = await response.json();
+        alert(error.message || 'Failed to post problem');
       }
     } catch (error) {
       console.error('Error posting problem:', error);
       alert('Error posting problem');
-    }
-  };
-
-  // Fetch all ideas and solutions
-  const fetchAllIdeas = async () => {
-    setIdeasLoading(true);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE_URL}/admin/ideas`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setAllIdeas(data.ideas || []);
-      } else {
-        console.error('Failed to fetch ideas');
-      }
-    } catch (error) {
-      console.error('Error fetching ideas:', error);
     } finally {
-      setIdeasLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -396,7 +478,6 @@ const AdminDashboard = ({
           <h1><i className="fas fa-shield-alt"></i> Admin Dashboard</h1>
           <p>Manage users, post problems, view ideas, and monitor platform statistics</p>
           
-          {/* Admin Action Buttons */}
           <div className="admin-actions">
             <button 
               className={`admin-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
@@ -441,202 +522,188 @@ const AdminDashboard = ({
           </div>
         </div>
 
-        {/* Tab Content */}
         {activeTab === 'overview' && (
           <div className="overview-content">
-            {/* Statistics Cards */}
             <div className="stats-grid">
-          <div className="stat-card total">
-            <div className="stat-icon">
-              <i className="fas fa-users"></i>
-            </div>
-            <div className="stat-info">
-              <h3>{stats.totalUsers}</h3>
-              <p>Total Users</p>
-            </div>
-          </div>
-
-          <div className="stat-card students">
-            <div className="stat-icon">
-              <i className="fas fa-graduation-cap"></i>
-            </div>
-            <div className="stat-info">
-              <h3>{stats.students}</h3>
-              <p>Students</p>
-            </div>
-          </div>
-
-          <div className="stat-card companies">
-            <div className="stat-icon">
-              <i className="fas fa-building"></i>
-            </div>
-            <div className="stat-info">
-              <h3>{stats.companies}</h3>
-              <p>Companies</p>
-            </div>
-          </div>
-
-          <div className="stat-card admins">
-            <div className="stat-icon">
-              <i className="fas fa-shield-alt"></i>
-            </div>
-            <div className="stat-info">
-              <h3>{stats.admins}</h3>
-              <p>Admins</p>
-            </div>
-          </div>
-
-          <div className="stat-card recent">
-            <div className="stat-icon">
-              <i className="fas fa-user-plus"></i>
-            </div>
-            <div className="stat-info">
-              <h3>{stats.recentRegistrations}</h3>
-              <p>New (30 days)</p>
-            </div>
-          </div>
-        </div>
-
-        {/* User Management Section */}
-        <div className="user-management-section">
-          <div className="section-header">
-            <h2><i className="fas fa-users-cog"></i> User Management</h2>
-          </div>
-
-          {/* Search and Filter Controls */}
-          <div className="controls-section">
-            <form onSubmit={handleSearch} className="search-form">
-              <div className="search-input-wrapper">
-                <i className="fas fa-search"></i>
-                <input
-                  type="text"
-                  placeholder="Search by name, email, or username..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+              <div className="stat-card total">
+                <div className="stat-icon">
+                  <i className="fas fa-users"></i>
+                </div>
+                <div className="stat-info">
+                  <h3>{stats.totalUsers}</h3>
+                  <p>Total Users</p>
+                </div>
               </div>
-              <button type="submit" className="search-btn">
-                <i className="fas fa-search"></i>
-              </button>
-            </form>
-
-            <div className="filter-controls">
-              <select 
-                value={roleFilter} 
-                onChange={(e) => {
-                  setRoleFilter(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="role-filter"
-              >
-                <option value="all">All Roles</option>
-                <option value="student">Students</option>
-                <option value="company">Companies</option>
-                <option value="admin">Admins</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Users Table */}
-          <div className="users-table-container">
-            {usersLoading ? (
-              <div className="table-loading">
-                <div className="loading-spinner"></div>
-                <p>Loading users...</p>
+              <div className="stat-card students">
+                <div className="stat-icon">
+                  <i className="fas fa-graduation-cap"></i>
+                </div>
+                <div className="stat-info">
+                  <h3>{stats.students}</h3>
+                  <p>Students</p>
+                </div>
               </div>
-            ) : (
-              <table className="users-table">
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Joined</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map(user => (
-                    <tr key={user._id}>
-                      <td className="user-info">
-                        <div className="user-avatar">
-                          {user.profilePicture ? (
-                            <img 
-                              src={user.profilePicture.startsWith('data:') || user.profilePicture.startsWith('http') 
-                                ? user.profilePicture 
-                                : `data:image/jpeg;base64,${user.profilePicture}`} 
-                              alt={user.name || user.username}
-                            />
-                          ) : (
-                            <div className="avatar-placeholder">
-                              <i className="fas fa-user"></i>
+              <div className="stat-card companies">
+                <div className="stat-icon">
+                  <i className="fas fa-building"></i>
+                </div>
+                <div className="stat-info">
+                  <h3>{stats.companies}</h3>
+                  <p>Companies</p>
+                </div>
+              </div>
+              <div className="stat-card admins">
+                <div className="stat-icon">
+                  <i className="fas fa-shield-alt"></i>
+                </div>
+                <div className="stat-info">
+                  <h3>{stats.admins}</h3>
+                  <p>Admins</p>
+                </div>
+              </div>
+              <div className="stat-card recent">
+                <div className="stat-icon">
+                  <i className="fas fa-user-plus"></i>
+                </div>
+                <div className="stat-info">
+                  <h3>{stats.recentRegistrations}</h3>
+                  <p>New (30 days)</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="user-management-section">
+              <div className="section-header">
+                <h2><i className="fas fa-users-cog"></i> User Management</h2>
+              </div>
+              <div className="controls-section">
+                <form onSubmit={handleSearch} className="search-form">
+                  <div className="search-input-wrapper">
+                    <i className="fas fa-search"></i>
+                    <input
+                      type="text"
+                      placeholder="Search by name, email, or username..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="search-btn">
+                    <i className="fas fa-search"></i>
+                  </button>
+                </form>
+                <div className="filter-controls">
+                  <select 
+                    value={roleFilter} 
+                    onChange={(e) => {
+                      setRoleFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="role-filter"
+                  >
+                    <option value="all">All Roles</option>
+                    <option value="student">Students</option>
+                    <option value="company">Companies</option>
+                    <option value="admin">Admins</option>
+                  </select>
+                </div>
+              </div>
+              <div className="users-table-container">
+                {usersLoading ? (
+                  <div className="table-loading">
+                    <div className="loading-spinner"></div>
+                    <p>Loading users...</p>
+                  </div>
+                ) : (
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map(user => (
+                        <tr key={user._id}>
+                          <td>
+                            <div className="user-info">
+                              <div className="user-avatar">
+                                {user.profilePicture ? (
+                                  <img 
+                                    src={user.profilePicture.startsWith('data:') || user.profilePicture.startsWith('http') 
+                                      ? user.profilePicture 
+                                      : `data:image/jpeg;base64,${user.profilePicture}`} 
+                                    alt={user.name || user.username}
+                                  />
+                                ) : (
+                                  <div className="avatar-placeholder">
+                                    <i className="fas fa-user"></i>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="user-details">
+                                <div className="user-name">{user.name || user.username}</div>
+                                <div className="user-username">@{user.username}</div>
+                              </div>
                             </div>
-                          )}
-                        </div>
-                        <div className="user-details">
-                          <div className="user-name">{user.name || user.username}</div>
-                          <div className="user-username">@{user.username}</div>
-                        </div>
-                      </td>
-                      <td>
-                        <span 
-                          className="role-badge" 
-                          style={{ backgroundColor: getRoleColor(user.role) }}
-                        >
-                          {user.role}
-                        </span>
-                      </td>
-                      <td>{user.email}</td>
-                      <td>{formatDate(user.createdAt)}</td>
-                      <td className="actions">
-                        <button
-                          className="action-btn change-role"
-                          onClick={() => handleChangeRole(user)}
-                          title="Change Role"
-                        >
-                          <i className="fas fa-user-tag"></i>
-                        </button>
-                        <button
-                          className="action-btn delete"
-                          onClick={() => handleDeleteUser(user)}
-                          title="Delete User"
-                          disabled={user._id === currentUser?._id}
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="pagination">
-              <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="pagination-btn"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              
-              <span className="pagination-info">
-                Page {currentPage} of {totalPages}
-              </span>
-              
-              <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="pagination-btn"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
+                          </td>
+                          <td>
+                            <span 
+                              className="role-badge" 
+                              style={{ backgroundColor: getRoleColor(user.role) }}
+                            >
+                              {user.role}
+                            </span>
+                          </td>
+                          <td>{user.email}</td>
+                          <td>{formatDate(user.createdAt)}</td>
+                          <td className="actions">
+                            <button
+                              className="action-btn change-role"
+                              onClick={() => handleChangeRole(user)}
+                              title="Change Role"
+                            >
+                              <i className="fas fa-user-tag"></i>
+                            </button>
+                            <button
+                              className="action-btn delete"
+                              onClick={() => handleDeleteUser(user)}
+                              title="Delete User"
+                              disabled={user._id === currentUser?._id}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="pagination-btn"
+                  >
+                    <i className="fas fa-chevron-left"></i>
+                  </button>
+                  <span className="pagination-info">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="pagination-btn"
+                  >
+                    <i className="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
           </div>
         )}
 
@@ -657,6 +724,13 @@ const AdminDashboard = ({
                   <i className="fas fa-plus"></i>
                   <span>Create New Problem</span>
                 </button>
+                <button 
+                  className="action-btn secondary"
+                  onClick={() => setCurrentView('problemsList')}
+                >
+                  <i className="fas fa-list"></i>
+                  <span>View All Problems</span>
+                </button>
               </div>
             ) : (
               <div className="problem-form-container">
@@ -670,26 +744,23 @@ const AdminDashboard = ({
                   </button>
                 </div>
                 
-                <form onSubmit={handleProblemSubmit} className="problem-form">
+                <form onSubmit={handleSubmitProblem} className="problem-form">
                   <div className="form-row">
                     <div className="form-group">
                       <label>Branch/Department</label>
                       <input
                         type="text"
-                        name="branch"
                         value={problemFormData.branch}
-                        onChange={handleProblemInputChange}
-                        placeholder="e.g., Computer Science, Mechanical Engineering"
+                        onChange={(e) => setProblemFormData({...problemFormData, branch: e.target.value})}
+                        placeholder="e.g., Computer Science"
                         required
                       />
                     </div>
                     <div className="form-group">
                       <label>Difficulty Level</label>
                       <select
-                        name="difficulty"
                         value={problemFormData.difficulty}
-                        onChange={handleProblemInputChange}
-                        required
+                        onChange={(e) => setProblemFormData({...problemFormData, difficulty: e.target.value})}
                       >
                         <option value="beginner">Beginner</option>
                         <option value="intermediate">Intermediate</option>
@@ -702,10 +773,9 @@ const AdminDashboard = ({
                     <label>Problem Title</label>
                     <input
                       type="text"
-                      name="title"
                       value={problemFormData.title}
-                      onChange={handleProblemInputChange}
-                      placeholder="Enter a clear, descriptive title"
+                      onChange={(e) => setProblemFormData({...problemFormData, title: e.target.value})}
+                      placeholder="Enter problem title"
                       required
                     />
                   </div>
@@ -713,146 +783,24 @@ const AdminDashboard = ({
                   <div className="form-group">
                     <label>Problem Description</label>
                     <textarea
-                      name="description"
                       value={problemFormData.description}
-                      onChange={handleProblemInputChange}
+                      onChange={(e) => setProblemFormData({...problemFormData, description: e.target.value})}
                       placeholder="Describe the problem in detail..."
                       rows="6"
                       required
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label>Video URL (Optional)</label>
-                    <input
-                      type="url"
-                      name="videoUrl"
-                      value={problemFormData.videoUrl}
-                      onChange={handleProblemInputChange}
-                      placeholder="https://youtube.com/watch?v=..."
-                    />
-                  </div>
-
-                  {/* Tags Section */}
-                  <div className="form-group">
-                    <label>Tags</label>
-                    <div className="tags-input-container">
-                      <div className="tag-input-wrapper">
-                        <input
-                          type="text"
-                          value={newTag}
-                          onChange={(e) => setNewTag(e.target.value)}
-                          placeholder="Add tags (e.g., algorithms, web-development)"
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleAddTag();
-                            }
-                          }}
-                        />
-                        <button type="button" onClick={handleAddTag} className="add-tag-btn">
-                          <i className="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <div className="tags-display">
-                        {problemFormData.tags.map((tag, index) => (
-                          <span key={index} className="tag">
-                            {tag}
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveTag(tag)}
-                              className="remove-tag"
-                            >
-                              <i className="fas fa-times"></i>
-                            </button>
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Quiz Section */}
-                  <div className="quiz-section">
-                    <h4>Quiz Questions</h4>
-                    {problemFormData.quiz.questions.map((question, questionIndex) => (
-                      <div key={questionIndex} className="question-container">
-                        <div className="question-header">
-                          <h5>Question {questionIndex + 1}</h5>
-                          {problemFormData.quiz.questions.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => removeQuestion(questionIndex)}
-                              className="remove-question-btn"
-                            >
-                              <i className="fas fa-trash"></i>
-                            </button>
-                          )}
-                        </div>
-                        
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            placeholder="Enter your question"
-                            value={question.question}
-                            onChange={(e) => handleQuizChange(questionIndex, 'question', e.target.value)}
-                            required
-                          />
-                        </div>
-
-                        <div className="options-container">
-                          {question.options.map((option, optionIndex) => (
-                            <div key={optionIndex} className="option-row">
-                              <input
-                                type="radio"
-                                name={`correct-${questionIndex}`}
-                                checked={question.correctAnswer === optionIndex}
-                                onChange={() => handleQuizChange(questionIndex, 'correctAnswer', optionIndex)}
-                              />
-                              <input
-                                type="text"
-                                placeholder={`Option ${optionIndex + 1}`}
-                                value={option}
-                                onChange={(e) => handleQuizChange(questionIndex, 'option', e.target.value, optionIndex)}
-                                required
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                    
-                    <button type="button" onClick={addQuestion} className="add-question-btn">
-                      <i className="fas fa-plus"></i> Add Question
-                    </button>
-                  </div>
-
-                  {/* File Upload */}
-                  <div className="form-group">
-                    <label>Attachments (Optional)</label>
-                    <input
-                      type="file"
-                      multiple
-                      onChange={(e) => setSelectedFiles(Array.from(e.target.files))}
-                      className="file-input"
-                    />
-                    {selectedFiles.length > 0 && (
-                      <div className="selected-files">
-                        {selectedFiles.map((file, index) => (
-                          <span key={index} className="file-tag">
-                            {file.name}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
                   <div className="form-actions">
                     <button type="button" onClick={() => setShowProblemForm(false)} className="cancel-btn">
                       Cancel
                     </button>
-                    <button type="submit" className="submit-btn">
-                      <i className="fas fa-paper-plane"></i>
-                      Post Problem
+                    <button type="submit" disabled={isSubmitting} className="submit-btn">
+                      {isSubmitting ? (
+                        <><i className="fas fa-spinner fa-spin"></i> Posting...</>
+                      ) : (
+                        <><i className="fas fa-plus"></i> Post Problem</>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -880,7 +828,7 @@ const AdminDashboard = ({
                   <div className="no-ideas">
                     <i className="fas fa-lightbulb"></i>
                     <h3>No Ideas Found</h3>
-                    <p>No student ideas or solutions have been submitted yet.</p>
+                    <p>No student ideas have been submitted yet.</p>
                   </div>
                 ) : (
                   <div className="ideas-grid">
@@ -888,58 +836,43 @@ const AdminDashboard = ({
                       <div key={idea._id || index} className="idea-card">
                         <div className="idea-header">
                           <h4>{idea.title || 'Untitled Idea'}</h4>
-                          <div className="idea-meta">
-                            <span className="author">
-                              <i className="fas fa-user"></i>
-                              {idea.author?.name || idea.author?.username || 'Anonymous'}
-                            </span>
-                            <span className="date">
-                              <i className="fas fa-calendar"></i>
-                              {formatDate(idea.createdAt || idea.submittedAt)}
-                            </span>
-                          </div>
+                          <span className="idea-date">
+                            {idea.createdAt ? formatDate(idea.createdAt) : 'Unknown date'}
+                          </span>
                         </div>
                         
                         <div className="idea-content">
-                          <p>{idea.description || idea.content || 'No description available'}</p>
+                          <p className="idea-description">
+                            {idea.description ? 
+                              (idea.description.length > 150 ? 
+                                idea.description.substring(0, 150) + '...' : 
+                                idea.description
+                              ) : 'No description provided'
+                            }
+                          </p>
+                        </div>
+                        
+                        <div className="idea-footer">
+                          <div className="student-info">
+                            <i className="fas fa-user"></i>
+                            <span>{idea.student?.name || idea.student?.username || 'Anonymous'}</span>
+                          </div>
                           
-                          {idea.problemId && (
-                            <div className="related-problem">
-                              <i className="fas fa-link"></i>
-                              <span>Related to: {idea.problemId.title || 'Problem'}</span>
-                            </div>
-                          )}
-                          
-                          {idea.tags && idea.tags.length > 0 && (
-                            <div className="idea-tags">
-                              {idea.tags.map((tag, tagIndex) => (
-                                <span key={tagIndex} className="tag">{tag}</span>
-                              ))}
-                            </div>
-                          )}
-                          
-                          {idea.attachments && idea.attachments.length > 0 && (
-                            <div className="idea-attachments">
-                              <i className="fas fa-paperclip"></i>
-                              <span>{idea.attachments.length} attachment(s)</span>
-                            </div>
-                          )}
+                          <div className="problem-info">
+                            <i className="fas fa-building"></i>
+                            <span>{idea.problem?.company || 'Unknown Company'}</span>
+                          </div>
                         </div>
                         
                         <div className="idea-actions">
-                          <button className="view-btn" onClick={() => {
-                            // You can implement a detailed view modal here
-                            alert(`Viewing idea: ${idea.title || 'Untitled'}`);
-                          }}>
-                            <i className="fas fa-eye"></i>
-                            View Details
+                          <button 
+                            className="view-btn"
+                            onClick={() => {
+                              alert(`Viewing idea: ${idea.title}\n\nDescription: ${idea.description}\n\nStudent: ${idea.student?.name || 'Anonymous'}`);
+                            }}
+                          >
+                            <i className="fas fa-eye"></i> View Details
                           </button>
-                          
-                          {idea.status && (
-                            <span className={`status-badge ${idea.status}`}>
-                              {idea.status}
-                            </span>
-                          )}
                         </div>
                       </div>
                     ))}
@@ -947,158 +880,6 @@ const AdminDashboard = ({
                 )}
               </div>
             )}
-          </div>
-        )}
-
-        {/* Statistics Panel */}
-        {showStatistics && (
-          <div className="statistics-panel">
-            <div className="statistics-header">
-              <h2><i className="fas fa-chart-bar"></i> User Statistics & Management</h2>
-              <button 
-                className="close-statistics"
-                onClick={() => setShowStatistics(false)}
-              >
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
-            
-            {/* User Management Section */}
-            <div className="user-management-section">
-              <div className="section-header">
-                <h3><i className="fas fa-users-cog"></i> User Management</h3>
-              </div>
-
-              {/* Search and Filter Controls */}
-              <div className="controls-section">
-                <form onSubmit={(e) => e.preventDefault()} className="search-form">
-                  <div className="search-input-wrapper">
-                    <i className="fas fa-search"></i>
-                    <input
-                      type="text"
-                      placeholder="Search by name, email, or username..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                  <button type="submit" className="search-btn">
-                    <i className="fas fa-search"></i>
-                  </button>
-                </form>
-
-                <div className="filter-controls">
-                  <select 
-                    value={roleFilter} 
-                    onChange={(e) => {
-                      setRoleFilter(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="role-filter"
-                  >
-                    <option value="all">All Roles</option>
-                    <option value="student">Students</option>
-                    <option value="company">Companies</option>
-                    <option value="admin">Admins</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Users Table */}
-              {usersLoading ? (
-                <div className="loading-container">
-                  <div className="loading-spinner"></div>
-                  <p>Loading users...</p>
-                </div>
-              ) : (
-                <table className="users-table">
-                  <thead>
-                    <tr>
-                      <th>User</th>
-                      <th>Role</th>
-                      <th>Email</th>
-                      <th>Joined</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map(user => (
-                      <tr key={user._id}>
-                        <td>
-                          <div className="user-info">
-                            <div className="user-avatar">
-                              {user.profilePicture ? (
-                                <img src={user.profilePicture} alt={user.name} />
-                              ) : (
-                                <div className="avatar-placeholder">
-                                  <i className="fas fa-user"></i>
-                                </div>
-                              )}
-                            </div>
-                            <div className="user-details">
-                              <div className="user-name">{user.name || user.username}</div>
-                              <div className="user-username">@{user.username}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <span 
-                            className="role-badge" 
-                            style={{ backgroundColor: user.role === 'admin' ? '#ff6b6b' : 
-                                                    user.role === 'company' ? '#4ecdc4' : '#45b7d1' }}
-                          >
-                            {user.role}
-                          </span>
-                        </td>
-                        <td>{user.email}</td>
-                        <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                        <td className="actions">
-                          <button
-                            className="action-btn change-role"
-                            onClick={() => handleChangeRole(user)}
-                            title="Change Role"
-                          >
-                            <i className="fas fa-user-tag"></i>
-                          </button>
-                          <button
-                            className="action-btn delete"
-                            onClick={() => handleDeleteUser(user)}
-                            title="Delete User"
-                            disabled={user._id === currentUser?._id}
-                          >
-                            <i className="fas fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="pagination">
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="pagination-btn"
-                  >
-                    <i className="fas fa-chevron-left"></i>
-                  </button>
-                  
-                  <span className="pagination-info">
-                    Page {currentPage} of {totalPages}
-                  </span>
-                  
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="pagination-btn"
-                  >
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
         )}
 
