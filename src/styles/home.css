@@ -1,0 +1,1495 @@
+/* =====================================================
+   🏠 ENGINEER CONNECT - PROFESSIONAL BLUE & WHITE HOME DESIGN
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎭 Hero Section - Premium Landing Experience  
+   2. 📊 Statistics Section - Professional Social Proof
+   3. ✨ Features Section - Clean Value Proposition
+   4. 🔄 How It Works - Process Excellence
+   5. 💬 Testimonials - Success Stories
+   6. 📱 Responsive Design
+   7. 🎨 Modern Animations
+   ===================================================== */
+
+/* =====================================================
+   1. 🎭 HERO SECTION - ENGINEERCONNECT LANDING EXPERIENCE
+   ===================================================== */
+
+.hero-section {
+  min-height: calc(100vh - var(--header-height-desktop));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-20) var(--space-8);
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--neutral-50) 50%,
+    var(--white) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  
+  /* EngineerConnect Professional Background */
+  background-image: 
+    radial-gradient(circle at 20% 20%, var(--cyan-alpha-10) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, var(--blue-alpha-10) 0%, transparent 45%),
+    radial-gradient(circle at 50% 10%, rgba(45, 212, 218, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 90%, var(--blue-alpha-5) 0%, transparent 40%);
+  background-size: 100% 100%, 80% 80%, 90% 90%, 70% 70%;
+  background-attachment: fixed;
+}
+
+/* Professional Animated Overlay */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg, 
+    var(--cyan-alpha-10) 0%, 
+    transparent 25%, 
+    var(--blue-alpha-5) 50%,
+    transparent 75%, 
+    var(--cyan-alpha-5) 100%
+  );
+  background-size: 400% 400%;
+  animation: engineerConnectGradientFlow 20s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Clean Professional Dots Pattern */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--brand-cyan-200) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, var(--brand-blue-200) 1px, transparent 1px);
+  background-size: 120px 120px, 180px 180px;
+  animation: professionalFloat 25s linear infinite;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.hero-content {
+  max-width: var(--container-4xl);
+  margin: 0 auto;
+  z-index: 3;
+  position: relative;
+  animation: engineerConnectFadeInUp 1s var(--ease-out) 0.3s both;
+}
+
+/* EngineerConnect Professional Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: linear-gradient(
+    135deg,
+    var(--white-alpha-95) 0%,
+    var(--white-alpha-90) 100%
+  );
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: var(--border-1) solid var(--brand-cyan-200);
+  color: var(--brand-cyan-700);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-8);
+  box-shadow: 
+    0 4px 12px rgba(45, 212, 218, 0.15),
+    0 2px 6px rgba(59, 130, 246, 0.08);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--duration-300) var(--ease-out);
+  border-radius: inherit;
+}
+
+.hero-badge:hover::before {
+  opacity: 0.08;
+}
+
+.hero-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(45, 212, 218, 0.2),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+  border-color: var(--brand-cyan-400);
+  color: var(--brand-cyan-800);
+}
+
+.hero-badge i {
+  font-size: var(--text-base);
+  animation: engineerConnectPulse 2.5s infinite;
+  color: var(--brand-cyan-500);
+}
+
+/* EngineerConnect Hero Typography */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.5vw, 5rem);
+  font-weight: var(--font-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  margin-bottom: var(--space-6);
+  position: relative;
+  
+  /* EngineerConnect Brand Gradient */
+  background: linear-gradient(
+    135deg, 
+    var(--brand-cyan-600) 0%,
+    var(--brand-blue-600) 25%,
+    var(--text-primary) 50%,
+    var(--brand-blue-700) 75%,
+    var(--brand-cyan-700) 100%
+  );
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: engineerConnectTextShimmer 10s ease-in-out infinite;
+}
+
+.hero-description {
+  font-size: clamp(1.125rem, 2.8vw, 1.5rem);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-12);
+  max-width: var(--container-2xl);
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+  font-family: var(--font-body);
+}
+
+/* EngineerConnect Action Buttons */
+.hero-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-16);
+}
+
+.hero-btn {
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 220px;
+  min-height: var(--btn-height-lg);
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: var(--tracking-normal);
+  font-family: var(--font-body);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hero-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform var(--duration-700) var(--ease-out);
+}
+
+.hero-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.hero-btn-primary {
+  background: var(--gradient-brand);
+  color: var(--white);
+  border: none;
+  box-shadow: 
+    0 8px 20px rgba(45, 212, 218, 0.25),
+    0 4px 12px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 12px 28px rgba(45, 212, 218, 0.35),
+    0 6px 16px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(
+    135deg, 
+    var(--brand-cyan-400) 0%, 
+    var(--brand-blue-400) 100%
+  );
+}
+
+.hero-btn-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--white-alpha-95) 0%,
+    var(--white-alpha-90) 100%
+  );
+  color: var(--brand-blue-700);
+  border: var(--border-1) solid var(--brand-blue-200);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+}
+
+.hero-btn-secondary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--neutral-50) 100%
+  );
+  border-color: var(--brand-blue-400);
+  color: var(--brand-blue-800);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 10px 24px rgba(59, 130, 246, 0.2),
+    0 5px 12px rgba(45, 212, 218, 0.1);
+}
+
+.hero-btn i {
+  transition: transform var(--duration-300) var(--ease-out);
+  font-size: var(--text-xl);
+}
+
+.hero-btn:hover i {
+  transform: translateX(6px);
+}
+
+/* =====================================================
+   2. 📊 STATISTICS SECTION - ENGINEERCONNECT SOCIAL PROOF
+   ===================================================== */
+
+.stats-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-12);
+  margin-top: var(--space-12);
+  flex-wrap: wrap;
+  animation: engineerConnectFadeInUp 1s var(--ease-out) 0.8s both;
+  padding: 0 var(--space-4);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-8);
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--neutral-50) 100%
+  );
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: var(--border-1) solid var(--brand-blue-100);
+  border-radius: var(--radius-2xl);
+  min-width: 240px;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.08),
+    0 2px 6px rgba(45, 212, 218, 0.05);
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-brand);
+  transform: scaleX(0);
+  transition: transform var(--duration-500) var(--ease-out);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+}
+
+.stat-item:hover::before {
+  transform: scaleX(1);
+}
+
+.stat-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--brand-blue-300);
+  background: var(--white);
+  box-shadow: 
+    0 12px 28px rgba(59, 130, 246, 0.15),
+    0 6px 16px rgba(45, 212, 218, 0.1);
+}
+
+.stat-number {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: var(--font-black);
+  background: var(--gradient-text-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  margin-bottom: var(--space-3);
+  line-height: var(--leading-none);
+  font-family: var(--font-display);
+}
+
+.stat-label {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   3. ✨ FEATURES SECTION - ENGINEERCONNECT VALUE PROPOSITION
+   ===================================================== */
+
+.features-section {
+  padding: var(--space-32) var(--space-8);
+  background: linear-gradient(
+    135deg,
+    var(--neutral-50) 0%,
+    var(--white) 50%,
+    var(--neutral-50) 100%
+  );
+  background-image: 
+    radial-gradient(circle at 15% 15%, var(--cyan-alpha-5) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, var(--blue-alpha-5) 0%, transparent 50%);
+  margin-top: var(--space-20);
+  position: relative;
+}
+
+.features-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    var(--cyan-alpha-5) 25%,
+    transparent 50%,
+    var(--blue-alpha-5) 75%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.features-header {
+  text-align: center;
+  max-width: var(--container-2xl);
+  margin: 0 auto var(--space-20);
+  position: relative;
+  z-index: 2;
+}
+
+.features-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  background: var(--gradient-text-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features-header p {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
+  font-family: var(--font-body);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--space-10);
+  max-width: var(--container-6xl);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-card {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--white-alpha-95) 100%
+  );
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: var(--border-1) solid var(--brand-blue-100);
+  border-radius: var(--radius-3xl);
+  padding: var(--space-12);
+  text-align: center;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.06),
+    0 4px 12px rgba(45, 212, 218, 0.04);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-brand);
+  transform: scaleX(0);
+  transition: transform var(--duration-500) var(--ease-out);
+  border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--duration-300) var(--ease-out);
+  border-radius: inherit;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover::after {
+  opacity: 0.03;
+}
+
+.feature-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  border-color: var(--brand-blue-300);
+  background: var(--white);
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.15),
+    0 10px 24px rgba(45, 212, 218, 0.08);
+}
+
+.feature-icon {
+  width: 88px;
+  height: 88px;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-8);
+  font-size: var(--text-3xl);
+  color: var(--white);
+  position: relative;
+  transition: var(--transition-smooth);
+  box-shadow: 
+    0 8px 20px rgba(45, 212, 218, 0.2),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1) rotate(8deg);
+  box-shadow: 
+    0 12px 28px rgba(45, 212, 218, 0.3),
+    0 6px 16px rgba(59, 130, 246, 0.2);
+}
+
+.feature-card h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-tight);
+  font-family: var(--font-headings);
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-lg);
+  margin-bottom: 0;
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   4. 🔄 HOW IT WORKS - ENGINEERCONNECT PROCESS EXCELLENCE
+   ===================================================== */
+
+.how-it-works-section {
+  padding: var(--space-32) var(--space-8);
+  background: var(--white);
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 20% 20%, var(--cyan-alpha-5) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, var(--blue-alpha-5) 0%, transparent 60%);
+}
+
+.how-it-works-header {
+  text-align: center;
+  max-width: var(--container-2xl);
+  margin: 0 auto var(--space-20);
+}
+
+.how-it-works-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-tight);
+  background: var(--gradient-text-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.how-it-works-header p {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-family: var(--font-body);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-12);
+  max-width: var(--container-5xl);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* EngineerConnect Connection Lines */
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    var(--brand-cyan-300) 25%, 
+    var(--brand-blue-300) 50%,
+    var(--brand-cyan-300) 75%, 
+    transparent 100%
+  );
+  opacity: 0.5;
+  z-index: 1;
+  border-radius: var(--radius-full);
+}
+
+.step-card {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transition: var(--transition-smooth);
+  padding: var(--space-4);
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+}
+
+.step-number {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-8);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--white);
+  box-shadow: 
+    0 8px 20px rgba(45, 212, 218, 0.25),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+  position: relative;
+  transition: var(--transition-smooth);
+  font-family: var(--font-display);
+}
+
+.step-number::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--duration-300) var(--ease-out);
+  z-index: -1;
+}
+
+.step-card:hover .step-number::before {
+  opacity: 0.2;
+}
+
+.step-card:hover .step-number {
+  transform: scale(1.15);
+  box-shadow: 
+    0 12px 28px rgba(45, 212, 218, 0.35),
+    0 6px 16px rgba(59, 130, 246, 0.2);
+}
+
+.step-card h3 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+  font-family: var(--font-headings);
+}
+
+.step-card p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-lg);
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   5. 💬 TESTIMONIALS - ENGINEERCONNECT SUCCESS STORIES
+   ===================================================== */
+
+.testimonials-section {
+  padding: var(--space-32) var(--space-8);
+  background: linear-gradient(
+    135deg,
+    var(--neutral-50) 0%,
+    var(--white) 50%,
+    var(--neutral-50) 100%
+  );
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--blue-alpha-5) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, var(--cyan-alpha-5) 0%, transparent 50%);
+}
+
+.testimonials-header {
+  text-align: center;
+  max-width: var(--container-2xl);
+  margin: 0 auto var(--space-20);
+}
+
+.testimonials-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  background: var(--gradient-text-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.testimonials-header p {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-family: var(--font-body);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: var(--space-10);
+  max-width: var(--container-6xl);
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--white-alpha-95) 100%
+  );
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: var(--border-1) solid var(--brand-blue-100);
+  border-radius: var(--radius-3xl);
+  padding: var(--space-12);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.06),
+    0 4px 12px rgba(45, 212, 218, 0.04);
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gradient-brand);
+  transform: scaleY(0);
+  transition: transform var(--duration-500) var(--ease-out);
+  border-radius: 0 0 0 var(--radius-3xl);
+}
+
+.testimonial-card:hover::before {
+  transform: scaleY(1);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--brand-blue-300);
+  background: var(--white);
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.12),
+    0 10px 24px rgba(45, 212, 218, 0.08);
+}
+
+.testimonial-content {
+  margin-bottom: var(--space-8);
+  position: relative;
+}
+
+.testimonial-content::before {
+  content: '"';
+  position: absolute;
+  top: -12px;
+  left: -20px;
+  font-size: 5rem;
+  color: var(--brand-cyan-300);
+  font-family: Georgia, serif;
+  line-height: 1;
+  opacity: 0.5;
+  font-weight: var(--font-bold);
+}
+
+.testimonial-content p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  font-style: italic;
+  font-size: var(--text-lg);
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.author-avatar {
+  width: 68px;
+  height: 68px;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-xl);
+  box-shadow: 
+    0 6px 16px rgba(45, 212, 218, 0.2),
+    0 3px 8px rgba(59, 130, 246, 0.15);
+  flex-shrink: 0;
+  transition: var(--transition-base);
+  font-family: var(--font-display);
+}
+
+.testimonial-card:hover .author-avatar {
+  transform: scale(1.12);
+  box-shadow: 
+    0 8px 20px rgba(45, 212, 218, 0.3),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.author-info h4 {
+  color: var(--text-primary);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-1);
+  line-height: var(--leading-tight);
+  font-family: var(--font-headings);
+}
+
+.author-info p {
+  color: var(--text-tertiary);
+  font-size: var(--text-base);
+  margin: 0;
+  font-style: normal;
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   6. 📱 RESPONSIVE DESIGN
+   ===================================================== */
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .hero-section {
+    padding: var(--space-20) var(--space-10);
+  }
+  
+  .features-grid,
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .steps-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-12) var(--space-4);
+    min-height: calc(100vh - var(--header-height-tablet));
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: var(--space-4);
+  }
+  
+  .hero-description {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-8);
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .hero-btn {
+    width: 100%;
+    max-width: 300px;
+    min-width: auto;
+  }
+  
+  .stats-section {
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+  
+  .stat-item {
+    min-width: 180px;
+    padding: var(--space-4);
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: var(--space-16) var(--space-4);
+  }
+  
+  .features-grid,
+  .steps-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  
+  .steps-grid::before {
+    display: none;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    font-size: var(--text-xl);
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: var(--text-xl);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: var(--space-10) var(--space-3);
+    min-height: calc(100vh - var(--header-height-mobile));
+  }
+  
+  .hero-badge {
+    margin-bottom: var(--space-6);
+    padding: var(--space-2) var(--space-3);
+  }
+  
+  .hero-title {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+  }
+  
+  .hero-description {
+    font-size: var(--text-base);
+  }
+  
+  .stats-section {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  
+  .stat-item {
+    width: 100%;
+    max-width: 280px;
+    min-width: auto;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: var(--space-12) var(--space-3);
+  }
+  
+  .feature-card,
+  .testimonial-card {
+    padding: var(--space-6);
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .author-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: var(--text-lg);
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+  .hero-section {
+    padding: var(--space-8) var(--space-2);
+  }
+  
+  .hero-btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-sm);
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: var(--space-10) var(--space-2);
+  }
+  
+  .feature-card,
+  .testimonial-card {
+    padding: var(--space-4);
+  }
+}
+
+/* =====================================================
+   6. � ANIMATIONS & MICRO-INTERACTIONS - ENGINEERCONNECT
+   ===================================================== */
+
+/* EngineerConnect Smooth Reveal Animation */
+@keyframes slideInUpEngineering {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* EngineerConnect Brand Pulse Effect */
+@keyframes pulseEngineerConnect {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 8px 24px rgba(59, 130, 246, 0.15),
+      0 4px 12px rgba(45, 212, 218, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      0 12px 32px rgba(59, 130, 246, 0.25),
+      0 6px 16px rgba(45, 212, 218, 0.15);
+  }
+}
+
+/* Professional Glow for EngineerConnect Elements */
+@keyframes professionalGlow {
+  0%, 100% {
+    box-shadow: 
+      0 6px 20px rgba(59, 130, 246, 0.1),
+      0 3px 10px rgba(45, 212, 218, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 8px 28px rgba(59, 130, 246, 0.18),
+      0 4px 14px rgba(45, 212, 218, 0.1);
+  }
+}
+
+/* EngineerConnect Connection Animation */
+@keyframes engineerConnectFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Smooth Brand Transition */
+@keyframes brandTransition {
+  0% {
+    background: linear-gradient(135deg, var(--brand-blue-500) 0%, var(--brand-cyan-500) 100%);
+    transform: scale(1);
+  }
+  50% {
+    background: linear-gradient(135deg, var(--brand-cyan-500) 0%, var(--brand-blue-500) 100%);
+    transform: scale(1.02);
+  }
+  100% {
+    background: linear-gradient(135deg, var(--brand-blue-500) 0%, var(--brand-cyan-500) 100%);
+    transform: scale(1);
+  }
+}
+
+/* Scroll-triggered animations for EngineerConnect */
+@media (prefers-reduced-motion: no-preference) {
+  .features-grid > *,
+  .steps-container > *,
+  .testimonials-grid > * {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideInUpEngineering 0.8s var(--ease-out) forwards;
+  }
+  
+  .features-grid > *:nth-child(1) { animation-delay: 0.1s; }
+  .features-grid > *:nth-child(2) { animation-delay: 0.2s; }
+  .features-grid > *:nth-child(3) { animation-delay: 0.3s; }
+  .features-grid > *:nth-child(4) { animation-delay: 0.4s; }
+  
+  .steps-container > *:nth-child(1) { animation-delay: 0.1s; }
+  .steps-container > *:nth-child(2) { animation-delay: 0.2s; }
+  .steps-container > *:nth-child(3) { animation-delay: 0.3s; }
+  .steps-container > *:nth-child(4) { animation-delay: 0.4s; }
+  
+  .testimonials-grid > *:nth-child(1) { animation-delay: 0.1s; }
+  .testimonials-grid > *:nth-child(2) { animation-delay: 0.2s; }
+  .testimonials-grid > *:nth-child(3) { animation-delay: 0.3s; }
+}
+
+/* Reduced Motion Support for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =====================================================
+   7. 📱 RESPONSIVE DESIGN - ENGINEERCONNECT MOBILE
+   ===================================================== */
+
+/* EngineerConnect Tablet Experience */
+@media (max-width: 1024px) {
+  
+  .hero-content {
+    padding: var(--space-20) var(--space-6);
+  }
+  
+  .hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    line-height: var(--leading-tight);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+  
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: var(--space-8);
+  }
+}
+
+/* EngineerConnect Mobile Experience */
+@media (max-width: 768px) {
+  
+  .hero-section {
+    padding: var(--space-24) var(--space-4);
+    min-height: 85vh;
+  }
+  
+  .hero-content {
+    padding: var(--space-16) var(--space-4);
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: var(--space-6);
+  }
+  
+  .hero-content p {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-10);
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: stretch;
+  }
+  
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+  }
+  
+  .stats-section {
+    padding: var(--space-16) var(--space-4);
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    max-width: 400px;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: var(--space-20) var(--space-4);
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  
+  .feature-card {
+    padding: var(--space-8);
+    text-align: center;
+  }
+  
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  
+  .step-card {
+    padding: var(--space-8);
+  }
+  
+  .step-number {
+    position: static;
+    margin: 0 auto var(--space-6);
+    transform: none;
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  
+  .testimonial-card {
+    padding: var(--space-8);
+  }
+}
+
+/* EngineerConnect Small Mobile Experience */
+@media (max-width: 480px) {
+  
+  .hero-content h1 {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+    margin-bottom: var(--space-4);
+  }
+  
+  .hero-content p {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-8);
+  }
+  
+  .brand-badge {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+  
+  .feature-card,
+  .step-card,
+  .testimonial-card {
+    padding: var(--space-6);
+  }
+  
+  .feature-icon,
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: var(--text-xl);
+  }
+  
+  .stat-card {
+    padding: var(--space-6);
+  }
+  
+  .stat-number {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+}
+
+/* =====================================================
+   8. � ENGINEERCONNECT HOME PAGE DOCUMENTATION
+   ===================================================== 
+   
+   EngineerConnect Home Page - Professional Blue & White Theme
+   
+   ✨ Key Features:
+   - Premium hero section with EngineerConnect branding
+   - Professional blue and white design system
+   - Glass morphism with brand colors
+   - EngineerConnect success statistics
+   - Engineering-focused testimonials
+   - Performance-optimized animations
+   - Accessibility-first approach
+   
+   🎨 Design Philosophy:
+   - Professional engineering aesthetics
+   - Blue and white color harmony
+   - Clean, modern typography
+   - Trust-building visual hierarchy
+   - Mobile-first responsive approach
+   
+   📱 EngineerConnect Mobile Strategy:
+   - Touch-friendly engineering interfaces
+   - Optimized for technical professionals
+   - Fast loading on all devices
+   - Professional presentation on mobile
+   
+   ===================================================== */
+
+
+
+.testimonials-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+.testimonials-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  transition: var(--transition);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 173, 181, 0.3);
+}
+
+.testimonial-content {
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-content p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.author-info h4 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.author-info p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem;
+    min-height: calc(100vh - var(--mobile-header-height));
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1.125rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .hero-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .stats-section {
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .stat-item {
+    min-width: 150px;
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: 4rem 1rem;
+  }
+  
+  .features-header h2,
+  .how-it-works-header h2,
+  .testimonials-header h2 {
+    font-size: 2rem;
+  }
+  
+  .features-grid,
+  .steps-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .stats-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: 3rem 0.75rem;
+  }
+  
+  .feature-card,
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+}

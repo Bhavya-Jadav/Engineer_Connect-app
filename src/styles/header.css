@@ -1,0 +1,776 @@
+/* =====================================================
+   📋 HEADER STYLES - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--brand-blue-200);
+  padding: 0;
+  z-index: 1000;
+  height: var(--header-height, 80px);
+  display: flex;
+  align-items: center;
+  box-shadow: 
+    0 2px 8px rgba(59, 130, 246, 0.08),
+    0 8px 32px rgba(59, 130, 246, 0.06),
+    0 0 0 1px rgba(59, 130, 246, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background-color;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.03) 0%,
+    rgba(45, 212, 218, 0.02) 50%,
+    rgba(59, 130, 246, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.header:hover::before {
+  opacity: 1;
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom-color: var(--brand-blue-300);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.12),
+    0 16px 64px rgba(59, 130, 246, 0.08),
+    0 0 0 1px var(--brand-blue-200);
+}
+
+.header-container {
+  margin: 0;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  z-index: 2;
+}
+
+/* =====================================================
+   🎨 PREMIUM LOGO - ENGINEERCONNECT BRANDING
+   ===================================================== */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--brand-blue-600);
+  text-decoration: none;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: -0.02em;
+  font-family: var(--font-headings);
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gradient-brand);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-full);
+}
+
+.logo:hover::after {
+  width: 100%;
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 8px 32px rgba(59, 130, 246, 0.25);
+  color: var(--brand-blue-700);
+}
+
+.logo i {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.logo i::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.logo:hover i::before {
+  opacity: 1;
+  animation: engineerConnectPulse 2s ease-in-out infinite;
+}
+
+.logo-text {
+  display: inline-block;
+  font-size: 1.65rem;
+  color: var(--brand-blue-600);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  position: relative;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: engineerConnectShimmer 3s ease-in-out infinite;
+  font-family: var(--font-headings);
+}
+
+/* =====================================================
+   👤 ENHANCED USER SECTION - ENGINEERCONNECT STYLING
+   ===================================================== */
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-xl);
+  background: rgba(59, 130, 246, 0.05);
+  border: var(--border-2) solid var(--brand-blue-200);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 48px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(59, 130, 246, 0.08), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.user-info:hover::before {
+  left: 100%;
+}
+
+.user-info:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: var(--brand-blue-400);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.15),
+    0 0 0 1px var(--brand-blue-300);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-name, 
+.username {
+  font-weight: 600;
+  color: var(--brand-blue-700);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  font-family: var(--font-body);
+}
+
+.user-role {
+  font-size: 13px;
+  color: var(--brand-blue-500);
+  font-weight: 500;
+  opacity: 0.8;
+  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   🖼️ PREMIUM PROFILE PICTURES - ENGINEERCONNECT STYLE
+   ===================================================== */
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: var(--border-3) solid var(--brand-blue-300);
+  display: block;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-100),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+  position: relative;
+}
+
+.profile-picture::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.profile-picture:hover::after {
+  opacity: 1;
+}
+
+.profile-picture:hover {
+  transform: scale(1.05);
+  border-color: var(--brand-blue-500);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-200),
+    0 8px 24px rgba(59, 130, 246, 0.25),
+    0 0 0 4px rgba(59, 130, 246, 0.08);
+}
+
+.profile-picture-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 40px;
+  min-height: 40px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-100),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+}
+
+.profile-picture-placeholder::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, 
+    var(--brand-blue-400), 
+    var(--brand-cyan-400));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.profile-picture-placeholder:hover::before {
+  opacity: 1;
+}
+
+.profile-picture-placeholder:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-200),
+    0 8px 24px rgba(59, 130, 246, 0.25),
+    0 0 0 4px rgba(59, 130, 246, 0.08);
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-100),
+    0 6px 16px rgba(59, 130, 246, 0.2);
+  font-family: var(--font-body);
+}
+
+.user-avatar:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-300),
+    0 12px 32px rgba(59, 130, 246, 0.3);
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Navigation & Authentication */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* =====================================================
+   ⬅️ PREMIUM BACK BUTTON - ENGINEERCONNECT STYLING
+   ===================================================== */
+
+.header-back-btn {
+  position: absolute;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: var(--border-2) solid var(--brand-blue-200);
+  color: var(--brand-blue-600);
+  padding: 10px 14px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+
+.header-back-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(59, 130, 246, 0.1), 
+    transparent);
+  transition: left 0.4s ease;
+}
+
+.header-back-btn:hover::before {
+  left: 100%;
+}
+
+.header-back-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--brand-blue-400);
+  color: var(--brand-blue-700);
+  transform: translateX(-2px) scale(1.02);
+  box-shadow: 
+    0 4px 16px rgba(59, 130, 246, 0.15),
+    0 0 0 1px var(--brand-blue-300);
+}
+
+.header-back-btn i {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+  color: var(--brand-blue-500);
+}
+
+.header-back-btn:hover i {
+  transform: translateX(-1px);
+  color: var(--brand-blue-700);
+}
+
+.header.has-back-btn .logo {
+  margin-left: 80px;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================
+   ✨ PREMIUM ANIMATIONS - ENGINEERCONNECT BRANDED
+   ===================================================== */
+
+@keyframes engineerConnectPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes engineerConnectShimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes engineerConnectSlideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes engineerConnectFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Header entrance animation */
+.header {
+  animation: engineerConnectSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Floating effect for interactive elements */
+.user-info,
+.profile-picture,
+.profile-picture-placeholder {
+  animation: engineerConnectFloat 4s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.user-info {
+  --float-delay: 0.5s;
+}
+
+.profile-picture,
+.profile-picture-placeholder {
+  --float-delay: 1s;
+}
+
+/* =====================================================
+   📱 ENHANCED RESPONSIVE DESIGN - ENGINEERCONNECT OPTIMIZED
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .header {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px) saturate(150%);
+    height: var(--mobile-header-height, 70px);
+    padding: 0.5rem 0;
+    border-bottom: var(--border-2) solid var(--brand-blue-200);
+  }
+  
+  .header-container {
+    padding: 0 20px;
+  }
+  
+  .header-right {
+    gap: 1rem;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
+    gap: 10px;
+    color: var(--brand-blue-600);
+  }
+  
+  .logo i {
+    font-size: 24px;
+  }
+  
+  .user-details {
+    display: none;
+  }
+  
+  .user-info {
+    padding: 0.6rem 0.8rem;
+    gap: 10px;
+    background: rgba(59, 130, 246, 0.06);
+    border-color: var(--brand-blue-300);
+  }
+  
+  .profile-picture,
+  .profile-picture-placeholder {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 14px;
+    border-color: var(--brand-blue-400);
+  }
+  
+  .header-back-btn {
+    left: 16px;
+    padding: 8px 12px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--brand-blue-300);
+  }
+  
+  .header.has-back-btn .logo {
+    margin-left: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 64px !important;
+    padding: 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border-bottom: var(--border-2) solid var(--brand-blue-300) !important;
+    box-shadow: 
+      0 2px 12px rgba(59, 130, 246, 0.12),
+      0 8px 32px rgba(59, 130, 246, 0.08),
+      0 0 0 1px var(--brand-blue-200) !important;
+  }
+  
+  .header-container {
+    padding: 0 16px !important;
+    gap: 12px !important;
+    height: 100% !important;
+  }
+  
+  .header-right {
+    gap: 0.75rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem !important;
+    gap: 8px !important;
+    font-weight: 800 !important;
+    color: var(--brand-blue-700) !important;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem !important;
+  }
+
+  .logo i {
+    font-size: 22px !important;
+  }
+  
+  .user-info {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-lg);
+    gap: 8px;
+    min-height: 42px;
+    background: rgba(59, 130, 246, 0.08);
+    border-color: var(--brand-blue-400);
+  }
+  
+  .profile-picture,
+  .profile-picture-placeholder {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 13px;
+    border-color: var(--brand-blue-500);
+  }
+  
+  .header-back-btn {
+    left: 12px;
+    padding: 6px 10px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    background: rgba(255, 255, 255, 1);
+    border-color: var(--brand-blue-400);
+    color: var(--brand-blue-700);
+  }
+  
+  .header-back-btn i {
+    font-size: 14px;
+    color: var(--brand-blue-600);
+  }
+  
+  .header.has-back-btn .logo {
+    margin-left: 60px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-container {
+    padding: 0 12px !important;
+  }
+  
+  .logo {
+    font-size: 1.1rem !important;
+    gap: 6px;
+    color: var(--brand-blue-700) !important;
+  }
+  
+  .logo-text {
+    font-size: 1.1rem !important;
+  }
+  
+  .logo i {
+    font-size: 20px !important;
+  }
+  
+  .header-right {
+    gap: 0.5rem;
+  }
+  
+  .user-info {
+    padding: 0.4rem 0.6rem;
+    gap: 6px;
+    background: rgba(59, 130, 246, 0.1);
+  }
+  
+  .profile-picture,
+  .profile-picture-placeholder {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    font-size: 12px;
+  }
+  
+  .header-back-btn {
+    left: 8px;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: var(--brand-blue-700);
+  }
+  
+  .header-back-btn i {
+    font-size: 13px;
+    color: var(--brand-blue-600);
+  }
+  
+  .header.has-back-btn .logo {
+    margin-left: 50px !important;
+  }
+}
+
+/* =====================================================
+   🎯 ACCESSIBILITY & PREFERENCES - ENGINEERCONNECT COMPLIANT
+   ===================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .header {
+    border-bottom: var(--border-3) solid var(--brand-blue-400);
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  .user-info {
+    border: var(--border-3) solid var(--brand-blue-400);
+    background: var(--white);
+  }
+  
+  .profile-picture,
+  .profile-picture-placeholder {
+    border: var(--border-4) solid var(--brand-blue-600);
+  }
+  
+  .header-back-btn {
+    border: var(--border-3) solid var(--brand-blue-500);
+    background: var(--white);
+  }
+  
+  .logo,
+  .logo-text {
+    color: var(--brand-blue-800) !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .logo,
+  .user-info,
+  .profile-picture,
+  .profile-picture-placeholder,
+  .header-back-btn {
+    animation: none;
+    transition: none;
+  }
+  
+  .logo::after,
+  .user-info::before,
+  .header-back-btn::before {
+    display: none;
+  }
+  
+  .logo i::before,
+  .profile-picture::after,
+  .profile-picture-placeholder::before {
+    display: none;
+  }
+}

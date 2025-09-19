@@ -1,0 +1,2037 @@
+/* =====================================================
+   📋 PROFILE PAGE - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎨 Base Layout & Container
+   2. 🌟 Hero Section
+   3. 📱 Message Toast System
+   4. 👤 Profile Header & Avatar
+   5. 📝 Form Sections & Inputs
+   6. 🏷️ Skills & Tags System
+   7. 📊 Dynamic Entries System
+   8. 🎯 Action Buttons
+   9. 📱 Responsive Design
+   10. ✨ Animations & Transitions
+   ===================================================== */
+
+/* =====================================================
+   1. 🎨 BASE LAYOUT & CONTAINER - ENGINEERCONNECT
+   ===================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.profile-page {
+  min-height: 100vh;
+  height: auto;
+  background: linear-gradient(135deg, 
+    #f8fafc 0%, 
+    #f1f5f9 25%, 
+    #e2e8f0 75%, 
+    #cbd5e1 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding-top: 64px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.profile-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 60px 24px;
+  position: relative;
+  min-height: calc(100vh - 64px);
+  height: auto;
+}
+
+.profile-content {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(59, 130, 246, 0.12),
+    0 8px 24px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  width: 100%;
+  max-width: 900px;
+  overflow: visible;
+  transition: all 0.3s ease;
+  height: auto;
+  min-height: auto;
+}
+
+.profile-card:hover {
+  box-shadow: 
+    0 24px 80px rgba(59, 130, 246, 0.18),
+    0 12px 32px rgba(45, 212, 218, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 1) inset;
+}
+
+/* =====================================================
+   2. 🌟 HERO SECTION - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-hero {
+  background: linear-gradient(135deg, 
+    #3B82F6 0%, 
+    #2563EB 25%, 
+    #2DD4DA 75%, 
+    #06B6D4 100%);
+  padding: 40px 32px;
+  border-radius: 24px 24px 0 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.profile-hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-hero-text p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Completion Indicator */
+.profile-completion-indicator {
+  flex-shrink: 0;
+}
+
+.completion-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.completion-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.completion-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.completion-percentage {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.completion-label {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* =====================================================
+   3. 📱 MESSAGE TOAST SYSTEM - ENGINEERCONNECT
+   ===================================================== */
+
+.message-toast {
+  position: fixed;
+  top: 100px;
+  right: 24px;
+  z-index: 1050;
+  min-width: 350px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: toastSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.message-toast.success {
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.message-toast.error {
+  background: rgba(239, 68, 68, 0.95);
+  color: white;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.message-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.message-content i {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.message-content span {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.message-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.message-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =====================================================
+   4. 👤 PROFILE HEADER & AVATAR - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-header-modern {
+  padding: 32px;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.02) 0%, 
+    rgba(45, 212, 218, 0.01) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar-modern {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.profile-avatar-modern img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 4px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+  transition: all 0.3s ease;
+}
+
+.avatar-placeholder-modern {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 36px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  border: 3px solid white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.avatar-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.profile-info-modern h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.3px;
+}
+
+.profile-username-modern {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0 0 12px 0;
+  font-weight: 500;
+}
+
+.profile-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.1) 0%, 
+    rgba(45, 212, 218, 0.08) 100%);
+  color: #3B82F6;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.profile-role-badge i {
+  font-size: 12px;
+}
+
+/* =====================================================
+   5. 📝 FORM SECTIONS & INPUTS - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-edit-modern,
+.profile-display-modern {
+  padding: 32px;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+/* =====================================================
+   📦 UNIFIED EDIT CONTAINER - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-edit-container-unified {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.12),
+    0 4px 12px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  border: 2px solid rgba(59, 130, 246, 0.15);
+  overflow: visible;
+  position: relative;
+  margin: 0;
+}
+
+.profile-header-edit-modern {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.03) 0%, 
+    rgba(45, 212, 218, 0.02) 100%);
+  border-radius: 20px 20px 0 0;
+  position: relative;
+}
+
+.profile-header-edit-modern::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.3) 20%, 
+    rgba(45, 212, 218, 0.2) 80%, 
+    transparent 100%);
+  border-radius: 1.5px;
+}
+
+.profile-edit-container-unified .profile-edit-modern {
+  padding: 32px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* =====================================================
+   📦 UNIFIED DISPLAY CONTAINER - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-display-container-unified {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.12),
+    0 4px 12px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  border: 2px solid rgba(59, 130, 246, 0.15);
+  overflow: visible;
+  position: relative;
+  margin: 0;
+}
+
+.profile-header-display-modern {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.03) 0%, 
+    rgba(45, 212, 218, 0.02) 100%);
+  border-radius: 20px 20px 0 0;
+  position: relative;
+}
+
+.profile-header-display-modern::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.3) 20%, 
+    rgba(45, 212, 218, 0.2) 80%, 
+    transparent 100%);
+  border-radius: 1.5px;
+}
+
+.profile-display-container-unified .profile-display-modern {
+  padding: 32px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+.form-section-modern,
+.profile-section-modern {
+  margin-bottom: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  padding: 28px;
+  transition: all 0.3s ease;
+  height: auto;
+  overflow: visible;
+  position: relative;
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.12),
+    0 4px 12px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.form-section-modern:hover,
+.profile-section-modern:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 28px rgba(59, 130, 246, 0.15),
+    0 6px 16px rgba(45, 212, 218, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section-header-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.section-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  box-shadow: 
+    0 6px 16px rgba(59, 130, 246, 0.25),
+    0 2px 8px rgba(45, 212, 218, 0.15);
+  transition: all 0.3s ease;
+}
+
+.section-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 8px 20px rgba(59, 130, 246, 0.35),
+    0 4px 12px rgba(45, 212, 218, 0.25);
+}
+
+.section-title h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.4px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.section-title p {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.form-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  align-items: start;
+}
+
+.form-group-modern {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.form-group-modern.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group-modern label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1E293B;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.1px;
+}
+
+.form-group-modern label i {
+  color: #3B82F6;
+  font-size: 0.85rem;
+}
+
+/* Enhanced Input Styling */
+.input-modern {
+  padding: 14px 18px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-radius: 14px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  color: #0F172A;
+  font-weight: 500;
+  min-height: 52px;
+  box-sizing: border-box;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.input-modern:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.input-modern:focus {
+  outline: none;
+  border-color: #3B82F6;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.12),
+    0 4px 16px rgba(59, 130, 246, 0.15),
+    0 2px 8px rgba(45, 212, 218, 0.1);
+  transform: translateY(-1px);
+}
+
+.input-modern::placeholder {
+  color: #64748B;
+  font-weight: 400;
+}
+
+/* Select Field Styling */
+select.input-modern {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  padding-right: 50px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Textarea Styling */
+textarea.input-modern {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+  padding: 16px 18px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Radio Button Styling */
+.radio-group-modern {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.radio-option-modern {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #1E293B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.radio-option-modern:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.radio-option-modern input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3B82F6;
+}
+
+.radio-option-modern input[type="radio"]:checked + label {
+  color: #3B82F6;
+  font-weight: 600;
+}
+
+/* Disabled Input Styling */
+.input-modern:disabled {
+  background: rgba(248, 250, 252, 0.95);
+  color: #475569;
+  cursor: not-allowed;
+  border-color: rgba(203, 213, 225, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.input-modern:disabled:hover {
+  transform: none;
+  border-color: rgba(203, 213, 225, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================================================
+   6. 🏷️ SKILLS & TAGS SYSTEM - ENGINEERCONNECT
+   ===================================================== */
+
+.skills-input-modern {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: flex-end;
+}
+
+.skills-input-modern .input-modern {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.add-skill-btn-modern {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.25),
+    0 2px 6px rgba(45, 212, 218, 0.15);
+  flex-shrink: 0;
+}
+
+.add-skill-btn-modern:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.35),
+    0 4px 10px rgba(45, 212, 218, 0.25);
+}
+
+.add-skill-btn-modern:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.skills-list-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skill-with-proficiency {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(59, 130, 246, 0.15);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  min-height: 68px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.skill-with-proficiency:hover {
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.skill-name-input {
+  flex: 2;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0F172A;
+  outline: none;
+  min-height: 36px;
+  padding: 8px 0;
+}
+
+.skill-name-input:focus {
+  color: #3B82F6;
+}
+
+.skill-name-input::placeholder {
+  color: #64748B;
+  font-weight: 400;
+}
+
+.skill-proficiency-select {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 1);
+  color: #3B82F6;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.skill-proficiency-select:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.skill-proficiency-select:focus {
+  outline: none;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.skill-remove-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.skill-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: scale(1.1);
+}
+
+.skill-remove-btn:active {
+  transform: scale(1.05);
+}
+
+/* Skills Display Mode */
+.skills-display-modern {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.skill-badge-modern {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.12) 0%, 
+    rgba(45, 212, 218, 0.1) 100%);
+  color: #3B82F6;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.skill-badge-modern:hover {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.18) 0%, 
+    rgba(45, 212, 218, 0.15) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.skill-badge-modern .skill-proficiency {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* =====================================================
+   7. 📊 DYNAMIC ENTRIES SYSTEM - ENGINEERCONNECT
+   ===================================================== */
+
+.add-section-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 
+    0 4px 12px rgba(16, 185, 129, 0.25),
+    0 2px 6px rgba(16, 185, 129, 0.15);
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.add-section-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(16, 185, 129, 0.35),
+    0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.add-section-btn:active {
+  transform: translateY(-1px);
+}
+
+.add-section-btn i {
+  font-size: 0.9rem;
+}
+
+/* Ensure content flows properly */
+.form-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  min-height: auto;
+  align-items: start;
+}
+
+/* Ensure proper scrolling for form sections */
+.form-section-modern:last-child {
+  margin-bottom: 80px;
+}
+
+/* Enhanced Dynamic Entry Styling */
+.dynamic-entry {
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(59, 130, 246, 0.15);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+  height: auto;
+  overflow: visible;
+  position: relative;
+  animation: slideInFromTop 0.4s ease-out;
+  box-shadow: 
+    0 4px 16px rgba(59, 130, 246, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+.dynamic-entry:hover {
+  border-color: rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.12),
+    0 4px 12px rgba(45, 212, 218, 0.08);
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+}
+
+.entry-header h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.entry-header h4::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.remove-entry-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.remove-entry-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: scale(1.1);
+}
+
+.remove-entry-btn:active {
+  transform: scale(1.05);
+}
+
+/* Enhanced Form Groups within Dynamic Entries */
+.dynamic-entry .form-group-modern {
+  margin-bottom: 0;
+}
+
+.dynamic-entry .form-grid-modern {
+  gap: 20px;
+}
+
+.dynamic-entry .input-modern {
+  border-color: rgba(59, 130, 246, 0.15);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dynamic-entry .input-modern:focus {
+  border-color: #3B82F6;
+  background: rgba(255, 255, 255, 1);
+}
+
+.dynamic-entry .input-modern:hover {
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Special styling for URL inputs */
+input[type="url"].input-modern {
+  padding-left: 45px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'%3e%3c/path%3e%3cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'%3e%3c/path%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  background-size: 18px;
+}
+
+/* Special styling for date inputs */
+input[type="month"].input-modern,
+input[type="date"].input-modern {
+  padding-left: 45px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3e%3c/rect%3e%3cline x1='16' y1='2' x2='16' y2='6'%3e%3c/line%3e%3cline x1='8' y1='2' x2='8' y2='6'%3e%3c/line%3e%3cline x1='3' y1='10' x2='21' y2='10'%3e%3c/line%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+/* =====================================================
+   8. 🎯 ACTION BUTTONS - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-actions-modern {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-edit-profile {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.btn-edit-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.edit-actions-modern {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-cancel {
+  padding: 12px 20px;
+  background: rgba(107, 114, 128, 0.1);
+  color: #6B7280;
+  border: 2px solid rgba(107, 114, 128, 0.2);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-cancel:hover {
+  background: rgba(107, 114, 128, 0.15);
+  border-color: #6B7280;
+  transform: translateY(-1px);
+}
+
+.btn-save {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-save:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =====================================================
+   9. PROFILE DISPLAY & DETAILS - ENGINEERCONNECT
+   ===================================================== */
+
+.profile-details-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-item-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+.detail-item-modern:last-child {
+  border-bottom: none;
+}
+
+.detail-label-modern {
+  font-weight: 600;
+  color: #64748B;
+  font-size: 0.9rem;
+}
+
+.detail-value-modern {
+  font-weight: 500;
+  color: #1E293B;
+  font-size: 1rem;
+  text-align: right;
+  max-width: 60%;
+}
+
+.profile-bio-modern {
+  background: rgba(59, 130, 246, 0.04);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #3B82F6;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  font-style: italic;
+}
+
+/* =====================================================
+   10. CONTINUE SECTION - ENGINEERCONNECT ENHANCED
+   ===================================================== */
+
+.profile-continue-section {
+  background: linear-gradient(135deg, 
+    rgba(244, 247, 255, 1) 0%, 
+    rgba(248, 250, 255, 1) 50%,
+    rgba(240, 245, 255, 1) 100%);
+  margin: 48px 0 0 0;
+  padding: 0;
+  border-radius: 24px;
+  border: 2px solid rgba(59, 130, 246, 0.08);
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.08),
+    0 8px 16px rgba(45, 212, 218, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.profile-continue-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    #3B82F6 0%, 
+    #2DD4DA 50%, 
+    #3B82F6 100%);
+  border-radius: 24px 24px 0 0;
+}
+
+.profile-continue-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  animation: floatGlow 6s ease-in-out infinite;
+}
+
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-60%) translateX(20px);
+    opacity: 0.5;
+  }
+}
+
+.continue-content {
+  position: relative;
+  z-index: 3;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px 40px 52px 40px;
+  text-align: center;
+}
+
+.continue-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px auto;
+  color: white;
+  font-size: 32px;
+  box-shadow: 
+    0 12px 28px rgba(59, 130, 246, 0.25),
+    0 6px 14px rgba(45, 212, 218, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  animation: iconPulse 4s ease-in-out infinite;
+  position: relative;
+}
+
+.continue-icon::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(45, 212, 218, 0.2));
+  border-radius: 28px;
+  z-index: -1;
+  animation: iconGlow 4s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+  }
+}
+
+@keyframes iconGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.continue-title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #0F172A;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.continue-description {
+  font-size: 1.2rem;
+  color: #475569;
+  margin: 0 0 40px 0;
+  line-height: 1.7;
+  font-weight: 500;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.continue-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 40px;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 2px solid rgba(59, 130, 246, 0.08);
+  box-shadow: 
+    0 8px 20px rgba(59, 130, 246, 0.08),
+    0 4px 10px rgba(45, 212, 218, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.continue-stats::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0.3) 0%, 
+    rgba(45, 212, 218, 0.3) 50%, 
+    rgba(59, 130, 246, 0.3) 100%);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  padding: 16px 12px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(59, 130, 246, 0.04);
+  transform: translateY(-2px);
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.2) 50%, 
+    transparent 100%);
+  border-radius: 1px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #64748B;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-continue-modern {
+  padding: 20px 48px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.25),
+    0 8px 20px rgba(45, 212, 218, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.3px;
+}
+
+.btn-continue-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    transparent 100%);
+  transition: left 0.6s ease;
+}
+
+.btn-continue-modern:hover::before {
+  left: 100%;
+}
+
+.btn-continue-modern:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 
+    0 20px 48px rgba(59, 130, 246, 0.35),
+    0 12px 28px rgba(45, 212, 218, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #2563EB 0%, #0891B2 100%);
+}
+
+.btn-continue-modern:active {
+  transform: translateY(-2px) scale(1.01);
+  transition: all 0.15s ease;
+}
+
+.btn-continue-modern:focus {
+  outline: none;
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.25),
+    0 8px 20px rgba(45, 212, 218, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.btn-continue-modern i {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.1em;
+}
+
+.btn-continue-modern:hover i {
+  transform: translateX(4px) rotate(5deg);
+}
+
+.continue-note {
+  font-size: 1rem;
+  color: #64748B;
+  margin: 0;
+  font-weight: 500;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =====================================================
+   11. 📱 RESPONSIVE DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding-top: 56px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .profile-page-container {
+    padding: 16px 16px 80px 16px;
+    min-height: calc(100vh - 56px);
+  }
+  
+  .profile-hero {
+    padding: 24px 20px;
+    text-align: center;
+  }
+  
+  .profile-hero-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .profile-hero-text h1 {
+    font-size: 2rem;
+  }
+  
+  .profile-hero-text p {
+    font-size: 1rem;
+  }
+  
+  .completion-circle {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .completion-percentage {
+    font-size: 1.5rem;
+  }
+  
+  .profile-header-modern {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  
+  .profile-header-edit-modern {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  
+  .profile-avatar-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-edit-modern,
+  .profile-display-modern {
+    padding: 20px;
+  }
+  
+  .profile-edit-container-unified .profile-edit-modern {
+    padding: 20px;
+  }
+  
+  .form-grid-modern {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .section-header-content {
+    width: 100%;
+  }
+  
+  .add-section-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .skills-input-modern {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .skill-with-proficiency {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  .skill-name-input {
+    min-width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  .skill-proficiency-select {
+    flex: none;
+    width: 140px;
+  }
+  
+  .message-toast {
+    right: 16px;
+    left: 16px;
+    min-width: auto;
+  }
+  
+  .profile-continue-section {
+    margin: 32px 16px 0 16px;
+    padding: 0;
+    border-radius: 20px;
+  }
+  
+  .continue-content {
+    padding: 36px 24px 40px 24px;
+  }
+  
+  .continue-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 26px;
+    margin-bottom: 24px;
+    border-radius: 20px;
+  }
+  
+  .continue-title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  
+  .continue-description {
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+  }
+  
+  .continue-stats {
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 20px;
+    margin-bottom: 32px;
+    border-radius: 16px;
+  }
+  
+  .stat-item {
+    flex: none;
+    padding: 12px 8px;
+  }
+  
+  .stat-item:not(:last-child)::after {
+    display: none;
+  }
+  
+  .stat-item:not(:last-child) {
+    border-bottom: 2px solid rgba(59, 130, 246, 0.08);
+    padding-bottom: 20px;
+    margin-bottom: 0;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+  }
+  
+  .btn-continue-modern {
+    padding: 18px 36px;
+    font-size: 1.1rem;
+    gap: 14px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .continue-note {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .dynamic-entry {
+    padding: 20px 16px;
+  }
+  
+  .entry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .remove-entry-btn {
+    align-self: flex-end;
+  }
+  
+  /* Mobile form improvements */
+  .input-modern {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 16px 18px;
+    min-height: 54px;
+  }
+  
+  textarea.input-modern {
+    min-height: 120px;
+  }
+  
+  .radio-group-modern {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .radio-option-modern {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-hero-text h1 {
+    font-size: 1.7rem;
+  }
+  
+  .profile-avatar-modern {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .avatar-placeholder-modern {
+    font-size: 28px;
+  }
+  
+  .profile-info-modern h2 {
+    font-size: 1.5rem;
+  }
+  
+  .profile-header-edit-modern {
+    padding: 20px 16px;
+  }
+  
+  .profile-actions-modern {
+    width: 100%;
+  }
+  
+  .edit-actions-modern {
+    width: 100%;
+  }
+  
+  .btn-edit-profile,
+  .btn-cancel,
+  .btn-save {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .form-section-modern,
+  .profile-section-modern {
+    padding: 20px 16px;
+    margin-bottom: 32px;
+  }
+  
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  .section-title h3 {
+    font-size: 1.2rem;
+  }
+  
+  .section-title p {
+    font-size: 0.9rem;
+  }
+  
+  .dynamic-entry {
+    padding: 16px 12px;
+  }
+  
+  .detail-item-modern {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .detail-value-modern {
+    text-align: left;
+    max-width: 100%;
+  }
+  
+  .skills-input-modern .add-skill-btn-modern {
+    width: 100%;
+    height: 52px;
+  }
+  
+  .skill-with-proficiency {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  .skill-proficiency-select {
+    width: 100%;
+  }
+  
+  .skill-remove-btn {
+    align-self: center;
+  }
+}
+
+/* =====================================================
+   12. ✨ ANIMATIONS & TRANSITIONS - ENGINEERCONNECT
+   ===================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-section-modern,
+.profile-section-modern {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.form-section-modern:nth-child(even) {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.skill-badge-modern,
+.dynamic-entry {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Hover Effects */
+.profile-avatar-modern:hover img,
+.profile-avatar-modern:hover .avatar-placeholder-modern {
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.25);
+}
+
+/* Loading State */
+.btn-save i.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Focus States for Accessibility */
+.input-modern:focus,
+.btn-edit-profile:focus,
+.btn-save:focus,
+.btn-cancel:focus,
+.btn-continue-modern:focus {
+  outline: 3px solid rgba(59, 130, 246, 0.3);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .profile-card {
+    border: 3px solid #3B82F6;
+  }
+  
+  .input-modern {
+    border-width: 3px;
+  }
+  
+  .form-section-modern,
+  .profile-section-modern {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .btn-edit-profile:hover,
+  .btn-save:hover,
+  .btn-continue-modern:hover {
+    transform: none;
+  }
+}
+
+/* =====================================================
+   📱 MOBILE RESPONSIVENESS - UNIFIED CONTAINERS
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .profile-edit-container-unified,
+  .profile-display-container-unified {
+    margin: 10px;
+    border-radius: 16px;
+  }
+  
+  .profile-header-edit-modern,
+  .profile-header-display-modern {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 20px;
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .profile-edit-container-unified .profile-edit-modern,
+  .profile-display-container-unified .profile-display-modern {
+    padding: 20px;
+  }
+  
+  .profile-header-edit-modern .profile-actions,
+  .profile-header-display-modern .profile-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .profile-hero,
+  .message-toast,
+  .profile-actions-modern,
+  .profile-continue-section {
+    display: none;
+  }
+  
+  .profile-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}

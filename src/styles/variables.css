@@ -1,0 +1,964 @@
+/* =====================================================
+   🎨 ENGINEER CONNECT - PROFESSIONAL BLUE & WHITE DESIGN SYSTEM
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎨 Modern Color System (Blue & White Theme)
+   2. 🌈 EngineerConnect Brand Colors
+   3. 🎯 Semantic Color Applications
+   4. 📐 Professional Spacing & Layout
+   5. 🔤 Modern Typography System
+   6. 🎭 Advanced Effects & Animations
+   7. 📱 Responsive Design Tokens
+   8. 🎪 Component Design Tokens
+   9. � Light Theme Optimizations
+   ===================================================== */
+
+:root {
+  /* =====================================================
+     1. 🎨 MODERN BLUE & WHITE COLOR SYSTEM
+     ===================================================== */
+  
+  /* Pure Base Colors */
+  --white: #FFFFFF;
+  --black: #000000;
+  
+  /* Professional Neutrals - Clean Light Theme */
+  --neutral-50: #FAFBFC;         /* Ultra light background */
+  --neutral-100: #F1F3F5;        /* Light background */
+  --neutral-200: #E9ECEF;        /* Subtle background */
+  --neutral-300: #DEE2E6;        /* Border color */
+  --neutral-400: #CED4DA;        /* Muted border */
+  --neutral-500: #ADB5BD;        /* Subtle text */
+  --neutral-600: #6C757D;        /* Muted text */
+  --neutral-700: #495057;        /* Secondary text */
+  --neutral-800: #343A40;        /* Primary text */
+  --neutral-900: #212529;        /* Bold text */
+  
+  /* Blue Alpha Overlays */
+  --blue-alpha-5: rgba(59, 130, 246, 0.05);
+  --blue-alpha-10: rgba(59, 130, 246, 0.10);
+  --blue-alpha-15: rgba(59, 130, 246, 0.15);
+  --blue-alpha-20: rgba(59, 130, 246, 0.20);
+  --blue-alpha-30: rgba(59, 130, 246, 0.30);
+  
+  /* Cyan Alpha Overlays */
+  --cyan-alpha-5: rgba(45, 212, 218, 0.05);
+  --cyan-alpha-10: rgba(45, 212, 218, 0.10);
+  --cyan-alpha-15: rgba(45, 212, 218, 0.15);
+  --cyan-alpha-20: rgba(45, 212, 218, 0.20);
+  --cyan-alpha-30: rgba(45, 212, 218, 0.30);
+  
+  /* White Alpha for Glass Effects */
+  --white-alpha-5: rgba(255, 255, 255, 0.05);
+  --white-alpha-10: rgba(255, 255, 255, 0.10);
+  --white-alpha-20: rgba(255, 255, 255, 0.20);
+  --white-alpha-40: rgba(255, 255, 255, 0.40);
+  --white-alpha-60: rgba(255, 255, 255, 0.60);
+  --white-alpha-80: rgba(255, 255, 255, 0.80);
+  --white-alpha-90: rgba(255, 255, 255, 0.90);
+  --white-alpha-95: rgba(255, 255, 255, 0.95);
+  
+  /* Black Alpha for Depth */
+  --black-alpha-5: rgba(0, 0, 0, 0.05);
+  --black-alpha-10: rgba(0, 0, 0, 0.10);
+  --black-alpha-15: rgba(0, 0, 0, 0.15);
+  --black-alpha-20: rgba(0, 0, 0, 0.20);
+  --black-alpha-40: rgba(0, 0, 0, 0.40);
+  --black-alpha-60: rgba(0, 0, 0, 0.60);
+  
+  /* =====================================================
+     2. 🌈 ENGINEERCONNECT BRAND COLOR SYSTEM
+     ===================================================== */
+     
+  /* Primary Brand - Cyan/Aqua (EngineerConnect Signature) */
+  --brand-cyan-50: #F0FDFF;      /* Ultra light cyan */
+  --brand-cyan-100: #CCFBF1;     /* Very light cyan */
+  --brand-cyan-200: #99F6E4;     /* Light cyan */
+  --brand-cyan-300: #5EEAD4;     /* Medium light cyan */
+  --brand-cyan-400: #2DD4BF;     /* Bright cyan */
+  --brand-cyan-500: #2DD4DA;     /* PRIMARY BRAND COLOR */
+  --brand-cyan-600: #0891B2;     /* Medium cyan */
+  --brand-cyan-700: #0E7490;     /* Dark cyan */
+  --brand-cyan-800: #155E75;     /* Darker cyan */
+  --brand-cyan-900: #164E63;     /* Darkest cyan */
+  
+  /* Secondary Brand - Professional Blue */
+  --brand-blue-50: #EFF6FF;      /* Ultra light blue */
+  --brand-blue-100: #DBEAFE;     /* Very light blue */
+  --brand-blue-200: #BFDBFE;     /* Light blue */
+  --brand-blue-300: #93C5FD;     /* Medium light blue */
+  --brand-blue-400: #60A5FA;     /* Bright blue */
+  --brand-blue-500: #3B82F6;     /* SECONDARY BRAND COLOR */
+  --brand-blue-600: #2563EB;     /* Medium blue */
+  --brand-blue-700: #1D4ED8;     /* Dark blue */
+  --brand-blue-800: #1E40AF;     /* Darker blue */
+  --brand-blue-900: #1E3A8A;     /* Darkest blue */
+  
+  /* Professional Blue Variants */
+  --professional-blue: #1E40AF;   /* Corporate blue */
+  --tech-blue: #0EA5E9;          /* Technology blue */
+  --trust-blue: #0369A1;         /* Trust & security blue */
+  
+  /* Accent Colors - Complementary Palette */
+  --accent-indigo: #6366F1;      /* Creative accent */
+  --accent-purple: #8B5CF6;      /* Innovation accent */
+  --accent-teal: #14B8A6;        /* Fresh accent */
+  --accent-emerald: #10B981;     /* Success accent */
+  --accent-orange: #F97316;      /* Energy accent */
+  --accent-rose: #F43F5E;        /* Attention accent */
+  
+  /* =====================================================
+     3. 🎯 SEMANTIC COLOR APPLICATIONS
+     ===================================================== */
+     
+  /* Background System - Clean & Professional */
+  --bg-primary: var(--white);                    /* Pure white primary */
+  --bg-secondary: var(--neutral-50);             /* Ultra light */
+  --bg-tertiary: var(--neutral-100);             /* Light background */
+  --bg-quaternary: var(--neutral-200);           /* Subtle background */
+  --bg-overlay: rgba(0, 0, 0, 0.60);            /* Dark overlay */
+  --bg-modal: rgba(255, 255, 255, 0.95);        /* Modal background */
+  --bg-card: var(--white);                       /* Card background */
+  --bg-hover: var(--neutral-50);                 /* Hover state */
+  --bg-active: var(--neutral-100);               /* Active state */
+  
+  /* Glass Morphism Backgrounds */
+  --bg-glass-light: rgba(255, 255, 255, 0.80);
+  --bg-glass-medium: rgba(255, 255, 255, 0.90);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.95);
+  --bg-glass-cyan: rgba(45, 212, 218, 0.10);
+  --bg-glass-blue: rgba(59, 130, 246, 0.08);
+  
+  /* Text Color System */
+  --text-primary: var(--neutral-900);           /* Main text */
+  --text-secondary: var(--neutral-700);         /* Secondary text */
+  --text-tertiary: var(--neutral-600);          /* Tertiary text */
+  --text-muted: var(--neutral-500);             /* Muted text */
+  --text-subtle: var(--neutral-400);            /* Subtle text */
+  --text-placeholder: var(--neutral-400);        /* Placeholder text */
+  --text-inverse: var(--white);                  /* Inverse text */
+  --text-brand: var(--brand-cyan-600);          /* Brand text */
+  --text-link: var(--brand-blue-600);           /* Link text */
+  --text-link-hover: var(--brand-blue-800);     /* Link hover */
+  
+  /* Border System */
+  --border-primary: var(--neutral-300);         /* Standard border */
+  --border-secondary: var(--neutral-200);       /* Light border */
+  --border-subtle: var(--neutral-100);          /* Subtle border */
+  --border-brand: var(--brand-cyan-300);        /* Brand border */
+  --border-focus: var(--brand-blue-500);        /* Focus border */
+  --border-error: #DC2626;                      /* Error border */
+  --border-success: #059669;                    /* Success border */
+  --border-warning: #D97706;                    /* Warning border */
+  
+  /* Brand Application Colors */
+  --color-primary: var(--brand-cyan-500);       /* Primary brand */
+  --color-primary-hover: var(--brand-cyan-600);
+  --color-primary-active: var(--brand-cyan-700);
+  --color-primary-text: var(--white);
+  --color-primary-bg: var(--brand-cyan-50);
+  
+  --color-secondary: var(--brand-blue-500);     /* Secondary brand */
+  --color-secondary-hover: var(--brand-blue-600);
+  --color-secondary-active: var(--brand-blue-700);
+  --color-secondary-text: var(--white);
+  --color-secondary-bg: var(--brand-blue-50);
+  
+  /* State Colors - Professional & Clear */
+  --color-success: #059669;                     /* Green success */
+  --color-success-bg: #ECFDF5;
+  --color-success-light: #A7F3D0;
+  --color-success-dark: #047857;
+  
+  --color-warning: #D97706;                     /* Orange warning */
+  --color-warning-bg: #FFFBEB;
+  --color-warning-light: #FED7AA;
+  --color-warning-dark: #B45309;
+  
+  --color-error: #DC2626;                       /* Red error */
+  --color-error-bg: #FEF2F2;
+  --color-error-light: #FECACA;
+  --color-error-dark: #991B1B;
+  
+  --color-info: var(--brand-blue-500);         /* Blue info */
+  --color-info-bg: var(--brand-blue-50);
+  --color-info-light: var(--brand-blue-200);
+  --color-info-dark: var(--brand-blue-700);
+  
+  /* =====================================================
+     4. 📐 PROFESSIONAL SPACING & LAYOUT SYSTEM
+     ===================================================== */
+     
+  /* Spacing Scale - Perfect 4px Grid System */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0_5: 0.125rem;    /* 2px */
+  --space-1: 0.25rem;       /* 4px */
+  --space-1_5: 0.375rem;    /* 6px */
+  --space-2: 0.5rem;        /* 8px */
+  --space-2_5: 0.625rem;    /* 10px */
+  --space-3: 0.75rem;       /* 12px */
+  --space-3_5: 0.875rem;    /* 14px */
+  --space-4: 1rem;          /* 16px */
+  --space-5: 1.25rem;       /* 20px */
+  --space-6: 1.5rem;        /* 24px */
+  --space-7: 1.75rem;       /* 28px */
+  --space-8: 2rem;          /* 32px */
+  --space-9: 2.25rem;       /* 36px */
+  --space-10: 2.5rem;       /* 40px */
+  --space-11: 2.75rem;      /* 44px */
+  --space-12: 3rem;         /* 48px */
+  --space-14: 3.5rem;       /* 56px */
+  --space-16: 4rem;         /* 64px */
+  --space-18: 4.5rem;       /* 72px */
+  --space-20: 5rem;         /* 80px */
+  --space-24: 6rem;         /* 96px */
+  --space-28: 7rem;         /* 112px */
+  --space-32: 8rem;         /* 128px */
+  --space-36: 9rem;         /* 144px */
+  --space-40: 10rem;        /* 160px */
+  --space-44: 11rem;        /* 176px */
+  --space-48: 12rem;        /* 192px */
+  --space-52: 13rem;        /* 208px */
+  --space-56: 14rem;        /* 224px */
+  --space-60: 15rem;        /* 240px */
+  --space-64: 16rem;        /* 256px */
+  --space-72: 18rem;        /* 288px */
+  --space-80: 20rem;        /* 320px */
+  --space-96: 24rem;        /* 384px */
+  
+  /* Container System - Professional Widths */
+  --container-xs: 20rem;        /* 320px - Mobile small */
+  --container-sm: 24rem;        /* 384px - Mobile */
+  --container-md: 28rem;        /* 448px - Mobile large */
+  --container-lg: 32rem;        /* 512px - Tablet small */
+  --container-xl: 36rem;        /* 576px - Tablet */
+  --container-2xl: 42rem;       /* 672px - Tablet large */
+  --container-3xl: 48rem;       /* 768px - Small desktop */
+  --container-4xl: 56rem;       /* 896px - Medium desktop */
+  --container-5xl: 64rem;       /* 1024px - Large desktop */
+  --container-6xl: 72rem;       /* 1152px - Extra large desktop */
+  --container-7xl: 80rem;       /* 1280px - Ultra wide */
+  --container-full: 90rem;      /* 1440px - Max width */
+  
+  /* Border Radius - Consistent Rounded Corners */
+  --radius-none: 0;
+  --radius-xs: 0.125rem;        /* 2px */
+  --radius-sm: 0.25rem;         /* 4px */
+  --radius-base: 0.375rem;      /* 6px */
+  --radius-md: 0.5rem;          /* 8px */
+  --radius-lg: 0.75rem;         /* 12px */
+  --radius-xl: 1rem;            /* 16px */
+  --radius-2xl: 1.5rem;         /* 24px */
+  --radius-3xl: 2rem;           /* 32px */
+  --radius-full: 9999px;        /* Perfect circle */
+  
+  /* Border Widths - Clean Strokes */
+  --border-0: 0;
+  --border-1: 1px;
+  --border-2: 2px;
+  --border-4: 4px;
+  --border-8: 8px;
+  
+  /* =====================================================
+     5. 🔤 MODERN TYPOGRAPHY SYSTEM
+     ===================================================== */
+     
+  /* Professional Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+               'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, 
+               'Liberation Mono', Menlo, 'Courier New', monospace;
+  --font-display: 'Inter', 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-headings: var(--font-display);
+  --font-body: var(--font-sans);
+  
+  /* Font Size Scale - Perfect Typography Hierarchy */
+  --text-xs: 0.75rem;           /* 12px */
+  --text-sm: 0.875rem;          /* 14px */
+  --text-base: 1rem;            /* 16px - Base size */
+  --text-lg: 1.125rem;          /* 18px */
+  --text-xl: 1.25rem;           /* 20px */
+  --text-2xl: 1.5rem;           /* 24px */
+  --text-3xl: 1.875rem;         /* 30px */
+  --text-4xl: 2.25rem;          /* 36px */
+  --text-5xl: 3rem;             /* 48px */
+  --text-6xl: 3.75rem;          /* 60px */
+  --text-7xl: 4.5rem;           /* 72px */
+  --text-8xl: 6rem;             /* 96px */
+  --text-9xl: 8rem;             /* 128px */
+  
+  /* Font Weights - Professional Range */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-light: 300;
+  --font-normal: 400;           /* Regular */
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+  
+  /* Line Heights - Optimal Readability */
+  --leading-none: 1;            /* 100% */
+  --leading-tight: 1.25;        /* 125% */
+  --leading-snug: 1.375;        /* 137.5% */
+  --leading-normal: 1.5;        /* 150% - Default */
+  --leading-relaxed: 1.625;     /* 162.5% */
+  --leading-loose: 2;           /* 200% */
+  
+  /* Letter Spacing - Professional Typography */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;         /* Default */
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  
+  /* =====================================================
+     6. 🎭 ADVANCED EFFECTS & ANIMATIONS
+     ===================================================== */
+     
+  /* Professional Shadow System - Clean Light Theme */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 
+               0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.08), 
+                 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 
+               0 10px 15px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 
+               0 20px 25px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 
+               0 25px 50px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-outline: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  
+  /* EngineerConnect Brand Shadows */
+  --shadow-primary: 0 4px 14px rgba(45, 212, 218, 0.25),
+                    0 10px 25px rgba(45, 212, 218, 0.12);
+  --shadow-primary-lg: 0 8px 25px rgba(45, 212, 218, 0.3),
+                       0 20px 40px rgba(45, 212, 218, 0.15);
+  --shadow-secondary: 0 4px 14px rgba(59, 130, 246, 0.20),
+                      0 10px 25px rgba(59, 130, 246, 0.10);
+  --shadow-secondary-lg: 0 8px 25px rgba(59, 130, 246, 0.25),
+                         0 20px 40px rgba(59, 130, 246, 0.12);
+  
+  /* Glass Morphism System - Clean & Modern */
+  --glass-bg-light: rgba(255, 255, 255, 0.70);
+  --glass-bg-medium: rgba(255, 255, 255, 0.80);
+  --glass-bg-heavy: rgba(255, 255, 255, 0.90);
+  --glass-bg-ultra: rgba(255, 255, 255, 0.95);
+  
+  /* Glass Borders */
+  --glass-border-light: rgba(255, 255, 255, 0.18);
+  --glass-border-medium: rgba(255, 255, 255, 0.25);
+  --glass-border-strong: rgba(255, 255, 255, 0.35);
+  
+  /* Brand Glass Effects */
+  --glass-cyan-light: rgba(45, 212, 218, 0.08);
+  --glass-cyan-medium: rgba(45, 212, 218, 0.12);
+  --glass-blue-light: rgba(59, 130, 246, 0.08);
+  --glass-blue-medium: rgba(59, 130, 246, 0.12);
+  
+  /* Backdrop Filters - Crisp Blur Effects */
+  --blur-none: blur(0);
+  --blur-sm: blur(4px);
+  --blur-base: blur(8px);
+  --blur-md: blur(12px);
+  --blur-lg: blur(16px);
+  --blur-xl: blur(24px);
+  --blur-2xl: blur(40px);
+  --blur-3xl: blur(64px);
+  
+  /* Professional Easing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-back: cubic-bezier(0.36, 0, 0.66, -0.56);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-acceleration: cubic-bezier(0.4, 0, 1, 1);
+  --ease-deceleration: cubic-bezier(0, 0, 0.2, 1);
+  
+  /* Animation Duration Scale */
+  --duration-50: 50ms;
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-400: 400ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+  --duration-1500: 1500ms;
+  
+  /* Professional Transition Presets */
+  --transition-fast: all var(--duration-150) var(--ease-out);
+  --transition-base: all var(--duration-200) var(--ease-in-out);
+  --transition-smooth: all var(--duration-300) var(--ease-smooth);
+  --transition-slow: all var(--duration-500) var(--ease-in-out);
+  --transition-bounce: all var(--duration-400) var(--ease-bounce);
+  --transition-sharp: all var(--duration-200) var(--ease-sharp);
+  
+  /* Component-specific Transitions */
+  --transition-colors: color var(--duration-200) var(--ease-in-out),
+                       background-color var(--duration-200) var(--ease-in-out),
+                       border-color var(--duration-200) var(--ease-in-out);
+  --transition-opacity: opacity var(--duration-200) var(--ease-in-out);
+  --transition-shadow: box-shadow var(--duration-200) var(--ease-in-out);
+  --transition-transform: transform var(--duration-200) var(--ease-out);
+  
+  /* =====================================================
+     7. 📱 RESPONSIVE DESIGN TOKENS
+     ===================================================== */
+     
+  /* Modern Breakpoint System */
+  --breakpoint-xs: 20rem;       /* 320px - Small mobile */
+  --breakpoint-sm: 24rem;       /* 384px - Mobile */
+  --breakpoint-md: 28rem;       /* 448px - Large mobile */
+  --breakpoint-lg: 32rem;       /* 512px - Small tablet */
+  --breakpoint-xl: 36rem;       /* 576px - Tablet */
+  --breakpoint-2xl: 42rem;      /* 672px - Large tablet */
+  --breakpoint-3xl: 48rem;      /* 768px - Small desktop */
+  --breakpoint-4xl: 64rem;      /* 1024px - Desktop */
+  --breakpoint-5xl: 80rem;      /* 1280px - Large desktop */
+  --breakpoint-6xl: 96rem;      /* 1536px - Extra large */
+  
+  /* Common Device Breakpoints */
+  --mobile-small: 320px;        /* iPhone SE */
+  --mobile: 375px;              /* iPhone 12 */
+  --mobile-large: 414px;        /* iPhone 12 Pro Max */
+  --tablet: 768px;              /* iPad */
+  --tablet-large: 1024px;       /* iPad Pro */
+  --laptop: 1366px;             /* Common laptop */
+  --desktop: 1920px;            /* Full HD desktop */
+  --desktop-large: 2560px;      /* 4K desktop */
+  
+  /* Component Heights - Responsive */
+  --header-height-mobile: 3.5rem;      /* 56px */
+  --header-height-tablet: 4rem;        /* 64px */
+  --header-height-desktop: 5rem;       /* 80px */
+  --header-height-large: 6rem;         /* 96px */
+  
+  --navbar-height-mobile: 3rem;        /* 48px */
+  --navbar-height-tablet: 3.5rem;      /* 56px */
+  --navbar-height-desktop: 4rem;       /* 64px */
+  
+  --sidebar-width-mobile: 16rem;       /* 256px */
+  --sidebar-width-tablet: 18rem;       /* 288px */
+  --sidebar-width-desktop: 20rem;      /* 320px */
+  
+  /* Content Spacing - Device Adaptive */
+  --content-padding-mobile: var(--space-4);     /* 16px */
+  --content-padding-tablet: var(--space-6);     /* 24px */
+  --content-padding-desktop: var(--space-8);    /* 32px */
+  --content-padding-large: var(--space-12);     /* 48px */
+  
+  --section-padding-mobile: var(--space-8);     /* 32px */
+  --section-padding-tablet: var(--space-12);    /* 48px */
+  --section-padding-desktop: var(--space-16);   /* 64px */
+  --section-padding-large: var(--space-24);     /* 96px */
+  
+  /* =====================================================
+     8. 🎪 COMPONENT DESIGN TOKENS
+     ===================================================== */
+     
+  /* Button System - Professional & Consistent */
+  --btn-height-xs: 1.75rem;        /* 28px */
+  --btn-height-sm: 2.25rem;        /* 36px */
+  --btn-height-base: 2.75rem;      /* 44px */
+  --btn-height-lg: 3.25rem;        /* 52px */
+  --btn-height-xl: 3.75rem;        /* 60px */
+  
+  --btn-padding-x-xs: var(--space-2);     /* 8px */
+  --btn-padding-x-sm: var(--space-3);     /* 12px */
+  --btn-padding-x-base: var(--space-4);   /* 16px */
+  --btn-padding-x-lg: var(--space-6);     /* 24px */
+  --btn-padding-x-xl: var(--space-8);     /* 32px */
+  
+  --btn-padding-y-xs: var(--space-1);     /* 4px */
+  --btn-padding-y-sm: var(--space-2);     /* 8px */
+  --btn-padding-y-base: var(--space-3);   /* 12px */
+  --btn-padding-y-lg: var(--space-4);     /* 16px */
+  --btn-padding-y-xl: var(--space-5);     /* 20px */
+  
+  /* Form Elements - User-Friendly */
+  --input-height-sm: 2.25rem;      /* 36px */
+  --input-height-base: 2.75rem;    /* 44px */
+  --input-height-lg: 3.25rem;      /* 52px */
+  --input-height-xl: 3.75rem;      /* 60px */
+  
+  --input-padding-x: var(--space-4);      /* 16px */
+  --input-padding-y: var(--space-3);      /* 12px */
+  
+  --textarea-min-height: 6rem;     /* 96px */
+  --textarea-max-height: 12rem;    /* 192px */
+  
+  /* Card System - Clean & Modern */
+  --card-padding-xs: var(--space-3);      /* 12px */
+  --card-padding-sm: var(--space-4);      /* 16px */
+  --card-padding-base: var(--space-6);    /* 24px */
+  --card-padding-lg: var(--space-8);      /* 32px */
+  --card-padding-xl: var(--space-12);     /* 48px */
+  
+  --card-gap-sm: var(--space-3);          /* 12px */
+  --card-gap-base: var(--space-4);        /* 16px */
+  --card-gap-lg: var(--space-6);          /* 24px */
+  
+  /* Modal & Overlay System */
+  --modal-width-sm: 20rem;         /* 320px */
+  --modal-width-base: 28rem;       /* 448px */
+  --modal-width-lg: 36rem;         /* 576px */
+  --modal-width-xl: 48rem;         /* 768px */
+  --modal-width-2xl: 64rem;        /* 1024px */
+  
+  --modal-padding: var(--space-6);         /* 24px */
+  --modal-header-height: 4rem;             /* 64px */
+  --modal-footer-height: 4.5rem;           /* 72px */
+  
+  /* Navigation System */
+  --nav-link-padding-x: var(--space-4);   /* 16px */
+  --nav-link-padding-y: var(--space-3);   /* 12px */
+  --nav-link-gap: var(--space-2);         /* 8px */
+  
+  --nav-item-height: 2.75rem;             /* 44px */
+  --nav-item-radius: var(--radius-md);    /* 8px */
+  
+  /* Grid System - Flexible Layouts */
+  --grid-gap-sm: var(--space-3);          /* 12px */
+  --grid-gap-base: var(--space-4);        /* 16px */
+  --grid-gap-lg: var(--space-6);          /* 24px */
+  --grid-gap-xl: var(--space-8);          /* 32px */
+  
+  /* Professional Z-Index Scale */
+  --z-hide: -1;
+  --z-base: 0;
+  --z-docked: 10;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-banner: 1030;
+  --z-overlay: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-skiplink: 1070;
+  --z-toast: 1080;
+  --z-tooltip: 1090;
+  
+  /* =====================================================
+     9. 🎨 PROFESSIONAL ENGINEERCONNECT GRADIENTS
+     ===================================================== */
+     
+  /* Primary Brand Gradients */
+  --gradient-primary: linear-gradient(135deg, 
+    var(--brand-cyan-500) 0%, 
+    var(--brand-cyan-600) 100%);
+  --gradient-primary-hover: linear-gradient(135deg, 
+    var(--brand-cyan-400) 0%, 
+    var(--brand-cyan-500) 100%);
+  --gradient-primary-soft: linear-gradient(135deg, 
+    var(--brand-cyan-400) 0%, 
+    var(--brand-cyan-300) 100%);
+  
+  /* Secondary Brand Gradients */
+  --gradient-secondary: linear-gradient(135deg, 
+    var(--brand-blue-500) 0%, 
+    var(--brand-blue-600) 100%);
+  --gradient-secondary-hover: linear-gradient(135deg, 
+    var(--brand-blue-400) 0%, 
+    var(--brand-blue-500) 100%);
+  --gradient-secondary-soft: linear-gradient(135deg, 
+    var(--brand-blue-400) 0%, 
+    var(--brand-blue-300) 100%);
+    
+  /* Combined Brand Gradients */
+  --gradient-brand: linear-gradient(135deg, 
+    var(--brand-cyan-500) 0%, 
+    var(--brand-blue-500) 100%);
+  --gradient-brand-reverse: linear-gradient(135deg, 
+    var(--brand-blue-500) 0%, 
+    var(--brand-cyan-500) 100%);
+  --gradient-brand-soft: linear-gradient(135deg, 
+    var(--brand-cyan-300) 0%, 
+    var(--brand-blue-300) 100%);
+  
+  /* Professional Background Gradients */
+  --gradient-bg-light: linear-gradient(135deg, 
+    var(--white) 0%, 
+    var(--neutral-50) 100%);
+  --gradient-bg-subtle: linear-gradient(135deg, 
+    var(--neutral-50) 0%, 
+    var(--neutral-100) 100%);
+  --gradient-bg-soft: linear-gradient(135deg, 
+    var(--neutral-100) 0%, 
+    var(--neutral-200) 100%);
+  
+  /* Glass Morphism Gradients */
+  --gradient-glass-light: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.90) 0%, 
+    rgba(255, 255, 255, 0.70) 100%);
+  --gradient-glass-medium: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(255, 255, 255, 0.80) 100%);
+  --gradient-glass-cyan: linear-gradient(135deg, 
+    rgba(45, 212, 218, 0.15) 0%, 
+    rgba(45, 212, 218, 0.05) 100%);
+  --gradient-glass-blue: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.12) 0%, 
+    rgba(59, 130, 246, 0.04) 100%);
+    
+  /* Text Gradients */
+  --gradient-text-primary: linear-gradient(135deg, 
+    var(--text-primary) 0%, 
+    var(--text-secondary) 100%);
+  --gradient-text-brand: linear-gradient(135deg, 
+    var(--brand-cyan-600) 0%, 
+    var(--brand-blue-600) 100%);
+  --gradient-text-brand-light: linear-gradient(135deg, 
+    var(--brand-cyan-500) 0%, 
+    var(--brand-blue-500) 100%);
+  
+  /* State Gradients */
+  --gradient-success: linear-gradient(135deg, 
+    var(--color-success) 0%, 
+    var(--color-success-dark) 100%);
+  --gradient-warning: linear-gradient(135deg, 
+    var(--color-warning) 0%, 
+    var(--color-warning-dark) 100%);
+  --gradient-error: linear-gradient(135deg, 
+    var(--color-error) 0%, 
+    var(--color-error-dark) 100%);
+  --gradient-info: linear-gradient(135deg, 
+    var(--color-info) 0%, 
+    var(--color-info-dark) 100%);
+}
+
+/* =====================================================
+   � LIGHT THEME OPTIMIZATIONS & ACCESSIBILITY
+   ===================================================== */
+
+/* Enhanced Contrast for Light Theme */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: var(--black);
+    --text-secondary: var(--neutral-800);
+    --border-primary: var(--neutral-800);
+    --border-secondary: var(--neutral-600);
+    --border-1: 2px;
+    --border-2: 3px;
+    --shadow-outline: 0 0 0 3px var(--brand-cyan-500);
+  }
+}
+
+/* Reduced Motion Support - Accessibility First */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: none;
+    --transition-base: none;
+    --transition-smooth: none;
+    --transition-slow: none;
+    --transition-bounce: none;
+    --transition-sharp: none;
+    --transition-colors: none;
+    --transition-opacity: none;
+    --transition-shadow: none;
+    --transition-transform: none;
+    --duration-50: 0ms;
+    --duration-75: 0ms;
+    --duration-100: 0ms;
+    --duration-150: 0ms;
+    --duration-200: 0ms;
+    --duration-300: 0ms;
+    --duration-400: 0ms;
+    --duration-500: 0ms;
+    --duration-700: 0ms;
+    --duration-1000: 0ms;
+    --duration-1500: 0ms;
+  }
+}
+
+/* Light Mode Color Scheme Preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+/* =====================================================
+   🔧 ENGINEERCONNECT COMPATIBILITY ALIASES
+   ===================================================== */
+   
+:root {
+  /* Primary Brand Aliases */
+  --accent-color: var(--brand-cyan-500);
+  --accent-secondary: var(--brand-blue-500);
+  --accent-light: var(--brand-cyan-300);
+  --accent-dark: var(--brand-cyan-700);
+  
+  /* Gradient Aliases */
+  --primary-gradient: var(--gradient-brand);
+  --secondary-gradient: var(--gradient-bg-light);
+  --professional-gradient: var(--gradient-bg-subtle);
+  --glass-gradient: var(--gradient-glass-medium);
+  
+  /* Border Aliases */
+  --border-color: var(--border-primary);
+  --border-color-light: var(--border-secondary);
+  --border-color-hover: var(--border-brand);
+  --border-radius-sm: var(--radius-sm);
+  --border-radius-md: var(--radius-md);
+  --border-radius-lg: var(--radius-lg);
+  --border-radius-xl: var(--radius-xl);
+  
+  /* Shadow Aliases */
+  --shadow: var(--shadow-base);
+  --shadow-glow: var(--shadow-primary);
+  
+  /* Transition Aliases */
+  --transition: var(--transition-base);
+  
+  /* Glass Effect Aliases */
+  --glass-bg: var(--glass-bg-medium);
+  --glass-border: var(--glass-border-medium);
+  --backdrop-blur: var(--blur-lg);
+  
+  /* Layout Aliases */
+  --header-height: var(--header-height-desktop);
+  --mobile-header-height: var(--header-height-mobile);
+  --container-padding: var(--content-padding-desktop);
+  --mobile-container-padding: var(--content-padding-mobile);
+  --small-mobile-container-padding: var(--space-3);
+  
+  /* Typography Aliases */
+  --font-size-xs: var(--text-xs);
+  --font-size-sm: var(--text-sm);
+  --font-size-base: var(--text-base);
+  --font-size-lg: var(--text-lg);
+  --font-size-xl: var(--text-xl);
+  --font-size-2xl: var(--text-2xl);
+  --font-size-3xl: var(--text-3xl);
+  --font-size-4xl: var(--text-4xl);
+  --font-size-5xl: var(--text-5xl);
+  --font-size-6xl: var(--text-6xl);
+}
+
+/* =====================================================
+   🎯 ENGINEERCONNECT UTILITY CLASSES
+   ===================================================== */
+
+/* Brand Text Gradient Utilities */
+.text-gradient-primary {
+  background: var(--gradient-text-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.text-gradient-secondary {
+  background: var(--gradient-text-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.text-gradient-soft {
+  background: var(--gradient-text-brand-light);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Glass Morphism Utilities */
+.glass-light {
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: var(--border-1) solid var(--glass-border-light);
+}
+
+.glass-medium {
+  background: var(--glass-bg-medium);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: var(--border-1) solid var(--glass-border-medium);
+}
+
+.glass-heavy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: var(--blur-2xl);
+  -webkit-backdrop-filter: var(--blur-2xl);
+  border: var(--border-1) solid var(--glass-border-strong);
+}
+
+.glass-cyan {
+  background: var(--glass-cyan-light);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: var(--border-1) solid rgba(45, 212, 218, 0.2);
+}
+
+.glass-blue {
+  background: var(--glass-blue-light);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: var(--border-1) solid rgba(59, 130, 246, 0.2);
+}
+
+/* Shadow Utilities */
+.shadow-primary {
+  box-shadow: var(--shadow-primary);
+}
+
+.shadow-primary-lg {
+  box-shadow: var(--shadow-primary-lg);
+}
+
+.shadow-secondary {
+  box-shadow: var(--shadow-secondary);
+}
+
+.shadow-secondary-lg {
+  box-shadow: var(--shadow-secondary-lg);
+}
+
+/* Animation & Transition Utilities */
+.transition-fast {
+  transition: var(--transition-fast);
+}
+
+.transition-base {
+  transition: var(--transition-base);
+}
+
+.transition-smooth {
+  transition: var(--transition-smooth);
+}
+
+.transition-slow {
+  transition: var(--transition-slow);
+}
+
+.transition-colors {
+  transition: var(--transition-colors);
+}
+
+.transition-transform {
+  transition: var(--transition-transform);
+}
+
+.transition-shadow {
+  transition: var(--transition-shadow);
+}
+
+/* Brand Color Utilities */
+.text-brand-primary {
+  color: var(--brand-cyan-500);
+}
+
+.text-brand-secondary {
+  color: var(--brand-blue-500);
+}
+
+.bg-brand-primary {
+  background-color: var(--brand-cyan-500);
+}
+
+.bg-brand-secondary {
+  background-color: var(--brand-blue-500);
+}
+
+/* Focus Utilities */
+.focus-ring {
+  outline: 2px solid var(--brand-blue-500);
+  outline-offset: 2px;
+}
+
+.focus-ring-cyan {
+  outline: 2px solid var(--brand-cyan-500);
+  outline-offset: 2px;
+}
+
+/* =====================================================
+   📊 ENGINEERCONNECT DESIGN SYSTEM DOCUMENTATION
+   ===================================================== 
+   
+   🎨 PROFESSIONAL BLUE & WHITE THEME FEATURES:
+   
+   ✨ Core Features:
+   - Clean blue and white color system optimized for light themes
+   - Professional EngineerConnect brand colors (Cyan #2DD4DA + Blue #3B82F6)
+   - Comprehensive semantic color tokens for consistency
+   - Modern typography scale with perfect hierarchy
+   - Advanced spacing system with 4px grid alignment
+   - Professional shadow system for clean depth
+   - Glass morphism support with light theme optimization
+   - Responsive design tokens for all device sizes
+   - Accessibility-first approach with high contrast support
+   - Component-specific design tokens
+   
+   � Color Philosophy:
+   - Light-first approach with professional white backgrounds
+   - EngineerConnect brand colors with proper contrast ratios
+   - Semantic color applications for user-friendly interfaces  
+   - Clean state colors for clear feedback
+   - Glass morphism effects for modern visual depth
+   
+   📐 Spacing & Layout:
+   - 4px base unit system for perfect pixel alignment
+   - Consistent vertical rhythm across all components
+   - Responsive container sizes for all screen types
+   - Professional component spacing tokens
+   
+   🔤 Typography System:
+   - Inter font family for modern, professional readability
+   - Perfect modular scale for visual hierarchy
+   - Optimized line heights and letter spacing
+   - Professional font weight range
+   
+   🎭 Effects & Animations:
+   - Clean shadow system optimized for light backgrounds
+   - Professional EngineerConnect brand shadows
+   - Advanced glass morphism with light theme support
+   - Smooth transitions and professional easing
+   - Comprehensive backdrop filter system
+   
+   📱 Responsive Design:
+   - Modern breakpoint system covering all devices
+   - Component-responsive height and spacing tokens
+   - Device-adaptive content spacing
+   - Professional mobile-first approach
+   
+   🎪 Component Tokens:
+   - Consistent button sizing and spacing
+   - User-friendly form element dimensions  
+   - Professional card system with clean spacing
+   - Modal and overlay system optimization
+   - Navigation component standardization
+   - Flexible grid system for layouts
+   
+   🎯 Brand Integration:
+   - EngineerConnect cyan and blue gradients throughout
+   - Professional brand color applications
+   - Consistent visual identity across all components
+   - Modern glass effects with brand colors
+   - Professional text gradient utilities
+   
+   🌅 Light Theme Optimization:
+   - Clean white and neutral backgrounds
+   - Optimized contrast ratios for readability
+   - Professional shadow system for light themes
+   - Glass morphism effects designed for light backgrounds
+   - Accessibility enhancements for light mode usage
+   
+   ===================================================== */

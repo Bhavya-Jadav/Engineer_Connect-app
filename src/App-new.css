@@ -1,0 +1,16 @@
+/* src/App.css - Main stylesheet with imports */
+
+/* Import all feature-specific stylesheets */
+@import './styles/variables.css';
+@import './styles/typography.css';
+@import './styles/header.css';
+@import './styles/buttons.css';
+@import './styles/forms.css';
+@import './styles/cards.css';
+@import './styles/modals.css';
+@import './styles/problem-cards.css';
+@import './styles/utilities.css';
+@import './styles/responsive.css';
+@import './styles/home.css';
+
+/* Any remaining app-specific styles that don't fit in other categories can be added here */

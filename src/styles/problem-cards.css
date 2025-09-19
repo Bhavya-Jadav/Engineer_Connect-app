@@ -1,0 +1,514 @@
+/* =====================================================
+   🧩 PROBLEM CARDS - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* Problem Cards Grid Layout - EngineerConnect */
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-8);
+  padding: var(--space-8);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .problems-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .problems-grid {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+}
+
+/* Problem Card Professional Layout - EngineerConnect */
+.problem-card {
+  background: var(--white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  border: var(--border-2) solid var(--brand-blue-200);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-height: 320px;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.08),
+    0 2px 6px rgba(45, 212, 218, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.problem-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--brand-blue-400);
+  box-shadow: 
+    0 16px 40px rgba(59, 130, 246, 0.15),
+    0 8px 20px rgba(45, 212, 218, 0.12),
+    0 0 0 1px var(--brand-blue-300);
+  background: rgba(59, 130, 246, 0.02);
+}
+
+.problem-card-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.problem-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-blue-700);
+  line-height: var(--leading-tight);
+  margin: 0;
+  font-family: var(--font-headings);
+}
+
+.problem-description {
+  color: var(--gray-700);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-base);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+
+.problem-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: auto;
+}
+
+.problem-category {
+  background: var(--brand-blue-50);
+  color: var(--brand-blue-700);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  border: var(--border-2) solid var(--brand-blue-200);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-body);
+}
+
+.problem-date {
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+}
+
+.problem-author {
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+}
+
+.problem-stats {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: var(--border-2) solid var(--brand-blue-100);
+}
+
+.problem-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--brand-blue-600);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  font-family: var(--font-body);
+}
+
+.problem-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.problem-actions .btn {
+  flex: 1;
+  min-width: auto;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   📋 PROBLEM DETAIL MODAL - ENGINEERCONNECT STYLING
+   ===================================================== */
+
+.problem-detail-modal {
+  max-width: 800px;
+  max-height: 90vh;
+  width: 95%;
+  overflow-y: auto;
+  border-radius: var(--radius-2xl);
+  background: var(--white);
+  box-shadow: 
+    0 24px 64px rgba(59, 130, 246, 0.15),
+    0 12px 32px rgba(45, 212, 218, 0.1);
+}
+
+.problem-detail-header {
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  border-bottom: var(--border-2) solid var(--brand-blue-100);
+  background: rgba(59, 130, 246, 0.02);
+}
+
+.problem-detail-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-blue-700);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-tight);
+  font-family: var(--font-headings);
+}
+
+.problem-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.problem-detail-body {
+  padding: var(--space-8);
+}
+
+.problem-detail-description {
+  color: var(--gray-700);
+  line-height: var(--leading-loose);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-8);
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+}
+
+.problem-detail-section {
+  margin-bottom: var(--space-8);
+}
+
+.problem-detail-section h3 {
+  color: var(--brand-blue-600);
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-headings);
+}
+
+.problem-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--brand-blue-50);
+  border: var(--border-2) solid var(--brand-blue-200);
+  border-radius: var(--radius-lg);
+  color: var(--brand-blue-700);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: var(--transition-smooth);
+  font-family: var(--font-body);
+}
+
+.attachment-item:hover {
+  background: var(--brand-blue-100);
+  border-color: var(--brand-blue-400);
+  color: var(--brand-blue-800);
+  transform: translateY(-1px);
+}
+
+.attachment-item i {
+  color: var(--brand-cyan-500);
+}
+
+/* Attachments section in modal - EngineerConnect */
+.problem-attachments-section {
+  margin-bottom: var(--space-6);
+  padding: var(--space-6);
+  background: rgba(59, 130, 246, 0.02);
+  border-radius: var(--radius-xl);
+  border: var(--border-2) solid var(--brand-blue-100);
+}
+
+.problem-attachments-section h4 {
+  color: var(--brand-blue-600);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-headings);
+}
+
+/* =====================================================
+   ✨ ENHANCED ANIMATIONS - ENGINEERCONNECT BRANDED
+   ===================================================== */
+
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--gradient-brand);
+  background-size: 400% 400%;
+  border-radius: var(--radius-2xl);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--transition-smooth);
+  animation: engineerConnectGradientShift 4s ease infinite;
+}
+
+.problem-card:hover::before {
+  opacity: 0.8;
+}
+
+@keyframes engineerConnectGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Professional Background Effects */
+.problem-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(45, 212, 218, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+  pointer-events: none;
+}
+
+.problem-card:hover::after {
+  opacity: 1;
+}
+
+/* Professional Category Badge Animation */
+.problem-category {
+  position: relative;
+  overflow: hidden;
+}
+
+.problem-category::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.problem-card:hover .problem-category::before {
+  left: 100%;
+}
+
+/* =====================================================
+   📱 RESPONSIVE PROBLEM CARDS - ENGINEERCONNECT OPTIMIZED
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .problem-card {
+    padding: var(--space-6);
+    min-height: 280px;
+    gap: var(--space-5);
+  }
+  
+  .problem-title {
+    font-size: var(--text-lg);
+  }
+  
+  .problem-description {
+    font-size: var(--text-sm);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  
+  .problem-detail-modal {
+    width: 95%;
+    max-height: 92vh;
+    border-radius: var(--radius-xl);
+  }
+  
+  .problem-detail-header,
+  .problem-detail-body {
+    padding: var(--space-6);
+  }
+  
+  .problem-detail-title {
+    font-size: var(--text-xl);
+  }
+  
+  .problem-attachments-section {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .problem-card {
+    padding: var(--space-5);
+    min-height: 240px;
+    gap: var(--space-4);
+  }
+  
+  .problem-title {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+  }
+  
+  .problem-description {
+    font-size: var(--text-sm);
+  }
+  
+  .problem-meta {
+    gap: var(--space-2);
+  }
+  
+  .problem-actions {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .problem-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+  }
+  
+  .problem-detail-header,
+  .problem-detail-body {
+    padding: var(--space-4);
+  }
+  
+  .problem-detail-title {
+    font-size: var(--text-lg);
+  }
+  
+  .problem-detail-description {
+    font-size: var(--text-sm);
+  }
+  
+  .problem-attachments-section {
+    padding: var(--space-4);
+  }
+  
+  .attachment-item {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
+/* =====================================================
+   🎯 ENGINEERCONNECT PROBLEM CARD VARIANTS
+   ===================================================== */
+
+.problem-card.priority-high {
+  border-color: var(--red-300);
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.problem-card.priority-high:hover {
+  border-color: var(--red-400);
+  box-shadow: 
+    0 16px 40px rgba(239, 68, 68, 0.15),
+    0 8px 20px rgba(239, 68, 68, 0.1);
+}
+
+.problem-card.priority-medium {
+  border-color: var(--yellow-300);
+  background: rgba(245, 158, 11, 0.02);
+}
+
+.problem-card.priority-medium:hover {
+  border-color: var(--yellow-400);
+  box-shadow: 
+    0 16px 40px rgba(245, 158, 11, 0.15),
+    0 8px 20px rgba(245, 158, 11, 0.1);
+}
+
+.problem-card.solved {
+  border-color: var(--green-300);
+  background: rgba(34, 197, 94, 0.02);
+}
+
+.problem-card.solved:hover {
+  border-color: var(--green-400);
+  box-shadow: 
+    0 16px 40px rgba(34, 197, 94, 0.15),
+    0 8px 20px rgba(34, 197, 94, 0.1);
+}
+
+/* Status Badge Variants */
+.problem-status {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-family: var(--font-body);
+}
+
+.problem-status.open {
+  background: var(--brand-blue-100);
+  color: var(--brand-blue-700);
+  border: var(--border-2) solid var(--brand-blue-300);
+}
+
+.problem-status.in-progress {
+  background: var(--yellow-100);
+  color: var(--yellow-700);
+  border: var(--border-2) solid var(--yellow-300);
+}
+
+.problem-status.solved {
+  background: var(--green-100);
+  color: var(--green-700);
+  border: var(--border-2) solid var(--green-300);
+}

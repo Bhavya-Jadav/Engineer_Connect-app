@@ -1,0 +1,880 @@
+/* =====================================================
+   📝 ENGINEERCONNECT - PROFESSIONAL TYPOGRAPHY SYSTEM
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🔤 Font Loading & Optimization
+   2. 🎨 Global Reset & Base Styles  
+   3. 📖 Typography Scale & Hierarchy
+   4. 🎯 Text Utilities & Modifiers
+   5. 🔗 Interactive Text Elements
+   6. 📱 Responsive Typography
+   7. ♿ Accessibility & Performance
+   ===================================================== */
+
+/* =====================================================
+   1. 🔤 FONT LOADING & OPTIMIZATION - ENGINEERCONNECT
+   ===================================================== */
+
+/* Font Display for Performance */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+}
+
+/* EngineerConnect Brand Fonts */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+}
+
+/* Preload Critical Fonts */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+}
+
+/* =====================================================
+   2. 🎨 GLOBAL RESET & BASE STYLES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Modern CSS Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root Font Configuration - EngineerConnect */
+html {
+  font-size: 16px; /* 1rem = 16px */
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  font-variant-ligatures: common-ligatures;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Body Base Styles - EngineerConnect Blue & White Theme */
+body {
+  background: var(--white);
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(45, 212, 218, 0.02) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.01) 0%, transparent 60%);
+  background-attachment: fixed;
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  color: var(--gray-800);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-tight);
+  overflow-x: hidden;
+  padding-top: var(--header-height, 80px);
+  padding-bottom: var(--space-8);
+  transition: background-color var(--transition-smooth);
+}
+
+/* Mobile body adjustments */
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+    padding-bottom: var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 64px;
+    padding-bottom: var(--space-4);
+  }
+}
+
+/* =====================================================
+   3. 📖 TYPOGRAPHY SCALE & HIERARCHY - ENGINEERCONNECT
+   ===================================================== */
+
+/* Heading Styles with Modern Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--brand-blue-700);
+  margin-bottom: var(--space-4);
+  position: relative;
+  word-wrap: break-word;
+  hyphens: auto;
+  scroll-margin-top: var(--space-20);
+}
+
+/* Display Headings - Hero Sections */
+.display-1,
+h1.display-1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-black);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tighter);
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-6);
+  font-family: var(--font-headings);
+}
+
+.display-2,
+h1.display-2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-extrabold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tighter);
+  margin-bottom: var(--space-5);
+  color: var(--brand-blue-600);
+  font-family: var(--font-headings);
+}
+
+/* Standard Headings - EngineerConnect Branded */
+h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-5);
+  color: var(--brand-blue-700);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-4);
+  color: var(--brand-blue-600);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-4);
+  color: var(--brand-blue-600);
+}
+
+h4 {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-3);
+  color: var(--brand-blue-500);
+}
+
+h5 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-3);
+  color: var(--brand-blue-500);
+}
+
+h6 {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--brand-blue-400);
+}
+
+/* Body Text & Paragraphs - EngineerConnect Theme */
+p {
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  color: var(--gray-700);
+  margin-bottom: var(--space-4);
+  max-width: 65ch; /* Optimal reading width */
+  word-wrap: break-word;
+  hyphens: auto;
+  font-family: var(--font-body);
+}
+
+/* Lead Paragraphs */
+.lead,
+p.lead {
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
+  line-height: var(--leading-relaxed);
+  color: var(--brand-blue-600);
+  margin-bottom: var(--space-6);
+  font-family: var(--font-body);
+}
+
+/* Small Text */
+small,
+.small {
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+}
+
+/* Extra Small Text */
+.xs,
+.text-xs {
+  font-size: var(--text-xs);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--gray-500);
+  font-family: var(--font-body);
+}
+
+/* =====================================================
+   4. 🎯 TEXT UTILITIES & MODIFIERS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Font Weight Utilities */
+.font-thin { font-weight: var(--font-thin); }
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+.font-extrabold { font-weight: var(--font-extrabold); }
+.font-black { font-weight: var(--font-black); }
+
+/* Font Size Utilities */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+.text-5xl { font-size: var(--text-5xl); }
+
+/* Text Color Utilities - EngineerConnect Theme */
+.text-primary { color: var(--brand-blue-700); }
+.text-secondary { color: var(--gray-700); }
+.text-tertiary { color: var(--gray-600); }
+.text-muted { color: var(--gray-500); }
+.text-subtle { color: var(--gray-400); }
+.text-brand { color: var(--brand-blue-600); }
+.text-brand-cyan { color: var(--brand-cyan-500); }
+.text-success { color: var(--green-600); }
+.text-warning { color: var(--yellow-600); }
+.text-error { color: var(--red-600); }
+.text-white { color: var(--white); }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Text Transform */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+.normal-case { text-transform: none; }
+
+/* Letter Spacing */
+.tracking-tighter { letter-spacing: var(--tracking-tighter); }
+.tracking-tight { letter-spacing: var(--tracking-tight); }
+.tracking-normal { letter-spacing: var(--tracking-normal); }
+.tracking-wide { letter-spacing: var(--tracking-wide); }
+.tracking-wider { letter-spacing: var(--tracking-wider); }
+.tracking-widest { letter-spacing: var(--tracking-widest); }
+
+/* Line Height */
+.leading-none { line-height: var(--leading-none); }
+.leading-tight { line-height: var(--leading-tight); }
+.leading-snug { line-height: var(--leading-snug); }
+.leading-normal { line-height: var(--leading-normal); }
+.leading-relaxed { line-height: var(--leading-relaxed); }
+.leading-loose { line-height: var(--leading-loose); }
+
+/* Text Decoration */
+.underline { text-decoration: underline; }
+.line-through { text-decoration: line-through; }
+.no-underline { text-decoration: none; }
+
+/* Advanced Text Effects - EngineerConnect Branded */
+.text-gradient-primary {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: engineerConnectGradientShift 3s ease-in-out infinite;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, var(--brand-blue-500) 0%, var(--brand-cyan-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(45deg, var(--brand-cyan-400) 0%, var(--brand-blue-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(59, 130, 246, 0.15);
+}
+
+.text-shadow-base {
+  text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(59, 130, 246, 0.25);
+}
+
+/* Monospace Text - EngineerConnect Theme */
+code,
+kbd,
+samp,
+pre,
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'calt' 0; /* Disable contextual alternates for code */
+}
+
+code {
+  font-size: 0.875em;
+  padding: 0.125rem 0.25rem;
+  background: var(--brand-blue-50);
+  border-radius: var(--radius-sm);
+  color: var(--brand-blue-700);
+  font-weight: var(--font-medium);
+  border: var(--border-1) solid var(--brand-blue-200);
+}
+
+pre {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  padding: var(--space-4);
+  background: var(--brand-blue-50);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: var(--border-2) solid var(--brand-blue-200);
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  color: var(--brand-blue-700);
+  border: none;
+}
+
+/* =====================================================
+   5. 🔗 INTERACTIVE TEXT ELEMENTS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Modern Link Styles - EngineerConnect Theme */
+a {
+  color: var(--brand-blue-600);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+  position: relative;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+a:hover {
+  color: var(--brand-blue-700);
+}
+
+a:focus {
+  outline: var(--border-2) solid var(--brand-blue-400);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Animated Underline Links */
+.link-underline,
+a.link-underline {
+  position: relative;
+  overflow: hidden;
+}
+
+.link-underline::after,
+a.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-brand);
+  transition: width var(--transition-smooth);
+  border-radius: var(--radius-full);
+}
+
+.link-underline:hover::after,
+a.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Button-style Links - EngineerConnect Branded */
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(59, 130, 246, 0.08);
+  border: var(--border-2) solid var(--brand-blue-200);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(4px);
+  color: var(--brand-blue-700);
+  text-decoration: none;
+  font-family: var(--font-body);
+}
+
+.link-button:hover {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: var(--brand-blue-400);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  color: var(--brand-blue-800);
+}
+
+/* EngineerConnect Brand Link Variants */
+.link-primary {
+  color: var(--brand-blue-600);
+  font-weight: var(--font-medium);
+}
+
+.link-primary:hover {
+  color: var(--brand-blue-700);
+}
+
+.link-secondary {
+  color: var(--gray-600);
+  font-weight: var(--font-normal);
+}
+
+.link-secondary:hover {
+  color: var(--brand-blue-600);
+}
+
+.link-accent {
+  color: var(--brand-cyan-600);
+  font-weight: var(--font-medium);
+}
+
+.link-accent:hover {
+  color: var(--brand-cyan-700);
+}
+
+/* =====================================================
+   6. 📱 RESPONSIVE TYPOGRAPHY - ENGINEERCONNECT OPTIMIZED
+   ===================================================== */
+
+/* Tablet Adjustments */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px; /* Slightly smaller base for tablets */
+  }
+  
+  body {
+    color: var(--gray-800);
+  }
+  
+  .display-1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: var(--brand-blue-700);
+  }
+  
+  .display-2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    color: var(--brand-blue-600);
+  }
+  
+  h1 { 
+    margin-bottom: var(--space-4); 
+    color: var(--brand-blue-700);
+  }
+  h2 { 
+    margin-bottom: var(--space-3); 
+    color: var(--brand-blue-600);
+  }
+  h3 { 
+    margin-bottom: var(--space-3); 
+    color: var(--brand-blue-600);
+  }
+  
+  p {
+    margin-bottom: var(--space-3);
+    max-width: none; /* Full width on mobile */
+    color: var(--gray-700);
+  }
+  
+  .lead {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+    color: var(--brand-blue-600);
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px; /* Smaller base for mobile */
+  }
+  
+  body {
+    line-height: var(--leading-relaxed);
+    letter-spacing: var(--tracking-normal);
+    color: var(--gray-800);
+  }
+  
+  .display-1 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    margin-bottom: var(--space-4);
+    color: var(--brand-blue-700);
+  }
+  
+  .display-2 {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    margin-bottom: var(--space-3);
+    color: var(--brand-blue-600);
+  }
+  
+  h1, h2, h3 {
+    margin-bottom: var(--space-3);
+  }
+  
+  h1 { color: var(--brand-blue-700); }
+  h2, h3 { color: var(--brand-blue-600); }
+  
+  h4, h5, h6 {
+    margin-bottom: var(--space-2);
+  }
+  
+  h4, h5 { color: var(--brand-blue-500); }
+  h6 { color: var(--brand-blue-400); }
+  
+  p {
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-loose);
+    color: var(--gray-700);
+  }
+  
+  .lead {
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    margin-bottom: var(--space-3);
+    color: var(--brand-blue-600);
+  }
+  
+  pre {
+    padding: var(--space-3);
+    font-size: var(--text-xs);
+    background: var(--brand-blue-50);
+  }
+  
+  code {
+    font-size: 0.8em;
+    background: var(--brand-blue-50);
+    color: var(--brand-blue-700);
+  }
+}
+
+/* =====================================================
+   7. ♿ ACCESSIBILITY & PERFORMANCE - ENGINEERCONNECT
+   ===================================================== */
+
+/* Text Selection - EngineerConnect Theme */
+::selection {
+  background: rgba(59, 130, 246, 0.25);
+  color: var(--brand-blue-800);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.25);
+  color: var(--brand-blue-800);
+  text-shadow: none;
+}
+
+/* Focus Styles - EngineerConnect Branded */
+*:focus-visible {
+  outline: var(--border-2) solid var(--brand-blue-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Modern Scrollbar - EngineerConnect Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--brand-blue-50);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-blue-300);
+  border-radius: var(--radius-full);
+  transition: var(--transition-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue-500);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--brand-blue-50);
+}
+
+/* High Contrast Mode - EngineerConnect Accessible */
+@media (prefers-contrast: high) {
+  body {
+    background: var(--white);
+    color: var(--gray-900);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--gray-900);
+  }
+  
+  a {
+    color: var(--brand-blue-800);
+    text-decoration: underline;
+  }
+  
+  code {
+    background: var(--gray-100);
+    color: var(--gray-900);
+    border: var(--border-2) solid var(--gray-400);
+  }
+  
+  pre {
+    background: var(--gray-100);
+    border: var(--border-2) solid var(--gray-400);
+  }
+  
+  .text-gradient-primary,
+  .text-gradient-secondary,
+  .text-gradient-accent {
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+    color: var(--gray-900);
+  }
+}
+
+/* Reduced Motion - EngineerConnect Compliant */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .text-gradient-primary {
+    animation: none;
+  }
+}
+
+/* Print Styles - EngineerConnect Optimized */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+  
+  p {
+    color: black !important;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  
+  .text-gradient-primary,
+  .text-gradient-secondary,
+  .text-gradient-accent {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
+    background-clip: unset !important;
+    color: black !important;
+  }
+}
+
+/* =====================================================
+   🎭 ADVANCED ANIMATIONS - ENGINEERCONNECT BRANDED
+   ===================================================== */
+
+@keyframes engineerConnectGradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes engineerConnectFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes engineerConnectTypewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes engineerConnectTextGlow {
+  0%, 100% {
+    text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    text-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  }
+}
+
+/* Animation Classes - EngineerConnect Branded */
+.animate-fade-in-up {
+  animation: engineerConnectFadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--brand-blue-500);
+  white-space: nowrap;
+  animation: engineerConnectTypewriter 3s steps(40) 1s forwards;
+}
+
+.animate-text-glow {
+  animation: engineerConnectTextGlow 2s ease-in-out infinite;
+}
+
+/* Professional EngineerConnect Text Effects */
+.text-engineering {
+  font-family: var(--font-headings);
+  font-weight: var(--font-bold);
+  color: var(--brand-blue-600);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.text-professional {
+  font-family: var(--font-body);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+  line-height: var(--leading-relaxed);
+}
+
+.text-brand-hero {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-family: var(--font-headings);
+  font-weight: var(--font-black);
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  line-height: var(--leading-tight);
+}
+
+/* =====================================================
+   📚 TYPOGRAPHY DOCUMENTATION - ENGINEERCONNECT
+   ===================================================== 
+   
+   This typography system provides:
+   
+   ✨ EngineerConnect Features:
+   - Blue and white theme integration
+   - Professional brand fonts (Poppins + Inter)
+   - Fluid typography with clamp() for perfect scaling
+   - Optimized font loading with font-display: swap
+   - Comprehensive utility classes with brand colors
+   - Advanced text effects and brand gradients
+   - Full accessibility support with high contrast
+   - Responsive design patterns for all devices
+   - Print optimization for professional documents
+   
+   🎨 Design Philosophy:
+   - EngineerConnect brand color integration
+   - Readable line lengths (65ch max)
+   - Consistent vertical rhythm
+   - Professional font weights and spacing
+   - Accessible color contrasts (WCAG compliant)
+   - Performance-optimized font loading
+   
+   📱 Responsive Strategy:
+   - Fluid typography scales with viewport
+   - Mobile-optimized line heights and spacing
+   - Touch-friendly link targets
+   - Readable font sizes across all devices
+   - Brand consistency maintained at every breakpoint
+   
+   🎯 EngineerConnect Brand Elements:
+   - Primary brand blue color scheme
+   - Professional gradient text effects
+   - Engineering-focused typography hierarchy
+   - Clean white backgrounds with blue accents
+   - Modern, user-friendly text styling
+   
+   ===================================================== */

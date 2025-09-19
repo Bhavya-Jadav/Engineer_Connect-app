@@ -1,0 +1,1477 @@
+/* =====================================================
+   🔘 ENGINEERCONNECT - PROFESSIONAL BUTTON SYSTEM
+   ===================================================== 
+   Blue & White Theme | Modern Engineering Design
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS - ENGINEERCONNECT BUTTONS
+   =====================================================
+   1. 🎨 Base Button Foundation
+   2. 🔵 EngineerConnect Brand Variants
+   3. 📏 Professional Button Sizes
+   4. ✨ Advanced Animations & States
+   5. 🔗 Engineering Interface Groups
+   6. 📱 Mobile-First Responsive Design
+   7. ♿ Accessibility Excellence
+   8. 🎯 EngineerConnect Utilities
+   ===================================================== */
+
+/* =====================================================
+   1. 🎨 BASE BUTTON FOUNDATION - ENGINEERCONNECT
+   ===================================================== */
+
+.btn {
+  /* Engineering-Grade Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  position: relative;
+  overflow: hidden;
+  
+  /* Professional Sizing */
+  padding: var(--space-3) var(--space-6);
+  min-height: 48px; /* Touch-optimized */
+  min-width: fit-content;
+  
+  /* EngineerConnect Typography */
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: var(--leading-none);
+  
+  /* Base Visual Design */
+  background: var(--white);
+  border: var(--border-1) solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  
+  /* Professional Interactive */
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  
+  /* Smooth EngineerConnect Transitions */
+  transition: 
+    all var(--duration-200) var(--ease-out),
+    transform var(--duration-150) var(--ease-smooth),
+    box-shadow var(--duration-300) var(--ease-out);
+  
+  /* Performance Optimization */
+  will-change: transform, box-shadow, background-color;
+  transform: translateZ(0);
+  
+  /* Default Professional Shadow */
+  box-shadow: 
+    0 2px 8px rgba(59, 130, 246, 0.08),
+    0 1px 4px rgba(45, 212, 218, 0.06);
+}
+
+/* EngineerConnect Professional Shimmer Effect */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.08) 50%,
+    transparent 100%
+  );
+  transition: left var(--duration-600) var(--ease-smooth);
+  z-index: 1;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Engineering Icon Styling */
+.btn i {
+  font-size: 1em;
+  flex-shrink: 0;
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.btn:hover i {
+  transform: scale(1.08);
+}
+
+/* Base Hover State - Professional */
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.15),
+    0 4px 12px rgba(45, 212, 218, 0.1);
+  border-color: var(--brand-blue-300);
+}
+
+/* =====================================================
+   2. 🔵 ENGINEERCONNECT BRAND VARIANTS
+   ===================================================== */
+
+/* Primary Action - EngineerConnect Brand */
+.btn-primary {
+  background: var(--gradient-brand);
+  color: var(--white);
+  border-color: transparent;
+  font-weight: var(--font-semibold);
+  box-shadow: 
+    0 4px 16px rgba(59, 130, 246, 0.25),
+    0 2px 8px rgba(45, 212, 218, 0.15);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--brand-blue-600) 0%,
+    var(--brand-cyan-600) 100%
+  );
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.35),
+    0 6px 16px rgba(45, 212, 218, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.3),
+    0 3px 10px rgba(45, 212, 218, 0.2);
+}
+
+/* Secondary Professional - Glass Morphism */
+.btn-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--neutral-50) 100%
+  );
+  color: var(--brand-blue-600);
+  border: var(--border-1) solid var(--brand-blue-200);
+  backdrop-filter: var(--blur-sm);
+  font-weight: var(--font-medium);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--brand-blue-50) 100%
+  );
+  border-color: var(--brand-blue-400);
+  color: var(--brand-blue-700);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.18),
+    0 4px 12px rgba(45, 212, 218, 0.12);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  background: var(--brand-blue-50);
+}
+
+/* Outline Professional - Engineering Style */
+.btn-outline {
+  background: transparent;
+  color: var(--brand-blue-600);
+  border: var(--border-2) solid var(--brand-blue-400);
+  position: relative;
+  font-weight: var(--font-medium);
+}
+
+.btn-outline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--duration-300) var(--ease-out);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.btn-outline:hover {
+  color: var(--white);
+  border-color: var(--brand-blue-500);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.2),
+    0 4px 12px rgba(45, 212, 218, 0.15);
+}
+
+.btn-outline:hover::after {
+  opacity: 1;
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.15),
+    0 2px 6px rgba(45, 212, 218, 0.1);
+}
+
+/* Ghost Professional - Minimal Engineering */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--brand-blue-50);
+  color: var(--brand-blue-700);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.1),
+    0 2px 6px rgba(45, 212, 218, 0.08);
+}
+
+.btn-ghost:active {
+  transform: translateY(0);
+  background: var(--brand-blue-100);
+}
+
+/* Engineering Status Buttons */
+.btn-success {
+  background: linear-gradient(
+    135deg,
+    var(--green-500) 0%,
+    var(--green-600) 100%
+  );
+  color: var(--white);
+  border-color: var(--green-500);
+  font-weight: var(--font-medium);
+}
+
+.btn-success:hover {
+  background: linear-gradient(
+    135deg,
+    var(--green-600) 0%,
+    var(--green-700) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.25);
+}
+
+.btn-warning {
+  background: linear-gradient(
+    135deg,
+    var(--yellow-500) 0%,
+    var(--yellow-600) 100%
+  );
+  color: var(--white);
+  border-color: var(--yellow-500);
+  font-weight: var(--font-medium);
+}
+
+.btn-warning:hover {
+  background: linear-gradient(
+    135deg,
+    var(--yellow-600) 0%,
+    var(--yellow-700) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
+}
+
+.btn-danger,
+.btn-remove {
+  background: linear-gradient(
+    135deg,
+    var(--red-500) 0%,
+    var(--red-600) 100%
+  );
+  color: var(--white);
+  border-color: var(--red-500);
+  font-weight: var(--font-medium);
+}
+
+.btn-danger:hover,
+.btn-remove:hover {
+  background: linear-gradient(
+    135deg,
+    var(--red-600) 0%,
+    var(--red-700) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
+}
+
+/* EngineerConnect Info Button */
+.btn-info {
+  background: linear-gradient(
+    135deg,
+    var(--brand-cyan-500) 0%,
+    var(--brand-blue-500) 100%
+  );
+  color: var(--white);
+  border-color: transparent;
+  font-weight: var(--font-medium);
+}
+
+.btn-info:hover {
+  background: linear-gradient(
+    135deg,
+    var(--brand-cyan-600) 0%,
+    var(--brand-blue-600) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(45, 212, 218, 0.25),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* =====================================================
+   3. 📏 PROFESSIONAL BUTTON SIZES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Extra Small - Compact Engineering Tools */
+.btn-xs {
+  padding: var(--space-1) var(--space-3);
+  min-height: 32px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  gap: var(--space-1);
+}
+
+/* Small - Interface Controls */
+.btn-sm {
+  padding: var(--space-2) var(--space-4);
+  min-height: 40px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  gap: var(--space-1);
+}
+
+/* Base - Standard Engineering Actions (Default size already defined above) */
+
+/* Large - Primary Engineering Actions */
+.btn-lg {
+  padding: var(--space-4) var(--space-8);
+  min-height: 56px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-xl);
+  gap: var(--space-3);
+}
+
+/* Extra Large - Hero Engineering CTAs */
+.btn-xl {
+  padding: var(--space-6) var(--space-12);
+  min-height: 64px;
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-2xl);
+  gap: var(--space-4);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Engineering Icon Button System */
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon.btn-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+}
+
+.btn-icon.btn-lg {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-xl);
+}
+
+.btn-icon.btn-xl {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-2xl);
+}
+
+/* Full Width Professional Buttons */
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* EngineerConnect Pill Buttons */
+.btn-pill {
+  border-radius: var(--radius-full);
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
+}
+
+/* =====================================================
+   4. ✨ ADVANCED ANIMATIONS & STATES - ENGINEERCONNECT
+   ===================================================== */
+
+/* EngineerConnect Loading State */
+.btn-loading {
+  cursor: not-allowed;
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: engineerConnectSpin var(--duration-1000) linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-loading.btn-primary::after {
+  border-top-color: var(--white);
+}
+
+.btn-loading.btn-secondary::after,
+.btn-loading.btn-outline::after {
+  border-top-color: var(--brand-blue-600);
+}
+
+/* Professional Disabled State */
+.btn:disabled,
+.btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  transform: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  background: var(--neutral-100) !important;
+  color: var(--text-tertiary) !important;
+  border-color: var(--neutral-200) !important;
+}
+
+/* Active/Pressed Engineering State */
+.btn-active,
+.btn:active:not(:disabled) {
+  transform: scale(0.98) translateY(1px);
+  transition-duration: var(--duration-100);
+}
+
+/* EngineerConnect Professional Pulse */
+.btn-pulse {
+  animation: engineerConnectPulse 2s infinite;
+}
+
+@keyframes engineerConnectPulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 16px rgba(59, 130, 246, 0.15),
+      0 2px 8px rgba(45, 212, 218, 0.1),
+      0 0 0 0 var(--brand-blue-alpha-40);
+  }
+  50% {
+    box-shadow: 
+      0 8px 24px rgba(59, 130, 246, 0.25),
+      0 4px 12px rgba(45, 212, 218, 0.15),
+      0 0 0 12px var(--brand-blue-alpha-0);
+  }
+}
+
+/* Engineering Excellence Bounce */
+.btn-bounce:hover {
+  animation: engineerConnectBounce 0.6s ease-in-out;
+}
+
+@keyframes engineerConnectBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Professional Spin Animation */
+@keyframes engineerConnectSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* EngineerConnect Gradient Flow */
+.btn-gradient-animate {
+  background-size: 300% 300%;
+  animation: engineerConnectGradientFlow 3s ease-in-out infinite;
+}
+
+@keyframes engineerConnectGradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Professional Hover Animations */
+.btn-lift:hover {
+  transform: translateY(-4px) scale(1.02);
+  transition: all var(--duration-300) var(--ease-smooth);
+}
+
+.btn-glow:hover {
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.3),
+    0 6px 16px rgba(45, 212, 218, 0.2),
+    0 0 0 1px var(--brand-blue-200);
+}
+
+/* =====================================================
+   5. 🔗 ENGINEERING INTERFACE GROUPS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Professional Button Groups */
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 
+    0 2px 8px rgba(59, 130, 246, 0.08),
+    0 1px 4px rgba(45, 212, 218, 0.06);
+  background: var(--white);
+  border: var(--border-1) solid var(--neutral-200);
+}
+
+.btn-group .btn {
+  border-radius: 0;
+  border-right: var(--border-1) solid var(--neutral-200);
+  box-shadow: none;
+}
+
+.btn-group .btn:first-child {
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.btn-group .btn:last-child {
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  border-right: none;
+}
+
+.btn-group .btn:only-child {
+  border-radius: var(--radius-lg);
+  border-right: none;
+}
+
+.btn-group .btn:hover {
+  z-index: 1;
+  border-color: var(--brand-blue-300);
+}
+
+/* EngineerConnect Navigation System */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.nav-buttons .btn {
+  background: var(--white);
+  border: var(--border-1) solid var(--neutral-200);
+  color: var(--text-secondary);
+  font-weight: var(--font-medium);
+}
+
+.nav-buttons .btn:hover {
+  background: var(--brand-blue-50);
+  border-color: var(--brand-blue-300);
+  color: var(--brand-blue-700);
+}
+
+.nav-buttons .btn.active {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: var(--white);
+}
+
+/* Professional Authentication Controls */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logout-btn {
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--neutral-50) 100%
+  );
+  color: var(--text-primary);
+  border: var(--border-1) solid var(--neutral-200);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-base);
+  backdrop-filter: var(--blur-sm);
+}
+
+.logout-btn:hover {
+  background: var(--brand-blue-50);
+  border-color: var(--brand-blue-300);
+  color: var(--brand-blue-700);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.15),
+    0 2px 6px rgba(45, 212, 218, 0.1);
+}
+
+/* Engineering Admin Dashboard Actions */
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.admin-actions .btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-xl);
+  min-height: 64px;
+  transition: all var(--duration-300) var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.admin-actions .btn-primary {
+  background: var(--gradient-brand);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.25),
+    0 3px 10px rgba(45, 212, 218, 0.15);
+}
+
+.admin-actions .btn-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.35),
+    0 6px 16px rgba(45, 212, 218, 0.25);
+}
+
+.admin-actions .btn-secondary {
+  background: var(--white);
+  border: var(--border-1) solid var(--brand-blue-200);
+  color: var(--brand-blue-600);
+}
+
+.admin-actions .btn-secondary:hover {
+  background: var(--brand-blue-50);
+  border-color: var(--brand-blue-400);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 10px 28px rgba(59, 130, 246, 0.2),
+    0 5px 14px rgba(45, 212, 218, 0.15);
+}
+
+.admin-actions .btn i {
+  font-size: var(--text-xl);
+}
+
+/* Engineering Problem Actions */
+.problem-actions {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.problem-actions .btn {
+  flex: 1;
+  min-width: 140px;
+  font-weight: var(--font-medium);
+}
+
+/* Professional Form Actions */
+.form-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-1) solid var(--neutral-200);
+}
+
+.form-actions .btn-primary {
+  order: 2;
+}
+
+.form-actions .btn-secondary,
+.form-actions .btn-outline {
+  order: 1;
+}
+
+/* =====================================================
+   6. 📱 MOBILE-FIRST RESPONSIVE DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+/* EngineerConnect Tablet Experience - Professional */
+@media (max-width: 1024px) {
+  .btn {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-base);
+    min-height: 44px;
+  }
+  
+  .btn-lg {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-lg);
+    min-height: 52px;
+  }
+  
+  .nav-buttons {
+    gap: var(--space-2);
+  }
+  
+  .auth-buttons {
+    gap: var(--space-3);
+  }
+  
+  .admin-actions .btn {
+    min-height: 56px;
+    padding: var(--space-3) var(--space-5);
+  }
+}
+
+/* EngineerConnect Mobile Experience - Touch Optimized */
+@media (max-width: 768px) {
+  .btn {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-base);
+    min-height: 48px; /* Enhanced touch target */
+    border-radius: var(--radius-xl);
+  }
+  
+  .btn-sm {
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+  }
+  
+  .btn-lg {
+    padding: var(--space-4) var(--space-7);
+    min-height: 56px;
+  }
+  
+  .btn-xl {
+    padding: var(--space-5) var(--space-8);
+    font-size: var(--text-xl);
+    min-height: 64px;
+  }
+  
+  .nav-buttons {
+    gap: var(--space-2);
+    justify-content: center;
+  }
+  
+  .auth-buttons {
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+    order: unset;
+  }
+  
+  .problem-actions {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .problem-actions .btn {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-xl);
+  }
+  
+  .btn-group .btn {
+    border-radius: 0;
+    border-right: none;
+    border-bottom: var(--border-1) solid var(--neutral-200);
+    width: 100%;
+  }
+  
+  .btn-group .btn:first-child {
+    border-top-left-radius: var(--radius-xl);
+    border-top-right-radius: var(--radius-xl);
+    border-bottom-left-radius: 0;
+  }
+  
+  .btn-group .btn:last-child {
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
+    border-top-right-radius: 0;
+    border-bottom: none;
+  }
+  
+  .admin-actions {
+    max-width: 100%;
+    padding: 0 var(--space-4);
+  }
+  
+  .admin-actions .btn {
+    min-height: 56px;
+    font-size: var(--text-lg);
+  }
+}
+
+/* Small Mobile - Compact Professional */
+@media (max-width: 480px) {
+  .btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    gap: var(--space-1);
+    min-height: 44px;
+  }
+  
+  .btn-sm {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 40px;
+  }
+  
+  .btn-lg {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-lg);
+    min-height: 52px;
+  }
+  
+  .btn-xl {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-lg);
+    min-height: 56px;
+  }
+  
+  .nav-buttons {
+    gap: var(--space-1);
+  }
+  
+  .auth-buttons {
+    gap: var(--space-2);
+  }
+  
+  .logout-btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+  
+  .admin-actions .btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    min-height: 52px;
+  }
+  
+  .admin-actions .btn i {
+    font-size: var(--text-lg);
+  }
+  
+  /* Professional icon-only mobile treatment */
+  .btn-mobile-icon-only .btn-text {
+    display: none;
+  }
+  
+  .btn-mobile-icon-only {
+    width: 48px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* Extra Small Mobile - Minimal Professional */
+@media (max-width: 360px) {
+  .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 42px;
+  }
+  
+  .btn-sm {
+    min-height: 38px;
+  }
+  
+  .logout-btn {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+  }
+  
+  .admin-actions .btn {
+    min-height: 48px;
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+  
+  .btn-icon {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .btn-icon.btn-sm {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* =====================================================
+   7. ♿ ACCESSIBILITY EXCELLENCE - ENGINEERCONNECT
+   ===================================================== */
+
+/* Professional Focus Styling */
+.btn:focus-visible {
+  outline: 3px solid var(--brand-blue-400);
+  outline-offset: 2px;
+  border-radius: inherit;
+  box-shadow: 
+    0 0 0 2px var(--white),
+    0 0 0 5px var(--brand-blue-400),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.btn-primary:focus-visible {
+  outline-color: var(--white);
+  box-shadow: 
+    0 0 0 2px var(--brand-blue-600),
+    0 0 0 5px var(--white),
+    0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.btn-danger:focus-visible,
+.btn-remove:focus-visible {
+  outline-color: var(--red-400);
+  box-shadow: 
+    0 0 0 2px var(--white),
+    0 0 0 5px var(--red-400),
+    0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.btn-success:focus-visible {
+  outline-color: var(--green-400);
+  box-shadow: 
+    0 0 0 2px var(--white),
+    0 0 0 5px var(--green-400),
+    0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+/* High Contrast Engineering Support */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+    font-weight: var(--font-semibold);
+  }
+  
+  .btn-primary {
+    background: var(--brand-blue-700);
+    border-color: var(--brand-blue-800);
+    color: var(--white);
+  }
+  
+  .btn-secondary {
+    background: var(--white);
+    border-color: var(--brand-blue-700);
+    color: var(--brand-blue-800);
+  }
+  
+  .btn:focus-visible {
+    outline: 4px solid currentColor;
+    outline-offset: 4px;
+  }
+  
+  .btn:hover {
+    transform: none; /* Reduce motion in high contrast */
+  }
+}
+
+/* Reduced Motion Professional Support */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before,
+  .btn::after,
+  .btn i {
+    animation: none !important;
+    transition: color var(--duration-200) ease,
+               background-color var(--duration-200) ease,
+               border-color var(--duration-200) ease !important;
+  }
+  
+  .btn:hover {
+    transform: none !important;
+  }
+  
+  .btn:active {
+    transform: none !important;
+  }
+  
+  .btn-loading::after {
+    animation: none !important;
+  }
+}
+
+/* Screen Reader Professional Support */
+.btn .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ARIA Live Regions for Loading States */
+.btn-loading[aria-live="polite"]::before {
+  content: "Loading...";
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Touch Device Professional Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 48px; /* WCAG AA minimum */
+    min-width: 48px;
+  }
+  
+  .btn-sm {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .btn:hover {
+    transform: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+    transition-duration: var(--duration-100);
+  }
+  
+  /* Enhanced touch feedback */
+  .btn:active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: inherit;
+    animation: touchFeedback 0.3s ease-out;
+  }
+}
+
+@keyframes touchFeedback {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+/* Professional Voice Control Support */
+.btn[data-voice-command] {
+  position: relative;
+}
+
+.btn[data-voice-command]::after {
+  content: attr(data-voice-command);
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* =====================================================
+   8. 🎯 ENGINEERCONNECT UTILITIES & SPECIALIZATIONS
+   ===================================================== */
+
+/* Professional Icon-Only Buttons */
+.btn-icon-only {
+  padding: var(--space-3);
+  aspect-ratio: 1;
+  width: auto;
+  height: auto;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* EngineerConnect Floating Action Button */
+.btn-fab {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  padding: 0;
+  background: var(--gradient-brand);
+  color: var(--white);
+  border: none;
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.3),
+    0 4px 12px rgba(45, 212, 218, 0.2);
+  z-index: var(--z-fixed);
+  transition: all var(--duration-300) var(--ease-out);
+}
+
+.btn-fab:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 
+    0 12px 32px rgba(59, 130, 246, 0.4),
+    0 6px 16px rgba(45, 212, 218, 0.3);
+}
+
+.btn-fab:active {
+  transform: scale(1.05) translateY(-1px);
+}
+
+.btn-fab i {
+  font-size: var(--text-xl);
+}
+
+/* Professional Square Buttons */
+.btn-square {
+  border-radius: var(--radius-sm);
+}
+
+/* EngineerConnect Social Media Buttons */
+.btn-social {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-300) var(--ease-out);
+}
+
+.btn-social.btn-linkedin {
+  background: linear-gradient(135deg, #0077B5 0%, #005885 100%);
+  color: var(--white);
+}
+
+.btn-social.btn-github {
+  background: linear-gradient(135deg, #333 0%, #24292e 100%);
+  color: var(--white);
+}
+
+.btn-social.btn-google {
+  background: linear-gradient(135deg, #4285F4 0%, #1a73e8 100%);
+  color: var(--white);
+}
+
+.btn-social:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Engineering Tag Buttons */
+.btn-tag {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  background: var(--brand-blue-100);
+  color: var(--brand-blue-700);
+  border: var(--border-1) solid var(--brand-blue-200);
+  cursor: pointer;
+  transition: all var(--duration-200) var(--ease-out);
+}
+
+.btn-tag:hover {
+  background: var(--brand-blue-200);
+  color: var(--brand-blue-800);
+  transform: translateY(-1px);
+}
+
+.btn-tag.active {
+  background: var(--gradient-brand);
+  color: var(--white);
+  border-color: transparent;
+}
+
+/* Professional Toggle Buttons */
+.btn-toggle {
+  background: var(--neutral-100);
+  color: var(--text-secondary);
+  border: var(--border-1) solid var(--neutral-300);
+}
+
+.btn-toggle.active {
+  background: var(--gradient-brand);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.btn-toggle:hover:not(.active) {
+  background: var(--neutral-200);
+  color: var(--text-primary);
+}
+
+/* EngineerConnect Upload Buttons */
+.btn-upload {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn-upload input[type="file"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.btn-upload:hover {
+  background: var(--brand-blue-50);
+  border-color: var(--brand-blue-300);
+}
+
+/* Professional Dropdown Trigger Buttons */
+.btn-dropdown {
+  position: relative;
+}
+
+.btn-dropdown::after {
+  content: '▼';
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.btn-dropdown[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Engineering Status Indicator Buttons */
+.btn-status {
+  position: relative;
+}
+
+.btn-status::before {
+  content: '';
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-500);
+  border: 2px solid var(--white);
+}
+
+.btn-status.status-warning::before {
+  background: var(--yellow-500);
+}
+
+.btn-status.status-error::before {
+  background: var(--red-500);
+}
+
+.btn-status.status-offline::before {
+  background: var(--neutral-400);
+}
+
+/* Professional Loading Button Variants */
+.btn-loading-dots::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: loadingDots 1.4s ease-in-out infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-loading-dots::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: loadingDots 1.4s ease-in-out infinite;
+  animation-delay: -0.16s;
+  left: calc(50% - 8px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Professional Notification Badges on Buttons */
+.btn-with-badge {
+  position: relative;
+}
+
+.btn-with-badge .badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--red-500);
+  color: var(--white);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+}
+
+/* =====================================================
+   📊 ENGINEERCONNECT BUTTON SYSTEM DOCUMENTATION
+   ===================================================== 
+   
+   Professional Blue & White Engineering Button System
+   
+   ✨ EngineerConnect Features:
+   - Brand-consistent blue and white theme
+   - Professional engineering aesthetics
+   - Comprehensive size system (xs, sm, base, lg, xl)
+   - Advanced accessibility (WCAG 2.1 AA compliant)
+   - Touch-optimized responsive design
+   - Engineering-specific animations
+   - Glass morphism and gradient systems
+   - Professional loading and state management
+   
+   🎨 EngineerConnect Design Philosophy:
+   - Professional engineering trust-building
+   - Blue and white color harmony
+   - Clean, modern typography with proper contrast
+   - Smooth, purposeful animations
+   - Hardware-accelerated performance
+   - Mobile-first responsive approach
+   
+   🔵 Brand Integration:
+   - Primary: EngineerConnect brand gradient (blue → cyan)
+   - Secondary: Professional white with blue accents
+   - Outline: Engineering-grade borders with brand colors
+   - Status: Professional green, yellow, red system
+   - Social: Platform-specific brand colors
+   
+   ♿ Accessibility Excellence:
+   - WCAG 2.1 AA compliant color contrast
+   - Keyboard navigation support
+   - Screen reader optimization
+   - High contrast mode support
+   - Reduced motion preferences
+   - Voice control compatibility
+   - Touch-friendly 48px minimum targets
+   
+   📱 Mobile Engineering:
+   - Touch-optimized interactions
+   - Professional mobile button scaling
+   - Responsive icon/text handling
+   - Enhanced feedback for touch devices
+   - Professional mobile-first approach
+   
+   🎯 Usage Examples:
+   
+   Primary Actions:
+   <button class="btn btn-primary">Connect Engineers</button>
+   <button class="btn btn-primary btn-lg">Start Engineering Project</button>
+   
+   Secondary Actions:
+   <button class="btn btn-secondary">View Details</button>
+   <button class="btn btn-outline">Learn More</button>
+   
+   Icon Buttons:
+   <button class="btn btn-icon btn-primary"><i class="icon-engineering"></i></button>
+   
+   Loading States:
+   <button class="btn btn-primary btn-loading">Processing...</button>
+   
+   Responsive Groups:
+   <div class="btn-group">
+     <button class="btn btn-secondary">Option 1</button>
+     <button class="btn btn-secondary active">Option 2</button>
+   </div>
+   
+   Professional Forms:
+   <div class="form-actions">
+     <button class="btn btn-outline">Cancel</button>
+     <button class="btn btn-primary">Submit Engineering Solution</button>
+   </div>
+   
+   ===================================================== */
+

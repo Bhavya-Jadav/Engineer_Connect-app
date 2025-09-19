@@ -1,0 +1,1104 @@
+/* =====================================================
+   📱 HEADER COMPONENT - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎨 Header Container & Layout
+   2. 🏷️ Logo & Branding Design
+   3. 👤 User Section & Profile
+   4. 🎯 Buttons & Interactive Elements
+   5. 📱 Mobile Menu System
+   6. 🔄 Back Button Design
+   7. 📱 Responsive Design
+   8. ✨ Animations & Transitions
+   ===================================================== */
+
+/* =====================================================
+   1. 🎨 HEADER CONTAINER & LAYOUT - ENGINEERCONNECT
+   ===================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+  box-shadow: 
+    0 2px 20px rgba(59, 130, 246, 0.12),
+    0 1px 8px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  height: 64px;
+  will-change: transform, box-shadow;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    #3B82F6 0%, 
+    #2DD4DA  50%, 
+    #3B82F6 100%);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.header:hover::before {
+  opacity: 0.7;
+}
+
+@keyframes gradientShift {
+  0% { transform: translateX(-2px); }
+  100% { transform: translateX(2px); }
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.header.has-back-btn .header-container {
+  padding-left: 70px;
+}
+
+/* =====================================================
+   2. 🏷️ LOGO & BRANDING DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover::before {
+  opacity: 1;
+}
+
+.logo i {
+  font-size: 24px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #3B82F6;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover i {
+  transform: rotate(5deg) scale(1.1);
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1E293B;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.logo:hover .logo-text {
+  transform: translateY(-1px);
+  color: #3B82F6;
+}
+
+/* =====================================================
+   3. 👤 USER SECTION & PROFILE - ENGINEERCONNECT
+   ===================================================== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.user-info:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.profile-picture {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.profile-picture-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.user-info:hover .profile-picture,
+.user-info:hover .profile-picture-placeholder {
+  transform: scale(1.05);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1E293B;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748B;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  text-transform: capitalize;
+}
+
+/* =====================================================
+   4. 🎯 BUTTONS & INTERACTIVE ELEMENTS - ENGINEERCONNECT
+   ===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn i {
+  font-size: 13px;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover i {
+  transform: translateX(2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.btn-outline {
+  background: rgba(59, 130, 246, 0.05);
+  color: #3B82F6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.btn-outline:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3B82F6;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(45, 212, 218, 0.1);
+  color: #0891B2;
+  border: 1px solid rgba(45, 212, 218, 0.25);
+}
+
+.btn-secondary:hover {
+  background: rgba(45, 212, 218, 0.15);
+  border-color: #0891B2;
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #EF4444;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* =====================================================
+   5. 📱 MOBILE MENU SYSTEM - ENGINEERCONNECT
+   ===================================================== */
+
+.mobile-only {
+  display: none;
+  position: relative;
+}
+
+.mobile-menu-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.1) 0%, 
+    rgba(45, 212, 218, 0.08) 100%);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  color: #3B82F6;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 2px 8px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.mobile-menu-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.15) 0%, 
+    rgba(45, 212, 218, 0.12) 100%);
+  border-color: #3B82F6;
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.25),
+    0 2px 8px rgba(45, 212, 218, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.mobile-menu-btn:hover::before {
+  opacity: 1;
+}
+
+.mobile-menu-btn:active {
+  transform: scale(0.98);
+}
+
+.mobile-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  border: 2px solid rgba(59, 130, 246, 0.12);
+  box-shadow: 
+    0 24px 80px rgba(59, 130, 246, 0.2),
+    0 12px 32px rgba(45, 212, 218, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(59, 130, 246, 0.05);
+  animation: mobileMenuSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.mobile-menu-header {
+  padding: 24px 20px;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.02) 0%, 
+    rgba(45, 212, 218, 0.01) 100%);
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mobile-profile-picture {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 3px solid rgba(59, 130, 246, 0.25);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.mobile-profile-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    #3B82F6 0%, 
+    #2563EB 25%, 
+    #2DD4DA 75%, 
+    #06B6D4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.mobile-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-user-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E293B;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.3px;
+  text-shadow: 0 1px 2px rgba(30, 41, 59, 0.1);
+}
+
+.mobile-user-role {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748B;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+}
+
+.mobile-menu-actions {
+  padding: 12px;
+}
+
+.mobile-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: none;
+  background: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.mobile-menu-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2DD4DA 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu-item:hover {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.08) 0%, 
+    rgba(45, 212, 218, 0.06) 100%);
+  color: #3B82F6;
+  transform: translateX(6px);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.mobile-menu-item:hover::before {
+  opacity: 1;
+}
+
+.mobile-menu-item.logout {
+  color: #EF4444;
+  border-top: 2px solid rgba(239, 68, 68, 0.1);
+  margin-top: 12px;
+  padding-top: 24px;
+}
+
+.mobile-menu-item.logout:hover {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.08) 0%, 
+    rgba(220, 38, 38, 0.06) 100%);
+  color: #DC2626;
+}
+
+.mobile-menu-item.logout::before {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.mobile-menu-item i {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  transition: transform 0.4s ease;
+}
+
+.mobile-menu-item:hover i {
+  transform: scale(1.1);
+}
+
+/* =====================================================
+   6. 🔄 BACK BUTTON DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+.header-back-btn {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #3B82F6;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.header-back-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3B82F6;
+  transform: translateY(-50%) translateX(-2px) scale(1.05);
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.2);
+}
+
+.header-back-btn i {
+  transition: transform 0.3s ease;
+}
+
+.header-back-btn:hover i {
+  transform: translateX(-2px);
+}
+
+/* =====================================================
+   7. 📱 RESPONSIVE DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .header {
+    height: 60px;
+  }
+  
+  .header-container {
+    padding: 0 16px;
+  }
+  
+  .header.has-back-btn .header-container {
+    padding-left: 68px;
+  }
+  
+  .logo i {
+    font-size: 24px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+  }
+  
+  .logo {
+    padding: 8px 12px;
+  }
+  
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block;
+  }
+  
+  .header-back-btn {
+    left: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  
+  .btn-text {
+    display: none;
+  }
+  
+  .auth-buttons {
+    gap: 10px;
+  }
+  
+  .mobile-menu-dropdown {
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 56px;
+  }
+  
+  .header-container {
+    padding: 0 12px;
+  }
+  
+  .header.has-back-btn .header-container {
+    padding-left: 60px;
+  }
+  
+  .logo i {
+    font-size: 20px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+  }
+  
+  .logo {
+    padding: 6px 10px;
+    gap: 10px;
+  }
+  
+  .header-back-btn {
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  
+  .mobile-menu-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+  
+  .mobile-menu-dropdown {
+    width: 280px;
+    right: -12px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .user-info {
+    padding: 6px 10px;
+  }
+  
+  .profile-picture,
+  .profile-picture-placeholder {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .user-name {
+    font-size: 14px;
+  }
+  
+  .user-role {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    height: 52px;
+  }
+  
+  .header-container {
+    padding: 0 10px;
+  }
+  
+  .header.has-back-btn .header-container {
+    padding-left: 54px;
+  }
+  
+  .logo i {
+    font-size: 18px;
+  }
+  
+  .logo-text {
+    font-size: 16px;
+  }
+  
+  .header-back-btn {
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .mobile-menu-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .mobile-menu-dropdown {
+    width: 260px;
+    right: -10px;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-only {
+    display: flex !important;
+  }
+  
+  .mobile-only {
+    display: none !important;
+  }
+  
+  .header-container {
+    padding: 0 28px;
+  }
+  
+  .header.has-back-btn .header-container {
+    padding-left: 84px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header {
+    height: 72px;
+  }
+  
+  .header-container {
+    padding: 0 36px;
+  }
+  
+  .header.has-back-btn .header-container {
+    padding-left: 92px;
+  }
+  
+  .logo i {
+    font-size: 30px;
+  }
+  
+  .logo-text {
+    font-size: 26px;
+  }
+  
+  .logo {
+    padding: 12px 18px;
+    gap: 16px;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  
+  .header-back-btn {
+    left: 36px;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
+
+/* =====================================================
+   8. ✨ ANIMATIONS & TRANSITIONS - ENGINEERCONNECT
+   ===================================================== */
+
+@keyframes mobileMenuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% { 
+    transform: translateX(-2px);
+    filter: hue-rotate(0deg);
+  }
+  50% { 
+    transform: translateX(0px);
+    filter: hue-rotate(5deg);
+  }
+  100% { 
+    transform: translateX(2px);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes logoGlow {
+  0% { 
+    box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+    filter: brightness(1);
+  }
+  50% { 
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
+    filter: brightness(1.05);
+  }
+  100% { 
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: rotate(5deg) scale(1.05); }
+  25% { transform: rotate(3deg) scale(1.08); }
+  50% { transform: rotate(7deg) scale(1.06); }
+  75% { transform: rotate(2deg) scale(1.09); }
+}
+
+@keyframes buttonPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Enhanced Hover Animations */
+.logo:hover .logo-text {
+  transform: translateY(-3px);
+  animation: textFloat 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes textFloat {
+  0% { transform: translateY(-3px); }
+  100% { transform: translateY(-4px); }
+}
+
+.user-info:hover .profile-picture,
+.user-info:hover .profile-picture-placeholder {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 
+    0 6px 20px rgba(59, 130, 246, 0.25),
+    0 2px 8px rgba(45, 212, 218, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  animation: profileGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes profileGlow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.1); }
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.mobile-menu-btn:active {
+  transform: scale(0.95) rotate(-2deg);
+}
+
+.header-back-btn i {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-back-btn:hover i {
+  transform: translateX(-3px) scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+}
+
+/* Button Loading States */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  animation: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
+.btn-loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Focus States for Accessibility */
+.btn:focus-visible,
+.mobile-menu-btn:focus-visible,
+.header-back-btn:focus-visible,
+.logo:focus-visible,
+.user-info:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+.mobile-menu-item:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.7);
+  outline-offset: -2px;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .header {
+    background: white;
+    border-bottom: 4px solid #3B82F6;
+  }
+  
+  .btn-outline,
+  .mobile-menu-btn,
+  .header-back-btn,
+  .user-info {
+    border-width: 3px;
+  }
+  
+  .logo i,
+  .logo-text {
+    -webkit-text-fill-color: #3B82F6;
+    color: #3B82F6;
+  }
+  
+  .header::before {
+    height: 4px;
+    opacity: 1;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .logo:hover i {
+    transform: none;
+  }
+  
+  .btn:hover,
+  .header-back-btn:hover,
+  .mobile-menu-btn:hover,
+  .user-info:hover {
+    transform: none;
+  }
+  
+  .logo:hover .logo-text {
+    transform: none;
+  }
+  
+  .mobile-menu-item:hover {
+    transform: none;
+  }
+}
+
+/* Dark Mode Support (Future Enhancement) */
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .user-name {
+    color: #F1F5F9;
+  }
+  
+  .user-role {
+    color: #94A3B8;
+  }
+  
+  .mobile-menu-dropdown {
+    background: rgba(15, 23, 42, 0.98);
+  }
+  
+  .mobile-user-name {
+    color: #F1F5F9;
+  }
+  
+  .mobile-user-role {
+    color: #94A3B8;
+  }
+  
+  .mobile-menu-item {
+    color: #CBD5E1;
+  }
+  
+  .mobile-menu-item:hover {
+    color: #F1F5F9;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .header {
+    position: static;
+    background: white;
+    border-bottom: 2px solid #000;
+    box-shadow: none;
+  }
+  
+  .mobile-menu-dropdown,
+  .btn:not(.btn-primary) {
+    display: none;
+  }
+}
+
+/* Performance Optimizations */
+.header,
+.logo,
+.btn,
+.user-info,
+.mobile-menu-btn,
+.header-back-btn {
+  will-change: transform;
+}
+
+.header::before,
+.logo::before,
+.btn::before,
+.user-info::before {
+  will-change: opacity;
+}

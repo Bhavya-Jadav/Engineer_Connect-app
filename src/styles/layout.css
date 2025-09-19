@@ -1,0 +1,30 @@
+/* Layout styles extracted from App.css */
+.user-selection {
+  padding: var(--container-padding);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-feed,
+.company-dashboard {
+  padding: var(--container-padding);
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.feed-cards,
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  width: 100vw;
+  margin: 0;
+}

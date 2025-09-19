@@ -1,0 +1,966 @@
+/* =====================================================
+   📝 SIGNUP PAGE - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎨 Signup Container & Layout
+   2. 🃏 Signup Card Design
+   3. 📝 Form Elements & Inputs
+   4. 🎯 Buttons & Interactive Elements
+   5. 🌐 Google Signup Integration
+   6. 📱 Responsive Design
+   7. ✨ Animations & Transitions
+   ===================================================== */
+
+/* =====================================================
+   1. 🎨 SIGNUP CONTAINER & LAYOUT - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(255, 255, 255, 1) 25%,
+    rgba(255, 255, 255, 1) 75%,
+    rgba(45, 212, 218, 0.08) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-page::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 70% 30%,
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 30% 70%,
+    rgba(45, 212, 218, 0.08) 0%,
+    transparent 50%
+  );
+  animation: signupBackgroundFloat 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.signup-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   2. 🃏 SIGNUP CARD DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-3xl);
+  padding: var(--space-10);
+  border: var(--border-2) solid rgba(59, 130, 246, 0.15);
+  box-shadow: 
+    0 20px 60px rgba(59, 130, 246, 0.12),
+    0 8px 24px rgba(45, 212, 218, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: signupCardSlideUp 0.8s ease-out;
+}
+
+.signup-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
+}
+
+.signup-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Back Button */
+.signup-back-btn {
+  position: absolute;
+  top: var(--space-6);
+  left: var(--space-6);
+  width: 44px;
+  height: 44px;
+  background: rgba(59, 130, 246, 0.1);
+  border: var(--border-2) solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-blue-600);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.signup-back-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: var(--brand-blue-400);
+  transform: translateX(-2px);
+  color: var(--brand-blue-700);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.signup-back-btn:active {
+  transform: translateX(-1px) scale(0.98);
+}
+
+/* =====================================================
+   3. 📝 SIGNUP HEADER & BRANDING - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  padding-top: var(--space-4);
+}
+
+.signup-logo {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  font-size: var(--text-3xl);
+  color: var(--white);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.3),
+    0 4px 12px rgba(45, 212, 218, 0.2);
+  animation: signupLogoFloat 3s ease-in-out infinite;
+}
+
+.signup-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-blue-700);
+  margin-bottom: var(--space-2);
+  font-family: var(--font-headings);
+  line-height: var(--leading-tight);
+}
+
+.signup-subtitle {
+  font-size: var(--text-base);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-weight: var(--font-medium);
+}
+
+/* =====================================================
+   4. 📝 FORM ELEMENTS & INPUTS - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-form {
+  margin-bottom: var(--space-8);
+}
+
+.signup-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.signup-form-group {
+  margin-bottom: var(--space-6);
+  position: relative;
+}
+
+.signup-form-row .signup-form-group {
+  margin-bottom: 0;
+}
+
+.signup-form-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--brand-blue-700);
+  font-family: var(--font-body);
+}
+
+.signup-form-label i {
+  font-size: var(--text-base);
+  color: var(--brand-blue-500);
+}
+
+.signup-form-input,
+.signup-form-select {
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-2) solid var(--brand-blue-200);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  color: var(--gray-800);
+  transition: var(--transition-smooth);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.05);
+}
+
+.signup-form-input::placeholder {
+  color: var(--gray-400);
+  font-weight: var(--font-normal);
+}
+
+.signup-form-input:focus,
+.signup-form-select:focus {
+  outline: none;
+  border-color: var(--brand-blue-500);
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.signup-form-input:valid {
+  border-color: var(--green-400);
+}
+
+.signup-form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L0.803848 0.499999L11.1962 0.5L6 8Z' fill='%236B7280'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-4) center;
+  background-size: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.signup-form-select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L0.803848 0.499999L11.1962 0.5L6 8Z' fill='%233B82F6'/%3E%3C/svg%3E");
+}
+
+/* Custom Select Dropdown Styling */
+.signup-form-select option {
+  padding: var(--space-3) var(--space-4);
+  background: var(--white);
+  color: var(--gray-800);
+  border: none;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.signup-form-select option:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--brand-blue-700);
+}
+
+.signup-form-select option:checked {
+  background: var(--brand-blue-500);
+  color: var(--white);
+  font-weight: var(--font-semibold);
+}
+
+.signup-form-select option:disabled {
+  color: var(--gray-400);
+  background: var(--gray-50);
+  cursor: not-allowed;
+}
+
+/* Enhanced Select Container for Better Dropdown Styling */
+.signup-select-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.signup-select-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--space-4);
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--gray-400);
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.signup-select-container:hover::after {
+  border-top-color: var(--brand-blue-500);
+}
+
+.signup-select-container:focus-within::after {
+  border-top-color: var(--brand-blue-600);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Modern Select Wrapper */
+.signup-form-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.signup-form-select-wrapper .signup-form-select {
+  background-image: none;
+  padding-right: var(--space-12);
+}
+
+.signup-form-select-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--space-4);
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.signup-form-select-wrapper:hover::before {
+  background: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.signup-form-select-wrapper:focus-within::before {
+  background: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 14L12 9L17 14' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Dropdown Animation and Enhanced Styling */
+.signup-form-select:focus {
+  outline: none;
+  border-color: var(--brand-blue-500);
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.15),
+    0 8px 24px rgba(59, 130, 246, 0.08);
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-1px);
+}
+
+/* Cross-browser dropdown styling */
+.signup-form-select {
+  /* For WebKit browsers */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Firefox specific dropdown styling */
+@-moz-document url-prefix() {
+  .signup-form-select {
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    background-size: 14px;
+  }
+}
+
+/* Internet Explorer and Edge specific */
+.signup-form-select::-ms-expand {
+  display: none;
+}
+
+/* Additional dropdown enhancement */
+.signup-form-select-wrapper:focus-within .signup-form-select {
+  border-color: var(--brand-blue-500);
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.12),
+    0 4px 16px rgba(59, 130, 246, 0.18),
+    0 8px 32px rgba(45, 212, 218, 0.08);
+}
+
+/* Conditional Form Groups Animation */
+.signup-conditional-section {
+  animation: slideInFade 0.3s ease-out;
+  transform-origin: top;
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
+}
+
+/* Password Strength Indicator */
+.signup-password-group {
+  position: relative;
+}
+
+.signup-password-strength {
+  margin-top: var(--space-2);
+  display: flex;
+  gap: var(--space-1);
+}
+
+.signup-password-strength-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  transition: var(--transition-smooth);
+}
+
+.signup-password-strength-bar.weak {
+  background: var(--red-400);
+}
+
+.signup-password-strength-bar.medium {
+  background: var(--yellow-400);
+}
+
+.signup-password-strength-bar.strong {
+  background: var(--green-400);
+}
+
+.signup-password-hint {
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+}
+
+/* Form Validation */
+.signup-form-input.error {
+  border-color: var(--red-400);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.signup-error-message {
+  color: var(--red-600);
+  font-size: var(--text-xs);
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.signup-success-message {
+  color: var(--green-600);
+  font-size: var(--text-xs);
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* =====================================================
+   5. 🎯 BUTTONS & INTERACTIVE ELEMENTS - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-submit-btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: var(--gradient-brand);
+  border: none;
+  border-radius: var(--radius-xl);
+  color: var(--white);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  box-shadow: 
+    0 4px 16px rgba(59, 130, 246, 0.3),
+    0 2px 8px rgba(45, 212, 218, 0.2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-8);
+}
+
+.signup-submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.signup-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(59, 130, 246, 0.4),
+    0 4px 12px rgba(45, 212, 218, 0.3);
+}
+
+.signup-submit-btn:hover::before {
+  left: 100%;
+}
+
+.signup-submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.signup-submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.signup-submit-btn i.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Progress Indicator */
+.signup-progress {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.signup-progress-step {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--gray-300);
+  transition: var(--transition-smooth);
+}
+
+.signup-progress-step.active {
+  background: var(--brand-blue-500);
+  transform: scale(1.2);
+}
+
+.signup-progress-step.completed {
+  background: var(--green-500);
+}
+
+/* =====================================================
+   6. 🌐 GOOGLE SIGNUP INTEGRATION - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-divider {
+  position: relative;
+  text-align: center;
+  margin: var(--space-8) 0;
+}
+
+.signup-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gray-200),
+    transparent
+  );
+}
+
+.signup-divider-text {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0 var(--space-4);
+  color: var(--gray-500);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  backdrop-filter: blur(10px);
+}
+
+.signup-google-container {
+  margin-bottom: var(--space-8);
+}
+
+/* Style the GoogleLogin component wrapper */
+.signup-google-container .google-login-container {
+  width: 100%;
+}
+
+.signup-google-container .google-login-divider {
+  display: none; /* Hide the default divider as we have our own */
+}
+
+.signup-google-container .google-login-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+
+/* Override Google Login Button Styles to match EngineerConnect theme */
+.signup-google-container .google-login-wrapper > div {
+  width: 100% !important;
+}
+
+.signup-google-container .google-login-wrapper iframe {
+  width: 100% !important;
+  border-radius: var(--radius-xl) !important;
+  border: var(--border-2) solid var(--brand-blue-200) !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08) !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.signup-google-container .google-login-wrapper iframe:hover {
+  border-color: var(--brand-blue-300) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.12) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* =====================================================
+   7. 📝 FOOTER & NAVIGATION - ENGINEERCONNECT
+   ===================================================== */
+
+.signup-footer {
+  text-align: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.signup-footer-text {
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+}
+
+.signup-login-btn {
+  background: none;
+  border: none;
+  color: var(--brand-blue-600);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: var(--font-body);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.signup-login-btn:hover {
+  background: rgba(59, 130, 246, 0.05);
+  color: var(--brand-blue-700);
+  transform: translateX(2px);
+}
+
+.signup-login-btn i {
+  font-size: var(--text-xs);
+  transition: var(--transition-smooth);
+}
+
+.signup-login-btn:hover i {
+  transform: translateX(2px);
+}
+
+/* =====================================================
+   8. 📱 RESPONSIVE DESIGN - ENGINEERCONNECT
+   ===================================================== */
+
+@media (max-width: 480px) {
+  .signup-page {
+    padding: var(--space-4);
+  }
+  
+  .signup-container {
+    max-width: 100%;
+  }
+  
+  .signup-card {
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+  }
+  
+  .signup-back-btn {
+    top: var(--space-4);
+    left: var(--space-4);
+    width: 40px;
+    height: 40px;
+  }
+  
+  .signup-logo {
+    width: 64px;
+    height: 64px;
+    font-size: var(--text-2xl);
+  }
+  
+  .signup-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .signup-form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  
+  .signup-form-row .signup-form-group {
+    margin-bottom: var(--space-6);
+  }
+  
+  .signup-form-input,
+  .signup-form-select {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+  }
+  
+  .signup-submit-btn {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-sm);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .signup-container {
+    max-width: 460px;
+  }
+  
+  .signup-card {
+    padding: var(--space-9);
+  }
+  
+  .signup-form-row {
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 769px) {
+  .signup-page {
+    padding: var(--space-8);
+  }
+  
+  .signup-container {
+    max-width: 500px;
+  }
+  
+  .signup-card {
+    padding: var(--space-12);
+  }
+  
+  .signup-form-row {
+    gap: var(--space-6);
+  }
+}
+
+/* =====================================================
+   9. ✨ ANIMATIONS & TRANSITIONS - ENGINEERCONNECT
+   ===================================================== */
+
+@keyframes signupBackgroundFloat {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg); 
+  }
+  33% { 
+    transform: translate(-30px, 30px) rotate(-1deg); 
+  }
+  66% { 
+    transform: translate(20px, -20px) rotate(1deg); 
+  }
+}
+
+@keyframes signupCardSlideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes signupLogoFloat {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-4px); 
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Form Input Focus Animation */
+.signup-form-input:focus,
+.signup-form-select:focus {
+  animation: inputFocusPulse 0.3s ease-out;
+}
+
+@keyframes inputFocusPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Button Click Animation */
+.signup-submit-btn:active {
+  animation: buttonPress 0.15s ease-out;
+}
+
+@keyframes buttonPress {
+  0% { transform: translateY(-2px) scale(1); }
+  50% { transform: translateY(-1px) scale(0.98); }
+  100% { transform: translateY(-1px) scale(1); }
+}
+
+/* Loading State Animation */
+.signup-loading {
+  position: relative;
+}
+
+.signup-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: var(--radius-xl);
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Field Validation Animation */
+.signup-form-input.error {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Success Animation */
+.signup-form-input:valid {
+  animation: successPulse 0.3s ease-out;
+}
+
+@keyframes successPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  100% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+/* =====================================================
+   10. 🎨 THEME ENHANCEMENTS - ENGINEERCONNECT
+   ===================================================== */
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .signup-card {
+    border: var(--border-3) solid var(--brand-blue-600);
+  }
+  
+  .signup-form-input,
+  .signup-form-select {
+    border: var(--border-3) solid var(--brand-blue-500);
+  }
+  
+  .signup-submit-btn {
+    box-shadow: none;
+    border: var(--border-2) solid var(--brand-blue-700);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .signup-page::before,
+  .signup-logo,
+  .signup-card {
+    animation: none;
+  }
+  
+  .signup-submit-btn::before {
+    transition: none;
+  }
+  
+  .signup-form-input:focus,
+  .signup-form-select:focus {
+    animation: none;
+  }
+  
+  .signup-conditional-section {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .signup-page {
+    background: white;
+  }
+  
+  .signup-page::before {
+    display: none;
+  }
+  
+  .signup-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  .signup-back-btn,
+  .signup-google-container {
+    display: none;
+  }
+}

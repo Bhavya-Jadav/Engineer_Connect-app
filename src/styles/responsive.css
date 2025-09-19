@@ -1,0 +1,736 @@
+/* =====================================================
+   📱 RESPONSIVE DESIGN - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎯 Base Responsive Framework
+   2. 📱 Mobile-First Breakpoints
+   3. 💻 Tablet & Desktop Layouts
+   4. 🌐 Large Screen Optimizations
+   5. 🎨 Theme-Aware Responsive
+   6. ♿ Accessibility & Preferences
+   7. 🖨️ Print & Special Contexts
+   ===================================================== */
+
+/* =====================================================
+   1. 🎯 BASE RESPONSIVE FRAMEWORK - ENGINEERCONNECT
+   ===================================================== */
+
+/* Root responsive variables */
+:root {
+  --mobile-header-height: 64px;
+  --desktop-header-height: 72px;
+  --mobile-container-padding: var(--space-4);
+  --desktop-container-padding: var(--space-8);
+  --responsive-max-width: 1440px;
+  --content-max-width: 1200px;
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 64px;
+}
+
+/* Base container system */
+.container,
+.responsive-container {
+  width: 100%;
+  max-width: var(--responsive-max-width);
+  margin: 0 auto;
+  padding: 0 var(--mobile-container-padding);
+  box-sizing: border-box;
+}
+
+.content-container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* =====================================================
+   2. 📱 MOBILE-FIRST BREAKPOINTS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Extra Small Devices (320px - 480px) */
+@media (max-width: 480px) {
+  :root {
+    --mobile-header-height: 56px;
+    --mobile-container-padding: var(--space-4);
+  }
+  
+  body {
+    padding-top: var(--mobile-header-height);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    background: var(--white);
+    color: var(--gray-800);
+  }
+  
+  .container,
+  .responsive-container {
+    padding: 0 var(--space-3);
+  }
+  
+  .content-container {
+    padding: 0 var(--space-4);
+  }
+  
+  /* Typography scaling for mobile */
+  h1 { 
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-4);
+    color: var(--brand-blue-700);
+  }
+  
+  h2 { 
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    color: var(--brand-blue-600);
+  }
+  
+  h3 { 
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-3);
+    color: var(--brand-blue-600);
+  }
+  
+  h4 { 
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-2);
+    color: var(--brand-blue-500);
+  }
+  
+  /* Mobile grid adjustments */
+  .problems-grid,
+  .dashboard-grid,
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+  
+  .problem-card,
+  .dashboard-card,
+  .card {
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+  
+  /* Mobile button adjustments */
+  .btn {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-lg);
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+    margin: 0;
+  }
+  
+  /* Mobile form adjustments */
+  .form-group {
+    margin-bottom: var(--space-4);
+  }
+  
+  .form-control {
+    padding: var(--space-3);
+    font-size: var(--text-base);
+    border-radius: var(--radius-lg);
+    border: var(--border-2) solid var(--brand-blue-200);
+  }
+  
+  /* Mobile modal adjustments */
+  .modal-content {
+    margin: var(--space-4);
+    border-radius: var(--radius-xl);
+    max-height: calc(100vh - var(--space-8));
+    overflow-y: auto;
+    background: var(--white);
+    border: var(--border-2) solid var(--brand-blue-200);
+  }
+  
+  /* Mobile navigation */
+  .nav-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: var(--border-2) solid var(--brand-blue-200);
+    padding: var(--space-2);
+    display: flex;
+    justify-content: space-around;
+    z-index: 1000;
+  }
+  
+  .nav-mobile .nav-item {
+    flex: 1;
+    text-align: center;
+    padding: var(--space-2);
+    color: var(--gray-600);
+    transition: var(--transition-smooth);
+  }
+  
+  .nav-mobile .nav-item.active,
+  .nav-mobile .nav-item:hover {
+    color: var(--brand-blue-600);
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Small Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --mobile-header-height: 60px;
+    --mobile-container-padding: var(--space-5);
+  }
+  
+  body {
+    padding-top: var(--mobile-header-height);
+    font-size: var(--text-base);
+    background: var(--white);
+  }
+  
+  .container,
+  .responsive-container {
+    padding: 0 var(--space-5);
+  }
+  
+  h1 { 
+    font-size: var(--text-3xl);
+    color: var(--brand-blue-700);
+  }
+  
+  h2 { 
+    font-size: var(--text-2xl);
+    color: var(--brand-blue-600);
+  }
+  
+  h3 { 
+    font-size: var(--text-xl);
+    color: var(--brand-blue-600);
+  }
+  
+  h4 { 
+    font-size: var(--text-lg);
+    color: var(--brand-blue-500);
+  }
+  
+  /* Two-column layout for tablets */
+  .problems-grid,
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+  
+  .btn-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  
+  .btn-group .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+/* =====================================================
+   3. 💻 TABLET & DESKTOP LAYOUTS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Medium Devices (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --desktop-header-height: 68px;
+  }
+  
+  body {
+    padding-top: var(--desktop-header-height);
+    font-size: var(--text-base);
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.02) 0%, 
+      rgba(255, 255, 255, 1) 25%,
+      rgba(255, 255, 255, 1) 75%,
+      rgba(45, 212, 218, 0.02) 100%);
+    min-height: 100vh;
+  }
+  
+  .container,
+  .responsive-container {
+    padding: 0 var(--space-6);
+  }
+  
+  .content-container {
+    padding: 0 var(--space-8);
+  }
+  
+  /* Three-column grid for tablets */
+  .problems-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+    padding: var(--space-8);
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  
+  /* Enhanced card styling for tablets */
+  .problem-card,
+  .dashboard-card,
+  .card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    background: var(--white);
+    border: var(--border-2) solid var(--brand-blue-200);
+    box-shadow: 
+      0 4px 12px rgba(59, 130, 246, 0.08),
+      0 2px 6px rgba(45, 212, 218, 0.06);
+  }
+  
+  .problem-card:hover,
+  .dashboard-card:hover,
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--brand-blue-400);
+    box-shadow: 
+      0 12px 24px rgba(59, 130, 246, 0.15),
+      0 6px 12px rgba(45, 212, 218, 0.1);
+  }
+  
+  /* Sidebar layout */
+  .layout-with-sidebar {
+    display: flex;
+    gap: var(--space-8);
+  }
+  
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--white);
+    border: var(--border-2) solid var(--brand-blue-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    height: fit-content;
+    position: sticky;
+    top: calc(var(--desktop-header-height) + var(--space-6));
+  }
+  
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Large Devices (1025px - 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  body {
+    padding-top: var(--desktop-header-height);
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.03) 0%, 
+      rgba(255, 255, 255, 1) 20%,
+      rgba(255, 255, 255, 1) 80%,
+      rgba(45, 212, 218, 0.03) 100%);
+  }
+  
+  .container,
+  .responsive-container {
+    padding: 0 var(--space-8);
+  }
+  
+  .problems-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* =====================================================
+   4. 🌐 LARGE SCREEN OPTIMIZATIONS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Extra Large Devices (1201px - 1440px) */
+@media (min-width: 1201px) and (max-width: 1440px) {
+  :root {
+    --desktop-header-height: 72px;
+  }
+  
+  body {
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.04) 0%, 
+      rgba(255, 255, 255, 1) 15%,
+      rgba(255, 255, 255, 1) 85%,
+      rgba(45, 212, 218, 0.04) 100%);
+  }
+  
+  .container,
+  .responsive-container {
+    max-width: var(--content-max-width);
+    padding: 0 var(--space-8);
+  }
+  
+  .content-container {
+    padding: 0 var(--space-10);
+  }
+  
+  .problems-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: var(--space-8);
+    max-width: none;
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+  }
+  
+  /* Enhanced hover effects for large screens */
+  .problem-card:hover,
+  .dashboard-card:hover,
+  .card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(59, 130, 246, 0.18),
+      0 8px 16px rgba(45, 212, 218, 0.12);
+  }
+}
+
+/* Ultra Large Screens (1441px+) */
+@media (min-width: 1441px) {
+  .container,
+  .responsive-container {
+    max-width: var(--responsive-max-width);
+    padding: 0 var(--space-12);
+  }
+  
+  .content-container {
+    max-width: 1300px;
+    padding: 0 var(--space-12);
+  }
+  
+  .problems-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-10);
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-8);
+  }
+  
+  /* Ultra-wide layout adjustments */
+  .layout-with-sidebar .sidebar {
+    width: 320px;
+  }
+  
+  .hero-section {
+    padding: var(--space-20) 0;
+  }
+  
+  .section-padding {
+    padding: var(--space-16) 0;
+  }
+}
+
+/* =====================================================
+   5. 🎨 THEME-AWARE RESPONSIVE - ENGINEERCONNECT
+   ===================================================== */
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo,
+  .brand-icon,
+  .engineerconnect-icon {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  .problem-card::before,
+  .problem-card::after,
+  .card::before,
+  .card::after {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Enhanced gradients for retina */
+  .gradient-bg {
+    background-image: linear-gradient(135deg, 
+      var(--brand-blue-500) 0%, 
+      var(--brand-cyan-500) 100%);
+  }
+}
+
+/* Landscape Mobile Devices */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 1024px) {
+  :root {
+    --mobile-header-height: 48px;
+  }
+  
+  body {
+    padding-top: var(--mobile-header-height);
+  }
+  
+  .header {
+    height: var(--mobile-header-height);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: var(--border-2) solid var(--brand-blue-200);
+  }
+  
+  .modal-content {
+    max-height: 85vh;
+    margin: var(--space-2);
+    overflow-y: auto;
+    background: var(--white);
+    border: var(--border-2) solid var(--brand-blue-200);
+  }
+  
+  .hero-section {
+    padding: var(--space-8) 0;
+    min-height: auto;
+  }
+  
+  .nav-mobile {
+    padding: var(--space-1);
+  }
+}
+
+/* =====================================================
+   6. ♿ ACCESSIBILITY & PREFERENCES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .problem-card:hover,
+  .dashboard-card:hover,
+  .card:hover {
+    transform: none;
+  }
+  
+  .engineerconnect-float,
+  .floating-element {
+    animation: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .problem-card,
+  .dashboard-card,
+  .card {
+    border: var(--border-3) solid var(--brand-blue-600) !important;
+    background: var(--white) !important;
+  }
+  
+  .problem-card:hover,
+  .dashboard-card:hover,
+  .card:hover {
+    border-color: var(--brand-blue-700) !important;
+    box-shadow: 0 0 0 var(--border-2) var(--brand-blue-300) !important;
+  }
+  
+  .btn-primary {
+    background: var(--brand-blue-700) !important;
+    border-color: var(--brand-blue-700) !important;
+    color: var(--white) !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--brand-blue-800) !important;
+  }
+}
+
+/* Color Scheme Preferences */
+@media (prefers-color-scheme: light) {
+  body {
+    background: var(--white);
+    color: var(--gray-800);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Override dark mode with EngineerConnect light theme */
+  body {
+    background: var(--white) !important;
+    color: var(--gray-800) !important;
+  }
+  
+  .problem-card,
+  .dashboard-card,
+  .card {
+    background: var(--white) !important;
+    border-color: var(--brand-blue-200) !important;
+    color: var(--gray-800) !important;
+  }
+}
+
+/* =====================================================
+   7. 🖨️ PRINT & SPECIAL CONTEXTS - ENGINEERCONNECT
+   ===================================================== */
+
+/* Print Styles */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  body {
+    font-family: 'Times New Roman', serif !important;
+    font-size: 12pt;
+    line-height: 1.4;
+    padding: 0 !important;
+    margin: 0;
+  }
+  
+  .header,
+  .nav-mobile,
+  .modal-overlay,
+  .filter-toggle-container,
+  .feed-controls,
+  .problem-actions,
+  .sidebar,
+  .floating-action-button,
+  button:not(.print-keep) {
+    display: none !important;
+  }
+  
+  .container,
+  .responsive-container {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .problem-card,
+  .dashboard-card,
+  .card {
+    border: 1px solid #333 !important;
+    border-radius: 0 !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    page-break-inside: avoid;
+    background: white !important;
+  }
+  
+  .problems-grid,
+  .dashboard-grid,
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+  
+  h1 { font-size: 18pt !important; }
+  h2 { font-size: 16pt !important; }
+  h3 { font-size: 14pt !important; }
+  h4 { font-size: 12pt !important; }
+  
+  .print-page-break {
+    page-break-before: always;
+  }
+  
+  .print-no-break {
+    page-break-inside: avoid;
+  }
+  
+  /* Remove animations and transitions in print */
+  .problem-card::before,
+  .problem-card::after,
+  .modal-content::before,
+  .modal-content::after,
+  .card::before,
+  .card::after {
+    animation: none !important;
+    content: none !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  .btn,
+  .clickable,
+  .problem-card,
+  .dashboard-card {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  .problem-card:hover,
+  .dashboard-card:hover {
+    transform: none;
+  }
+  
+  .problem-card:active,
+  .dashboard-card:active,
+  .btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Fine Pointer (Mouse) Optimizations */
+@media (pointer: fine) {
+  .problem-card,
+  .dashboard-card,
+  .card {
+    cursor: pointer;
+  }
+  
+  .problem-card:hover,
+  .dashboard-card:hover,
+  .card:hover {
+    transform: translateY(-6px);
+  }
+}
+
+/* Screen Reader Specific */
+@media (speech) {
+  .visually-hidden {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: none !important;
+    overflow: visible !important;
+  }
+}

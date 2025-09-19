@@ -1,0 +1,965 @@
+/* =====================================================
+   🛠️ UTILITY CLASSES - ENGINEERCONNECT PROFESSIONAL
+   ===================================================== */
+
+/* =====================================================
+   📋 TABLE OF CONTENTS
+   =====================================================
+   1. 🎨 Color & Theme Utilities
+   2. 📝 Typography Utilities
+   3. 📏 Spacing & Layout Utilities
+   4. 🎯 Display & Flexbox Utilities
+   5. 📐 Positioning & Z-Index Utilities
+   6. 🖼️ Background & Border Utilities
+   7. ✨ Interactive & Animation Utilities
+   8. 📱 Responsive Utilities
+   9. ♿ Accessibility Utilities
+   ===================================================== */
+
+/* =====================================================
+   1. 🎨 COLOR & THEME UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Text Colors - EngineerConnect Brand */
+.text-brand-blue { color: var(--brand-blue-500); }
+.text-brand-blue-light { color: var(--brand-blue-400); }
+.text-brand-blue-dark { color: var(--brand-blue-600); }
+.text-brand-cyan { color: var(--brand-cyan-500); }
+.text-brand-cyan-light { color: var(--brand-cyan-400); }
+.text-brand-cyan-dark { color: var(--brand-cyan-600); }
+
+.text-primary { color: var(--gray-900); }
+.text-secondary { color: var(--gray-600); }
+.text-tertiary { color: var(--gray-500); }
+.text-muted { color: var(--gray-400); }
+.text-white { color: var(--white); }
+.text-black { color: var(--black); }
+
+.text-success { color: var(--green-600); }
+.text-warning { color: var(--yellow-600); }
+.text-error { color: var(--red-600); }
+.text-info { color: var(--blue-600); }
+
+/* Background Colors - EngineerConnect Theme */
+.bg-brand-blue { background-color: var(--brand-blue-500); }
+.bg-brand-blue-light { background-color: var(--brand-blue-100); }
+.bg-brand-blue-dark { background-color: var(--brand-blue-700); }
+.bg-brand-cyan { background-color: var(--brand-cyan-500); }
+.bg-brand-cyan-light { background-color: var(--brand-cyan-100); }
+.bg-brand-cyan-dark { background-color: var(--brand-cyan-700); }
+
+.bg-white { background-color: var(--white); }
+.bg-gray-50 { background-color: var(--gray-50); }
+.bg-gray-100 { background-color: var(--gray-100); }
+.bg-gray-200 { background-color: var(--gray-200); }
+.bg-transparent { background-color: transparent; }
+
+.bg-success { background-color: var(--green-500); }
+.bg-success-light { background-color: var(--green-100); }
+.bg-warning { background-color: var(--yellow-500); }
+.bg-warning-light { background-color: var(--yellow-100); }
+.bg-error { background-color: var(--red-500); }
+.bg-error-light { background-color: var(--red-100); }
+
+/* Gradient Backgrounds - EngineerConnect */
+.bg-gradient-brand {
+  background: var(--gradient-brand);
+}
+
+.bg-gradient-brand-reverse {
+  background: var(--gradient-brand-reverse);
+}
+
+.bg-gradient-blue {
+  background: linear-gradient(135deg, var(--brand-blue-400) 0%, var(--brand-blue-600) 100%);
+}
+
+.bg-gradient-cyan {
+  background: linear-gradient(135deg, var(--brand-cyan-400) 0%, var(--brand-cyan-600) 100%);
+}
+
+.bg-glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border: var(--border-2) solid rgba(59, 130, 246, 0.2);
+}
+
+.bg-glass-dark {
+  background: rgba(59, 130, 246, 0.1);
+  backdrop-filter: blur(20px);
+  border: var(--border-2) solid rgba(59, 130, 246, 0.3);
+}
+
+/* =====================================================
+   2. 📝 TYPOGRAPHY UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Font Families */
+.font-headings { font-family: var(--font-headings); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Font Sizes */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+.text-5xl { font-size: var(--text-5xl); }
+.text-6xl { font-size: var(--text-6xl); }
+
+/* Font Weights */
+.font-thin { font-weight: var(--font-thin); }
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+.font-extrabold { font-weight: var(--font-extrabold); }
+.font-black { font-weight: var(--font-black); }
+
+/* Line Heights */
+.leading-none { line-height: var(--leading-none); }
+.leading-tight { line-height: var(--leading-tight); }
+.leading-snug { line-height: var(--leading-snug); }
+.leading-normal { line-height: var(--leading-normal); }
+.leading-relaxed { line-height: var(--leading-relaxed); }
+.leading-loose { line-height: var(--leading-loose); }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Text Transform */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+.normal-case { text-transform: none; }
+
+/* Text Decoration */
+.underline { text-decoration: underline; }
+.line-through { text-decoration: line-through; }
+.no-underline { text-decoration: none; }
+
+/* Letter Spacing */
+.tracking-tighter { letter-spacing: var(--tracking-tighter); }
+.tracking-tight { letter-spacing: var(--tracking-tight); }
+.tracking-normal { letter-spacing: var(--tracking-normal); }
+.tracking-wide { letter-spacing: var(--tracking-wide); }
+.tracking-wider { letter-spacing: var(--tracking-wider); }
+.tracking-widest { letter-spacing: var(--tracking-widest); }
+
+/* =====================================================
+   3. 📏 SPACING & LAYOUT UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Margin Utilities */
+.m-0 { margin: 0; }
+.m-1 { margin: var(--space-1); }
+.m-2 { margin: var(--space-2); }
+.m-3 { margin: var(--space-3); }
+.m-4 { margin: var(--space-4); }
+.m-5 { margin: var(--space-5); }
+.m-6 { margin: var(--space-6); }
+.m-8 { margin: var(--space-8); }
+.m-10 { margin: var(--space-10); }
+.m-12 { margin: var(--space-12); }
+.m-16 { margin: var(--space-16); }
+.m-20 { margin: var(--space-20); }
+.m-auto { margin: auto; }
+
+/* Margin Top */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-5 { margin-top: var(--space-5); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mt-10 { margin-top: var(--space-10); }
+.mt-12 { margin-top: var(--space-12); }
+.mt-16 { margin-top: var(--space-16); }
+.mt-20 { margin-top: var(--space-20); }
+.mt-auto { margin-top: auto; }
+
+/* Margin Bottom */
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-5 { margin-bottom: var(--space-5); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mb-10 { margin-bottom: var(--space-10); }
+.mb-12 { margin-bottom: var(--space-12); }
+.mb-16 { margin-bottom: var(--space-16); }
+.mb-20 { margin-bottom: var(--space-20); }
+.mb-auto { margin-bottom: auto; }
+
+/* Margin Left/Right */
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: var(--space-1); }
+.ml-2 { margin-left: var(--space-2); }
+.ml-3 { margin-left: var(--space-3); }
+.ml-4 { margin-left: var(--space-4); }
+.ml-6 { margin-left: var(--space-6); }
+.ml-8 { margin-left: var(--space-8); }
+.ml-auto { margin-left: auto; }
+
+.mr-0 { margin-right: 0; }
+.mr-1 { margin-right: var(--space-1); }
+.mr-2 { margin-right: var(--space-2); }
+.mr-3 { margin-right: var(--space-3); }
+.mr-4 { margin-right: var(--space-4); }
+.mr-6 { margin-right: var(--space-6); }
+.mr-8 { margin-right: var(--space-8); }
+.mr-auto { margin-right: auto; }
+
+/* Margin X/Y */
+.mx-0 { margin-left: 0; margin-right: 0; }
+.mx-1 { margin-left: var(--space-1); margin-right: var(--space-1); }
+.mx-2 { margin-left: var(--space-2); margin-right: var(--space-2); }
+.mx-3 { margin-left: var(--space-3); margin-right: var(--space-3); }
+.mx-4 { margin-left: var(--space-4); margin-right: var(--space-4); }
+.mx-6 { margin-left: var(--space-6); margin-right: var(--space-6); }
+.mx-8 { margin-left: var(--space-8); margin-right: var(--space-8); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.my-0 { margin-top: 0; margin-bottom: 0; }
+.my-1 { margin-top: var(--space-1); margin-bottom: var(--space-1); }
+.my-2 { margin-top: var(--space-2); margin-bottom: var(--space-2); }
+.my-3 { margin-top: var(--space-3); margin-bottom: var(--space-3); }
+.my-4 { margin-top: var(--space-4); margin-bottom: var(--space-4); }
+.my-6 { margin-top: var(--space-6); margin-bottom: var(--space-6); }
+.my-8 { margin-top: var(--space-8); margin-bottom: var(--space-8); }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+/* Padding Utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-5 { padding: var(--space-5); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+.p-10 { padding: var(--space-10); }
+.p-12 { padding: var(--space-12); }
+.p-16 { padding: var(--space-16); }
+.p-20 { padding: var(--space-20); }
+
+/* Padding Top */
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: var(--space-1); }
+.pt-2 { padding-top: var(--space-2); }
+.pt-3 { padding-top: var(--space-3); }
+.pt-4 { padding-top: var(--space-4); }
+.pt-5 { padding-top: var(--space-5); }
+.pt-6 { padding-top: var(--space-6); }
+.pt-8 { padding-top: var(--space-8); }
+.pt-10 { padding-top: var(--space-10); }
+.pt-12 { padding-top: var(--space-12); }
+.pt-16 { padding-top: var(--space-16); }
+.pt-20 { padding-top: var(--space-20); }
+
+/* Padding Bottom */
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: var(--space-1); }
+.pb-2 { padding-bottom: var(--space-2); }
+.pb-3 { padding-bottom: var(--space-3); }
+.pb-4 { padding-bottom: var(--space-4); }
+.pb-5 { padding-bottom: var(--space-5); }
+.pb-6 { padding-bottom: var(--space-6); }
+.pb-8 { padding-bottom: var(--space-8); }
+.pb-10 { padding-bottom: var(--space-10); }
+.pb-12 { padding-bottom: var(--space-12); }
+.pb-16 { padding-bottom: var(--space-16); }
+.pb-20 { padding-bottom: var(--space-20); }
+
+/* Padding Left/Right */
+.pl-0 { padding-left: 0; }
+.pl-1 { padding-left: var(--space-1); }
+.pl-2 { padding-left: var(--space-2); }
+.pl-3 { padding-left: var(--space-3); }
+.pl-4 { padding-left: var(--space-4); }
+.pl-6 { padding-left: var(--space-6); }
+.pl-8 { padding-left: var(--space-8); }
+
+.pr-0 { padding-right: 0; }
+.pr-1 { padding-right: var(--space-1); }
+.pr-2 { padding-right: var(--space-2); }
+.pr-3 { padding-right: var(--space-3); }
+.pr-4 { padding-right: var(--space-4); }
+.pr-6 { padding-right: var(--space-6); }
+.pr-8 { padding-right: var(--space-8); }
+
+/* Padding X/Y */
+.px-0 { padding-left: 0; padding-right: 0; }
+.px-1 { padding-left: var(--space-1); padding-right: var(--space-1); }
+.px-2 { padding-left: var(--space-2); padding-right: var(--space-2); }
+.px-3 { padding-left: var(--space-3); padding-right: var(--space-3); }
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+.px-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+.px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+
+.py-0 { padding-top: 0; padding-bottom: 0; }
+.py-1 { padding-top: var(--space-1); padding-bottom: var(--space-1); }
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.py-3 { padding-top: var(--space-3); padding-bottom: var(--space-3); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+.py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+.py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+
+/* =====================================================
+   4. 🎯 DISPLAY & FLEXBOX UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Display */
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-inline-flex { display: inline-flex; }
+.d-grid { display: grid; }
+.d-inline-grid { display: inline-grid; }
+.d-table { display: table; }
+.d-table-cell { display: table-cell; }
+
+/* Flexbox Direction */
+.flex-row { flex-direction: row; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col { flex-direction: column; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+/* Flexbox Wrap */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* Justify Content */
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align Items */
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+/* Align Content */
+.content-start { align-content: flex-start; }
+.content-end { align-content: flex-end; }
+.content-center { align-content: center; }
+.content-between { align-content: space-between; }
+.content-around { align-content: space-around; }
+.content-evenly { align-content: space-evenly; }
+
+/* Align Self */
+.self-auto { align-self: auto; }
+.self-start { align-self: flex-start; }
+.self-end { align-self: flex-end; }
+.self-center { align-self: center; }
+.self-stretch { align-self: stretch; }
+
+/* Flex */
+.flex-1 { flex: 1 1 0%; }
+.flex-auto { flex: 1 1 auto; }
+.flex-initial { flex: 0 1 auto; }
+.flex-none { flex: none; }
+
+/* Flex Grow */
+.flex-grow-0 { flex-grow: 0; }
+.flex-grow { flex-grow: 1; }
+
+/* Flex Shrink */
+.flex-shrink-0 { flex-shrink: 0; }
+.flex-shrink { flex-shrink: 1; }
+
+/* Gap */
+.gap-0 { gap: 0; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+.gap-10 { gap: var(--space-10); }
+.gap-12 { gap: var(--space-12); }
+
+/* =====================================================
+   5. 📐 POSITIONING & Z-INDEX UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Position */
+.static { position: static; }
+.fixed { position: fixed; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.sticky { position: sticky; }
+
+/* Top/Right/Bottom/Left */
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.inset-auto { top: auto; right: auto; bottom: auto; left: auto; }
+
+.top-0 { top: 0; }
+.top-auto { top: auto; }
+.right-0 { right: 0; }
+.right-auto { right: auto; }
+.bottom-0 { bottom: 0; }
+.bottom-auto { bottom: auto; }
+.left-0 { left: 0; }
+.left-auto { left: auto; }
+
+/* Z-Index */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+.z-auto { z-index: auto; }
+
+/* =====================================================
+   6. 🖼️ BACKGROUND & BORDER UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Border Width */
+.border-0 { border-width: 0; }
+.border { border-width: var(--border-2); }
+.border-2 { border-width: var(--border-2); }
+.border-4 { border-width: var(--border-4); }
+.border-8 { border-width: var(--border-8); }
+
+.border-t-0 { border-top-width: 0; }
+.border-t { border-top-width: var(--border-2); }
+.border-r-0 { border-right-width: 0; }
+.border-r { border-right-width: var(--border-2); }
+.border-b-0 { border-bottom-width: 0; }
+.border-b { border-bottom-width: var(--border-2); }
+.border-l-0 { border-left-width: 0; }
+.border-l { border-left-width: var(--border-2); }
+
+/* Border Color - EngineerConnect */
+.border-brand-blue { border-color: var(--brand-blue-500); }
+.border-brand-blue-light { border-color: var(--brand-blue-200); }
+.border-brand-blue-dark { border-color: var(--brand-blue-700); }
+.border-brand-cyan { border-color: var(--brand-cyan-500); }
+.border-gray-100 { border-color: var(--gray-100); }
+.border-gray-200 { border-color: var(--gray-200); }
+.border-gray-300 { border-color: var(--gray-300); }
+.border-transparent { border-color: transparent; }
+
+/* Border Radius */
+.rounded-none { border-radius: 0; }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-md); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-3xl { border-radius: var(--radius-3xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Border Radius Individual Corners */
+.rounded-t-none { border-top-left-radius: 0; border-top-right-radius: 0; }
+.rounded-t { border-top-left-radius: var(--radius-md); border-top-right-radius: var(--radius-md); }
+.rounded-r-none { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.rounded-r { border-top-right-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md); }
+.rounded-b-none { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
+.rounded-b { border-bottom-right-radius: var(--radius-md); border-bottom-left-radius: var(--radius-md); }
+.rounded-l-none { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.rounded-l { border-top-left-radius: var(--radius-md); border-bottom-left-radius: var(--radius-md); }
+
+/* Box Shadow - EngineerConnect */
+.shadow-none { box-shadow: none; }
+.shadow-sm { 
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.05);
+}
+.shadow { 
+  box-shadow: 
+    0 4px 8px rgba(59, 130, 246, 0.08),
+    0 2px 4px rgba(45, 212, 218, 0.06);
+}
+.shadow-md { 
+  box-shadow: 
+    0 6px 12px rgba(59, 130, 246, 0.10),
+    0 3px 6px rgba(45, 212, 218, 0.08);
+}
+.shadow-lg { 
+  box-shadow: 
+    0 12px 24px rgba(59, 130, 246, 0.12),
+    0 6px 12px rgba(45, 212, 218, 0.10);
+}
+.shadow-xl { 
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.15),
+    0 10px 20px rgba(45, 212, 218, 0.12);
+}
+.shadow-2xl { 
+  box-shadow: 
+    0 32px 64px rgba(59, 130, 246, 0.18),
+    0 16px 32px rgba(45, 212, 218, 0.15);
+}
+
+.shadow-inner { 
+  box-shadow: inset 0 2px 4px rgba(59, 130, 246, 0.06);
+}
+
+/* =====================================================
+   7. ✨ INTERACTIVE & ANIMATION UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Cursor */
+.cursor-auto { cursor: auto; }
+.cursor-default { cursor: default; }
+.cursor-pointer { cursor: pointer; }
+.cursor-wait { cursor: wait; }
+.cursor-text { cursor: text; }
+.cursor-move { cursor: move; }
+.cursor-help { cursor: help; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-grab { cursor: grab; }
+.cursor-grabbing { cursor: grabbing; }
+
+/* User Select */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+.select-auto { user-select: auto; }
+
+/* Pointer Events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* Transitions - EngineerConnect */
+.transition-none { transition: none; }
+.transition-all { transition: all var(--transition-smooth); }
+.transition { transition: var(--transition-smooth); }
+.transition-fast { transition: all var(--transition-fast); }
+.transition-slow { transition: all 0.5s ease; }
+
+.transition-colors { 
+  transition: color var(--transition-smooth), 
+              background-color var(--transition-smooth),
+              border-color var(--transition-smooth); 
+}
+.transition-opacity { transition: opacity var(--transition-smooth); }
+.transition-shadow { transition: box-shadow var(--transition-smooth); }
+.transition-transform { transition: transform var(--transition-smooth); }
+
+/* Transform */
+.transform { transform: translateZ(0); }
+.transform-none { transform: none; }
+
+/* Scale */
+.scale-0 { transform: scale(0); }
+.scale-50 { transform: scale(0.5); }
+.scale-75 { transform: scale(0.75); }
+.scale-90 { transform: scale(0.9); }
+.scale-95 { transform: scale(0.95); }
+.scale-100 { transform: scale(1); }
+.scale-105 { transform: scale(1.05); }
+.scale-110 { transform: scale(1.1); }
+.scale-125 { transform: scale(1.25); }
+.scale-150 { transform: scale(1.5); }
+
+/* Rotate */
+.rotate-0 { transform: rotate(0deg); }
+.rotate-1 { transform: rotate(1deg); }
+.rotate-2 { transform: rotate(2deg); }
+.rotate-3 { transform: rotate(3deg); }
+.rotate-6 { transform: rotate(6deg); }
+.rotate-12 { transform: rotate(12deg); }
+.rotate-45 { transform: rotate(45deg); }
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+
+/* Translate */
+.translate-x-0 { transform: translateX(0); }
+.translate-x-1 { transform: translateX(var(--space-1)); }
+.translate-x-2 { transform: translateX(var(--space-2)); }
+.translate-x-4 { transform: translateX(var(--space-4)); }
+.translate-y-0 { transform: translateY(0); }
+.translate-y-1 { transform: translateY(var(--space-1)); }
+.translate-y-2 { transform: translateY(var(--space-2)); }
+.translate-y-4 { transform: translateY(var(--space-4)); }
+
+/* Opacity */
+.opacity-0 { opacity: 0; }
+.opacity-5 { opacity: 0.05; }
+.opacity-10 { opacity: 0.1; }
+.opacity-20 { opacity: 0.2; }
+.opacity-25 { opacity: 0.25; }
+.opacity-30 { opacity: 0.3; }
+.opacity-40 { opacity: 0.4; }
+.opacity-50 { opacity: 0.5; }
+.opacity-60 { opacity: 0.6; }
+.opacity-70 { opacity: 0.7; }
+.opacity-75 { opacity: 0.75; }
+.opacity-80 { opacity: 0.8; }
+.opacity-90 { opacity: 0.9; }
+.opacity-95 { opacity: 0.95; }
+.opacity-100 { opacity: 1; }
+
+/* Hover Effects - EngineerConnect */
+.hover\:bg-brand-blue:hover { background-color: var(--brand-blue-500); }
+.hover\:bg-brand-blue-light:hover { background-color: var(--brand-blue-100); }
+.hover\:text-brand-blue:hover { color: var(--brand-blue-500); }
+.hover\:text-white:hover { color: var(--white); }
+.hover\:border-brand-blue:hover { border-color: var(--brand-blue-500); }
+.hover\:shadow-lg:hover { 
+  box-shadow: 
+    0 12px 24px rgba(59, 130, 246, 0.12),
+    0 6px 12px rgba(45, 212, 218, 0.10);
+}
+.hover\:scale-105:hover { transform: scale(1.05); }
+.hover\:scale-110:hover { transform: scale(1.1); }
+.hover\:-translate-y-1:hover { transform: translateY(-0.25rem); }
+.hover\:-translate-y-2:hover { transform: translateY(-0.5rem); }
+
+/* Focus Effects - EngineerConnect */
+.focus\:outline-none:focus { outline: 0; }
+.focus\:ring:focus { 
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+}
+.focus\:ring-brand-blue:focus { 
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+}
+.focus\:border-brand-blue:focus { border-color: var(--brand-blue-500); }
+
+/* =====================================================
+   8. 📱 RESPONSIVE UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Small screens (sm) - 640px and up */
+@media (min-width: 640px) {
+  .sm\:block { display: block; }
+  .sm\:hidden { display: none; }
+  .sm\:flex { display: flex; }
+  .sm\:grid { display: grid; }
+  
+  .sm\:w-auto { width: auto; }
+  .sm\:w-full { width: 100%; }
+  .sm\:max-w-sm { max-width: 24rem; }
+  .sm\:max-w-md { max-width: 28rem; }
+  
+  .sm\:text-sm { font-size: var(--text-sm); }
+  .sm\:text-base { font-size: var(--text-base); }
+  .sm\:text-lg { font-size: var(--text-lg); }
+  
+  .sm\:p-2 { padding: var(--space-2); }
+  .sm\:p-4 { padding: var(--space-4); }
+  .sm\:p-6 { padding: var(--space-6); }
+  .sm\:px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+  .sm\:py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+  
+  .sm\:flex-row { flex-direction: row; }
+  .sm\:flex-col { flex-direction: column; }
+  .sm\:justify-start { justify-content: flex-start; }
+  .sm\:justify-center { justify-content: center; }
+  .sm\:justify-between { justify-content: space-between; }
+}
+
+/* Medium screens (md) - 768px and up */
+@media (min-width: 768px) {
+  .md\:block { display: block; }
+  .md\:hidden { display: none; }
+  .md\:flex { display: flex; }
+  .md\:grid { display: grid; }
+  
+  .md\:w-auto { width: auto; }
+  .md\:w-1\/2 { width: 50%; }
+  .md\:w-full { width: 100%; }
+  .md\:max-w-md { max-width: 28rem; }
+  .md\:max-w-lg { max-width: 32rem; }
+  .md\:max-w-xl { max-width: 36rem; }
+  
+  .md\:text-base { font-size: var(--text-base); }
+  .md\:text-lg { font-size: var(--text-lg); }
+  .md\:text-xl { font-size: var(--text-xl); }
+  .md\:text-2xl { font-size: var(--text-2xl); }
+  
+  .md\:p-4 { padding: var(--space-4); }
+  .md\:p-6 { padding: var(--space-6); }
+  .md\:p-8 { padding: var(--space-8); }
+  .md\:px-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+  .md\:py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+  
+  .md\:m-4 { margin: var(--space-4); }
+  .md\:m-6 { margin: var(--space-6); }
+  .md\:mx-auto { margin-left: auto; margin-right: auto; }
+  
+  .md\:flex-row { flex-direction: row; }
+  .md\:flex-col { flex-direction: column; }
+  .md\:justify-start { justify-content: flex-start; }
+  .md\:justify-center { justify-content: center; }
+  .md\:justify-between { justify-content: space-between; }
+  .md\:items-center { align-items: center; }
+}
+
+/* Large screens (lg) - 1024px and up */
+@media (min-width: 1024px) {
+  .lg\:block { display: block; }
+  .lg\:hidden { display: none; }
+  .lg\:flex { display: flex; }
+  .lg\:grid { display: grid; }
+  
+  .lg\:w-auto { width: auto; }
+  .lg\:w-1\/3 { width: 33.333333%; }
+  .lg\:w-2\/3 { width: 66.666667%; }
+  .lg\:w-full { width: 100%; }
+  .lg\:max-w-lg { max-width: 32rem; }
+  .lg\:max-w-xl { max-width: 36rem; }
+  .lg\:max-w-2xl { max-width: 42rem; }
+  
+  .lg\:text-lg { font-size: var(--text-lg); }
+  .lg\:text-xl { font-size: var(--text-xl); }
+  .lg\:text-2xl { font-size: var(--text-2xl); }
+  .lg\:text-3xl { font-size: var(--text-3xl); }
+  
+  .lg\:p-6 { padding: var(--space-6); }
+  .lg\:p-8 { padding: var(--space-8); }
+  .lg\:p-12 { padding: var(--space-12); }
+  .lg\:px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+  .lg\:py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+  
+  .lg\:flex-row { flex-direction: row; }
+  .lg\:justify-between { justify-content: space-between; }
+  .lg\:items-center { align-items: center; }
+}
+
+/* Extra Large screens (xl) - 1280px and up */
+@media (min-width: 1280px) {
+  .xl\:block { display: block; }
+  .xl\:flex { display: flex; }
+  .xl\:grid { display: grid; }
+  
+  .xl\:max-w-xl { max-width: 36rem; }
+  .xl\:max-w-2xl { max-width: 42rem; }
+  .xl\:max-w-4xl { max-width: 56rem; }
+  .xl\:max-w-6xl { max-width: 72rem; }
+  
+  .xl\:text-xl { font-size: var(--text-xl); }
+  .xl\:text-2xl { font-size: var(--text-2xl); }
+  .xl\:text-3xl { font-size: var(--text-3xl); }
+  .xl\:text-4xl { font-size: var(--text-4xl); }
+  
+  .xl\:p-8 { padding: var(--space-8); }
+  .xl\:p-12 { padding: var(--space-12); }
+  .xl\:p-16 { padding: var(--space-16); }
+}
+
+/* =====================================================
+   9. ♿ ACCESSIBILITY UTILITIES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Focus Visible */
+.focus-visible\:outline-none:focus-visible {
+  outline: 0;
+}
+
+.focus-visible\:ring:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .motion-reduce\:animate-none {
+    animation: none;
+  }
+  
+  .motion-reduce\:transform-none {
+    transform: none;
+  }
+  
+  .motion-reduce\:transition-none {
+    transition: none;
+  }
+}
+
+/* High Contrast */
+@media (prefers-contrast: high) {
+  .contrast-more\:border-black {
+    border-color: black;
+  }
+  
+  .contrast-more\:text-black {
+    color: black;
+  }
+}
+
+/* =====================================================
+   🚀 ENGINEERCONNECT SPECIFIC UTILITIES
+   ===================================================== */
+
+/* Professional Layout Containers */
+.user-selection,
+.student-feed,
+.company-dashboard,
+.auth-container {
+  padding: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--white);
+}
+
+/* Clickable Elements */
+.clickable {
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
+}
+
+.clickable:active {
+  transform: translateY(0);
+}
+
+/* EngineerConnect Brand Animations */
+.engineerconnect-fade-in {
+  animation: engineerConnectFadeIn 0.6s ease-out;
+}
+
+.engineerconnect-slide-up {
+  animation: engineerConnectSlideUp 0.8s ease-out;
+}
+
+.engineerconnect-scale-in {
+  animation: engineerConnectScaleIn 0.5s ease-out;
+}
+
+@keyframes engineerConnectFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes engineerConnectSlideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes engineerConnectScaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+/* Professional Glass Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border: var(--border-2) solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(59, 130, 246, 0.1),
+    0 4px 16px rgba(45, 212, 218, 0.05);
+}
+
+/* Interactive Card Hover */
+.card-hover {
+  transition: var(--transition-smooth);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.15),
+    0 8px 16px rgba(45, 212, 218, 0.12);
+  border-color: var(--brand-blue-400);
+}
+
+/* Button Loading State */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  color: var(--white);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 480px) {
+  .user-selection,
+  .student-feed,
+  .company-dashboard,
+  .auth-container {
+    padding: 0 var(--space-4);
+    max-width: 100%;
+  }
+  
+  .problem-card,
+  .feed-item,
+  .dashboard-card {
+    max-width: 100%;
+    margin: 0;
+  }
+}
