@@ -53,12 +53,30 @@ const AdminDashboard = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    // Test basic API connectivity first
+    testApiConnection();
     fetchStats();
     fetchUsers();
     if (activeTab === 'ideas') {
       fetchAllIdeas();
     }
   }, [currentPage, roleFilter, searchTerm, activeTab]);
+
+  const testApiConnection = async () => {
+    try {
+      console.log('🔍 Testing basic API connection to:', `${API_BASE_URL}/test`);
+      const response = await fetch(`${API_BASE_URL}/test`);
+      console.log('🔍 Test API response:', response.status, response.ok);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Test API data:', data);
+      } else {
+        console.error('❌ Test API failed:', response.status);
+      }
+    } catch (error) {
+      console.error('❌ Test API connection error:', error);
+    }
+  };
 
   const fetchStats = async () => {
     try {
