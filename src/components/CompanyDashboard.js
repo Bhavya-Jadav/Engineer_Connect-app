@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
 import '../styles/modals.css';
-import { API_BASE_URL } from '../utils/api';
 
 const CompanyDashboard = ({
   problems,
@@ -74,13 +73,9 @@ const CompanyDashboard = ({
     }
     try {
       const token = localStorage.getItem('token');
-<<<<<<< Updated upstream
-      
-=======
       const API_BASE_URL = process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
->>>>>>> Stashed changes
       const response = await fetch(`${API_BASE_URL}/admin/users/${user._id}`, {
         method: 'DELETE',
         headers: {
@@ -120,13 +115,9 @@ const CompanyDashboard = ({
     const newRole = availableRoles[roleIndex];
     try {
       const token = localStorage.getItem('token');
-<<<<<<< Updated upstream
-      
-=======
       const API_BASE_URL = process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
->>>>>>> Stashed changes
       const response = await fetch(`${API_BASE_URL}/admin/users/${user._id}/role`, {
         method: 'PUT',
         headers: {
@@ -289,15 +280,7 @@ const CompanyDashboard = ({
       selectedFiles.forEach(file => {
         formData.append('file', file);
       });
-<<<<<<< Updated upstream
-
-      const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + '/api/files/upload';
-      console.log('Upload URL:', uploadUrl);
-      console.log('Token exists:', !!localStorage.getItem('token'));
-
-=======
       const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + '/files/upload';
->>>>>>> Stashed changes
       const response = await fetch(uploadUrl, {
         method: 'POST',
         headers: {
@@ -435,15 +418,7 @@ const CompanyDashboard = ({
   const handleUpdateProblem = async (problemId, problemData) => {
     try {
       const token = localStorage.getItem('token');
-<<<<<<< Updated upstream
-      const updateUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + `/api/problems/${problemId}`;
-      
-      console.log('Update URL:', updateUrl);
-      console.log('Problem data:', problemData);
-      
-=======
       const updateUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + `/problems/${problemId}`;
->>>>>>> Stashed changes
       const response = await fetch(updateUrl, {
         method: 'PUT',
         headers: {
@@ -495,13 +470,9 @@ const CompanyDashboard = ({
   const fetchUserStats = async () => {
     try {
       const token = localStorage.getItem('token');
-<<<<<<< Updated upstream
-      
-=======
       const API_BASE_URL = process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
->>>>>>> Stashed changes
       const response = await fetch(`${API_BASE_URL}/admin/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -523,12 +494,9 @@ const CompanyDashboard = ({
     setUsersLoading(true);
     try {
       const token = localStorage.getItem('token');
-<<<<<<< Updated upstream
-=======
       const API_BASE_URL = process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-production-2368.up.railway.app/api'
         : process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
->>>>>>> Stashed changes
       const params = new URLSearchParams({
         page: currentPage,
         limit: 10,
@@ -1016,10 +984,6 @@ const CompanyDashboard = ({
     );
   }
 
-<<<<<<< Updated upstream
-  // Show ideas for selected problem
-=======
->>>>>>> Stashed changes
   if (selectedProblemForIdeas) {
     const filteredIdeas = selectedProblemForIdeas.ideas?.filter(idea =>
       !skillsFilter || idea.student?.skills?.some(skill =>
@@ -1030,42 +994,17 @@ const CompanyDashboard = ({
     ) || [];
 
     return (
-<<<<<<< Updated upstream
-      <div className="company-dashboard">
-        <Header 
-          isLoggedIn={isLoggedIn} 
-          currentUser={currentUser} 
-          userRole={userRole} 
-          handleLogout={handleLogout} 
-=======
       <div className="company-dashboard admin-dashboard">
         <Header
           isLoggedIn={isLoggedIn}
           currentUser={currentUser}
           userRole={userRole}
           handleLogout={handleLogout}
->>>>>>> Stashed changes
           setCurrentView={setCurrentView}
           currentView="companyDashboard"
           handleBack={() => setSelectedProblemForIdeas(null)}
           onProfileClick={onProfileClick}
         />
-<<<<<<< Updated upstream
-        
-        <div className="ideas-view-container">
-          <div className="ideas-header-section">
-            <div className="breadcrumb">
-              <span onClick={() => setSelectedProblemForIdeas(null)} className="breadcrumb-link">
-                <i className="fas fa-arrow-left"></i> Back to Dashboard
-              </span>
-              <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">Student Solutions</span>
-            </div>
-            
-            <div className="problem-overview-card">
-              <div className="problem-title-section">
-                <h1 className="problem-title">
-=======
         <div className="admin-content">
           <div className="admin-header">
             <h1>
@@ -1084,65 +1023,12 @@ const CompanyDashboard = ({
                 </span>
                 <span className="branch-badge">{selectedProblemForIdeas.branch}</span>
                 <span className="ideas-count">
->>>>>>> Stashed changes
                   <i className="fas fa-lightbulb"></i>
-                  {selectedProblemForIdeas.title}
-                </h1>
-                <div className="problem-badges">
-                  <span className={`difficulty-badge difficulty-${selectedProblemForIdeas.difficulty}`}>
-                    {selectedProblemForIdeas.difficulty}
-                  </span>
-                  <span className="branch-badge">
-                    {selectedProblemForIdeas.branch}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="problem-description-section">
-                <h3>Problem Description</h3>
-                <p className="problem-description">{selectedProblemForIdeas.description}</p>
-              </div>
-              
-              <div className="modal-body">
-                <div className="user-stats-section">
-                  <i className="fas fa-users"></i>
-                  <span className="stat-number">{selectedProblemForIdeas.ideas ? selectedProblemForIdeas.ideas.length : 0}</span>
-                  <span className="stat-label">Solutions Submitted</span>
-                </div>
-                <div className="stat-item">
-                  <i className="fas fa-calendar"></i>
-                  <span className="stat-number">{new Date(selectedProblemForIdeas.createdAt).toLocaleDateString()}</span>
-                  <span className="stat-label">Posted On</span>
-                </div>
+                  {selectedProblemForIdeas.ideas ? selectedProblemForIdeas.ideas.length : 0} Solutions
+                </span>
               </div>
             </div>
           </div>
-<<<<<<< Updated upstream
-          
-          <div className="solutions-section">
-            <div className="solutions-header">
-              <h2>
-                <i className="fas fa-brain"></i>
-                Student Solutions
-                <span className="solutions-count">
-                  ({selectedProblemForIdeas.ideas ? selectedProblemForIdeas.ideas.length : 0})
-                </span>
-              </h2>
-            </div>
-
-            {/* Skills Filter Search Bar */}
-            <div className="skills-filter-section">
-              <div className="skills-search-container">
-                <div className="skills-search-input-wrapper">
-                  <i className="fas fa-tags skills-search-icon"></i>
-                  <input
-                    type="text"
-                    placeholder="Filter students by skills (e.g., React, Python, Machine Learning)..."
-                    value={skillsFilter}
-                    onChange={(e) => setSkillsFilter(e.target.value)}
-                    className="skills-search-input"
-                  />
-=======
           <div className="ideas-section">
             <div className="section-header">
               <h2>
@@ -1181,7 +1067,6 @@ const CompanyDashboard = ({
                       </button>
                     )}
                   </div>
->>>>>>> Stashed changes
                   {skillsFilter && (
                     <div className="skills-filter-info">
                       <i className="fas fa-filter"></i>
@@ -1291,233 +1176,12 @@ const CompanyDashboard = ({
                 )}
               </div>
             </div>
-<<<<<<< Updated upstream
-            
-            <div className="solutions-grid">
-              {selectedProblemForIdeas.ideas && selectedProblemForIdeas.ideas.length > 0 ? (() => {
-                // Filter ideas based on skills
-                const filteredIdeas = selectedProblemForIdeas.ideas.filter(idea => {
-                  if (!skillsFilter.trim()) return true; // Show all if no filter
-                  
-                  const studentSkills = idea.student?.skills || [];
-                  const filterTerm = skillsFilter.toLowerCase().trim();
-                  
-                  // Check if any skill contains the filter term
-                  return studentSkills.some(skill => 
-                    skill.toLowerCase().includes(filterTerm)
-                  );
-                });
-
-                return filteredIdeas.length > 0 ? (
-                  filteredIdeas.map((idea, index) => {
-                  return (
-                    <div key={idea._id || index} className="solution-card">
-                      <div className="solution-header">
-                        <div className="student-info-compact">
-                          <div className="student-avatar">
-                            {idea.student?.profilePicture ? (
-                              <img 
-                                src={idea.student.profilePicture.startsWith('data:') || idea.student.profilePicture.startsWith('http') ? idea.student.profilePicture : `data:image/jpeg;base64,${idea.student.profilePicture}`} 
-                                alt={idea.student.name || idea.student.username}
-                                onError={(e) => {
-                                  e.target.style.display = 'none';
-                                  const placeholder = e.target.parentNode.querySelector('.avatar-placeholder');
-                                  if (placeholder) {
-                                    placeholder.style.display = 'flex';
-                                  }
-                                }}
-                                style={{
-                                  width: '40px',
-                                  height: '40px',
-                                  borderRadius: '50%',
-                                  objectFit: 'cover'
-                                }}
-                              />
-                            ) : null}
-                            <div className="avatar-placeholder" style={{display: idea.student?.profilePicture ? 'none' : 'flex'}}>
-                              <i className="fas fa-user"></i>
-                            </div>
-                          </div>
-                          <div className="student-details">
-                            <div className="student-name">
-                              {idea.student?.name || idea.student?.username || 'Unknown Student'}
-                            </div>
-                            <div className="student-meta">
-                              {idea.student?.university && (
-                                <span className="university">
-                                  <i className="fas fa-university"></i>
-                                  {idea.student.university}
-                                </span>
-                              )}
-                              {idea.student?.course ? (
-                                <span className="course">
-                                  <i className="fas fa-graduation-cap"></i>
-                                  {idea.student.course}
-                                </span>
-                              ) : (
-                                <span className="course" style={{color: '#6b7280', fontStyle: 'italic'}}>
-                                  <i className="fas fa-graduation-cap"></i>
-                                  Course not specified
-                                </span>
-                              )}
-                              {idea.student?.year && (
-                                <span className="year">
-                                  <i className="fas fa-calendar-alt"></i>
-                                  {idea.student.year}
-                                </span>
-                              )}
-                              {idea.student?.phone && (
-                                <span className="phone">
-                                  <i className="fas fa-phone"></i>
-                                  {idea.student.phone}
-                                </span>
-                              )}
-                              {idea.student?.email && (
-                                <span className="email">
-                                  <i className="fas fa-envelope"></i>
-                                  {idea.student.email}
-                                </span>
-                              )}
-                              {idea.student?.skills && Array.isArray(idea.student.skills) && idea.student.skills.length > 0 ? (
-                                <div className="student-skills">
-                                  <i className="fas fa-tags"></i>
-                                  <div className="skills-tags">
-                                    {idea.student.skills.slice(0, 3).map((skill, skillIndex) => (
-                                      <span key={skillIndex} className="skill-tag">
-                                        {typeof skill === 'string' ? skill : skill.name || skill}
-                                      </span>
-                                    ))}
-                                    {idea.student.skills.length > 3 && (
-                                      <span className="skill-tag more-skills">
-                                        +{idea.student.skills.length - 3} more
-                                      </span>
-                                    )}
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="student-skills">
-                                  <i className="fas fa-tags"></i>
-                                  <span style={{color: '#6b7280', fontStyle: 'italic', fontSize: '0.875rem'}}>
-                                    No skills listed
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="solution-date">
-                          <i className="fas fa-clock"></i>
-                          {new Date(idea.createdAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                      
-                      <div className="solution-content">
-                        <div className="solution-text">
-                          <h4 className="solution-title">
-                            <i className="fas fa-lightbulb"></i>
-                            Proposed Solution
-                          </h4>
-                          <p className="idea-text">{idea.ideaText}</p>
-                        </div>
-                        
-                        {idea.implementationApproach && (
-                          <div className="implementation-section">
-                            <h4 className="implementation-title">
-                              <i className="fas fa-cogs"></i>
-                              Implementation Approach
-                            </h4>
-                            <p className="implementation-text">{idea.implementationApproach}</p>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="solution-footer">
-                        <button 
-                          className="btn btn-primary view-full-profile-btn"
-                          onClick={() => setSelectedStudentIdea(idea)}
-                        >
-                          <i className="fas fa-user-circle"></i>
-                          View Full Profile & Details
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }) 
-                ) : (
-                  <div className="no-solutions-container">
-                    <div className="no-solutions-illustration">
-                      <i className="fas fa-search"></i>
-                    </div>
-                    <div className="no-solutions-content">
-                      <h3>No Matching Solutions</h3>
-                      <p>No students found with skills matching "{skillsFilter}".</p>
-                      <p>Try adjusting your search or clear the filter to see all solutions.</p>
-                    </div>
-                  </div>
-                );
-              })() : (
-                <div className="no-solutions-container">
-                  <div className="no-solutions-illustration">
-                    <i className="fas fa-search"></i>
-                  </div>
-                  <div className="no-solutions-content">
-                    <h3>No Solutions Yet</h3>
-                    <p>This problem hasn't received any student solutions yet.</p>
-                    <p>Students will be able to submit their innovative ideas and solutions here.</p>
-                  </div>
-                </div>
-              )}
-            </div>
-=======
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
     );
   }
 
-<<<<<<< Updated upstream
-  // Filter problems based on user role
-  const companyName = currentUser?.companyName || currentUser?.username || 'Company User';
-  
-  console.log('CompanyDashboard - Raw problems received:', problems);
-  console.log('CompanyDashboard - Number of raw problems:', problems?.length || 0);
-  console.log('CompanyDashboard - Current user:', currentUser);
-  console.log('CompanyDashboard - Current user ID:', currentUser?._id);
-  console.log('CompanyDashboard - User role:', userRole);
-  
-  // Admin users can see ALL problems, company users can only see problems they posted
-  let companyProblems = userRole === 'admin' 
-    ? problems // Admins see all problems
-    : problems.filter(problem => {
-        const isOwnedByUser = problem.postedBy === currentUser?._id;
-        console.log('CompanyDashboard - Checking problem:', problem.title, 'postedBy:', problem.postedBy, 'currentUserId:', currentUser?._id, 'matches:', isOwnedByUser);
-        return isOwnedByUser;
-      });
-
-  // Apply search filter for admins
-  if (userRole === 'admin' && searchTerm.trim() !== '') {
-    companyProblems = companyProblems.filter(problem => 
-      problem.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      problem.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      problem.branch?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-  
-  console.log('CompanyDashboard - Filtered problems for', userRole + ':', companyProblems);
-  console.log('CompanyDashboard - Number of company problems:', companyProblems.length);
-  console.log('CompanyDashboard - Search term:', searchTerm);
-
-  // Main dashboard view
-  return (
-    <div className="company-dashboard">
-      <Header 
-        isLoggedIn={isLoggedIn} 
-        currentUser={currentUser} 
-        userRole={userRole} 
-        handleLogout={handleLogout} 
-=======
   return (
     <div className="company-dashboard admin-dashboard">
       <Header
@@ -1525,61 +1189,11 @@ const CompanyDashboard = ({
         currentUser={currentUser}
         userRole={userRole}
         handleLogout={handleLogout}
->>>>>>> Stashed changes
         setCurrentView={setCurrentView}
         currentView="companyDashboard"
         handleBack={handleBack}
         onProfileClick={onProfileClick}
       />
-<<<<<<< Updated upstream
-      
-      <div className="dashboard-content">
-        <div className="dashboard-header">
-          <h2>
-            <i className="fas fa-tachometer-alt"></i> 
-            {userRole === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
-          </h2>
-          <p className="dashboard-subtitle">
-            {userRole === 'admin' 
-              ? `Logged in as Admin: ${companyName} - Viewing all problems from all companies` 
-              : `Logged in as: ${companyName}`
-            }
-          </p>
-          <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-            <i className="fas fa-plus-circle"></i> {showForm ? 'Cancel' : 'Post New Problem'}
-          </button>
-          
-          {/* Admin Ideas Button */}
-          {userRole === 'admin' && (
-            <>
-              <button 
-                className="btn btn-secondary" 
-                onClick={handleViewAllIdeas}
-                disabled={isLoadingAllIdeas}
-                style={{ marginLeft: '1rem' }}
-              >
-                <i className="fas fa-lightbulb"></i> 
-                {isLoadingAllIdeas ? 'Loading...' : 'View All Ideas'}
-              </button>
-              
-              {/* Admin Statistics Button */}
-              <button 
-                className="btn btn-success" 
-                onClick={() => setShowStatistics(true)}
-                style={{ marginLeft: '1rem' }}
-              >
-                <i className="fas fa-chart-bar"></i> 
-                Statistics
-              </button>
-
-              {/* Admin User Management Button */}
-              <button 
-                className="btn btn-info" 
-                onClick={handleViewUserManagement}
-                style={{ marginLeft: '1rem' }}
-              >
-                <i className="fas fa-users-cog"></i> 
-=======
       <div className="admin-content">
         <div className="admin-header">
           <h1>
@@ -1611,448 +1225,11 @@ const CompanyDashboard = ({
                 onClick={handleViewUserManagement}
               >
                 <i className="fas fa-users"></i>
->>>>>>> Stashed changes
                 Manage Users
               </button>
             </>
           )}
         </div>
-<<<<<<< Updated upstream
-
-        {/* Search Bar - Only show for admins */}
-        {userRole === 'admin' && (
-          <div className="search-section">
-            <div className="search-container">
-              <div className="search-input-wrapper">
-                <i className="fas fa-search search-icon"></i>
-                <input
-                  type="text"
-                  placeholder="Search by company name, problem title, or branch..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input"
-                />
-                {searchTerm && (
-                  <button 
-                    className="clear-search-btn"
-                    onClick={() => setSearchTerm('')}
-                    title="Clear search"
-                  >
-                    <i className="fas fa-times"></i>
-                  </button>
-                )}
-              </div>
-              {searchTerm && (
-                <div className="search-results-info">
-                  <i className="fas fa-info-circle"></i>
-                  Found {companyProblems.length} problem(s) matching "{searchTerm}"
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {showForm && (
-          <div className="post-form">
-            <h3>
-              <i className={editingProblem ? "fas fa-edit" : "fas fa-plus"}></i> 
-              {editingProblem ? 'Edit Engineering Problem' : 'Post a New Engineering Problem'}
-            </h3>
-            {editingProblem && (
-              <div className="edit-notice">
-                <i className="fas fa-info-circle"></i>
-                You are editing: <strong>{editingProblem.title}</strong>
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="company">Company Name</label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  placeholder="Enter your company name"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="title">Problem Title</label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Brief title for the problem"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="branch">Engineering Branch</label>
-                <select
-                  id="branch"
-                  name="branch"
-                  value={formData.branch}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="">Select Branch</option>
-                  <option value="computer">Computer Science</option>
-                  <option value="mechanical">Mechanical Engineering</option>
-                  <option value="electrical">Electrical Engineering</option>
-                  <option value="civil">Civil Engineering</option>
-                  <option value="chemical">Chemical Engineering</option>
-                  <option value="aerospace">Aerospace Engineering</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Problem Description</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  placeholder="Describe the problem in detail..."
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  required
-                ></textarea>
-              </div>
-              <div className="form-group">
-                <label htmlFor="videoUrl">Video URL (Optional)</label>
-                <input
-                  type="url"
-                  id="videoUrl"
-                  name="videoUrl"
-                  placeholder="YouTube, Google Drive, or any video link (optional)"
-                  value={formData.videoUrl}
-                  onChange={handleInputChange}
-                />
-                <small className="field-hint">
-                  <i className="fas fa-info-circle"></i>
-                  Paste a YouTube, Google Drive, or any video URL to provide additional context
-                </small>
-              </div>
-              <div className="form-group">
-                <label htmlFor="difficulty">Difficulty Level</label>
-                <select
-                  id="difficulty"
-                  name="difficulty"
-                  value={formData.difficulty}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="tags">Tags</label>
-                <div className="tags-input">
-                  <input
-                    type="text"
-                    value={newTag}
-                    onChange={(e) => setNewTag(e.target.value)}
-                    placeholder="Add a tag..."
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
-                  />
-                  <button 
-                    type="button"
-                    onClick={handleAddTag} 
-                    className="add-tag-btn"
-                  >
-                    <i className="fas fa-plus"></i>
-                  </button>
-                </div>
-                <div className="tags-list">
-                  {formData.tags.map((tag, index) => (
-                    <span key={index} className="tag-item">
-                      {tag}
-                      <button 
-                        type="button"
-                        onClick={() => handleRemoveTag(tag)}
-                      >
-                        <i className="fas fa-times"></i>
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="quiz-section">
-                <h4><i className="fas fa-question-circle"></i> Quiz Questions</h4>
-                <p className="quiz-description">
-                  Add quiz questions that students must answer before submitting their solutions.
-                </p>
-                
-                {formData.quiz.questions.map((question, questionIndex) => (
-                  <div key={questionIndex} className="quiz-question-card">
-                    <div className="question-header">
-                      <h5>Question {questionIndex + 1}</h5>
-                      {formData.quiz.questions.length > 1 && (
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm"
-                          onClick={() => removeQuestion(questionIndex)}
-                        >
-                          <i className="fas fa-trash"></i> Remove
-                        </button>
-                      )}
-                    </div>
-                    
-                    <div className="form-group">
-                      <label>Question</label>
-                      <input
-                        type="text"
-                        placeholder="Enter your question"
-                        value={question.question}
-                        onChange={(e) => handleQuizChange(questionIndex, 'question', e.target.value)}
-                        required
-                      />
-                    </div>
-                    
-                    <div className="options-section">
-                      <label>Answer Options</label>
-                      {question.options.map((option, optionIndex) => (
-                        <div key={optionIndex} className="option-input">
-                          <div className="option-radio">
-                            <input
-                              type="radio"
-                              name={`correct-${questionIndex}`}
-                              checked={question.correctAnswer === optionIndex}
-                              onChange={() => handleQuizChange(questionIndex, 'correctAnswer', optionIndex)}
-                            />
-                            <label>Correct</label>
-                          </div>
-                          <input
-                            type="text"
-                            placeholder={`Option ${optionIndex + 1}`}
-                            value={option}
-                            onChange={(e) => handleQuizChange(questionIndex, 'option', e.target.value, optionIndex)}
-                            required
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                
-                <button
-                  type="button"
-                  className="btn btn-secondary add-question-btn"
-                  onClick={addQuestion}
-                >
-                  <i className="fas fa-plus"></i> Add Another Question
-                </button>
-              </div>
-
-              {/* File Upload Section */}
-              <div className="form-group file-upload-section">
-                <label htmlFor="attachments">Attachments (Optional)</label>
-                <div className="file-upload-area">
-                  <input
-                    type="file"
-                    id="attachments"
-                    name="attachments"
-                    multiple
-                    accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
-                    onChange={handleFileSelect}
-                    style={{ display: 'none' }}
-                  />
-                  <div 
-                    className="file-drop-zone"
-                    onClick={() => document.getElementById('attachments').click()}
-                  >
-                    <div className="file-drop-icon">
-                      <i className="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <div className="file-drop-text">
-                      <strong>Click to choose files</strong> or drag and drop
-                    </div>
-                    <div className="file-drop-hint">
-                      PDF, Word, PowerPoint, Excel, Text files (Max 10MB each)
-                    </div>
-                  </div>
-                </div>
-
-                {/* Selected Files Preview */}
-                {selectedFiles.length > 0 && (
-                  <div className="selected-files">
-                    <h4>Selected Files:</h4>
-                    {selectedFiles.map((file, index) => (
-                      <div key={index} className="file-item">
-                        <div className="file-icon">
-                          <i className={getFileIcon(file.type)}></i>
-                        </div>
-                        <div className="file-info">
-                          <span className="file-name">{file.name}</span>
-                          <span className="file-size">{formatFileSize(file.size)}</span>
-                        </div>
-                        <button
-                          type="button"
-                          className="remove-file-btn"
-                          onClick={() => removeFile(index)}
-                        >
-                          <i className="fas fa-times"></i>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Uploaded Files Preview */}
-                {uploadedAttachments.length > 0 && (
-                  <div className="uploaded-files">
-                    <h4>Uploaded Files:</h4>
-                    {uploadedAttachments.map((file, index) => (
-                      <div key={index} className="file-item uploaded">
-                        <div className="file-icon">
-                          <i className={getFileIcon(file.fileType)}></i>
-                        </div>
-                        <div className="file-info">
-                          <span className="file-name">{file.originalName}</span>
-                          <span className="file-size">{formatFileSize(file.fileSize)}</span>
-                        </div>
-                        <div className="file-actions">
-                          <div className="file-status">
-                            <i className="fas fa-check-circle"></i>
-                          </div>
-                          {editingProblem && (
-                            <button
-                              type="button"
-                              className="remove-file-btn"
-                              onClick={() => removeUploadedFile(index)}
-                              title="Remove this file"
-                            >
-                              <i className="fas fa-times"></i>
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Manual Upload Button */}
-                {selectedFiles.length > 0 && uploadedAttachments.length === 0 && (
-                  <button
-                    type="button"
-                    className="btn btn-secondary upload-btn"
-                    onClick={uploadFiles}
-                    disabled={isUploading}
-                  >
-                    {isUploading ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin"></i> Uploading...
-                      </>
-                    ) : (
-                      <>
-                        <i className="fas fa-upload"></i> Upload Files
-                      </>
-                    )}
-                  </button>
-                )}
-              </div>
-
-              <div className="form-actions">
-                <button type="submit" className="btn btn-primary">
-                  <i className={editingProblem ? "fas fa-save" : "fas fa-paper-plane"}></i> 
-                  {editingProblem ? 'Update Problem' : 'Post Problem'}
-                </button>
-                {editingProblem && (
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    onClick={handleCancelEdit}
-                    style={{ marginLeft: '10px' }}
-                  >
-                    <i className="fas fa-times"></i> Cancel Edit
-                  </button>
-                )}
-              </div>
-            </form>
-          </div>
-        )}
-
-        <div className="posted-problems">
-          <h3>
-            <i className="fas fa-tasks"></i> 
-            {userRole === 'admin' ? 'All Company Problems' : 'Your Posted Problems'}
-          </h3>
-          <div className="problems-list">
-            {companyProblems && companyProblems.length > 0 ? (
-              companyProblems.map(problem => (
-                <div key={problem._id} className="problem-card">
-                  <div className="problem-content">
-                    <div className="problem-info">
-                      <h4>{problem.title}</h4>
-                      {userRole === 'admin' && (
-                        <div className="company-info" style={{
-                          color: '#2563eb', 
-                          fontSize: '0.9rem', 
-                          fontWeight: '600', 
-                          marginBottom: '8px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}>
-                          <i className="fas fa-building"></i>
-                          <span>Posted by: {problem.company}</span>
-                        </div>
-                      )}
-                      <p>{problem.description}</p>
-                      <div className="problem-meta">
-                        <span className="branch-badge">{problem.branch}</span>
-                        <span className={`difficulty-badge difficulty-${problem.difficulty}`}>{problem.difficulty}</span>
-                        <span className="date-info">
-                          {new Date(problem.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="problem-actions">
-                      {/* Admins can edit all problems, companies can only edit their own */}
-                      {(userRole === 'admin' || problem.postedBy === currentUser?._id) && (
-                        <button 
-                          className="btn btn-secondary" 
-                          onClick={() => handleEditProblem(problem)}
-                        >
-                          <i className="fas fa-edit"></i> 
-                          Edit
-                        </button>
-                      )}
-                      
-                      {/* Everyone can view ideas */}
-                      <button 
-                        className="btn btn-primary" 
-                        onClick={() => handleViewIdeas(problem._id)}
-                        disabled={isLoadingIdeas}
-                      >
-                        {isLoadingIdeas ? (
-                          <>
-                            <i className="fas fa-spinner fa-spin"></i> 
-                            Loading...
-                          </>
-                        ) : (
-                          <>
-                            <i className="fas fa-eye"></i> 
-                            View Ideas
-                          </>
-                        )}
-                      </button>
-                      
-                      {/* Admins can delete all problems, companies can only delete their own */}
-                      {onDeleteProblem && (userRole === 'admin' || problem.postedBy === currentUser?._id) && (
-                        <button 
-                          className="btn btn-danger" 
-                          onClick={() => onDeleteProblem(problem._id, problem.title)}
-                        >
-                          <i className="fas fa-trash"></i> 
-                          Delete
-                        </button>
-                      )}
-                    </div>
-=======
         <div className="problems-section">
           <div className="section-header">
             <h2>
@@ -2125,143 +1302,18 @@ const CompanyDashboard = ({
                       <i className="fas fa-trash"></i>
                       Delete
                     </button>
->>>>>>> Stashed changes
                   </div>
                 </div>
               ))
             ) : (
-              <div className="no-problems">
-                <div className="no-problems-icon">
-                  {userRole === 'admin' && searchTerm ? '�' : '�📝'}
-                </div>
-                <h4>
-                  {userRole === 'admin' && searchTerm
-                    ? `No problems found matching "${searchTerm}"`
-                    : userRole === 'admin' 
-                      ? 'No problems found in the database' 
-                      : 'No problems posted yet'
-                  }
-                </h4>
-                <p>
-                  {userRole === 'admin' && searchTerm
-                    ? 'Try adjusting your search terms or search for a different company name, problem title, or branch.'
-                    : userRole === 'admin'
-                      ? 'No companies have posted any engineering challenges yet. Check back later or encourage companies to post their problems!'
-                      : 'Create your first engineering challenge above to get started!'
-                  }
-                </p>
-                {userRole === 'admin' && searchTerm && (
-                  <button 
-                    className="btn btn-secondary"
-                    onClick={() => setSearchTerm('')}
-                    style={{ marginTop: '1rem' }}
-                  >
-                    <i className="fas fa-times"></i> Clear Search
-                  </button>
-                )}
-                {userRole !== 'admin' && problems.length > 0 && (
-                  <p style={{ color: '#ff6b6b', marginTop: '10px' }}>
-                    <strong>Note:</strong> There are {problems.length} problems in the database, but none were posted by you.
-                  </p>
-                )}
+              <div className="no-ideas">
+                <i className="fas fa-briefcase"></i>
+                <h3>No Problems Posted</h3>
+                <p>You haven't posted any problems yet. Click "Post New Problem" to get started.</p>
               </div>
             )}
           </div>
         </div>
-<<<<<<< Updated upstream
-
-        {/* Statistics Modal */}
-        {showStatistics && userRole === 'admin' && (
-          <div className="modal-overlay">
-            <div className="modal statistics-modal">
-              <div className="modal-header">
-                <h3><i className="fas fa-chart-bar"></i> Platform Statistics</h3>
-                <button 
-                  className="close-btn" 
-                  onClick={() => setShowStatistics(false)}
-                >
-                  <i className="fas fa-times"></i>
-                </button>
-              </div>
-              
-              <div className="modal-body">
-                <div className="stats-overview">
-                  <div className="stats-grid">
-                    <div className="stat-card total">
-                      <div className="stat-icon">
-                        <i className="fas fa-users"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{userStats.totalUsers}</h3>
-                        <p>Total Users</p>
-                      </div>
-                    </div>
-                    <div className="stat-card students">
-                      <div className="stat-icon">
-                        <i className="fas fa-graduation-cap"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{userStats.students}</h3>
-                        <p>Students</p>
-                      </div>
-                    </div>
-                    <div className="stat-card companies">
-                      <div className="stat-icon">
-                        <i className="fas fa-building"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{userStats.companies}</h3>
-                        <p>Companies</p>
-                      </div>
-                    </div>
-                    <div className="stat-card admins">
-                      <div className="stat-icon">
-                        <i className="fas fa-shield-alt"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{userStats.admins}</h3>
-                        <p>Admins</p>
-                      </div>
-                    </div>
-                    <div className="stat-card recent">
-                      <div className="stat-icon">
-                        <i className="fas fa-user-plus"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{userStats.recentRegistrations}</h3>
-                        <p>New (30 days)</p>
-                      </div>
-                    </div>
-                    <div className="stat-card problems">
-                      <div className="stat-icon">
-                        <i className="fas fa-tasks"></i>
-                      </div>
-                      <div className="stat-info">
-                        <h3>{problems?.length || 0}</h3>
-                        <p>Total Problems</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="live-stats-section">
-                  <h4><i className="fas fa-pulse"></i> Live Statistics</h4>
-                  <div className="live-stats-info">
-                    <p><i className="fas fa-info-circle"></i> Statistics are updated in real-time when users register or when roles are changed.</p>
-                    <button 
-                      className="btn btn-primary"
-                      onClick={() => {
-                        // Trigger stats refresh
-                        if (typeof fetchUserStats === 'function') {
-                          fetchUserStats();
-                        }
-                      }}
-                    >
-                      <i className="fas fa-sync-alt"></i> Refresh Stats
-                    </button>
-                  </div>
-                </div>
-=======
         {showForm && (
           <div className="modal-overlay">
             <div className="modal problem-form-modal">
@@ -2432,230 +1484,10 @@ const CompanyDashboard = ({
                     </button>
                   </div>
                 </form>
->>>>>>> Stashed changes
               </div>
             </div>
           </div>
         )}
-<<<<<<< Updated upstream
-
-        {/* User Management Modal */}
-        {showUserManagement && userRole === 'admin' && (
-          <div className="modal-overlay">
-            <div className="modal user-management-modal">
-              <div className="modal-header">
-                <h3><i className="fas fa-users-cog"></i> User Management</h3>
-                <button 
-                  className="close-btn" 
-                  onClick={() => setShowUserManagement(false)}
-                >
-                  <i className="fas fa-times"></i>
-                </button>
-              </div>
-        
-        <div className="modal-body">
-          {/* User Statistics */}
-          <div className="user-stats-section">
-            <h4><i className="fas fa-chart-bar"></i> Platform Statistics</h4>
-            <div className="stats-grid">
-              <div className="stat-card total">
-                <div className="stat-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{userStats.totalUsers}</h3>
-                  <p>Total Users</p>
-                </div>
-              </div>
-              <div className="stat-card students">
-                <div className="stat-icon">
-                  <i className="fas fa-graduation-cap"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{userStats.students}</h3>
-                  <p>Students</p>
-                </div>
-              </div>
-              <div className="stat-card companies">
-                <div className="stat-icon">
-                  <i className="fas fa-building"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{userStats.companies}</h3>
-                  <p>Companies</p>
-                </div>
-              </div>
-              <div className="stat-card admins">
-                <div className="stat-icon">
-                  <i className="fas fa-shield-alt"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{userStats.admins}</h3>
-                  <p>Admins</p>
-                </div>
-              </div>
-              <div className="stat-card recent">
-                <div className="stat-icon">
-                  <i className="fas fa-user-plus"></i>
-                </div>
-                <div className="stat-info">
-                  <h3>{userStats.recentRegistrations}</h3>
-                  <p>New (30 days)</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* User Search and Filter */}
-          <div className="user-controls-section">
-            <form onSubmit={handleUserSearch} className="user-search-form">
-              <div className="search-input-wrapper">
-                <i className="fas fa-search"></i>
-                <input
-                  type="text"
-                  placeholder="Search by name, email, or username..."
-                  value={userSearchTerm}
-                  onChange={(e) => setUserSearchTerm(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="search-btn">
-                <i className="fas fa-search"></i>
-              </button>
-            </form>
-
-            <div className="filter-controls">
-              <select 
-                value={roleFilter} 
-                onChange={(e) => {
-                  setRoleFilter(e.target.value);
-                  setCurrentPage(1);
-                  fetchUsers();
-                }}
-                className="role-filter"
-              >
-                <option value="all">All Roles</option>
-                <option value="student">Students</option>
-                <option value="company">Companies</option>
-                <option value="admin">Admins</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Users Table */}
-          <div className="users-table-container">
-            {usersLoading ? (
-              <div className="table-loading">
-                <div className="loading-spinner"></div>
-                <p>Loading users...</p>
-              </div>
-            ) : (
-              <table className="users-table">
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Joined</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map(user => (
-                    <tr key={user._id}>
-                      <td className="user-info">
-                        <div className="user-avatar">
-                          {user.profilePicture ? (
-                            <img 
-                              src={user.profilePicture.startsWith('data:') || user.profilePicture.startsWith('http') 
-                                ? user.profilePicture 
-                                : `data:image/jpeg;base64,${user.profilePicture}`} 
-                              alt={user.name || user.username}
-                            />
-                          ) : (
-                            <div className="avatar-placeholder">
-                              <i className="fas fa-user"></i>
-                            </div>
-                          )}
-                        </div>
-                        <div className="user-details">
-                          <div className="user-name">{user.name || user.username}</div>
-                          <div className="user-username">@{user.username}</div>
-                        </div>
-                      </td>
-                      <td>
-                        <span 
-                          className="role-badge" 
-                          style={{ 
-                            backgroundColor: user.role === 'admin' ? '#ff6b6b' : 
-                                            user.role === 'company' ? '#4ecdc4' : '#45b7d1'
-                          }}
-                        >
-                          {user.role}
-                        </span>
-                      </td>
-                      <td>{user.email}</td>
-                      <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                      <td className="actions">
-                        <button 
-                          className="action-btn change-role"
-                          onClick={() => handleChangeRole(user)}
-                          title="Change Role"
-                        >
-                          <i className="fas fa-user-tag"></i>
-                        </button>
-                        <button 
-                          className="btn btn-sm btn-danger" 
-                          onClick={() => handleDeleteUser(user)}
-                          title="Delete User"
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="pagination">
-              <button
-                onClick={() => {
-                  setCurrentPage(prev => Math.max(prev - 1, 1));
-                  fetchUsers();
-                }}
-                disabled={currentPage === 1}
-                className="pagination-btn"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              
-              <span className="pagination-info">
-                Page {currentPage} of {totalPages}
-              </span>
-              
-              <button
-                onClick={() => {
-                  setCurrentPage(prev => Math.min(prev + 1, totalPages));
-                  fetchUsers();
-                }}
-                disabled={currentPage === totalPages}
-                className="pagination-btn"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )}
-
-
-=======
->>>>>>> Stashed changes
       </div>
     </div>
   );
