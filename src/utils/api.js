@@ -1,4 +1,5 @@
 // API Configuration for different environments
+// Updated to use Render backend instead of Railway
 const getApiUrl = () => {
   // Check if we're running in production
   if (process.env.NODE_ENV === 'production') {

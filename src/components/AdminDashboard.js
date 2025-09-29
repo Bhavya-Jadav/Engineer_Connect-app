@@ -63,6 +63,10 @@ const AdminDashboard = ({
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log('🔍 AdminDashboard - Fetching stats from:', `${API_BASE_URL}/admin/stats`);
+      console.log('🔍 AdminDashboard - Token available:', !!token);
+      console.log('🔍 AdminDashboard - API_BASE_URL:', API_BASE_URL);
+      
       const response = await fetch(`${API_BASE_URL}/admin/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -70,17 +74,20 @@ const AdminDashboard = ({
         }
       });
 
+      console.log('🔍 AdminDashboard - Stats response status:', response.status);
+      console.log('🔍 AdminDashboard - Stats response ok:', response.ok);
+
       if (response.ok) {
         const data = await response.json();
-        console.log('Admin stats received:', data);
+        console.log('✅ Admin stats received:', data);
         setStats(data);
       } else {
-        console.error('Failed to fetch stats:', response.status, response.statusText);
+        console.error('❌ Failed to fetch stats:', response.status, response.statusText);
         const errorText = await response.text();
-        console.error('Error response:', errorText);
+        console.error('❌ Error response:', errorText);
       }
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('❌ Error fetching stats:', error);
     } finally {
       setLoading(false);
     }
@@ -97,25 +104,32 @@ const AdminDashboard = ({
         search: searchTerm
       });
 
-      const response = await fetch(`${API_BASE_URL}/admin/users?${params}`, {
+      const url = `${API_BASE_URL}/admin/users?${params}`;
+      console.log('🔍 AdminDashboard - Fetching users from:', url);
+      console.log('🔍 AdminDashboard - Token available:', !!token);
+
+      const response = await fetch(url, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
 
+      console.log('🔍 AdminDashboard - Users response status:', response.status);
+      console.log('🔍 AdminDashboard - Users response ok:', response.ok);
+
       if (response.ok) {
         const data = await response.json();
-        console.log('Admin users received:', data);
+        console.log('✅ Admin users received:', data);
         setUsers(data.users);
         setTotalPages(data.totalPages);
       } else {
-        console.error('Failed to fetch users:', response.status, response.statusText);
+        console.error('❌ Failed to fetch users:', response.status, response.statusText);
         const errorText = await response.text();
-        console.error('Error response:', errorText);
+        console.error('❌ Error response:', errorText);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('❌ Error fetching users:', error);
     } finally {
       setUsersLoading(false);
     }
