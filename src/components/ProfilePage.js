@@ -302,7 +302,7 @@ const ProfilePage = ({
   };
 
   const handleContinue = () => {
-    if (userRole === 'admin') {
+    if (userRole === 'admin' || userRole === 'company') {
       navigate('/dashboard');
     } else {
       navigate('/feed');

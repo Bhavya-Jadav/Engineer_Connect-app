@@ -63,8 +63,12 @@ function AppContent() {
   // === INITIALIZATION ===
   useEffect(() => {
     checkLoginStatus();
-    fetchProblems();
   }, []);
+
+  // Re-fetch problems when user role or login status changes
+  useEffect(() => {
+    fetchProblems();
+  }, [userRole, isLoggedIn]);
 
   const checkLoginStatus = () => {
     const token = localStorage.getItem('token');
@@ -84,7 +88,7 @@ function AppContent() {
           }
         } else if (userData.role === 'student') {
           if (currentPath === '/' || currentPath === '/login') {
-            navigate('/feed');
+            navigate('/profile');
           }
         }
       } catch (error) {
@@ -96,10 +100,22 @@ function AppContent() {
 
   const fetchProblems = async () => {
     try {
-      const apiUrl = `${API_BASE_URL}/problems`;
-      console.log('Fetching problems from:', apiUrl);
+      // Determine which problems to fetch based on user role
+      let apiUrl = `${API_BASE_URL}/problems`;
+      let headers = {};
       
-      const response = await fetch(apiUrl);
+      // Companies should only see their own problems
+      if (userRole === 'company' && isLoggedIn) {
+        apiUrl = `${API_BASE_URL}/problems/my-problems`;
+        headers = {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        };
+      }
+      
+      console.log('Fetching problems from:', apiUrl);
+      console.log('User role:', userRole);
+      
+      const response = await fetch(apiUrl, { headers });
       console.log('Problems response status:', response.status);
       console.log('Problems response ok:', response.ok);
       
@@ -148,21 +164,12 @@ function AppContent() {
 
       showNotification('Google authentication successful!', 'success');
       
-      // Check if profile is complete
-      const isProfileComplete = data.name && data.email && data.phone && data.bio && 
-        (data.role === 'student' ? (data.university && data.course && data.year) : 
-         data.role === 'company' ? data.companyName : true);
-      
-      // Redirect to profile page only for incomplete profiles
-      if (!isProfileComplete) {
-        navigate('/profile');
+      // Role-based routing: Companies -> Dashboard, Students -> Profile
+      if (data.role === 'admin' || data.role === 'company') {
+        navigate('/dashboard');
       } else {
-        // Redirect based on role for complete profiles
-        if (data.role === 'admin' || data.role === 'company') {
-          navigate('/dashboard');
-        } else {
-          navigate('/feed');
-        }
+        // Students always go to profile page first
+        navigate('/profile');
       }
       
       return true;
@@ -223,16 +230,12 @@ function AppContent() {
         setUserRole(data.role);
         setCurrentUser(userData);
 
-        // Redirect to profile page for users with incomplete profiles
-        if (!data.name || !data.email) {
-          navigate('/profile');
+        // Role-based routing: Companies -> Dashboard, Students -> Profile
+        if (data.role === 'admin' || data.role === 'company') {
+          navigate('/dashboard');
         } else {
-          // Redirect based on role
-          if (data.role === 'admin' || data.role === 'company') {
-            navigate('/dashboard');
-          } else {
-            navigate('/feed');
-          }
+          // Students always go to profile page first
+          navigate('/profile');
         }
         
         showNotification('Login successful!', 'success');
@@ -433,7 +436,7 @@ function AppContent() {
   };
 
   const handleDeleteProblem = async (problemId, problemTitle) => {
-    if (!(isLoggedIn && userRole === 'admin')) {
+    if (!(isLoggedIn && (userRole === 'admin' || userRole === 'company'))) {
       showNotification("Access denied", 'error');
       return;
     }
