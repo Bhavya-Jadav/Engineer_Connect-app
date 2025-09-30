@@ -926,31 +926,535 @@ body {
   font-style: italic;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .profile-page-container {
-    padding: 0.5rem;
-    padding-top: 80px;
+/* =====================================================
+   📱 MOBILE UTILITY CLASSES - ENGINEERCONNECT
+   ===================================================== */
+
+/* Touch-friendly interactions for all mobile devices */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure all interactive elements are touch-friendly */
+  button, 
+  input, 
+  select, 
+  textarea,
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
   }
   
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Better input focus on mobile */
+  .input-modern:focus {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Fix for iOS safari rounded corners */
+  .input-modern,
+  .btn-continue-modern,
+  .btn-edit-profile,
+  .btn-cancel,
+  .btn-save,
+  .add-skill-btn-modern,
+  .add-section-btn,
+  .remove-entry-btn,
+  .skill-remove-btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  /* Improve button visual feedback */
+  .btn-continue-modern:active,
+  .btn-edit-profile:active,
+  .btn-cancel:active,
+  .btn-save:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-page {
+    padding-top: 60px;
+  }
+  
+  .profile-page-container {
+    padding: 12px;
+    padding-top: 16px;
+    margin: 0;
+    min-height: calc(100vh - 60px);
+  }
+  
+  /* Hero Section Mobile */
   .profile-hero {
-    padding: 1rem;
-    margin-bottom: 0.75rem;
+    padding: 20px 16px;
+    margin-bottom: 16px;
+    border-radius: 16px;
   }
   
   .profile-hero-content {
     flex-direction: column;
     text-align: center;
-    gap: 1rem;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .profile-hero-text h1 {
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  
+  .profile-hero-text p {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .completion-circle {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .completion-percentage {
+    font-size: 1.2rem;
+  }
+  
+  .completion-label {
+    font-size: 0.7rem;
+  }
+  
+  /* Profile Card Mobile */
+  .profile-card {
+    border-radius: 16px;
+    margin: 0;
+    box-shadow: 
+      0 4px 16px rgba(59, 130, 246, 0.1),
+      0 2px 8px rgba(45, 212, 218, 0.06);
+  }
+  
+  /* Header Mobile */
+  .profile-header-edit-modern,
+  .profile-header-display-modern {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  
+  .profile-avatar-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .profile-avatar-modern {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  
+  .profile-info-modern h2 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  
+  .profile-username-modern {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  
+  .profile-role-badge {
+    justify-content: center;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+  
+  /* Actions Mobile */
+  .profile-actions-modern {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .edit-actions-modern {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .btn-edit-profile,
+  .btn-cancel,
+  .btn-save {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    min-height: 44px; /* Touch-friendly */
+  }
+  
+  /* Form Sections Mobile */
+  .profile-edit-modern,
+  .profile-display-modern {
+    padding: 16px;
+  }
+  
+  .form-section-modern,
+  .profile-section-modern {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .section-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .section-title h3 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  
+  .section-title p {
+    font-size: 0.85rem;
+  }
+  
+  .add-section-btn {
+    width: 100%;
+    padding: 10px;
+    margin-left: 0;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
+  
+  /* Form Grid Mobile */
+  .form-grid-modern {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .form-group-modern {
+    margin-bottom: 0;
+  }
+  
+  .form-group-modern label {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+  
+  .input-modern {
+    padding: 12px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 12px;
+    min-height: 44px; /* Touch-friendly */
+    border-width: 1px;
+  }
+  
+  .input-modern:focus {
+    transform: none; /* Remove transform on mobile for better UX */
+  }
+  
+  /* Radio Groups Mobile */
+  .radio-group-modern {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .radio-option-modern {
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  .radio-option-modern input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+  }
+  
+  .radio-option-modern label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* Skills Section Mobile */
+  .skills-input-modern {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .add-skill-btn-modern {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+    min-height: 44px;
+    border-radius: 12px;
+  }
+  
+  .skills-list-modern {
+    gap: 12px;
+  }
+  
+  .skill-with-proficiency {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    gap: 12px;
+    border-radius: 16px;
+  }
+  
+  .skill-name-input,
+  .skill-proficiency-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 12px;
+    min-height: 44px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .skill-remove-btn {
+    width: 100%;
+    padding: 12px;
+    min-height: 44px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Dynamic Entries Mobile */
+  .dynamic-entry {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+  }
+  
+  .entry-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+  
+  .entry-header h4 {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .remove-entry-btn {
+    width: 100%;
+    padding: 12px;
+    min-height: 44px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Profile Display Mobile */
+  .profile-details-modern {
+    gap: 8px;
+  }
+  
+  .detail-item-modern {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 0;
+    gap: 4px;
+  }
+  
+  .detail-label-modern {
+    min-width: auto;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+  }
+  
+  .detail-value-modern {
+    text-align: left;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+  
+  .profile-bio-modern {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .skills-display-modern {
+    gap: 8px;
+  }
+  
+  .skill-badge-modern {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+  }
+  
+  /* Continue Section Mobile */
+  .profile-continue-section {
+    margin-top: 24px;
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+  
+  .continue-content {
+    text-align: center;
+  }
+  
+  .continue-icon {
+    margin-bottom: 16px;
+  }
+  
+  .continue-icon i {
+    font-size: 2rem;
+    color: #3B82F6;
+  }
+  
+  .continue-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  
+  .continue-description {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  
+  .continue-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 12px;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3B82F6;
+    margin-bottom: 4px;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  .btn-continue-modern {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1rem;
+    border-radius: 25px;
+    min-height: 52px;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  }
+  
+  .btn-continue-modern:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  }
+  
+  .btn-continue-modern i {
+    font-size: 1rem;
+  }
+  
+  .continue-note {
+    font-size: 0.8rem;
+    margin-top: 12px;
+    padding: 0 16px;
+    line-height: 1.3;
+  }
+  
+  /* Message Toast Mobile */
+  .message-toast {
+    right: 12px;
+    left: 12px;
+    top: 80px;
+    min-width: auto;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .message-content {
+    gap: 10px;
+  }
+  
+  .message-content i {
+    font-size: 16px;
+  }
+  
+  .message-content span {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  
+  .message-close {
+    padding: 8px;
+    border-radius: 8px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
+
+/* Small Mobile Devices (< 480px) */
+@media (max-width: 480px) {
+  .profile-page-container {
+    padding: 8px;
+  }
+  
+  .profile-hero {
+    padding: 16px 12px;
   }
   
   .profile-hero-text h1 {
     font-size: 1.5rem;
   }
   
+  .profile-hero-text p {
+    font-size: 0.9rem;
+  }
+  
   .completion-circle {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
   
   .completion-percentage {
@@ -958,57 +1462,66 @@ body {
   }
   
   .completion-label {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
   }
   
-  .profile-card {
-    overflow: visible;
+  .profile-header-edit-modern,
+  .profile-header-display-modern {
+    padding: 16px 12px;
   }
   
-  .profile-header-modern {
+  .profile-edit-modern,
+  .profile-display-modern {
+    padding: 12px;
+  }
+  
+  .form-section-modern,
+  .profile-section-modern {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .section-title h3 {
+    font-size: 1.1rem;
+  }
+  
+  .section-title p {
+    font-size: 0.8rem;
+  }
+  
+  .continue-stats {
     flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    padding: 1.25rem;
+    gap: 12px;
   }
   
-  .profile-avatar-section {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+  .stat-item {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .profile-hero-content {
+    flex-direction: row;
+    text-align: left;
   }
   
-  .profile-avatar-modern {
+  .completion-circle {
     width: 60px;
     height: 60px;
   }
   
-  .profile-info-modern h2 {
-    font-size: 1.2rem;
+  .profile-header-edit-modern,
+  .profile-header-display-modern {
+    flex-direction: row;
+    text-align: left;
   }
   
-  .profile-edit-modern,
-  .profile-view-modern {
-    padding: 1rem;
-  }
-  
-  .form-grid-modern {
-    grid-template-columns: 1fr;
-  }
-  
-  .skills-input-modern {
-    flex-direction: column;
-  }
-  
-  .skill-with-proficiency {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .message-toast {
-    right: 1rem;
-    left: 1rem;
-    min-width: auto;
+  .profile-avatar-section {
+    flex-direction: row;
+    text-align: left;
   }
 }
 
