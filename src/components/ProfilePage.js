@@ -4,6 +4,7 @@ import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
+import '../styles/critical-profile.css';
 
 const ProfilePage = ({ 
   currentUser, 
@@ -14,6 +15,37 @@ const ProfilePage = ({
   onBack,
   onProfileClick 
 }) => {
+  // Critical inline styles for production deployment
+  const criticalStyles = {
+    profilePage: {
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%)',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      paddingTop: '64px',
+      overflowX: 'hidden'
+    },
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '24px 24px 60px 24px',
+      position: 'relative',
+      minHeight: 'calc(100vh - 64px)'
+    },
+    hero: {
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      padding: '40px 30px',
+      borderRadius: '20px',
+      marginBottom: '30px'
+    },
+    card: {
+      background: 'white',
+      borderRadius: '20px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden'
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -369,7 +401,7 @@ const ProfilePage = ({
   };
 
   return (
-    <div className="profile-page">
+    <div className="profile-page" style={criticalStyles.profilePage}>
       <Header 
         isLoggedIn={isLoggedIn} 
         currentUser={currentUser} 
@@ -381,9 +413,9 @@ const ProfilePage = ({
         onProfileClick={onProfileClick}
       />
       
-      <div className="profile-page-container">
+      <div className="profile-page-container" style={criticalStyles.container}>
         {/* Hero Section */}
-        <div className="profile-hero">
+        <div className="profile-hero" style={criticalStyles.hero}>
           <div className="profile-hero-content">
             <div className="profile-hero-text">
               <h1>Complete Your Profile</h1>
@@ -430,7 +462,7 @@ const ProfilePage = ({
         )}
 
         <div className="profile-content">
-          <div className="profile-card">
+          <div className="profile-card" style={criticalStyles.card}>
             {/* Profile Content */}
             {isEditing ? (
               <div className="profile-edit-container-unified">
