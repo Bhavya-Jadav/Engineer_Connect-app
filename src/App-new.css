@@ -1,5 +1,8 @@
 /* src/App.css - Main stylesheet with imports */
 
+/* CRITICAL: Import ProfilePage CSS first to ensure it loads */
+@import './styles/ProfilePage.css';
+
 /* Import all feature-specific stylesheets */
 @import './styles/variables.css';
 @import './styles/typography.css';
@@ -12,7 +15,6 @@
 @import './styles/utilities.css';
 @import './styles/responsive.css';
 @import './styles/home.css';
-@import './styles/ProfilePage.css';
 @import './styles/StudentFeed.css';
 @import './styles/AdminDashboard.css';
 @import './styles/StudentProjectForm.css';

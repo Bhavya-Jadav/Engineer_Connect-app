@@ -22,7 +22,8 @@ const ProfilePage = ({
       background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%)',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
       paddingTop: '64px',
-      overflowX: 'hidden'
+      overflowX: 'hidden',
+      height: 'auto'
     },
     container: {
       maxWidth: '1200px',
@@ -36,13 +37,100 @@ const ProfilePage = ({
       color: 'white',
       padding: '40px 30px',
       borderRadius: '20px',
-      marginBottom: '30px'
+      marginBottom: '30px',
+      textAlign: 'center'
     },
     card: {
       background: 'white',
       borderRadius: '20px',
       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      marginBottom: '30px'
+    },
+    profileHeader: {
+      padding: '30px',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+      borderBottom: '1px solid #e9ecef'
+    },
+    avatar: {
+      width: '120px',
+      height: '120px',
+      borderRadius: '50%',
+      border: '4px solid white',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+      objectFit: 'cover',
+      margin: '0 auto 20px'
+    },
+    section: {
+      padding: '30px',
+      borderBottom: '1px solid #f0f0f0'
+    },
+    sectionTitle: {
+      color: '#333',
+      fontSize: '20px',
+      fontWeight: '600',
+      marginBottom: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px'
+    },
+    btn: {
+      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      color: 'white',
+      border: 'none',
+      borderRadius: '10px',
+      padding: '12px 24px',
+      fontSize: '16px',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px'
+    },
+    formGroup: {
+      marginBottom: '20px'
+    },
+    input: {
+      width: '100%',
+      padding: '12px 16px',
+      border: '2px solid #e1e5e9',
+      borderRadius: '10px',
+      fontSize: '16px',
+      transition: 'all 0.2s ease',
+      boxSizing: 'border-box'
+    },
+    textarea: {
+      width: '100%',
+      minHeight: '100px',
+      padding: '12px 16px',
+      border: '2px solid #e1e5e9',
+      borderRadius: '10px',
+      fontSize: '16px',
+      resize: 'vertical',
+      fontFamily: 'inherit',
+      transition: 'all 0.2s ease',
+      boxSizing: 'border-box'
+    },
+    label: {
+      display: 'block',
+      color: '#333',
+      fontSize: '14px',
+      fontWeight: '500',
+      marginBottom: '8px'
+    },
+    projectsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: '20px',
+      marginTop: '20px'
+    },
+    projectCard: {
+      background: 'white',
+      borderRadius: '15px',
+      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden',
+      transition: 'transform 0.2s ease'
     }
   };
 
@@ -467,13 +555,13 @@ const ProfilePage = ({
             {isEditing ? (
               <div className="profile-edit-container-unified">
                 {/* Profile Header Inside Edit Container */}
-                <div className="profile-header-edit-modern">
+                <div className="profile-header-edit-modern" style={criticalStyles.profileHeader}>
                   <div className="profile-avatar-section">
                     <div className="profile-avatar-modern">
                       {currentUser?.profilePicture ? (
-                        <img src={currentUser.profilePicture} alt="Profile" />
+                        <img src={currentUser.profilePicture} alt="Profile" style={criticalStyles.avatar} />
                       ) : (
-                        <div className="avatar-placeholder-modern">
+                        <div className="avatar-placeholder-modern" style={criticalStyles.avatar}>
                           <i className="fas fa-user"></i>
                         </div>
                       )}

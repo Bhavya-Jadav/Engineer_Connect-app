@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './App-new.css';
-// Ensure ProfilePage CSS is loaded at app level
-import './styles/ProfilePage.css';
-import './styles/critical-profile.css';
 import { API_BASE_URL } from './utils/api';
 
 // Import components
