@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
@@ -16,6 +17,8 @@ const ProfilePage = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [myProjects, setMyProjects] = useState([]);
   const [profileData, setProfileData] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
@@ -58,12 +61,62 @@ const ProfilePage = ({
         achievements: currentUser.achievements || [],
         projects: currentUser.projects || []
       });
+      
+      // Fetch user's projects if they are a student
+      if (currentUser.role === 'student' || userRole === 'student') {
+        fetchMyProjects();
+      }
     }
-  }, [currentUser]);
+  }, [currentUser, userRole]);
 
   const showMessage = (type, text) => {
     setMessage({ type, text });
     setTimeout(() => setMessage({ type: '', text: '' }), 5000);
+  };
+
+  const fetchMyProjects = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/student-projects/my-projects`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      if (response.ok) {
+        const projects = await response.json();
+        setMyProjects(projects);
+      }
+    } catch (error) {
+      console.error('Fetch my projects error:', error);
+    }
+  };
+
+  const handleProjectCreated = (newProject) => {
+    setMyProjects(prev => [newProject, ...prev]);
+    setShowProjectForm(false);
+    showMessage('success', 'Project created successfully!');
+  };
+
+  const handleDeleteProject = async (projectId) => {
+    if (!window.confirm('Are you sure you want to delete this project?')) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/student-projects/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        setMyProjects(prev => prev.filter(p => p._id !== projectId));
+        showMessage('success', 'Project deleted successfully!');
+      } else {
+        const error = await response.json();
+        showMessage('error', error.message || 'Failed to delete project');
+      }
+    } catch (error) {
+      showMessage('error', 'Network error. Please try again.');
+    }
   };
 
   const handleProfileUpdate = async () => {
@@ -1019,6 +1072,110 @@ const ProfilePage = ({
                         </div>
                       ))}
                     </div>
+
+                    {/* Advanced Student Projects Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-header-content">
+                          <div className="section-icon">
+                            <i className="fas fa-rocket"></i>
+                          </div>
+                          <div className="section-title">
+                            <h3>Showcase Projects</h3>
+                            <p>Share your detailed projects with videos and files</p>
+                          </div>
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => setShowProjectForm(true)} 
+                          className="add-section-btn showcase-btn"
+                        >
+                          <i className="fas fa-plus"></i> Add Showcase Project
+                        </button>
+                      </div>
+                      
+                      <div className="showcase-projects-container">
+                        {myProjects.length > 0 ? (
+                          <div className="my-projects-grid">
+                            {myProjects.slice(0, 3).map((project) => (
+                              <div key={project._id} className="my-project-card">
+                                <div className="project-header">
+                                  <h4>{project.title}</h4>
+                                  <div className="project-actions">
+                                    <button 
+                                      className="edit-project-btn"
+                                      title="Edit Project"
+                                    >
+                                      <i className="fas fa-edit"></i>
+                                    </button>
+                                    <button 
+                                      className="delete-project-btn"
+                                      onClick={() => handleDeleteProject(project._id)}
+                                      title="Delete Project"
+                                    >
+                                      <i className="fas fa-trash"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                                
+                                <div className="project-meta">
+                                  <span className="project-category">{project.category}</span>
+                                  <span className="project-difficulty">{project.difficulty}</span>
+                                </div>
+                                
+                                <p className="project-description">
+                                  {project.description.length > 100 
+                                    ? project.description.substring(0, 100) + '...'
+                                    : project.description
+                                  }
+                                </p>
+                                
+                                {project.technologies.length > 0 && (
+                                  <div className="project-technologies">
+                                    {project.technologies.slice(0, 3).map((tech, index) => (
+                                      <span key={index} className="tech-tag">{tech}</span>
+                                    ))}
+                                    {project.technologies.length > 3 && (
+                                      <span className="tech-more">+{project.technologies.length - 3}</span>
+                                    )}
+                                  </div>
+                                )}
+                                
+                                <div className="project-stats">
+                                  <span><i className="fas fa-eye"></i> {project.views}</span>
+                                  <span><i className="fas fa-heart"></i> {project.likeCount || 0}</span>
+                                  <span><i className="fas fa-comment"></i> {project.commentCount || 0}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="no-projects-state">
+                            <div className="no-projects-icon">
+                              <i className="fas fa-rocket"></i>
+                            </div>
+                            <h4>No showcase projects yet</h4>
+                            <p>Create your first project to showcase your skills with videos, files, and detailed descriptions!</p>
+                            <button 
+                              type="button" 
+                              onClick={() => setShowProjectForm(true)} 
+                              className="create-first-project-btn"
+                            >
+                              <i className="fas fa-plus"></i> Create Your First Project
+                            </button>
+                          </div>
+                        )}
+                        
+                        {myProjects.length > 3 && (
+                          <div className="view-all-projects">
+                            <button className="view-all-btn">
+                              View All {myProjects.length} Projects
+                              <i className="fas fa-arrow-right"></i>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </>
                 )}
               </div>
@@ -1198,6 +1355,14 @@ const ProfilePage = ({
           </div>
         </div>
       </div>
+      
+      {/* Student Project Form Modal */}
+      {showProjectForm && (
+        <StudentProjectForm
+          onProjectCreated={handleProjectCreated}
+          onCancel={() => setShowProjectForm(false)}
+        />
+      )}
     </div>
   );
 };
