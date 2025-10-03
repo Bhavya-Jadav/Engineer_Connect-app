@@ -54,8 +54,12 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
     onGoogleError('Google authentication failed. Please try again.');
   };
 
-  // Check if Google Client ID is available
-  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  // Clean the Google Client ID to remove any line breaks or whitespace
+  const rawClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const googleClientId = rawClientId ? rawClientId.trim().replace(/[\r\n\t]/g, '') : null;
+  
+  console.log('🔍 Raw Google Client ID:', rawClientId);
+  console.log('🔍 Cleaned Google Client ID:', googleClientId);
   console.log('🔍 Google Client ID available:', !!googleClientId);
   
   if (!googleClientId) {
@@ -83,6 +87,8 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
           shape="rectangular"
           useOneTap={false}
           cancel_on_tap_outside={false}
+          auto_select={false}
+          ux_mode="popup"
         />
       </div>
       

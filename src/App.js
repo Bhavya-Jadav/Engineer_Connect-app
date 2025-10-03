@@ -767,9 +767,16 @@ function AppContent() {
 
 // === MAIN APP WRAPPER ===
 function App() {
+  // Clean the Google Client ID to remove any whitespace or line breaks
+  const rawGoogleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const cleanGoogleClientId = rawGoogleClientId ? rawGoogleClientId.trim().replace(/[\r\n\t]/g, '') : '';
+  
+  console.log('🔍 App.js - Raw Google Client ID:', rawGoogleClientId);
+  console.log('🔍 App.js - Clean Google Client ID:', cleanGoogleClientId);
+
   return (
     <Router>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <GoogleOAuthProvider clientId={cleanGoogleClientId}>
         <AppContent />
       </GoogleOAuthProvider>
     </Router>
