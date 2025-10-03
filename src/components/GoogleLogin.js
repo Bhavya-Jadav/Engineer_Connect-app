@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { API_BASE_URL } from '../utils/api';
+import '../styles/google-login-fix.css';
 
 const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
   const handleGoogleSuccess = async (credentialResponse) => {
@@ -70,8 +71,8 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
   }
 
   return (
-    <div className="google-login-container">
-      <div className="google-login-wrapper">
+    <div className="google-login-container" style={{ width: '100%' }}>
+      <div className="google-login-wrapper" style={{ width: '100%' }}>
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleError}
@@ -80,7 +81,6 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
           size="large"
           text="continue_with"
           shape="rectangular"
-          width="100%"
           useOneTap={false}
           cancel_on_tap_outside={false}
         />

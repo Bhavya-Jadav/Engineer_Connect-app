@@ -1,0 +1,80 @@
+/* Google Login Button Fix - Resolves GSI width validation errors */
+
+.google-login-container {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.google-login-wrapper {
+  width: 100% !important;
+  max-width: 400px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Target the actual Google Sign-In button */
+.google-login-wrapper > div {
+  width: 100% !important;
+}
+
+.google-login-wrapper iframe {
+  width: 100% !important;
+  min-width: 200px !important;
+  max-width: 400px !important;
+}
+
+/* Google Sign-In specific selectors */
+div[data-testid="google-login"] {
+  width: 100% !important;
+}
+
+/* GSI Button container styling */
+.g_id_signin {
+  width: 100% !important;
+}
+
+.g_id_signin > div {
+  width: 100% !important;
+}
+
+/* Additional Google OAuth button styling */
+[role="button"][aria-labelledby] {
+  width: 100% !important;
+  max-width: 400px !important;
+}
+
+.google-login-info {
+  margin-top: 10px !important;
+  text-align: center !important;
+  color: #666 !important;
+  font-size: 12px !important;
+}
+
+.google-login-info i {
+  margin-right: 5px !important;
+  color: #4285f4 !important;
+}
+
+.google-login-error {
+  width: 100% !important;
+  text-align: center !important;
+  padding: 10px !important;
+  background-color: #ffebee !important;
+  border: 1px solid #f44336 !important;
+  border-radius: 4px !important;
+  margin: 10px 0 !important;
+}
+
+/* Ensure button is responsive */
+@media (max-width: 768px) {
+  .google-login-wrapper {
+    max-width: 100% !important;
+    padding: 0 10px !important;
+  }
+  
+  .google-login-wrapper iframe {
+    max-width: 100% !important;
+  }
+}
