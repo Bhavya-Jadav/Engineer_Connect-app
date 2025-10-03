@@ -3,7 +3,80 @@
    ===================================================== */
 
 /* =====================================================
-   📋 TABLE OF CONTENTS
+   � CRITICAL PRODUCTION STYLES - HIGH PRIORITY
+   ===================================================== */
+
+/* Force CSS Loading in Production - Essential Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* CRITICAL: ProfilePage Container - Production Priority */
+.profile-page {
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  padding-top: 64px !important;
+  overflow-x: hidden !important;
+}
+
+.profile-page-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 24px 24px 60px 24px !important;
+  position: relative !important;
+  min-height: calc(100vh - 64px) !important;
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 40px 30px !important;
+  border-radius: 20px !important;
+  margin-bottom: 30px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.profile-card {
+  background: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+  margin-bottom: 30px !important;
+}
+
+.profile-hero-content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.profile-hero-text h1 {
+  margin: 0 0 10px 0 !important;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.profile-hero-text p {
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  opacity: 0.9 !important;
+  line-height: 1.5 !important;
+}
+
+/* =====================================================
+   �📋 TABLE OF CONTENTS
    =====================================================
    1. 🎨 Base Layout & Container
    2. 🌟 Hero Section

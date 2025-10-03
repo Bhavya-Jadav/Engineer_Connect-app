@@ -20,9 +20,6 @@
 @import './styles/StudentProjectForm.css';
 @import './styles/StudentProjects.css';
 
-/* Critical styles - ensure loading */
-@import './styles/critical-profile.css';
-
 /* Production fixes - should be last to ensure precedence */
 @import './styles/production-fixes.css';
 
