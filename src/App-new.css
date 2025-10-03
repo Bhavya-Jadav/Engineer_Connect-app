@@ -1,4 +1,20 @@
-/* src/App.css - Main stylesheet with imports */
+/* src/App-new.css - Main stylesheet with imports */
+
+/* CRITICAL: Global reset for consistent deployment */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Override any conflicting body styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #f8fafc !important;
+  overflow-x: hidden !important;
+}
 
 /* CRITICAL: Import ProfilePage CSS first to ensure it loads */
 @import './styles/ProfilePage.css';

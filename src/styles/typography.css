@@ -76,7 +76,7 @@ html {
   }
 }
 
-/* Body Base Styles - EngineerConnect Blue & White Theme */
+/* Body Base Styles - DISABLED TO PREVENT CONFLICTS 
 body {
   background: var(--white);
   background-image: 
@@ -96,8 +96,9 @@ body {
   padding-bottom: var(--space-8);
   transition: background-color var(--transition-smooth);
 }
+*/
 
-/* Mobile body adjustments */
+/* Mobile body adjustments - DISABLED TO PREVENT CONFLICTS
 @media (max-width: 768px) {
   body {
     padding-top: 70px;
@@ -111,6 +112,7 @@ body {
     padding-bottom: var(--space-4);
   }
 }
+*/
 
 /* =====================================================
    3. 📖 TYPOGRAPHY SCALE & HIERARCHY - ENGINEERCONNECT
