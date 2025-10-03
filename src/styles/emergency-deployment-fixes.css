@@ -1,0 +1,218 @@
+/* EMERGENCY DEPLOYMENT FIXES - LAST RESORT v3.0.0 */
+/* This file contains the most aggressive possible CSS overrides */
+
+/* Reset everything first */
+html, body, #root, .App, [data-reactroot] {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Force body styling globally */
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+}
+
+/* Nuclear ProfilePage overrides - every possible selector */
+.profile-page,
+div.profile-page,
+section.profile-page,
+main.profile-page,
+article.profile-page,
+[class*="profile-page"],
+[class^="profile-page"],
+[class$="profile-page"],
+body .profile-page,
+html body .profile-page,
+#root .profile-page,
+.App .profile-page,
+[data-reactroot] .profile-page,
+div[data-testid*="profile"],
+div[id*="profile"],
+.profile-page-wrapper,
+.profile-container,
+.profile-main {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  min-height: 100vh !important;
+  padding-top: 64px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  position: relative !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Force container styling */
+.profile-page-container,
+div.profile-page-container,
+[class*="profile-page-container"],
+.profile-page .profile-page-container,
+body .profile-page .profile-page-container,
+html body .profile-page .profile-page-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 24px 24px 60px 24px !important;
+  position: relative !important;
+  z-index: 2 !important;
+  min-height: calc(100vh - 64px) !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+/* Force hero section styling */
+.profile-hero,
+div.profile-hero,
+[class*="profile-hero"],
+.profile-page .profile-hero,
+.profile-page-container .profile-hero,
+body .profile-page .profile-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 40px 30px !important;
+  border-radius: 20px !important;
+  margin-bottom: 30px !important;
+  position: relative !important;
+  z-index: 3 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Force card styling */
+.profile-card,
+div.profile-card,
+[class*="profile-card"],
+.profile-page .profile-card,
+.profile-page-container .profile-card {
+  background: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  z-index: 3 !important;
+  margin-bottom: 30px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Force text styling in hero */
+.profile-hero h1,
+.profile-hero-text h1,
+.profile-page .profile-hero h1,
+.profile-page .profile-hero-text h1 {
+  margin: 0 0 10px 0 !important;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: white !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.profile-hero p,
+.profile-hero-text p,
+.profile-page .profile-hero p,
+.profile-page .profile-hero-text p {
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  opacity: 0.9 !important;
+  line-height: 1.5 !important;
+  color: white !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Override any potential framework conflicts */
+.css-* .profile-page,
+.MuiBox-root .profile-page,
+.chakra-ui .profile-page,
+.ant-* .profile-page,
+[class*="styled"] .profile-page {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  min-height: 100vh !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Mobile responsive fixes */
+@media screen and (max-width: 768px) {
+  .profile-page,
+  div.profile-page,
+  [class*="profile-page"] {
+    padding-top: 60px !important;
+  }
+  
+  .profile-page-container,
+  div.profile-page-container,
+  [class*="profile-page-container"] {
+    padding: 16px 12px 12px !important;
+    min-height: calc(100vh - 60px) !important;
+  }
+  
+  .profile-hero,
+  div.profile-hero,
+  [class*="profile-hero"] {
+    padding: 20px 16px !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .profile-hero h1,
+  .profile-hero-text h1 {
+    font-size: 1.75rem !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .profile-hero p,
+  .profile-hero-text p {
+    font-size: 1rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile-page-container,
+  div.profile-page-container,
+  [class*="profile-page-container"] {
+    padding: 8px !important;
+  }
+  
+  .profile-hero,
+  div.profile-hero,
+  [class*="profile-hero"] {
+    padding: 16px 12px !important;
+  }
+  
+  .profile-hero h1,
+  .profile-hero-text h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .profile-hero p,
+  .profile-hero-text p {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Production environment detection and overrides */
+@media screen and (min-width: 1px) {
+  /* This ensures the styles only apply in browsers */
+  body:not(.localhost) .profile-page,
+  .vercel-deployment .profile-page,
+  .netlify-deployment .profile-page,
+  .production .profile-page {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+    min-height: 100vh !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    padding-top: 64px !important;
+  }
+}
+
+/* Final nuclear option - force styles on everything */
+*[class*="profile"] {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Cache buster - change this timestamp for immediate deployment */
+/* Deployment Version: 3.0.0 - Timestamp: 20241223083500 */

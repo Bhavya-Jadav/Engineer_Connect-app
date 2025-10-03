@@ -22,7 +22,12 @@ html {
 }
 
 /* Force ProfilePage container to override any production conflicts */
-.profile-page {
+.profile-page,
+body.profile-page-active,
+html body.profile-page-active,
+#root .profile-page,
+.App .profile-page,
+[data-reactroot] .profile-page {
   min-height: 100vh !important;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
@@ -35,7 +40,12 @@ html {
 }
 
 /* Force background consistency across all environments */
-.profile-page::before {
+.profile-page::before,
+body.profile-page-active .profile-page::before,
+html body.profile-page-active .profile-page::before,
+#root .profile-page::before,
+.App .profile-page::before,
+[data-reactroot] .profile-page::before {
   content: '' !important;
   position: absolute !important;
   top: 0 !important;
@@ -48,7 +58,12 @@ html {
 }
 
 /* Deployment-specific container fixes */
-.profile-page-container {
+.profile-page-container,
+body.profile-page-active .profile-page-container,
+html body.profile-page-active .profile-page-container,
+#root .profile-page .profile-page-container,
+.App .profile-page .profile-page-container,
+[data-reactroot] .profile-page .profile-page-container {
   max-width: 1200px !important;
   margin: 0 auto !important;
   padding: 24px 24px 60px 24px !important;
@@ -59,7 +74,12 @@ html {
 }
 
 /* Force hero section consistency */
-.profile-hero {
+.profile-hero,
+body.profile-page-active .profile-hero,
+html body.profile-page-active .profile-hero,
+#root .profile-page .profile-hero,
+.App .profile-page .profile-hero,
+[data-reactroot] .profile-page .profile-hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
   padding: 40px 30px !important;
@@ -136,5 +156,36 @@ html {
   
   .profile-hero {
     padding: 16px 12px !important;
+  }
+}
+
+/* NUCLEAR OPTION: Absolute final override for production deployment */
+html[data-production] body.profile-page-active,
+body[data-production].profile-page-active,
+.vercel-production .profile-page,
+.netlify-production .profile-page,
+.production-deployment .profile-page,
+body:not(.localhost) .profile-page {
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  padding-top: 64px !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Force production environment detection */
+@media screen and (min-device-width: 1px) {
+  body.profile-page-active {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+    min-height: 100vh !important;
+  }
+  
+  .profile-page {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+    min-height: 100vh !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    padding-top: 64px !important;
   }
 }

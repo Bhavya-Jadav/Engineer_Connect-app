@@ -17,43 +17,45 @@ const ProfilePage = ({
   // Critical inline styles for DEPLOYMENT CONSISTENCY - Forces same styling as localhost
   const criticalStyles = {
     profilePage: {
-      minHeight: '100vh !important',
-      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important',
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important",
-      paddingTop: '64px !important',
-      overflowX: 'hidden !important',
-      height: 'auto !important',
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%)',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      paddingTop: '64px',
+      overflowX: 'hidden',
+      height: 'auto',
       position: 'relative',
       zIndex: 1,
-      width: '100%'
+      width: '100%',
+      margin: 0,
+      padding: 0
     },
     container: {
-      maxWidth: '1200px !important',
-      margin: '0 auto !important',
-      padding: '24px 24px 60px 24px !important',
-      position: 'relative !important',
-      minHeight: 'calc(100vh - 64px) !important',
-      background: 'transparent !important',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '24px 24px 60px 24px',
+      position: 'relative',
+      minHeight: 'calc(100vh - 64px)',
+      background: 'transparent',
       zIndex: 2
     },
     hero: {
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important',
-      color: 'white !important',
-      padding: '40px 30px !important',
-      borderRadius: '20px !important',
-      marginBottom: '30px !important',
-      display: 'flex !important',
-      justifyContent: 'space-between !important',
-      alignItems: 'center !important',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      padding: '40px 30px',
+      borderRadius: '20px',
+      marginBottom: '30px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
       position: 'relative',
       zIndex: 3
     },
     card: {
-      background: 'white !important',
-      borderRadius: '20px !important',
-      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1) !important',
-      overflow: 'hidden !important',
-      marginBottom: '30px !important',
+      background: 'white',
+      borderRadius: '20px',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden',
+      marginBottom: '30px',
       position: 'relative',
       zIndex: 3
     },
@@ -177,21 +179,47 @@ const ProfilePage = ({
     document.body.classList.add('profile-page-active');
     document.documentElement.classList.add('profile-page-active');
     
+    // Force immediate style application
+    document.body.style.cssText = `
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+      overflow-x: hidden !important;
+      min-height: 100vh !important;
+    `;
+    
     // Create and inject critical CSS for deployment consistency
     const styleElement = document.createElement('style');
-    styleElement.id = 'profile-page-deployment-fixes';
+    styleElement.id = 'profile-page-deployment-fixes-v2';
     styleElement.innerHTML = `
-      /* DEPLOYMENT CONSISTENCY FIXES - Cache Buster v1.0.0 */
+      /* NUCLEAR DEPLOYMENT FIXES - v2.0.0 - ${Date.now()} */
+      html, html *, body, body * {
+        box-sizing: border-box !important;
+      }
+      
       html.profile-page-active,
       html.profile-page-active body,
-      body.profile-page-active { 
+      body.profile-page-active,
+      #root,
+      .App,
+      [data-reactroot] { 
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: #f8fafc !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
         overflow-x: hidden !important;
+        min-height: 100vh !important;
       }
-      .profile-page { 
+      
+      .profile-page,
+      div[class*="profile-page"],
+      div.profile-page,
+      [class="profile-page"],
+      body .profile-page,
+      html body .profile-page,
+      #root .profile-page,
+      .App .profile-page { 
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
         min-height: 100vh !important;
         padding-top: 64px !important;
@@ -199,15 +227,25 @@ const ProfilePage = ({
         position: relative !important;
         z-index: 1 !important;
         width: 100% !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
       }
+      
+      .profile-page-container,
+      div[class*="profile-page-container"],
       .profile-page .profile-page-container {
         max-width: 1200px !important;
         margin: 0 auto !important;
         padding: 24px 24px 60px 24px !important;
         position: relative !important;
         z-index: 2 !important;
+        min-height: calc(100vh - 64px) !important;
+        background: transparent !important;
       }
-      .profile-page .profile-page-container .profile-hero {
+      
+      .profile-hero,
+      div[class*="profile-hero"],
+      .profile-page .profile-hero {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         color: white !important;
         padding: 40px 30px !important;
@@ -215,24 +253,68 @@ const ProfilePage = ({
         margin-bottom: 30px !important;
         position: relative !important;
         z-index: 3 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
       }
-      .profile-page .profile-page-container .profile-card {
+      
+      .profile-card,
+      div[class*="profile-card"],
+      .profile-page .profile-card {
         background: white !important;
         border-radius: 20px !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
         position: relative !important;
         z-index: 3 !important;
+        margin-bottom: 30px !important;
+        overflow: hidden !important;
+      }
+      
+      /* Mobile fixes */
+      @media (max-width: 768px) {
+        .profile-page {
+          padding-top: 60px !important;
+        }
+        .profile-page-container {
+          padding: 16px 12px 12px !important;
+          min-height: calc(100vh - 60px) !important;
+        }
+        .profile-hero {
+          padding: 20px 16px !important;
+          border-radius: 16px !important;
+          margin-bottom: 16px !important;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .profile-page-container {
+          padding: 8px !important;
+        }
+        .profile-hero {
+          padding: 16px 12px !important;
+        }
       }
     `;
     
     // Remove existing deployment fix styles
-    const existingStyle = document.getElementById('profile-page-deployment-fixes');
+    const existingStyle = document.getElementById('profile-page-deployment-fixes-v2');
     if (existingStyle) {
       existingStyle.remove();
     }
     
-    // Add the critical styles to head
+    // Add the critical styles to head with highest priority
     document.head.appendChild(styleElement);
+    
+    // Force re-render by triggering a style recalculation
+    setTimeout(() => {
+      const profilePage = document.querySelector('.profile-page');
+      if (profilePage) {
+        profilePage.style.display = 'none';
+        // eslint-disable-next-line no-unused-expressions
+        profilePage.offsetHeight; // Trigger reflow
+        profilePage.style.display = '';
+      }
+    }, 100);
     
     // Cleanup function
     return () => {
@@ -240,8 +322,11 @@ const ProfilePage = ({
       document.body.classList.remove('profile-page-active');
       document.documentElement.classList.remove('profile-page-active');
       
+      // Reset body styles
+      document.body.style.cssText = '';
+      
       // Remove injected styles
-      const styleToRemove = document.getElementById('profile-page-deployment-fixes');
+      const styleToRemove = document.getElementById('profile-page-deployment-fixes-v2');
       if (styleToRemove) {
         styleToRemove.remove();
       }
