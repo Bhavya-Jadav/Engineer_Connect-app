@@ -2,6 +2,7 @@
 
 /* CRITICAL: Import ProfilePage CSS first to ensure it loads */
 @import './styles/ProfilePage.css';
+@import './styles/critical-profile.css';
 
 /* Import all feature-specific stylesheets */
 @import './styles/variables.css';
