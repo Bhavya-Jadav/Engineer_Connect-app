@@ -42,6 +42,9 @@ body {
 /* CRITICAL: Deployment fixes - MUST BE LAST for production consistency */
 @import './styles/deployment-fixes.css';
 
+/* CRITICAL: Production consistency - v2.0.0 */
+@import './styles/production-consistency.css';
+
 /* FINAL: Cache-busting deployment consistency - HIGHEST PRIORITY */
 @import './styles/cache-buster.css';
 
