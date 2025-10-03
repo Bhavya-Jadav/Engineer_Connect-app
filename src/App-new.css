@@ -39,4 +39,10 @@ body {
 /* Production fixes - should be last to ensure precedence */
 @import './styles/production-fixes.css';
 
+/* CRITICAL: Deployment fixes - MUST BE LAST for production consistency */
+@import './styles/deployment-fixes.css';
+
+/* FINAL: Cache-busting deployment consistency - HIGHEST PRIORITY */
+@import './styles/cache-buster.css';
+
 /* Any remaining app-specific styles that don't fit in other categories can be added here */

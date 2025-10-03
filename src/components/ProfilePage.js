@@ -14,55 +14,66 @@ const ProfilePage = ({
   onBack,
   onProfileClick 
 }) => {
-  // Critical inline styles for production deployment
+  // Critical inline styles for DEPLOYMENT CONSISTENCY - Forces same styling as localhost
   const criticalStyles = {
     profilePage: {
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%)',
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      paddingTop: '64px',
-      overflowX: 'hidden',
-      height: 'auto'
+      minHeight: '100vh !important',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important",
+      paddingTop: '64px !important',
+      overflowX: 'hidden !important',
+      height: 'auto !important',
+      position: 'relative',
+      zIndex: 1,
+      width: '100%'
     },
     container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '24px 24px 60px 24px',
-      position: 'relative',
-      minHeight: 'calc(100vh - 64px)'
+      maxWidth: '1200px !important',
+      margin: '0 auto !important',
+      padding: '24px 24px 60px 24px !important',
+      position: 'relative !important',
+      minHeight: 'calc(100vh - 64px) !important',
+      background: 'transparent !important',
+      zIndex: 2
     },
     hero: {
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      color: 'white',
-      padding: '40px 30px',
-      borderRadius: '20px',
-      marginBottom: '30px',
-      textAlign: 'center'
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important',
+      color: 'white !important',
+      padding: '40px 30px !important',
+      borderRadius: '20px !important',
+      marginBottom: '30px !important',
+      display: 'flex !important',
+      justifyContent: 'space-between !important',
+      alignItems: 'center !important',
+      position: 'relative',
+      zIndex: 3
     },
     card: {
-      background: 'white',
-      borderRadius: '20px',
-      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-      overflow: 'hidden',
-      marginBottom: '30px'
+      background: 'white !important',
+      borderRadius: '20px !important',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1) !important',
+      overflow: 'hidden !important',
+      marginBottom: '30px !important',
+      position: 'relative',
+      zIndex: 3
     },
     profileHeader: {
-      padding: '30px',
-      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-      borderBottom: '1px solid #e9ecef'
+      padding: '30px !important',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important',
+      borderBottom: '1px solid #e9ecef !important'
     },
     avatar: {
-      width: '120px',
-      height: '120px',
-      borderRadius: '50%',
-      border: '4px solid white',
-      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
-      objectFit: 'cover',
-      margin: '0 auto 20px'
+      width: '120px !important',
+      height: '120px !important',
+      borderRadius: '50% !important',
+      border: '4px solid white !important',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15) !important',
+      objectFit: 'cover !important',
+      margin: '0 auto 20px !important'
     },
     section: {
-      padding: '30px',
-      borderBottom: '1px solid #f0f0f0'
+      padding: '30px !important',
+      borderBottom: '1px solid #f0f0f0 !important'
     },
     sectionTitle: {
       color: '#333',
@@ -159,6 +170,83 @@ const ProfilePage = ({
   const [newSkill, setNewSkill] = useState('');
 
   const navigate = useNavigate();
+
+  // CRITICAL: Inject deployment consistency CSS immediately on component mount
+  useEffect(() => {
+    // Add body class for deployment consistency
+    document.body.classList.add('profile-page-active');
+    document.documentElement.classList.add('profile-page-active');
+    
+    // Create and inject critical CSS for deployment consistency
+    const styleElement = document.createElement('style');
+    styleElement.id = 'profile-page-deployment-fixes';
+    styleElement.innerHTML = `
+      /* DEPLOYMENT CONSISTENCY FIXES - Cache Buster v1.0.0 */
+      html.profile-page-active,
+      html.profile-page-active body,
+      body.profile-page-active { 
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #f8fafc !important;
+        overflow-x: hidden !important;
+      }
+      .profile-page { 
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+        min-height: 100vh !important;
+        padding-top: 64px !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        position: relative !important;
+        z-index: 1 !important;
+        width: 100% !important;
+      }
+      .profile-page .profile-page-container {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 24px 24px 60px 24px !important;
+        position: relative !important;
+        z-index: 2 !important;
+      }
+      .profile-page .profile-page-container .profile-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        padding: 40px 30px !important;
+        border-radius: 20px !important;
+        margin-bottom: 30px !important;
+        position: relative !important;
+        z-index: 3 !important;
+      }
+      .profile-page .profile-page-container .profile-card {
+        background: white !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        position: relative !important;
+        z-index: 3 !important;
+      }
+    `;
+    
+    // Remove existing deployment fix styles
+    const existingStyle = document.getElementById('profile-page-deployment-fixes');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+    
+    // Add the critical styles to head
+    document.head.appendChild(styleElement);
+    
+    // Cleanup function
+    return () => {
+      // Remove body classes
+      document.body.classList.remove('profile-page-active');
+      document.documentElement.classList.remove('profile-page-active');
+      
+      // Remove injected styles
+      const styleToRemove = document.getElementById('profile-page-deployment-fixes');
+      if (styleToRemove) {
+        styleToRemove.remove();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (currentUser) {

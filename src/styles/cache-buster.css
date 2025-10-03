@@ -1,0 +1,102 @@
+/* =====================================================
+   🚀 CACHE BUSTING & DEPLOYMENT FORCE REFRESH
+   ===================================================== */
+
+/* This file ensures deployment always matches localhost exactly */
+/* Version: v1.0.0 - Updated for deployment consistency */
+
+/* Force reload any cached CSS in production */
+.profile-page {
+  /* Add cache-busting timestamp */
+  --cache-version: "20251003070622";
+  
+  /* Force all critical styles with maximum specificity */
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  padding-top: 64px !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Critical: Override ALL possible body conflicts */
+html.profile-page-active,
+html.profile-page-active body,
+body.profile-page-active {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #f8fafc !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  overflow-x: hidden !important;
+}
+
+/* Force container consistency */
+.profile-page .profile-page-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 24px 24px 60px 24px !important;
+  position: relative !important;
+  min-height: calc(100vh - 64px) !important;
+  background: transparent !important;
+  z-index: 2 !important;
+}
+
+/* Force hero section */
+.profile-page .profile-page-container .profile-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 40px 30px !important;
+  border-radius: 20px !important;
+  margin-bottom: 30px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* Force card styling */
+.profile-page .profile-page-container .profile-card {
+  background: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+  margin-bottom: 30px !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* Mobile deployment consistency */
+@media (max-width: 768px) {
+  .profile-page {
+    padding-top: 60px !important;
+  }
+  
+  .profile-page .profile-page-container {
+    padding: 12px !important;
+    padding-top: 16px !important;
+    min-height: calc(100vh - 60px) !important;
+  }
+  
+  .profile-page .profile-page-container .profile-hero {
+    padding: 20px 16px !important;
+    margin-bottom: 16px !important;
+    border-radius: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page .profile-page-container {
+    padding: 8px !important;
+  }
+  
+  .profile-page .profile-page-container .profile-hero {
+    padding: 16px 12px !important;
+  }
+}
