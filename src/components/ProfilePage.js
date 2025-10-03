@@ -4,7 +4,6 @@ import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
-import '../styles/critical-profile.css';
 
 const ProfilePage = ({ 
   currentUser, 
