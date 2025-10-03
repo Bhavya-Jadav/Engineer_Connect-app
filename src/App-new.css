@@ -2,7 +2,6 @@
 
 /* CRITICAL: Import ProfilePage CSS first to ensure it loads */
 @import './styles/ProfilePage.css';
-@import './styles/critical-profile.css';
 
 /* Import all feature-specific stylesheets */
 @import './styles/variables.css';
@@ -20,6 +19,9 @@
 @import './styles/AdminDashboard.css';
 @import './styles/StudentProjectForm.css';
 @import './styles/StudentProjects.css';
+
+/* Critical profile styles - import near the end to override */
+@import './styles/critical-profile.css';
 
 /* Production fixes - should be last to ensure precedence */
 @import './styles/production-fixes.css';
