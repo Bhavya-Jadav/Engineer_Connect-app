@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { API_BASE_URL } from '../utils/api';
 import './UserSearch.css';
 
+console.log('🌐 API_BASE_URL in UserSearch:', API_BASE_URL);
+
 const UserSearch = ({ 
   onUserSelect, 
   placeholder = "Search users by name, skills, university, course, branch...", 
@@ -170,6 +172,12 @@ const UserSearch = ({
     setSendingConnection(true);
     try {
       const token = localStorage.getItem('token');
+      console.log('🔗 Sending connection request to:', API_BASE_URL + '/connections');
+      console.log('🔗 Request payload:', {
+        recipientId: selectedUser._id,
+        message: connectionMessage
+      });
+
       const response = await fetch(`${API_BASE_URL}/connections`, {
         method: 'POST',
         headers: {
@@ -182,11 +190,15 @@ const UserSearch = ({
         })
       });
 
+      console.log('🔗 Connection response status:', response.status);
+      console.log('🔗 Connection response headers:', response.headers);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('🔗 Connection response data:', data);
         
         // Create notification
-        await fetch(`${API_BASE_URL}/notifications`, {
+        const notificationResponse = await fetch(`${API_BASE_URL}/notifications`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -197,21 +209,39 @@ const UserSearch = ({
             type: 'connection_request',
             title: 'New Connection Request',
             message: `${currentUser.name || currentUser.username} wants to connect with you`,
-            data: { connectionId: data.connection._id }
+            data: { connectionId: data.connection?._id }
           })
         });
+
+        if (notificationResponse.ok) {
+          console.log('🔔 Notification sent successfully');
+        } else {
+          console.warn('🔔 Failed to send notification:', notificationResponse.status);
+        }
 
         alert('Connection request sent successfully!');
         setShowConnectionModal(false);
         setSelectedUser(null);
         setConnectionMessage('');
       } else {
-        const errorData = await response.json();
-        alert(errorData.error || 'Failed to send connection request');
+        const errorText = await response.text();
+        console.error('🔗 Connection request failed:', response.status, errorText);
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          alert(errorData.error || 'Failed to send connection request');
+        } catch (parseError) {
+          console.error('🔗 Failed to parse error response:', parseError);
+          alert(`Failed to send connection request. Server responded with: ${response.status} ${response.statusText}`);
+        }
       }
     } catch (error) {
-      console.error('Error sending connection request:', error);
-      alert('Error sending connection request');
+      console.error('🔗 Error sending connection request:', error);
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        alert('Network error: Unable to connect to the server. Please check your internet connection and try again.');
+      } else {
+        alert('Error sending connection request: ' + error.message);
+      }
     } finally {
       setSendingConnection(false);
     }

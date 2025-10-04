@@ -736,144 +736,295 @@
    📱 MOBILE RESPONSIVE DESIGN
    ===================================================== */
 
-/* Mobile First Approach (320px+) */
+/* Mobile First Approach (320px+) - Professional Problem Cards */
 @media (max-width: 768px) {
   .student-feed {
-    padding-top: 70px; /* Slightly less padding on mobile */
+    padding-top: 70px; /* Account for fixed mobile header */
   }
 
   .problems-list {
-    padding: 10px;
-    gap: 16px;
+    padding: 12px;
+    gap: 20px; /* Increased spacing between cards */
   }
 
   .problem-card.professional-card {
-    margin-bottom: 16px;
-    border-radius: 12px;
+    margin-bottom: 20px;
+    border-radius: 16px; /* Larger radius for modern look */
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
-  /* Mobile Header */
+  .problem-card.professional-card:active {
+    transform: scale(0.98); /* Touch feedback instead of hover */
+    transition: transform 0.15s ease;
+  }
+
+  /* Mobile Status Header - Horizontal layout */
   .problem-status-header {
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
-    padding: 12px 16px 8px 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #fafbfc;
   }
 
   .status-indicators {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    display: flex;
     flex-wrap: wrap;
     gap: 6px;
   }
 
   .problem-status,
   .media-badge {
-    padding: 3px 8px;
+    padding: 5px 11px;
     font-size: 10px;
-    border-radius: 15px;
+    border-radius: 16px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .problem-status i {
+    font-size: 6px;
+  }
+
+  .media-badge i {
+    font-size: 10px;
   }
 
   .problem-date {
     font-size: 11px;
-    align-self: flex-end;
-    margin-top: 4px;
+    white-space: nowrap;
+    color: #64748b;
+    font-weight: 500;
   }
 
-  /* Mobile Company Header */
+  /* Mobile Company Header - Card-style layout */
   .company-header {
     flex-direction: column;
-    gap: 12px;
-    padding: 12px 16px;
-    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 16px;
+    align-items: stretch;
+    background: #ffffff;
   }
 
   .company-info {
     width: 100%;
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
 
   .company-logo {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    border-radius: 11px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.25);
+  }
+
+  .company-details {
+    flex: 1;
+    min-width: 0;
   }
 
   .company-details h4 {
-    font-size: 14px;
-    margin: 0 0 2px 0;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .department-info {
-    font-size: 11px;
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
   }
 
+  /* Engagement Stats - Professional card design */
   .engagement-stats {
-    align-self: flex-end;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-top: 8px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 12px;
+    margin: 0;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    min-height: 75px;
   }
 
   .stat-item i {
-    font-size: 14px;
+    font-size: 20px;
+    color: #4285f4;
+    margin-bottom: 2px;
   }
 
   .stat-item span {
-    font-size: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1;
+    margin-bottom: 2px;
   }
 
   .stat-item small {
-    font-size: 9px;
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
   }
 
-  /* Mobile Main Content */
+  /* Mobile Main Content - Better readability */
   .problem-main-content {
-    padding: 16px;
+    padding: 18px 16px;
   }
 
   .problem-title {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: #1e293b;
   }
 
   .problem-description {
     font-size: 14px;
+    line-height: 1.65;
+    color: #475569;
   }
 
-  /* Mobile Media */
+  /* Mobile Media - Professional card presentation */
   .media-preview-section {
     padding: 16px;
+    background: #f8fafc;
+  }
+
+  .video-preview-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
   }
 
   .video-thumbnail-wrapper {
-    height: 160px;
+    height: 200px;
   }
 
   .play-button-large {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    box-shadow: 0 4px 16px rgba(66, 133, 244, 0.5);
+  }
+
+  .video-info {
+    padding: 12px 16px;
+    background: white;
+  }
+
+  .media-label {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Files Grid - Touch-friendly sizing */
+  .files-preview-section {
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 12px;
+  }
+
+  .files-header {
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
   }
 
   .files-grid {
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
-  /* Mobile Metadata */
+  .file-card {
+    padding: 12px 8px;
+    min-height: 92px;
+    border-radius: 10px;
+  }
+
+  .file-icon-wrapper {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .file-name-truncated {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .file-size-small {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+
+  /* Mobile Metadata - Better organization */
   .problem-metadata {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 12px;
-    padding: 12px 16px;
-    align-items: flex-start;
+    padding: 14px 16px;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .difficulty-section {
-    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .difficulty-badge {
+    padding: 7px 14px;
+    font-size: 11px;
+    border-radius: 20px;
+    font-weight: 600;
   }
 
   .tags-section {
-    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+
+  .tech-tag {
+    padding: 5px 11px;
+    font-size: 10px;
+    border-radius: 14px;
+    font-weight: 500;
   }
 
   /* Mobile Filter Controls */
@@ -907,18 +1058,417 @@
     flex-shrink: 0;
   }
 
-  /* Mobile Actions */
+  /* Mobile Actions - Professional touch-friendly buttons */
   .problem-actions-section {
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 16px 16px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 16px;
+    background: #ffffff;
+    border-top: 1px solid #f0f0f0;
   }
 
   .action-btn {
-    width: 100%;
-    padding: 10px 16px;
-    font-size: 12px;
+    flex: 1;
+    min-height: 48px; /* WCAG AAA touch target */
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .action-btn i {
+    font-size: 16px;
+  }
+
+  .action-btn.secondary-action {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+
+  .action-btn.secondary-action:active {
+    background: #e2e8f0;
+    transform: scale(0.97);
+  }
+
+  .action-btn.primary-action {
+    background: linear-gradient(135deg, #4285f4 0%, #1976d2 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+  }
+
+  .action-btn.primary-action:active {
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    transform: scale(0.97);
+    box-shadow: 0 1px 4px rgba(66, 133, 244, 0.4);
+  }
+}
+
+/* Small Mobile Devices (600px and below) */
+@media (max-width: 600px) {
+  .problems-list {
+    padding: 10px;
+    gap: 18px;
+  }
+
+  .problem-card.professional-card {
+    border-radius: 14px;
+  }
+
+  /* Compact status header */
+  .problem-status-header {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  .problem-status,
+  .media-badge {
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+
+  .problem-date {
+    font-size: 10px;
+  }
+
+  /* Compact company header */
+  .company-header {
+    padding: 16px 14px;
+    gap: 14px;
+  }
+
+  .company-logo {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .company-details h4 {
+    font-size: 15px;
+  }
+
+  .department-info {
+    font-size: 12px;
+  }
+
+  /* Compact stats */
+  .engagement-stats {
+    padding: 14px 18px;
+    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item {
+    min-height: 70px;
+    padding: 6px;
+  }
+
+  .stat-item i {
+    font-size: 18px;
+  }
+
+  .stat-item span {
+    font-size: 20px;
+  }
+
+  .stat-item small {
+    font-size: 10px;
+  }
+
+  /* Compact content */
+  .problem-main-content {
+    padding: 16px 14px;
+  }
+
+  .problem-title {
+    font-size: 16px;
+  }
+
+  .problem-description {
+    font-size: 13px;
+  }
+
+  /* Compact media */
+  .media-preview-section {
+    padding: 14px;
+  }
+
+  .video-thumbnail-wrapper {
+    height: 180px;
+  }
+
+  .play-button-large {
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  /* Compact actions */
+  .problem-actions-section {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    font-size: 13px;
+    padding: 11px 16px;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .problems-list {
+    padding: 8px;
+    gap: 16px;
+  }
+
+  .problem-card.professional-card {
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Ultra compact status */
+  .problem-status-header {
+    padding: 10px 12px;
+  }
+
+  .status-indicators {
+    gap: 5px;
+  }
+
+  .problem-status,
+  .media-badge {
+    padding: 4px 9px;
+    font-size: 9px;
+  }
+
+  /* Ultra compact company */
+  .company-header {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+
+  .company-logo {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .company-details h4 {
+    font-size: 14px;
+  }
+
+  .department-info {
+    font-size: 11px;
+  }
+
+  /* Stats in compact mode */
+  .engagement-stats {
+    padding: 12px 16px;
+    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item {
+    min-height: 65px;
+    padding: 6px;
+  }
+
+  .stat-item i {
+    font-size: 17px;
+  }
+
+  .stat-item span {
+    font-size: 19px;
+  }
+
+  .stat-item small {
+    font-size: 9px;
+  }
+
+  /* Compact content */
+  .problem-main-content {
+    padding: 14px 12px;
+  }
+
+  .problem-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .problem-description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* Compact media */
+  .media-preview-section {
+    padding: 12px;
+  }
+
+  .video-thumbnail-wrapper {
+    height: 160px;
+  }
+
+  .play-button-large {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .video-info {
+    padding: 10px 12px;
+  }
+
+  .media-label {
+    font-size: 12px;
+  }
+
+  /* Files grid 2 columns on very small screens */
+  .files-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .file-card {
+    padding: 10px 6px;
+    min-height: 85px;
+  }
+
+  /* Compact metadata */
+  .problem-metadata {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .difficulty-badge {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+
+  .tech-tag {
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+
+  /* Compact actions */
+  .problem-actions-section {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    font-size: 12px;
+    padding: 10px 14px;
+    min-height: 46px;
+  }
+
+  .action-btn i {
+    font-size: 14px;
+  }
+}
+
+/* Tiny Screens (380px and below) */
+@media (max-width: 380px) {
+  .problems-list {
+    padding: 6px;
+  }
+
+  .problem-card.professional-card {
+    margin-bottom: 14px;
+  }
+
+  /* Minimal status */
+  .problem-status-header {
+    padding: 10px;
+  }
+
+  /* Minimal company */
+  .company-header {
+    padding: 12px 10px;
+  }
+
+  .company-logo {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .company-details h4 {
+    font-size: 13px;
+  }
+
+  /* Minimal stats */
+  .engagement-stats {
+    padding: 10px 12px;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item {
+    min-height: 60px;
+    padding: 5px;
+  }
+
+  .stat-item i {
+    font-size: 16px;
+  }
+
+  .stat-item span {
+    font-size: 18px;
+  }
+
+  .stat-item small {
+    font-size: 9px;
+  }
+
+  /* Minimal content */
+  .problem-main-content {
+    padding: 12px 10px;
+  }
+
+  .problem-title {
+    font-size: 14px;
+  }
+
+  .problem-description {
+    font-size: 12px;
+  }
+
+  /* Minimal media */
+  .media-preview-section {
+    padding: 10px;
+  }
+
+  .video-thumbnail-wrapper {
+    height: 140px;
+  }
+
+  /* Minimal actions */
+  .problem-actions-section {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .action-btn {
+    font-size: 11px;
+    padding: 9px 12px;
+    min-height: 44px;
+  }
+
+  .action-btn span {
+    display: none; /* Hide text, show only icons on tiny screens */
+  }
+
+  .action-btn i {
+    font-size: 16px;
   }
 }
 
