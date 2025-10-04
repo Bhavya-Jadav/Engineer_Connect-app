@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import UserSearch from './UserSearch';
+import UserProfileModal from './UserProfileModal';
 import '../styles/AdminDashboard.css';
 import { API_BASE_URL } from '../utils/api';
 
@@ -28,6 +30,10 @@ const AdminDashboard = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [showStatistics, setShowStatistics] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  
+  // User search states
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [searchActiveTab, setSearchActiveTab] = useState('dashboard'); // 'dashboard' or 'users'
   
   // Problem posting state
   const [showProblemForm, setShowProblemForm] = useState(false);
@@ -453,6 +459,21 @@ const AdminDashboard = ({
     fetchUsers();
   };
 
+  // User search handlers for tab functionality
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    setShowUserProfile(true);
+  };
+
+  const handleCloseUserProfile = () => {
+    setShowUserProfile(false);
+    setSelectedUser(null);
+  };
+
+  const handleSearchTabChange = (tab) => {
+    setSearchActiveTab(tab);
+  };
+
   const getRoleColor = (role) => {
     switch (role) {
       case 'admin': return '#ff6b6b';
@@ -551,7 +572,28 @@ const AdminDashboard = ({
           </div>
         </div>
 
-        {activeTab === 'overview' && (
+        {/* Search Tab Navigation */}
+        <div className="search-tab-navigation">
+          <button
+            className={`search-tab-btn ${searchActiveTab === 'dashboard' ? 'active' : ''}`}
+            onClick={() => handleSearchTabChange('dashboard')}
+          >
+            <i className="fas fa-tachometer-alt"></i>
+            Dashboard
+          </button>
+          <button
+            className={`search-tab-btn ${searchActiveTab === 'users' ? 'active' : ''}`}
+            onClick={() => handleSearchTabChange('users')}
+          >
+            <i className="fas fa-search"></i>
+            Find Users
+          </button>
+        </div>
+
+        {/* Dashboard Content */}
+        {searchActiveTab === 'dashboard' && (
+          <div className="dashboard-content">
+            {activeTab === 'overview' && (
           <div className="overview-content">
             <div className="stats-grid">
               <div className="stat-card total">
@@ -911,6 +953,36 @@ const AdminDashboard = ({
             )}
           </div>
         )}
+        </div>
+        )}
+
+        {/* User Search Content */}
+        {searchActiveTab === 'users' && (
+          <div className="users-search-section">
+            <div className="section-header">
+              <h2>
+                <i className="fas fa-search"></i>
+                Find Students and Companies
+              </h2>
+              <p>Search for users by name, skills, university, course, branch, or tags</p>
+            </div>
+            <UserSearch
+              onUserSelect={handleUserSelect}
+              placeholder="Search users by name, skills, university, course, branch..."
+              roleFilter="all"
+              showRoleFilter={true}
+              currentUser={currentUser}
+              className="admin-user-search"
+            />
+          </div>
+        )}
+
+        {/* User Profile Modal */}
+        <UserProfileModal
+          user={selectedUser}
+          isOpen={showUserProfile}
+          onClose={handleCloseUserProfile}
+        />
 
       </div>
     </div>

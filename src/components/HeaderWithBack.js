@@ -1,8 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NotificationCenter from './NotificationCenter';
+import { API_BASE_URL } from '../utils/api';
 
 const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentView, currentView, handleBack, onProfileClick }) => {
   const navigate = useNavigate();
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Fetch unread notifications count
+  useEffect(() => {
+    if (isLoggedIn && currentUser) {
+      fetchUnreadCount();
+      // Poll for new notifications every 30 seconds
+      const interval = setInterval(fetchUnreadCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [isLoggedIn, currentUser]);
+
+  const fetchUnreadCount = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/notifications?unreadOnly=true&limit=1`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUnreadCount(data.unreadCount);
+      }
+    } catch (error) {
+      console.error('Error fetching unread count:', error);
+    }
+  };
+
+  const handleNotificationUpdate = () => {
+    fetchUnreadCount();
+  };
 
   return (
     <header className="header has-back-btn">
@@ -22,6 +59,20 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
         <div className="header-right">
           {isLoggedIn ? (
             <div className="user-section">
+              {/* Notification Bell - Only show for students */}
+              {userRole === 'student' && (
+                <button 
+                  className="notification-bell"
+                  onClick={() => setShowNotifications(true)}
+                  title="Notifications"
+                >
+                  <i className="fas fa-bell"></i>
+                  {unreadCount > 0 && (
+                    <span className="notification-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
+                  )}
+                </button>
+              )}
+              
               <div className="user-info" onClick={onProfileClick}>
                 {currentUser?.profilePicture ? (
                   <img 
@@ -60,6 +111,14 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
           )}
         </div>
       </div>
+      
+      {/* Notification Center */}
+      <NotificationCenter
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+        currentUser={currentUser}
+        onConnectionUpdate={handleNotificationUpdate}
+      />
     </header>
   );
 };

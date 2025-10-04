@@ -1,7 +1,10 @@
 // src/components/StudentFeed.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
+import UserSearch from './UserSearch';
+import UserProfileModal from './UserProfileModal';
 import { API_BASE_URL } from '../utils/api';
+import '../styles/StudentFeed.css';
 
 const StudentFeed = ({
   selectedBranch,
@@ -24,6 +27,11 @@ const StudentFeed = ({
   const [showProblemModal, setShowProblemModal] = useState(false);
   const [branchFilter, setBranchFilter] = useState(selectedBranch || 'all');
   const [showFilters, setShowFilters] = useState(false);
+  
+  // User search state
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [activeTab, setActiveTab] = useState('problems'); // 'problems' or 'users'
 
   // Available branches - using the same values as stored in database
   const branches = [
@@ -53,6 +61,21 @@ const StudentFeed = ({
     // If you want to also reset other filters when branch changes, uncomment below:
     // setActiveFilter('all');
     // setSearchTerm('');
+  };
+
+  // User search handlers
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    setShowUserProfile(true);
+  };
+
+  const handleCloseUserProfile = () => {
+    setShowUserProfile(false);
+    setSelectedUser(null);
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
 
   const filterProblemsByBranch = (problemsArray, branchValue) => {
@@ -178,7 +201,7 @@ const StudentFeed = ({
     if (!url) return null;
     
     // YouTube URL patterns
-    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const youtubeRegex = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
     const youtubeMatch = url.match(youtubeRegex);
     if (youtubeMatch) {
       return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
@@ -303,6 +326,13 @@ const StudentFeed = ({
             <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
             <i className={`fas fa-chevron-${showFilters ? 'up' : 'down'}`}></i>
           </button>
+          <button
+            className="search-icon-btn"
+            onClick={() => handleTabChange('users')}
+            title="Search Users"
+          >
+            <i className="fas fa-search"></i>
+          </button>
         </div>
 
         {/* Feed Controls - Show/Hide based on showFilters state */}
@@ -379,170 +409,253 @@ const StudentFeed = ({
           </div>
         )}
 
-        <div className="problems-list">
-          {!filteredProblems || filteredProblems.length === 0 ? (
-            <div className="no-problems">
-              <i className="fas fa-search"></i>
-              <h3>No problems found</h3>
-              <p>Try adjusting your search or filter criteria</p>
-            </div>
-          ) : (
-            filteredProblems.map((problem) => (
-              <div key={problem._id} className="problem-card">
-                <div className="problem-header">
-                  <div className="problem-meta">
-                    <span 
-                      className="company-name clickable" 
-                      onClick={() => handleCompanyClick(problem.company)}
-                      title={`View all problems from ${problem.company || 'Unknown Company'}`}
-                    >
-                      <i className="fas fa-building"></i>
-                      {problem.company || 'Unknown Company'}
+        {/* Tab Navigation */}
+        <div className="tab-navigation">
+          <button
+            className={`tab-btn ${activeTab === 'problems' ? 'active' : ''}`}
+            onClick={() => handleTabChange('problems')}
+          >
+            <i className="fas fa-lightbulb"></i>
+            Problems
+          </button>
+        </div>
+
+        {/* Content based on active tab */}
+        {activeTab === 'problems' ? (
+          <div className="problems-list">
+            {!filteredProblems || filteredProblems.length === 0 ? (
+              <div className="no-problems">
+                <i className="fas fa-search"></i>
+                <h3>No problems found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+              </div>
+            ) : (
+              filteredProblems.map((problem) => (
+              <div key={problem._id} className="problem-card professional-card">
+                {/* Problem Status Badge */}
+                <div className="problem-status-header">
+                  <div className="status-indicators">
+                    <span className="problem-status open">
+                      <i className="fas fa-circle"></i>
+                      Open
                     </span>
-                    <span className="problem-date">
-                      <i className="fas fa-clock"></i>
-                      {formatDate(problem.createdAt)}
-                    </span>
+                    {problem.videoUrl && (
+                      <span className="media-badge video-badge">
+                        <i className="fas fa-play-circle"></i>
+                        Video
+                      </span>
+                    )}
+                    {problem.attachments && problem.attachments.length > 0 && (
+                      <span className="media-badge files-badge">
+                        <i className="fas fa-paperclip"></i>
+                        {problem.attachments.length} Files
+                      </span>
+                    )}
                   </div>
-                  <div className="problem-stats">
-                    <span className="stat">
-                      <i className="fas fa-lightbulb"></i>
-                      {problem.ideas ? problem.ideas.length : 0} ideas
-                    </span>
-                    <span className="stat">
-                      <i className="fas fa-eye"></i>
-                      {problem.views || 0} views
-                    </span>
+                  <div className="problem-date">
+                    <i className="fas fa-clock"></i>
+                    {formatDate(problem.createdAt)}
                   </div>
                 </div>
 
-                <div className="problem-content">
-                  <div className="content-layout">
-                    {/* Media section - Videos and Files */}
-                    {((problem.videoUrl && problem.videoUrl.trim() !== '') || (problem.attachments && problem.attachments.length > 0)) && (
-                      <div className="media-container">
-                        {/* Video thumbnail */}
-                        {problem.videoUrl && problem.videoUrl.trim() !== '' && (
-                          <div className="video-thumbnail-container">
-                            <div className="video-thumbnail">
-                              <iframe
-                                src={getEmbedUrl(problem.videoUrl)}
-                                title={`Video for ${problem.title}`}
-                                frameBorder="0"
-                                allowFullScreen
-                              ></iframe>
-                              <div 
-                                className="video-play-btn" 
-                                onClick={() => handleVideoClick(problem.videoUrl)}
-                                title="Click to open video in new tab"
-                              >
-                                <i className="fas fa-play"></i>
-                              </div>
-                            </div>
-                            <div className="video-label">
-                              <i className="fas fa-play-circle"></i>
-                              <span>Video</span>
-                            </div>
-                          </div>
-                        )}
-                        
-                        {/* File attachments preview */}
-                        {problem.attachments && problem.attachments.length > 0 && (
-                          <div className="files-preview-container">
-                            {problem.attachments.slice(0, 2).map((attachment, index) => (
-                              <div 
-                                key={index} 
-                                className="file-preview-item"
-                                onClick={() => handleFileClick(attachment)}
-                                title={`Click to download ${attachment.originalName}`}
-                              >
-                                <div className="file-icon-container">
-                                  <i 
-                                    className={getFileIcon(attachment.fileType)}
-                                    style={{ color: getFileColor(attachment.fileType) }}
-                                  ></i>
-                                </div>
-                                <div className="file-info">
-                                  <span className="file-name">
-                                    {attachment.originalName.length > 15 
-                                      ? `${attachment.originalName.substring(0, 15)}...` 
-                                      : attachment.originalName
-                                    }
-                                  </span>
-                                  <span className="file-size">
-                                    {formatFileSize(attachment.fileSize)}
-                                  </span>
-                                </div>
-                              </div>
-                            ))}
-                            {problem.attachments.length > 2 && (
-                              <div className="more-files-indicator">
-                                <i className="fas fa-plus-circle"></i>
-                                <span>+{problem.attachments.length - 2} more</span>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    <div className="text-content">
-                      <h3 
-                        className="problem-title clickable" 
-                        onClick={() => handleProblemClick(problem)}
-                        title="Click to view full details"
+                {/* Company Header */}
+                <div className="company-header">
+                  <div className="company-info">
+                    <div className="company-logo">
+                      <i className="fas fa-building"></i>
+                    </div>
+                    <div className="company-details">
+                      <h4 
+                        className="company-name clickable"
+                        onClick={() => handleCompanyClick(problem.company)}
+                        title={`View all problems from ${problem.company || 'Unknown Company'}`}
                       >
-                        {problem.title || 'Untitled Problem'}
-                      </h3>
-                      <p className="problem-description">
-                        {problem.description && problem.description.length > 150
-                          ? `${problem.description.substring(0, 150)}...`
-                          : problem.description || 'No description available'}
-                      </p>
+                        {problem.company || 'Unknown Company'}
+                      </h4>
+                      <span className="department-info">
+                        <i className="fas fa-sitemap"></i>
+                        {problem.branch || 'General'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="engagement-stats">
+                    <div className="stat-item">
+                      <i className="fas fa-lightbulb"></i>
+                      <span>{problem.ideas ? problem.ideas.length : 0}</span>
+                      <small>Solutions</small>
+                    </div>
+                    <div className="stat-item">
+                      <i className="fas fa-eye"></i>
+                      <span>{problem.views || 0}</span>
+                      <small>Views</small>
                     </div>
                   </div>
                 </div>
 
-                <div className="problem-footer">
-                  <div className="problem-tags">
-                    <span
-                      className="difficulty-tag"
-                      style={{ backgroundColor: getDifficultyColor(problem.difficulty) }}
-                    >
-                      {problem.difficulty || 'Unknown'}
-                    </span>
-                    {problem.tags && problem.tags.length > 0 &&
-                      problem.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="tag">{tag}</span>
-                      ))
-                    }
-                    {problem.tags && problem.tags.length > 3 && (
-                      <span className="tag more-tags">+{problem.tags.length - 3} more</span>
+                {/* Problem Content */}
+                <div className="problem-main-content">
+                  <h3 
+                    className="problem-title clickable" 
+                    onClick={() => handleProblemClick(problem)}
+                    title="Click to view full details"
+                  >
+                    {problem.title || 'Untitled Problem'}
+                  </h3>
+                  <p className="problem-description">
+                    {problem.description && problem.description.length > 140
+                      ? `${problem.description.substring(0, 140)}...`
+                      : problem.description || 'No description available'}
+                  </p>
+                </div>
+
+                {/* Media Preview Section */}
+                {((problem.videoUrl && problem.videoUrl.trim() !== '') || (problem.attachments && problem.attachments.length > 0)) && (
+                  <div className="media-preview-section">
+                    {/* Video Preview */}
+                    {problem.videoUrl && problem.videoUrl.trim() !== '' && (
+                      <div className="video-preview-card">
+                        <div className="video-thumbnail-wrapper">
+                          <iframe
+                            src={getEmbedUrl(problem.videoUrl)}
+                            title={`Video for ${problem.title}`}
+                            frameBorder="0"
+                            allowFullScreen
+                            className="video-preview-iframe"
+                          ></iframe>
+                          <div 
+                            className="video-overlay" 
+                            onClick={() => handleVideoClick(problem.videoUrl)}
+                            title="Click to open video in new tab"
+                          >
+                            <div className="play-button-large">
+                              <i className="fas fa-play"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="video-info">
+                          <span className="media-label">
+                            <i className="fas fa-play-circle"></i>
+                            Watch Explanation
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Files Preview */}
+                    {problem.attachments && problem.attachments.length > 0 && (
+                      <div className="files-preview-section">
+                        <div className="files-header">
+                          <i className="fas fa-folder-open"></i>
+                          <span>Attachments ({problem.attachments.length})</span>
+                        </div>
+                        <div className="files-grid">
+                          {problem.attachments.slice(0, 3).map((attachment, index) => (
+                            <div 
+                              key={index} 
+                              className="file-card"
+                              onClick={() => handleFileClick(attachment)}
+                              title={`Download ${attachment.originalName}`}
+                            >
+                              <div className="file-icon-wrapper">
+                                <i 
+                                  className={getFileIcon(attachment.fileType)}
+                                  style={{ color: getFileColor(attachment.fileType) }}
+                                ></i>
+                              </div>
+                              <div className="file-details">
+                                <span className="file-name-truncated">
+                                  {attachment.originalName.length > 12 
+                                    ? `${attachment.originalName.substring(0, 12)}...` 
+                                    : attachment.originalName
+                                  }
+                                </span>
+                                <span className="file-size-small">
+                                  {formatFileSize(attachment.fileSize)}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                          {problem.attachments.length > 3 && (
+                            <div className="more-files-card">
+                              <i className="fas fa-ellipsis-h"></i>
+                              <span>+{problem.attachments.length - 3}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     )}
                   </div>
+                )}
 
-                  <div className="problem-actions">
-                    <button
-                      className="action-btn view-details-btn"
-                      onClick={() => handleProblemClick(problem)}
+                {/* Tags & Difficulty */}
+                <div className="problem-metadata">
+                  <div className="difficulty-section">
+                    <span
+                      className={`difficulty-badge difficulty-${problem.difficulty?.toLowerCase() || 'unknown'}`}
                     >
-                      <i className="fas fa-info-circle"></i>
-                      View Details
-                    </button>
-                    <button
-                      className="solve-btn"
-                      onClick={() => onOpenIdeaModal && onOpenIdeaModal(problem)}
-                    >
-                      <i className="fas fa-rocket"></i>
-                      Solve Problem
-                    </button>
+                      <i className="fas fa-signal"></i>
+                      {problem.difficulty || 'Unknown'}
+                    </span>
                   </div>
+                  {problem.tags && problem.tags.length > 0 && (
+                    <div className="tags-section">
+                      {problem.tags.slice(0, 4).map((tag, index) => (
+                        <span key={index} className="tech-tag">{tag}</span>
+                      ))}
+                      {problem.tags.length > 4 && (
+                        <span className="tech-tag more-indicator">+{problem.tags.length - 4}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="problem-actions-section">
+                  <button
+                    className="action-btn secondary-action"
+                    onClick={() => handleProblemClick(problem)}
+                  >
+                    <i className="fas fa-info-circle"></i>
+                    <span>Details</span>
+                  </button>
+                  <button
+                    className="action-btn primary-action"
+                    onClick={() => onOpenIdeaModal && onOpenIdeaModal(problem)}
+                  >
+                    <i className="fas fa-rocket"></i>
+                    <span>Submit Solution</span>
+                  </button>
                 </div>
               </div>
             ))
           )}
         </div>
+        ) : (
+          <div className="users-search-section">
+            <div className="search-description">
+              <h3>Find Students and Companies</h3>
+              <p>Search for users by name, skills, university, course, branch, or tags</p>
+            </div>
+            <UserSearch
+              onUserSelect={handleUserSelect}
+              placeholder="Search users by name, skills, university, course, branch..."
+              roleFilter="all"
+              showRoleFilter={true}
+              currentUser={currentUser}
+              className="feed-user-search"
+            />
+          </div>
+        )}
       </div>
+
+      {/* User Profile Modal */}
+      <UserProfileModal
+        user={selectedUser}
+        isOpen={showUserProfile}
+        onClose={handleCloseUserProfile}
+        currentUser={currentUser}
+        onConnectionUpdate={() => {}}
+      />
 
       {/* Problem Details Modal */}
       {showProblemModal && selectedProblem && (

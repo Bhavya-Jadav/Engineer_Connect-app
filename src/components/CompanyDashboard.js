@@ -1,7 +1,10 @@
 // src/components/CompanyDashboard.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
+import UserSearch from './UserSearch';
+import UserProfileModal from './UserProfileModal';
 import '../styles/modals.css';
+import '../styles/AdminDashboard.css';
 
 const CompanyDashboard = ({
   problems,
@@ -61,6 +64,10 @@ const CompanyDashboard = ({
   const [userSearchTerm, setUserSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [selectedUser, setSelectedUser] = useState(null);
+  
+  // User search states
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [activeTab, setActiveTab] = useState('problems'); // 'problems', 'ideas', or 'users'
   const [skillsFilter, setSkillsFilter] = useState('');
 
   // User management functions
@@ -533,6 +540,21 @@ const CompanyDashboard = ({
     setShowUserManagement(true);
     fetchUserStats();
     fetchUsers();
+  };
+
+  // User search handlers for tab functionality
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    setShowUserProfile(true);
+  };
+
+  const handleCloseUserProfile = () => {
+    setShowUserProfile(false);
+    setSelectedUser(null);
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
 
   const handleViewAllIdeas = async () => {
@@ -1229,8 +1251,38 @@ const CompanyDashboard = ({
               </button>
             </>
           )}
+          <button
+            className="search-icon-btn"
+            onClick={() => handleTabChange('users')}
+            title="Search Users"
+          >
+            <i className="fas fa-search"></i>
+          </button>
         </div>
-        <div className="problems-section">
+
+        {/* Tab Navigation */}
+        <div className="tab-navigation">
+          <button
+            className={`tab-btn ${activeTab === 'problems' ? 'active' : ''}`}
+            onClick={() => handleTabChange('problems')}
+          >
+            <i className="fas fa-tasks"></i>
+            Your Problems
+          </button>
+          {userRole === 'admin' && (
+            <button
+              className={`tab-btn ${activeTab === 'ideas' ? 'active' : ''}`}
+              onClick={() => handleTabChange('ideas')}
+            >
+              <i className="fas fa-lightbulb"></i>
+              All Ideas
+            </button>
+          )}
+        </div>
+
+        {/* Content based on active tab */}
+        {activeTab === 'problems' && (
+          <div className="problems-section">
           <div className="section-header">
             <h2>
               <i className="fas fa-tasks"></i>
@@ -1314,6 +1366,62 @@ const CompanyDashboard = ({
             )}
           </div>
         </div>
+        )}
+
+        {/* All Ideas Tab for Admin */}
+        {activeTab === 'ideas' && userRole === 'admin' && (
+          <div className="all-ideas-section">
+            <div className="section-header">
+              <h2>
+                <i className="fas fa-lightbulb"></i>
+                All Student Ideas
+              </h2>
+              <button
+                className="btn btn-primary"
+                onClick={handleViewAllIdeas}
+                disabled={isLoadingAllIdeas}
+              >
+                <i className="fas fa-refresh"></i>
+                {isLoadingAllIdeas ? 'Loading...' : 'Refresh Ideas'}
+              </button>
+            </div>
+            {/* Add ideas content here if needed */}
+            <div className="ideas-placeholder">
+              <p>Click "Refresh Ideas" to load all student submissions</p>
+            </div>
+          </div>
+        )}
+
+        {/* Users Search Tab */}
+        {activeTab === 'users' && (
+          <div className="users-search-section">
+            <div className="section-header">
+              <h2>
+                <i className="fas fa-users"></i>
+                Find Students and Companies
+              </h2>
+              <p>Search for users by name, skills, university, course, branch, or tags</p>
+            </div>
+            <UserSearch
+              onUserSelect={handleUserSelect}
+              placeholder="Search users by name, skills, university, course, branch..."
+              roleFilter="student"
+              showRoleFilter={true}
+              currentUser={currentUser}
+              className="dashboard-user-search"
+            />
+          </div>
+        )}
+
+        {/* User Profile Modal */}
+        <UserProfileModal
+          user={selectedUser}
+          isOpen={showUserProfile}
+          onClose={handleCloseUserProfile}
+          currentUser={currentUser}
+          onConnectionUpdate={() => {}}
+        />
+
         {showForm && (
           <div className="modal-overlay">
             <div className="modal problem-form-modal">
