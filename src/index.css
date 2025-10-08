@@ -1,3 +1,8 @@
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Use App-new.css instead of App.css for consistency */
 @import './App-new.css';
 

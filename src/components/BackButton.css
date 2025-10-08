@@ -11,6 +11,8 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .back-btn-header:hover {
@@ -21,4 +23,36 @@
 .logo-section {
   display: flex;
   align-items: center;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .back-btn-header {
+    font-size: 1.1rem;
+    padding: 10px;
+    margin-right: 8px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-btn-header {
+    font-size: 1rem;
+    padding: 12px;
+    margin-right: 6px;
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .back-btn-header:active {
+    background-color: rgba(52, 152, 219, 0.2);
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 380px) {
+  .back-btn-header {
+    margin-right: 4px;
+  }
 }

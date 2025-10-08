@@ -36,6 +36,9 @@ body {
 @import './styles/StudentProjectForm.css';
 @import './styles/StudentProjects.css';
 
+/* COMPREHENSIVE: Full website responsive coverage */
+@import './styles/comprehensive-responsive.css';
+
 /* Production fixes - should be last to ensure precedence */
 @import './styles/production-fixes.css';
 

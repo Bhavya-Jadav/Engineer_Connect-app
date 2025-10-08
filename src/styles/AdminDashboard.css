@@ -1,30 +1,26 @@
-/* AdminDashboard.css - Fully Responsive */
+/* AdminDashboard.css */
 .admin-dashboard {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  overflow-x: hidden;
+  padding-top: calc(var(--header-height, 80px) + 1rem);
 }
 
 .admin-content {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .admin-header {
   text-align: center;
   margin-bottom: 3rem;
   color: white;
-  padding: 0 1rem;
 }
 
 .admin-header h1 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  line-height: 1.2;
 }
 
 .admin-header h1 i {
@@ -33,11 +29,8 @@
 }
 
 .admin-header p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: 1.2rem;
   opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
 }
 
 /* Statistics Grid */
@@ -1292,4 +1285,552 @@
 .dashboard-actions .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ========================================
+   COMPREHENSIVE RESPONSIVE STYLES
+   Company Dashboard Mobile & Tablet
+   ======================================== */
+
+/* Tablet Styles (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .admin-content {
+    padding: 1.5rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .problems-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ideas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Styles (max-width: 768px) */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding-top: calc(var(--header-height-mobile, 56px) + 1rem);
+  }
+  
+  .admin-content {
+    padding: 1rem;
+  }
+  
+  .admin-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .admin-header p {
+    font-size: 1rem;
+  }
+  
+  /* Stats Grid */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+  }
+  
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .stat-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-content p {
+    font-size: 0.9rem;
+  }
+  
+  /* Problems Grid */
+  .problems-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .problem-card {
+    padding: 1.25rem;
+  }
+  
+  .problem-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .problem-meta {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .problem-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .problem-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Ideas Grid */
+  .ideas-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .idea-card {
+    padding: 1.25rem;
+  }
+  
+  /* Problem Summary Card */
+  .problem-summary-card {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .problem-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  /* Solutions Section */
+  .solutions-section {
+    padding: 1rem;
+  }
+  
+  .solutions-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  /* Skills Filter */
+  .skills-filter-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .skills-search-input {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  }
+  
+  /* Student Detail Container */
+  .student-detail-container {
+    padding: 1rem;
+    padding-top: calc(var(--header-height-mobile, 56px) + 1rem);
+  }
+  
+  .detail-header-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+  
+  /* Profile Card Detailed */
+  .profile-card-detailed {
+    padding: 1.25rem;
+  }
+  
+  .profile-header-detailed {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .profile-avatar-large {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .student-name-large {
+    font-size: 1.5rem;
+  }
+  
+  .student-username-large {
+    font-size: 1rem;
+  }
+  
+  /* Contact Info */
+  .contact-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  /* Skills Section */
+  .skills-list {
+    gap: 0.5rem;
+  }
+  
+  .skill-tag {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Solution Details */
+  .solution-section {
+    padding: 1.25rem;
+  }
+  
+  .solution-section h2 {
+    font-size: 1.3rem;
+  }
+  
+  /* Dashboard Actions */
+  .dashboard-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .dashboard-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Table Responsive */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+  
+  /* Modal Adjustments */
+  .modal {
+    width: 95%;
+    max-height: 85vh;
+  }
+  
+  .modal-header {
+    padding: 1rem 1.25rem;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .modal-body {
+    padding: 1.25rem;
+  }
+  
+  /* Form Adjustments */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* Small Mobile Styles (max-width: 480px) */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding-top: calc(var(--header-height-mobile, 56px) + 0.75rem);
+  }
+  
+  .admin-content {
+    padding: 0.75rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .admin-header p {
+    font-size: 0.9rem;
+  }
+  
+  /* Stats Card */
+  .stat-card {
+    padding: 1.25rem;
+  }
+  
+  .stat-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
+  }
+  
+  .stat-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .stat-content p {
+    font-size: 0.85rem;
+  }
+  
+  /* Problem Card */
+  .problem-card {
+    padding: 1rem;
+  }
+  
+  .problem-header h3 {
+    font-size: 1rem;
+  }
+  
+  .problem-description {
+    font-size: 0.85rem;
+  }
+  
+  .difficulty-badge,
+  .branch-badge,
+  .ideas-count {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+  }
+  
+  /* Idea Card */
+  .idea-card {
+    padding: 1rem;
+  }
+  
+  .student-info-compact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .student-avatar-small {
+    width: 35px;
+    height: 35px;
+  }
+  
+  /* Problem Summary */
+  .problem-summary-card {
+    padding: 1rem;
+  }
+  
+  .problem-info h3 {
+    font-size: 1.1rem;
+  }
+  
+  .problem-info p {
+    font-size: 0.85rem;
+  }
+  
+  /* Solutions Header */
+  .solutions-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .solutions-count {
+    font-size: 0.9rem;
+  }
+  
+  /* Skills Search */
+  .skills-search-input {
+    font-size: 0.85rem;
+    padding: 0.65rem 0.65rem 0.65rem 2.25rem;
+  }
+  
+  .skills-search-icon {
+    font-size: 0.9rem;
+  }
+  
+  .skills-search-clear-btn {
+    font-size: 1.25rem;
+  }
+  
+  /* Student Detail */
+  .student-detail-container {
+    padding: 0.75rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  
+  .profile-avatar-large {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .student-name-large {
+    font-size: 1.25rem;
+  }
+  
+  .student-username-large {
+    font-size: 0.9rem;
+  }
+  
+  .contact-info-item {
+    font-size: 0.85rem;
+  }
+  
+  /* Skills */
+  .skill-tag {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Solution Section */
+  .solution-section {
+    padding: 1rem;
+  }
+  
+  .solution-section h2 {
+    font-size: 1.15rem;
+  }
+  
+  .solution-text,
+  .implementation-text {
+    font-size: 0.85rem;
+  }
+  
+  /* Buttons */
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.65rem 1rem;
+  }
+  
+  /* Modal */
+  .modal {
+    width: 98%;
+    max-height: 90vh;
+  }
+  
+  .modal-header {
+    padding: 0.85rem 1rem;
+  }
+  
+  .modal-header h3 {
+    font-size: 1rem;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  /* Form Groups */
+  .form-group label {
+    font-size: 0.85rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+  }
+  
+  /* Back Button */
+  .back-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.85rem;
+  }
+  
+  /* Search Icon Button */
+  .search-icon-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 1024px) {
+  .admin-dashboard {
+    padding-top: calc(var(--header-height-mobile, 56px) + 0.5rem);
+  }
+  
+  .admin-content {
+    padding: 0.75rem;
+  }
+  
+  .admin-header {
+    margin-bottom: 1rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.25rem;
+  }
+  
+  .admin-header p {
+    font-size: 0.85rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .modal {
+    max-height: 95vh;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .admin-header,
+  .dashboard-actions,
+  .problem-actions,
+  .btn,
+  .search-icon-btn {
+    display: none;
+  }
+  
+  .admin-dashboard {
+    background: white;
+  }
+  
+  .admin-content {
+    padding: 0;
+  }
+  
+  .problem-card,
+  .idea-card,
+  .stat-card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import UserSearch from './UserSearch';
+import UserSearchTailwind from './UserSearchTailwind';
 import UserProfileModal from './UserProfileModal';
 import '../styles/AdminDashboard.css';
 import { API_BASE_URL } from '../utils/api';
@@ -966,7 +966,7 @@ const AdminDashboard = ({
               </h2>
               <p>Search for users by name, skills, university, course, branch, or tags</p>
             </div>
-            <UserSearch
+            <UserSearchTailwind
               onUserSelect={handleUserSelect}
               placeholder="Search users by name, skills, university, course, branch..."
               roleFilter="all"

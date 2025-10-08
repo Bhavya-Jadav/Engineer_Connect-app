@@ -1,7 +1,7 @@
 // src/components/StudentFeed.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
-import UserSearch from './UserSearch';
+import UserSearchTailwind from './UserSearchTailwind';
 import UserProfileModal from './UserProfileModal';
 import { API_BASE_URL } from '../utils/api';
 import '../styles/StudentFeed.css';
@@ -549,7 +549,13 @@ const StudentFeed = ({
                           <span>Attachments ({problem.attachments.length})</span>
                         </div>
                         <div className="files-grid">
-                          {problem.attachments.slice(0, 3).map((attachment, index) => (
+                          {problem.attachments.slice(0, 3).map((attachment, index) => {
+                            // Skip if attachment is null or missing originalName
+                            if (!attachment || !attachment.originalName) {
+                              return null;
+                            }
+                            
+                            return (
                             <div 
                               key={index} 
                               className="file-card"
@@ -574,7 +580,8 @@ const StudentFeed = ({
                                 </span>
                               </div>
                             </div>
-                          ))}
+                            );
+                          })}
                           {problem.attachments.length > 3 && (
                             <div className="more-files-card">
                               <i className="fas fa-ellipsis-h"></i>
@@ -620,7 +627,15 @@ const StudentFeed = ({
                   </button>
                   <button
                     className="action-btn primary-action"
-                    onClick={() => onOpenIdeaModal && onOpenIdeaModal(problem)}
+                    onClick={() => {
+                      console.log('✅ Submit Solution button clicked!', problem);
+                      console.log('✅ onOpenIdeaModal function:', onOpenIdeaModal);
+                      if (onOpenIdeaModal) {
+                        onOpenIdeaModal(problem);
+                      } else {
+                        console.error('❌ onOpenIdeaModal is not defined!');
+                      }
+                    }}
                   >
                     <i className="fas fa-rocket"></i>
                     <span>Submit Solution</span>
@@ -636,7 +651,7 @@ const StudentFeed = ({
               <h3>Find Students and Companies</h3>
               <p>Search for users by name, skills, university, course, branch, or tags</p>
             </div>
-            <UserSearch
+            <UserSearchTailwind
               onUserSelect={handleUserSelect}
               placeholder="Search users by name, skills, university, course, branch..."
               roleFilter="all"
@@ -711,7 +726,7 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.map((attachment, index) => (
+                    {selectedProblem.attachments.filter(attachment => attachment && attachment.originalName).map((attachment, index) => (
                       <div 
                         key={index} 
                         className="attachment-item"

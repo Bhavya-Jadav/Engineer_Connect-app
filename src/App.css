@@ -120,6 +120,7 @@ a:hover {
 .company-dashboard,
 .auth-container {
   padding: 0;
+  padding-top: calc(var(--header-height, 80px) + 1.5rem);
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -4862,7 +4863,7 @@ html {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  z-index: 2000;
+  z-index: 15000;
   backdrop-filter: blur(6px);
   align-items: center;
   justify-content: center;
@@ -10792,6 +10793,7 @@ input:checked + .slider:before {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: calc(var(--header-height, 80px) + 1.5rem);
   min-height: calc(100vh - 160px);
 }
 
@@ -11066,6 +11068,7 @@ input:checked + .slider:before {
   .ideas-view-container,
   .student-detail-container {
     padding: 1rem;
+    padding-top: calc(var(--header-height-mobile, 56px) + 1rem);
   }
   
   .problem-title-section {

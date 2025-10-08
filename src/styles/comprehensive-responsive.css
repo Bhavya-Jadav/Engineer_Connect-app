@@ -1,0 +1,797 @@
+/* ================================================================
+   COMPREHENSIVE RESPONSIVE DESIGN - FULL WEBSITE COVERAGE
+   ================================================================
+   
+   This file ensures EVERY page and element is fully responsive
+   across all devices from 320px to 4K displays.
+   
+   Breakpoint Strategy:
+   - 320px-480px: Extra small mobile (iPhone SE, older devices)
+   - 481px-600px: Small mobile (iPhone, small Android)
+   - 601px-768px: Large mobile (iPhone Plus, phablets)
+   - 769px-1024px: Tablets (iPad, Android tablets)
+   - 1025px-1200px: Small laptops
+   - 1201px-1440px: Standard laptops/desktops
+   - 1441px+: Large desktops, 4K displays
+   ================================================================ */
+
+/* ================================================================
+   GLOBAL RESPONSIVE FOUNDATIONS
+   ================================================================ */
+
+/* Ensure all elements are responsive by default */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-size: 16px; /* Base font size */
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Prevent horizontal scroll on all elements */
+img,
+video,
+iframe,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive containers */
+.container,
+.content-wrapper,
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ================================================================
+   EXTRA SMALL MOBILE: 320px - 480px
+   ================================================================ */
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container,
+  .content-wrapper,
+  .page-container {
+    padding: 0 12px;
+  }
+
+  /* Headings scale down */
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+  h4 { font-size: 1.1rem !important; }
+  h5 { font-size: 1rem !important; }
+  h6 { font-size: 0.9rem !important; }
+
+  /* Buttons scale down */
+  button,
+  .btn,
+  .button,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px !important; /* WCAG AAA */
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+  }
+
+  /* Forms scale down */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevents iOS zoom */
+    padding: 12px !important;
+    min-height: 44px !important;
+  }
+
+  /* Tables become scrollable */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Cards stack on mobile */
+  .card,
+  .panel,
+  .box {
+    margin-bottom: 15px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Grid layouts become single column */
+  .grid,
+  .row,
+  .columns {
+    display: block !important;
+  }
+
+  .grid > *,
+  .row > *,
+  .columns > * {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* Modals scale down */
+  .modal,
+  .dialog,
+  .popup {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Hide decorative elements on small screens */
+  .decorative,
+  .ornament,
+  .pattern-bg {
+    display: none !important;
+  }
+
+  /* Spacing adjustments */
+  .section,
+  .block,
+  .content-section {
+    padding: 20px 15px !important;
+  }
+
+  /* Navigation adjustments */
+  nav,
+  .nav,
+  .navigation {
+    flex-direction: column !important;
+  }
+
+  .nav-item,
+  .menu-item {
+    width: 100% !important;
+    padding: 12px 15px !important;
+  }
+}
+
+/* ================================================================
+   SMALL MOBILE: 481px - 600px
+   ================================================================ */
+
+@media (min-width: 481px) and (max-width: 600px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container,
+  .content-wrapper,
+  .page-container {
+    padding: 0 15px;
+  }
+
+  h1 { font-size: 2rem !important; }
+  h2 { font-size: 1.65rem !important; }
+  h3 { font-size: 1.35rem !important; }
+  h4 { font-size: 1.15rem !important; }
+
+  button,
+  .btn,
+  .button {
+    min-height: 46px !important;
+    padding: 11px 18px !important;
+    font-size: 15px !important;
+  }
+
+  /* Two-column grid for cards */
+  .card-grid,
+  .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+/* ================================================================
+   LARGE MOBILE: 601px - 768px
+   ================================================================ */
+
+@media (min-width: 601px) and (max-width: 768px) {
+  html {
+    font-size: 15.5px;
+  }
+
+  .container,
+  .content-wrapper,
+  .page-container {
+    padding: 0 18px;
+    max-width: 720px;
+  }
+
+  h1 { font-size: 2.25rem !important; }
+  h2 { font-size: 1.85rem !important; }
+  h3 { font-size: 1.5rem !important; }
+
+  /* Two or three column layouts */
+  .card-grid,
+  .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+  }
+
+  /* Sidebar becomes top bar */
+  .sidebar {
+    width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+
+  .main-content {
+    width: 100% !important;
+  }
+}
+
+/* ================================================================
+   TABLETS: 769px - 1024px
+   ================================================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container,
+  .content-wrapper,
+  .page-container {
+    padding: 0 25px;
+    max-width: 960px;
+  }
+
+  /* Three column layouts */
+  .card-grid,
+  .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 18px !important;
+  }
+
+  /* Two column sidebar layout */
+  .sidebar {
+    width: 280px !important;
+  }
+
+  .main-content {
+    width: calc(100% - 300px) !important;
+  }
+
+  /* Navigation adjustments */
+  .nav-horizontal {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+  }
+}
+
+/* ================================================================
+   SMALL LAPTOPS: 1025px - 1200px
+   ================================================================ */
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .container,
+  .content-wrapper,
+  .page-container {
+    max-width: 1140px;
+    padding: 0 30px;
+  }
+
+  /* Four column layouts */
+  .card-grid,
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+/* ================================================================
+   STANDARD DESKTOPS: 1201px - 1440px
+   ================================================================ */
+
+@media (min-width: 1201px) and (max-width: 1440px) {
+  .container,
+  .content-wrapper,
+  .page-container {
+    max-width: 1320px;
+  }
+}
+
+/* ================================================================
+   LARGE DESKTOPS & 4K: 1441px+
+   ================================================================ */
+
+@media (min-width: 1441px) {
+  html {
+    font-size: 18px; /* Slightly larger on big screens */
+  }
+
+  .container,
+  .content-wrapper,
+  .page-container {
+    max-width: 1400px;
+  }
+
+  /* Five or six column layouts on very large screens */
+  .card-grid,
+  .product-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+  }
+}
+
+/* ================================================================
+   LANDSCAPE ORIENTATION OPTIMIZATIONS
+   ================================================================ */
+
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 1024px) {
+  /* Reduce vertical spacing in landscape mode */
+  .section,
+  .block {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  /* Modals take full screen in landscape */
+  .modal,
+  .dialog {
+    max-height: 95vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* Header becomes more compact */
+  header,
+  .header,
+  .navbar {
+    min-height: 50px !important;
+    padding: 8px 15px !important;
+  }
+}
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+
+@media print {
+  /* Hide non-essential elements */
+  header,
+  footer,
+  .sidebar,
+  .navigation,
+  .nav,
+  button,
+  .btn,
+  .social-links {
+    display: none !important;
+  }
+
+  /* Expand content for printing */
+  .main-content,
+  .content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Remove backgrounds and shadows */
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure links are visible */
+  a {
+    text-decoration: underline !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* ================================================================
+   HIGH DPI / RETINA DISPLAYS
+   ================================================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+  /* Optimize images and icons for retina */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ================================================================
+   ACCESSIBILITY: REDUCED MOTION
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================================================================
+   DARK MODE SUPPORT
+   ================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* Let individual components handle dark mode */
+  /* This is a placeholder for global dark mode adjustments */
+}
+
+/* ================================================================
+   SPECIFIC COMPONENT RESPONSIVE OVERRIDES
+   ================================================================ */
+
+/* Dashboard layouts */
+@media (max-width: 768px) {
+  .dashboard-grid,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  .stat-card,
+  .metric-card {
+    min-height: 120px !important;
+  }
+}
+
+/* Form layouts */
+@media (max-width: 768px) {
+  .form-row,
+  .form-grid {
+    display: block !important;
+  }
+
+  .form-group,
+  .input-group {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+  }
+
+  .form-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .form-actions button {
+    width: 100% !important;
+  }
+}
+
+/* Data tables */
+@media (max-width: 768px) {
+  .data-table,
+  .table-responsive {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .data-table tbody td {
+    display: block;
+    text-align: right;
+    padding: 8px;
+    border-bottom: 1px solid #f7f8fa;
+  }
+
+  .data-table tbody td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    color: #495057;
+  }
+
+  .data-table tbody td:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Gallery/Image grid layouts */
+@media (max-width: 480px) {
+  .gallery,
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .gallery,
+  .image-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .gallery,
+  .image-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px !important;
+  }
+}
+
+/* Profile pages */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .profile-avatar {
+    margin: 0 auto 15px !important;
+  }
+
+  .profile-stats {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+  }
+
+  .profile-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Chart containers */
+@media (max-width: 768px) {
+  .chart-container,
+  .graph-wrapper {
+    min-height: 250px !important;
+    max-height: 300px !important;
+  }
+
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Timeline layouts */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 20px !important;
+  }
+
+  .timeline-item {
+    padding-left: 30px !important;
+  }
+
+  .timeline-item::before {
+    left: 0 !important;
+  }
+}
+
+/* Pricing tables */
+@media (max-width: 768px) {
+  .pricing-grid,
+  .plan-grid {
+    display: block !important;
+  }
+
+  .pricing-card,
+  .plan-card {
+    max-width: 400px !important;
+    margin: 0 auto 20px !important;
+  }
+}
+
+/* Footer layouts */
+@media (max-width: 768px) {
+  footer,
+  .footer {
+    text-align: center !important;
+  }
+
+  .footer-grid,
+  .footer-columns {
+    display: block !important;
+  }
+
+  .footer-column {
+    margin-bottom: 25px !important;
+  }
+
+  .footer-social {
+    justify-content: center !important;
+  }
+}
+
+/* Video containers */
+@media (max-width: 768px) {
+  .video-container,
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .video-container iframe,
+  .video-container video,
+  .video-wrapper iframe,
+  .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+/* ================================================================
+   UTILITY CLASSES FOR RESPONSIVE CONTROL
+   ================================================================ */
+
+/* Show/hide based on screen size */
+.mobile-only {
+  display: block !important;
+}
+
+.desktop-only {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: block !important;
+  }
+}
+
+/* Responsive text alignment */
+@media (max-width: 768px) {
+  .text-center-mobile {
+    text-align: center !important;
+  }
+
+  .text-left-mobile {
+    text-align: left !important;
+  }
+}
+
+/* Responsive spacing */
+@media (max-width: 768px) {
+  .no-padding-mobile {
+    padding: 0 !important;
+  }
+
+  .no-margin-mobile {
+    margin: 0 !important;
+  }
+}
+
+/* Full width on mobile */
+@media (max-width: 768px) {
+  .full-width-mobile {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Stack on mobile */
+@media (max-width: 768px) {
+  .stack-mobile {
+    display: block !important;
+  }
+
+  .stack-mobile > * {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+/* ================================================================
+   CRITICAL FIXES FOR COMMON RESPONSIVE ISSUES
+   ================================================================ */
+
+/* Fix fixed positioning on mobile */
+@media (max-width: 768px) {
+  .fixed-header,
+  header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .has-fixed-header {
+    padding-top: 60px !important;
+  }
+}
+
+/* Fix overflow issues */
+.no-overflow {
+  overflow: hidden !important;
+}
+
+.overflow-scroll {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix z-index layering */
+@media (max-width: 768px) {
+  .modal,
+  .dialog,
+  .popup {
+    z-index: 9999 !important;
+  }
+
+  .modal-overlay,
+  .backdrop {
+    z-index: 9998 !important;
+  }
+}
+
+/* ================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================================ */
+
+/* Optimize animations on mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .animated,
+  .has-animation {
+    animation-duration: 0.3s !important; /* Faster animations on mobile */
+  }
+}
+
+/* Optimize images on mobile */
+@media (max-width: 768px) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* ================================================================
+   END OF COMPREHENSIVE RESPONSIVE DESIGN
+   ================================================================ */

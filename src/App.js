@@ -43,6 +43,7 @@ function AppContent() {
   // === MODAL STATE ===
   const [showIdeaModal, setShowIdeaModal] = useState(false);
   const [currentProblemId, setCurrentProblemId] = useState(null);
+  const [currentProblem, setCurrentProblem] = useState(null);
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
@@ -469,19 +470,27 @@ function AppContent() {
 
   // === IDEA SUBMISSION HANDLERS ===
   const handleSolveProblem = (problem) => {
+    console.log('🚀 handleSolveProblem called with problem:', problem);
     setCurrentProblemId(problem._id);
+    setCurrentProblem(problem); // Store the entire problem object
     
     // Check if problem has quiz questions
     if (problem.quiz && problem.quiz.questions && problem.quiz.questions.length > 0) {
+      console.log('📝 Opening quiz modal');
       setCurrentQuiz(problem.quiz);
       setShowQuizModal(true);
     } else {
+      console.log('💡 Opening idea modal');
       setShowIdeaModal(true);
     }
   };
 
   const handleIdeaSubmit = async (e) => {
     e.preventDefault();
+    
+    console.log('💡 handleIdeaSubmit called');
+    console.log('💡 currentProblemId:', currentProblemId);
+    console.log('💡 ideaSubmission:', ideaSubmission);
     
     if (!currentProblemId) {
       showNotification('No problem selected', 'error');
@@ -502,6 +511,8 @@ function AppContent() {
         implementationApproach: ideaSubmission.implementationApproach.trim()
       };
       
+      console.log('💡 Submitting idea with data:', submissionData);
+      
       const response = await fetch(`${API_BASE_URL}/ideas`, {
         method: 'POST',
         headers: {
@@ -512,6 +523,9 @@ function AppContent() {
       });
       
       const data = await response.json();
+      
+      console.log('💡 Response status:', response.status);
+      console.log('💡 Response data:', data);
       
       if (response.ok) {
         // Reset form
@@ -524,13 +538,15 @@ function AppContent() {
         setShowIdeaModal(false);
         setCurrentProblemId(null);
         
+        console.log('✅ Idea submitted successfully!');
         showNotification('Your solution has been submitted successfully!', 'success');
       } else {
+        console.error('❌ Idea submission failed:', data.message);
         showNotification(data.message || 'Failed to submit idea', 'error');
       }
       
     } catch (error) {
-      console.error('Error submitting idea:', error);
+      console.error('❌ Error submitting idea:', error);
       showNotification('An error occurred while submitting your idea', 'error');
     }
   };
@@ -723,24 +739,55 @@ function AppContent() {
 
       {/* === MODALS === */}
       {showIdeaModal && (
-        <IdeaSubmissionModal
-          onClose={() => setShowIdeaModal(false)}
-          onSubmit={handleIdeaSubmit}
-          ideaSubmission={ideaSubmission}
-          setIdeaSubmission={setIdeaSubmission}
-        />
+        <>
+          {console.log('💡 Rendering IdeaSubmissionModal! showIdeaModal:', showIdeaModal)}
+          {console.log('💡 currentProblemId:', currentProblemId)}
+          <IdeaSubmissionModal
+            onClose={() => setShowIdeaModal(false)}
+            onSubmit={handleIdeaSubmit}
+            ideaSubmission={ideaSubmission}
+            setIdeaSubmission={setIdeaSubmission}
+          />
+        </>
       )}
 
       {showQuizModal && (
-        <QuizModal 
-          quiz={currentQuiz}
-          problem={problems.find(p => p._id === currentProblemId)}
-          onClose={() => setShowQuizModal(false)}
-          onSubmit={() => {
-            setShowQuizModal(false);
-            setShowIdeaModal(true);
-          }}
-        />
+        <>
+          {console.log('🎯 Rendering QuizModal! showQuizModal:', showQuizModal)}
+          {console.log('🎯 currentQuiz:', currentQuiz)}
+          {console.log('🎯 currentProblem:', currentProblem)}
+          
+          {/* Force modal to display with inline styles */}
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            zIndex: 999999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}>
+            <QuizModal 
+              quiz={currentQuiz}
+              problem={currentProblem}
+              onClose={() => {
+                console.log('❌ QuizModal onClose called');
+                setShowQuizModal(false);
+              }}
+              onSubmit={() => {
+                console.log('✅ QuizModal onSubmit called!');
+                console.log('📊 Before state change - showQuizModal:', showQuizModal, 'showIdeaModal:', showIdeaModal);
+                setShowQuizModal(false);
+                setShowIdeaModal(true);
+                console.log('📊 After state change called - should now show idea modal');
+              }}
+            />
+          </div>
+        </>
       )}
 
       {showProfilePanel && (

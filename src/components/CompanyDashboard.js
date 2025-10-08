@@ -1,7 +1,7 @@
 // src/components/CompanyDashboard.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
-import UserSearch from './UserSearch';
+import UserSearchTailwind from './UserSearchTailwind';
 import UserProfileModal from './UserProfileModal';
 import '../styles/modals.css';
 import '../styles/AdminDashboard.css';
@@ -450,7 +450,7 @@ const CompanyDashboard = ({
     setIsLoadingIdeas(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas/problem/${problemId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas?problemId=${problemId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -1402,7 +1402,7 @@ const CompanyDashboard = ({
               </h2>
               <p>Search for users by name, skills, university, course, branch, or tags</p>
             </div>
-            <UserSearch
+            <UserSearchTailwind
               onUserSelect={handleUserSelect}
               placeholder="Search users by name, skills, university, course, branch..."
               roleFilter="student"
@@ -1574,13 +1574,20 @@ const CompanyDashboard = ({
                           <button type="button" onClick={() => removeFile(index)}>×</button>
                         </div>
                       ))}
-                      {uploadedAttachments.map((file, index) => (
-                        <div key={index} className="file-item uploaded">
-                          <i className={getFileIcon(file.fileType)} style={{ color: getFileColor(file.fileType) }}></i>
-                          <span>{file.originalName} ({formatFileSize(file.size)})</span>
-                          <button type="button" onClick={() => removeUploadedFile(index)}>×</button>
-                        </div>
-                      ))}
+                      {uploadedAttachments.map((file, index) => {
+                        // Skip if file is null or missing required properties
+                        if (!file || !file.fileType || !file.originalName) {
+                          return null;
+                        }
+                        
+                        return (
+                          <div key={index} className="file-item uploaded">
+                            <i className={getFileIcon(file.fileType)} style={{ color: getFileColor(file.fileType) }}></i>
+                            <span>{file.originalName} ({formatFileSize(file.size)})</span>
+                            <button type="button" onClick={() => removeUploadedFile(index)}>×</button>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                   <div className="form-actions">
