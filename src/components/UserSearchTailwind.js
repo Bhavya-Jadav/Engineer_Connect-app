@@ -96,6 +96,13 @@ const UserSearchTailwind = ({
     setSearchQuery(e.target.value);
   };
 
+  const handleInputFocus = () => {
+    // Show results if there are any and query is not empty
+    if (searchResults.length > 0 && searchQuery.trim().length >= 2) {
+      setShowResults(true);
+    }
+  };
+
   const handleRoleChange = (e) => {
     setSelectedRole(e.target.value);
   };
@@ -121,8 +128,9 @@ const UserSearchTailwind = ({
       onUserSelect(user);
     }
     
-    setShowResults(false);
-    setSearchQuery('');
+    // Don't clear search results - allow users to go back and see results
+    // setShowResults(false);
+    // setSearchQuery('');
   };
 
   const handleClickOutside = (e) => {
@@ -171,6 +179,11 @@ const UserSearchTailwind = ({
     try {
       const token = localStorage.getItem('token');
       console.log('🔗 Sending connection request to:', API_BASE_URL + '/connections');
+      console.log('📤 Request payload:', {
+        recipientId: selectedUser._id,
+        message: connectionMessage
+      });
+      console.log('👤 Current user:', currentUser);
 
       const response = await fetch(`${API_BASE_URL}/connections`, {
         method: 'POST',
@@ -184,8 +197,12 @@ const UserSearchTailwind = ({
         })
       });
 
+      console.log('📥 Response status:', response.status);
+      console.log('📥 Response ok:', response.ok);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('✅ Connection request successful:', data);
         
         // Create notification
         await fetch(`${API_BASE_URL}/notifications`, {
@@ -209,15 +226,23 @@ const UserSearchTailwind = ({
         setConnectionMessage('');
       } else {
         const errorText = await response.text();
+        console.error('❌ Error response text:', errorText);
         try {
           const errorData = JSON.parse(errorText);
-          alert(errorData.error || 'Failed to send connection request');
-        } catch {
-          alert('Failed to send connection request');
+          console.error('❌ Error data:', errorData);
+          alert(errorData.error || errorData.message || 'Failed to send connection request');
+        } catch (parseError) {
+          console.error('❌ Could not parse error response:', parseError);
+          alert(`Failed to send connection request: ${errorText}`);
         }
       }
     } catch (error) {
-      console.error('Error sending connection request:', error);
+      console.error('❌ Error sending connection request:', error);
+      console.error('❌ Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
       alert('Error sending connection request. Please try again.');
     } finally {
       setSendingConnection(false);
@@ -243,6 +268,7 @@ const UserSearchTailwind = ({
             type="text"
             value={searchQuery}
             onChange={handleInputChange}
+            onFocus={handleInputFocus}
             placeholder={placeholder}
             className="w-full py-3 px-10 border-2 border-gray-200 rounded-full text-sm bg-white 
                      transition-all duration-300 outline-none
@@ -292,94 +318,187 @@ const UserSearchTailwind = ({
             searchResults.map((user, index) => (
               <div 
                 key={user._id} 
-                className={`flex items-center justify-between p-3 md:p-4 cursor-pointer transition-all duration-200 
+                className={`p-3 md:p-4 cursor-pointer transition-all duration-200 
                           ${index !== searchResults.length - 1 ? 'border-b border-gray-100' : ''}
-                          hover:bg-gray-50 hover:translate-x-0.5 hover:shadow-sm
+                          hover:bg-gray-50 hover:shadow-sm
                           ${index === 0 ? 'rounded-t-xl' : ''} 
                           ${index === searchResults.length - 1 ? 'rounded-b-xl' : ''}`}
               >
-                {/* User Avatar */}
-                <div className="relative w-11 h-11 md:w-12 md:h-12 mr-3 flex-shrink-0">
-                  {user.profilePicture ? (
-                    <img 
-                      src={user.profilePicture} 
-                      alt={user.username}
-                      className="w-full h-full rounded-full object-cover border-2 border-gray-200"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                  ) : null}
-                  <div 
-                    className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-purple-600
-                             flex items-center justify-center text-white font-semibold text-base border-2 border-gray-200"
-                    style={{ display: user.profilePicture ? 'none' : 'flex' }}
-                  >
-                    {(user.name || user.username || 'U').charAt(0).toUpperCase()}
-                  </div>
-                </div>
-                
-                {/* User Info - Clickable */}
-                <div 
-                  className="flex-1 min-w-0 cursor-pointer overflow-hidden"
-                  onClick={() => handleUserClick(user)}
-                >
-                  <div className="flex items-center flex-wrap gap-2 font-semibold text-gray-800 text-sm md:text-base mb-1">
-                    <span className="truncate">{user.name || user.username}</span>
-                    <span className={`px-2 py-0.5 rounded-xl text-[10px] md:text-xs font-medium
-                                   ${user.role === 'student' ? 'bg-green-500' : 
-                                     user.role === 'company' ? 'bg-orange-500' : 'bg-primary-500'}
-                                   text-white capitalize flex-shrink-0`}>
-                      {user.role}
-                    </span>
-                  </div>
-                  <div className="text-gray-600 text-xs md:text-sm mb-1 truncate">
-                    {formatUserInfo(user)}
-                  </div>
-                  {formatSkills(user) && (
-                    <div className="flex items-center gap-1.5 text-primary-500 text-xs md:text-sm font-medium truncate">
-                      <i className="fas fa-tags text-[10px]"></i>
-                      <span className="truncate">{formatSkills(user)}</span>
+                {/* Mobile: Single Column Layout (< 768px) */}
+                <div className="flex flex-col gap-3 md:hidden">
+                  {/* Avatar and Name Row */}
+                  <div className="flex items-center gap-3">
+                    {/* User Avatar */}
+                    <div className="relative w-12 h-12 flex-shrink-0">
+                      {user.profilePicture ? (
+                        <img 
+                          src={user.profilePicture} 
+                          alt={user.username}
+                          className="w-full h-full rounded-full object-cover border-2 border-gray-200"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextSibling.style.display = 'flex';
+                          }}
+                        />
+                      ) : null}
+                      <div 
+                        className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-purple-600
+                                 flex items-center justify-center text-white font-semibold text-lg border-2 border-gray-200"
+                        style={{ display: user.profilePicture ? 'none' : 'flex' }}
+                      >
+                        {(user.name || user.username || 'U').charAt(0).toUpperCase()}
+                      </div>
                     </div>
-                  )}
+                    
+                    {/* Name and Role */}
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-gray-800 text-base truncate">
+                        {user.name || user.username}
+                      </div>
+                      <span className={`inline-block px-2 py-0.5 rounded-xl text-xs font-medium mt-1
+                                     ${user.role === 'student' ? 'bg-green-500' : 
+                                       user.role === 'company' ? 'bg-orange-500' : 'bg-primary-500'}
+                                     text-white capitalize`}>
+                        {user.role}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* User Details */}
+                  <div 
+                    className="cursor-pointer"
+                    onClick={() => handleUserClick(user)}
+                  >
+                    <div className="text-gray-600 text-sm mb-1.5">
+                      {formatUserInfo(user)}
+                    </div>
+                    {formatSkills(user) && (
+                      <div className="flex items-center gap-1.5 text-primary-500 text-sm font-medium">
+                        <i className="fas fa-tags text-xs"></i>
+                        <span className="truncate">{formatSkills(user)}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      className="flex-1 px-4 py-2.5 border-none rounded-lg text-sm font-semibold
+                               cursor-pointer transition-all duration-200 flex items-center justify-center gap-2
+                               bg-gradient-to-r from-primary-500 to-primary-600 text-white
+                               hover:from-primary-600 hover:to-primary-700 hover:-translate-y-0.5 
+                               hover:shadow-lg active:translate-y-0"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSendConnectionRequest(user);
+                      }}
+                      title="Send Connection Request"
+                    >
+                      <i className="fas fa-user-plus text-sm"></i>
+                      <span>CONNECT</span>
+                    </button>
+                    <button
+                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-semibold
+                               cursor-pointer transition-all duration-200 flex items-center justify-center gap-2
+                               bg-white text-gray-700
+                               hover:bg-gray-50 hover:text-gray-900 hover:-translate-y-0.5 
+                               hover:shadow-lg active:translate-y-0"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUserClick(user);
+                      }}
+                      title="View Profile"
+                    >
+                      <i className="fas fa-user text-sm"></i>
+                      <span>VIEW</span>
+                    </button>
+                  </div>
                 </div>
                 
-                {/* Action Buttons */}
-                <div className="flex flex-col gap-1.5 ml-2 md:ml-3 flex-shrink-0">
-                  <button
-                    className="px-3 py-1.5 md:px-4 md:py-2 border-none rounded-md text-[10px] md:text-xs font-medium
-                             cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5
-                             uppercase tracking-wide min-w-[75px] md:min-w-[90px]
-                             bg-gradient-to-r from-primary-500 to-primary-600 text-white
-                             hover:from-primary-600 hover:to-primary-700 hover:-translate-y-0.5 
-                             hover:shadow-md active:translate-y-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleSendConnectionRequest(user);
-                    }}
-                    title="Send Connection Request"
+                {/* Desktop: Horizontal Layout (>= 768px) */}
+                <div className="hidden md:flex items-center justify-between">
+                  {/* User Avatar */}
+                  <div className="relative w-12 h-12 mr-3 flex-shrink-0">
+                    {user.profilePicture ? (
+                      <img 
+                        src={user.profilePicture} 
+                        alt={user.username}
+                        className="w-full h-full rounded-full object-cover border-2 border-gray-200"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
+                      className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-purple-600
+                               flex items-center justify-center text-white font-semibold text-base border-2 border-gray-200"
+                      style={{ display: user.profilePicture ? 'none' : 'flex' }}
+                    >
+                      {(user.name || user.username || 'U').charAt(0).toUpperCase()}
+                    </div>
+                  </div>
+                  
+                  {/* User Info - Clickable */}
+                  <div 
+                    className="flex-1 min-w-0 cursor-pointer overflow-hidden"
+                    onClick={() => handleUserClick(user)}
                   >
-                    <i className="fas fa-user-plus text-[9px] md:text-[10px]"></i>
-                    <span>Connect</span>
-                  </button>
-                  <button
-                    className="px-3 py-1.5 md:px-4 md:py-2 border border-gray-300 rounded-md text-[10px] md:text-xs font-medium
-                             cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5
-                             uppercase tracking-wide min-w-[75px] md:min-w-[90px]
-                             bg-gray-50 text-gray-700
-                             hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5 
-                             hover:shadow-md active:translate-y-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleUserClick(user);
-                    }}
-                    title="View Profile"
-                  >
-                    <i className="fas fa-user text-[9px] md:text-[10px]"></i>
-                    <span className="hidden sm:inline">View</span>
-                    <span className="sm:hidden">View</span>
-                  </button>
+                    <div className="flex items-center flex-wrap gap-2 font-semibold text-gray-800 text-base mb-1">
+                      <span className="truncate">{user.name || user.username}</span>
+                      <span className={`px-2 py-0.5 rounded-xl text-xs font-medium
+                                     ${user.role === 'student' ? 'bg-green-500' : 
+                                       user.role === 'company' ? 'bg-orange-500' : 'bg-primary-500'}
+                                     text-white capitalize flex-shrink-0`}>
+                        {user.role}
+                      </span>
+                    </div>
+                    <div className="text-gray-600 text-sm mb-1 truncate">
+                      {formatUserInfo(user)}
+                    </div>
+                    {formatSkills(user) && (
+                      <div className="flex items-center gap-1.5 text-primary-500 text-sm font-medium truncate">
+                        <i className="fas fa-tags text-xs"></i>
+                        <span className="truncate">{formatSkills(user)}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-1.5 ml-3 flex-shrink-0">
+                    <button
+                      className="px-4 py-2 border-none rounded-md text-xs font-medium
+                               cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5
+                               uppercase tracking-wide min-w-[90px]
+                               bg-gradient-to-r from-primary-500 to-primary-600 text-white
+                               hover:from-primary-600 hover:to-primary-700 hover:-translate-y-0.5 
+                               hover:shadow-md active:translate-y-0"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSendConnectionRequest(user);
+                      }}
+                      title="Send Connection Request"
+                    >
+                      <i className="fas fa-user-plus text-xs"></i>
+                      <span>Connect</span>
+                    </button>
+                    <button
+                      className="px-4 py-2 border border-gray-300 rounded-md text-xs font-medium
+                               cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5
+                               uppercase tracking-wide min-w-[90px]
+                               bg-gray-50 text-gray-700
+                               hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5 
+                               hover:shadow-md active:translate-y-0"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUserClick(user);
+                      }}
+                      title="View Profile"
+                    >
+                      <i className="fas fa-user text-xs"></i>
+                      <span>View</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             ))
