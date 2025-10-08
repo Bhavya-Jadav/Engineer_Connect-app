@@ -679,7 +679,6 @@ const ProfilePage = ({
           <div className="profile-hero-content">
             <div className="profile-hero-text">
               <h1>Complete Your Profile</h1>
-              <p>Build your professional presence and connect with the engineering community</p>
             </div>
             <div className="profile-completion-indicator">
               <div className="completion-circle">

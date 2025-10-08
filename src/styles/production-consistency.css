@@ -1,5 +1,6 @@
-/* Production Consistency Fixes - v2.0.0 */
-/* Timestamp: 20241223083000 */
+complete/* Production Consistency Fixes - v2.1.0 */
+/* Timestamp: 20241223090000 */
+/* Mobile Hero Section Optimization Update */
 
 /* Critical Production Overrides - Maximum Specificity */
 body.profile-page-active,
@@ -72,25 +73,84 @@ body .profile-page::before {
   justify-content: space-between !important;
 }
 
+/* Force Hero Content Consistency */
+.profile-page .profile-hero-content,
+#root .profile-page .profile-hero-content,
+.App .profile-page .profile-hero-content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.profile-page .profile-hero-text,
+#root .profile-page .profile-hero-text,
+.App .profile-page .profile-hero-text {
+  flex: 1 !important;
+  max-width: 70% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
 /* Force Hero Text Consistency */
 .profile-page .profile-hero-text h1,
 #root .profile-page .profile-hero-text h1,
 .App .profile-page .profile-hero-text h1 {
   font-size: 2.5rem !important;
   font-weight: 700 !important;
-  line-height: 1.2 !important;
-  margin: 0 0 10px 0 !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
   color: #fff !important;
+  word-wrap: break-word !important;
 }
 
 .profile-page .profile-hero-text p,
 #root .profile-page .profile-hero-text p,
 .App .profile-page .profile-hero-text p {
   font-size: 1.1rem !important;
-  line-height: 1.5 !important;
+  line-height: 1.6 !important;
   margin: 0 !important;
-  opacity: 0.9 !important;
+  opacity: 0.95 !important;
   color: #fff !important;
+  word-wrap: break-word !important;
+}
+
+/* Completion Indicator Consistency */
+.profile-page .profile-completion-indicator,
+#root .profile-page .profile-completion-indicator,
+.App .profile-page .profile-completion-indicator {
+  flex-shrink: 0 !important;
+  margin-left: 20px !important;
+}
+
+.profile-page .completion-circle,
+#root .profile-page .completion-circle,
+.App .profile-page .completion-circle {
+  width: 100px !important;
+  height: 100px !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+.profile-page .completion-percentage,
+#root .profile-page .completion-percentage,
+.App .profile-page .completion-percentage {
+  display: block !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: white !important;
+}
+
+.profile-page .completion-label,
+#root .profile-page .completion-label,
+.App .profile-page .completion-label {
+  display: block !important;
+  font-size: 0.8rem !important;
+  opacity: 0.9 !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+  color: white !important;
 }
 
 /* Deployment-Specific Font Loading */
@@ -115,23 +175,53 @@ body .profile-page::before {
   }
   
   .profile-page .profile-hero {
-    padding: 20px 16px !important;
+    padding: 24px 20px !important;
     border-radius: 16px !important;
+    margin-bottom: 16px !important;
   }
   
   .profile-page .profile-hero-content {
     flex-direction: column !important;
-    gap: 16px !important;
+    gap: 20px !important;
     text-align: center !important;
+    align-items: center !important;
+  }
+  
+  .profile-page .profile-hero-text {
+    max-width: 100% !important;
+    padding: 0 4px !important;
   }
   
   .profile-page .profile-hero-text h1 {
-    font-size: 1.75rem !important;
-    margin-bottom: 8px !important;
+    font-size: 1.6rem !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    font-weight: 700 !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
   }
   
   .profile-page .profile-hero-text p {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin: 0 auto !important;
+    opacity: 0.95 !important;
+    max-width: 90% !important;
+  }
+  
+  .profile-page .completion-circle {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  
+  .profile-page .completion-percentage {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+  }
+  
+  .profile-page .completion-label {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
   }
 }
 
@@ -141,22 +231,97 @@ body .profile-page::before {
   }
   
   .profile-page .profile-hero {
-    padding: 16px 12px !important;
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .profile-page .profile-hero-content {
+    gap: 18px !important;
+  }
+  
+  .profile-page .profile-hero-text {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .profile-page .profile-hero-text h1 {
+    font-size: 1.4rem !important;
+    margin: 0 !important;
+    line-height: 1.35 !important;
+    font-weight: 700 !important;
+  }
+  
+  .profile-page .profile-hero-text p {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    max-width: 95% !important;
+    opacity: 0.95 !important;
+  }
+  
+  .profile-page .completion-circle {
+    width: 75px !important;
+    height: 75px !important;
+  }
+  
+  .profile-page .completion-percentage {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+  }
+  
+  .profile-page .completion-label {
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .profile-page .profile-hero {
+    padding: 20px 24px !important;
+  }
+  
+  .profile-page .profile-hero-content {
+    flex-direction: row !important;
+    text-align: left !important;
+    gap: 20px !important;
+    justify-content: space-between !important;
+  }
+  
+  .profile-page .profile-hero-text {
+    max-width: 65% !important;
+    text-align: left !important;
   }
   
   .profile-page .profile-hero-text h1 {
     font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
   }
   
   .profile-page .profile-hero-text p {
     font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .profile-page .completion-circle {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  
+  .profile-page .completion-percentage {
+    font-size: 1.1rem !important;
+  }
+  
+  .profile-page .completion-label {
+    font-size: 0.7rem !important;
   }
 }
 
 /* Production Build Cache Buster */
 .production-build-v2 {
-  --build-timestamp: '20241223083000';
-  --production-version: '2.0.0';
+  --build-timestamp: '20241223090000';
+  --production-version: '2.1.0';
 }
 
 /* Environment Detection and Fixes */
