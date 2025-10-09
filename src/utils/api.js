@@ -1,4 +1,5 @@
 // API Configuration for different environments
+// Last updated: Vercel deployment fix
 const getApiUrl = () => {
   // Development environment - use local backend
   if (process.env.NODE_ENV !== 'production') {
