@@ -24,24 +24,47 @@ const GoogleLoginButton = ({ onGoogleSuccess, onGoogleError, isLoading }) => {
       };
 
       console.log('🔍 Sending to backend:', googleData);
+      console.log('🔍 API URL:', `${API_BASE_URL}/users/google-auth`);
 
-      // Send to backend using the correct API URL
-      const response = await fetch(`${API_BASE_URL}/users/google-auth`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(googleData),
-      });
+      // Create abort controller for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-      console.log('🔍 Backend response status:', response.status);
-      const data = await response.json();
-      console.log('🔍 Backend response data:', data);
+      try {
+        // Send to backend using the correct API URL
+        const response = await fetch(`${API_BASE_URL}/users/google-auth`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(googleData),
+          signal: controller.signal
+        });
 
-      if (response.ok) {
-        onGoogleSuccess(data);
-      } else {
-        onGoogleError(data.message || 'Google authentication failed on server');
+        clearTimeout(timeoutId);
+
+        console.log('🔍 Backend response status:', response.status);
+        console.log('🔍 Backend response ok:', response.ok);
+        
+        const data = await response.json();
+        console.log('🔍 Backend response data:', data);
+
+        if (response.ok) {
+          console.log('✅ Google auth successful');
+          onGoogleSuccess(data);
+        } else {
+          console.error('❌ Google auth failed:', data.message);
+          onGoogleError(data.message || 'Google authentication failed on server');
+        }
+      } catch (fetchError) {
+        clearTimeout(timeoutId);
+        if (fetchError.name === 'AbortError') {
+          console.error('⏱️ Request timeout - server took too long to respond');
+          onGoogleError('Request timeout. The server is taking too long to respond. Please try again.');
+        } else {
+          console.error('🌐 Network error:', fetchError);
+          onGoogleError('Network error: ' + fetchError.message);
+        }
       }
     } catch (error) {
       console.error('🚨 Google auth error:', error);

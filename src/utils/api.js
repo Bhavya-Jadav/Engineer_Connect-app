@@ -1,16 +1,21 @@
 // API Configuration for different environments
-// Updated to use Render backend instead of Railway
 const getApiUrl = () => {
-  // Check if we're running in production
+  // Check if we're running in production (Vercel deployment)
   if (process.env.NODE_ENV === 'production') {
-    return process.env.REACT_APP_API_BASE_URL_PROD || 'https://backend-ta5h.onrender.com/api';
+    // Use Vercel serverless functions (same domain)
+    return process.env.REACT_APP_API_BASE_URL_PROD || '/api';
   }
   
-  // Development environment
+  // Development environment - use local backend
   return process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
 };
 
 export const API_BASE_URL = getApiUrl();
+
+console.log('🔧 API Configuration:');
+console.log('   Environment:', process.env.NODE_ENV);
+console.log('   API_BASE_URL:', API_BASE_URL);
+console.log('   Full URL example:', `${API_BASE_URL}/users/google-auth`);
 
 // Helper function for making API calls
 export const apiCall = async (endpoint, options = {}) => {
