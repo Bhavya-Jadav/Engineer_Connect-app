@@ -377,7 +377,7 @@ function AppContent() {
   };
 
   const handleProfileClick = () => {
-    setShowProfilePanel(true);
+    navigate('/profile');
   };
 
   const handleShowLeaderboard = (tab) => {
