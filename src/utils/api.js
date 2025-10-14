@@ -1,14 +1,13 @@
 // API Configuration for different environments
-// Last updated: Vercel deployment fix
+// Frontend: Vercel, Backend: Render
 const getApiUrl = () => {
   // Development environment - use local backend
   if (process.env.NODE_ENV !== 'production') {
     return process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
   }
   
-  // Production environment - ALWAYS use Vercel serverless functions
-  // Ignore any external backend URLs like Render
-  return '/api';
+  // Production environment - use Render backend
+  return 'https://backend-ta5h.onrender.com/api';
 };
 
 export const API_BASE_URL = getApiUrl();
@@ -17,7 +16,7 @@ console.log('🔧 API Configuration:');
 console.log('   Environment:', process.env.NODE_ENV);
 console.log('   API_BASE_URL:', API_BASE_URL);
 console.log('   Full URL example:', `${API_BASE_URL}/users/google-auth`);
-console.log('   Using Vercel functions:', process.env.NODE_ENV === 'production');
+console.log('   Using Render backend:', process.env.NODE_ENV === 'production');
 
 // Helper function for making API calls
 export const apiCall = async (endpoint, options = {}) => {
