@@ -163,16 +163,41 @@ const StudentFeed = ({
   // Function to handle file download
   const handleFileClick = async (attachment) => {
     try {
+      // Handle both string attachments and object attachments
+      let fileName, originalName;
+      
+      if (typeof attachment === 'string') {
+        // Attachment is just a string (filename)
+        fileName = attachment;
+        originalName = attachment.split('/').pop();
+      } else if (attachment && typeof attachment === 'object') {
+        // Attachment is an object with properties
+        fileName = attachment.fileName || attachment.originalName || attachment.name;
+        originalName = attachment.originalName || attachment.fileName || attachment.name;
+      } else {
+        console.error('Invalid attachment format:', attachment);
+        alert('Unable to download file: Invalid file format');
+        return;
+      }
+
+      if (!fileName) {
+        console.error('No filename found in attachment:', attachment);
+        alert('Unable to download file: Filename missing');
+        return;
+      }
+
       const baseUrl = API_BASE_URL.replace('/api', '');
       const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
-      const downloadUrl = `${cleanBaseUrl}/api/files/download/${attachment.fileName}`;
+      const downloadUrl = `${cleanBaseUrl}/api/files/download/${fileName}`;
+      
+      console.log('📥 Downloading file:', { fileName, originalName, downloadUrl });
       
       // Fetch the file as a blob
       const response = await fetch(downloadUrl);
       if (!response.ok) {
-        // Handle 404 specifically for Railway ephemeral storage
+        // Handle 404 specifically for ephemeral storage
         if (response.status === 404) {
-          alert(`File "${attachment.originalName || attachment.fileName}" is not available.\n\nThis happens because Railway uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
+          alert(`File "${originalName}" is not available.\n\nThis happens because file storage is ephemeral - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
           return;
         }
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -188,7 +213,7 @@ const StudentFeed = ({
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = attachment.originalName || attachment.fileName;
+      a.download = originalName;
       
       // Append to body, click, and remove
       document.body.appendChild(a);
