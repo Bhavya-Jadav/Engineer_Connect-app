@@ -163,41 +163,35 @@ const StudentFeed = ({
   // Function to handle file download
   const handleFileClick = async (attachment) => {
     try {
-      // Handle both string attachments and object attachments
+      // Handle both string and object attachments
       let fileName, originalName;
       
       if (typeof attachment === 'string') {
-        // Attachment is just a string (filename)
-        fileName = attachment;
-        originalName = attachment.split('/').pop();
+        // If attachment is a string (file path), extract filename
+        fileName = attachment.split('/').pop();
+        originalName = fileName;
       } else if (attachment && typeof attachment === 'object') {
-        // Attachment is an object with properties
-        fileName = attachment.fileName || attachment.originalName || attachment.name;
-        originalName = attachment.originalName || attachment.fileName || attachment.name;
+        // If attachment is an object with fileName property
+        fileName = attachment.fileName;
+        originalName = attachment.originalName || attachment.fileName;
       } else {
-        console.error('Invalid attachment format:', attachment);
-        alert('Unable to download file: Invalid file format');
-        return;
+        throw new Error('Invalid attachment format');
       }
 
       if (!fileName) {
-        console.error('No filename found in attachment:', attachment);
-        alert('Unable to download file: Filename missing');
-        return;
+        throw new Error('File name is missing');
       }
-
+      
       const baseUrl = API_BASE_URL.replace('/api', '');
       const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
       const downloadUrl = `${cleanBaseUrl}/api/files/download/${fileName}`;
       
-      console.log('📥 Downloading file:', { fileName, originalName, downloadUrl });
-      
       // Fetch the file as a blob
       const response = await fetch(downloadUrl);
       if (!response.ok) {
-        // Handle 404 specifically for ephemeral storage
+        // Handle 404 specifically for Railway ephemeral storage
         if (response.status === 404) {
-          alert(`File "${originalName}" is not available.\n\nThis happens because file storage is ephemeral - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
+          alert(`File "${originalName}" is not available.\n\nThis happens because Railway uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
           return;
         }
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -634,7 +628,7 @@ const StudentFeed = ({
                         <span className="font-medium text-gray-700 dark:text-gray-300">Attachments</span>
                       </div>
                       <div className="p-3 max-h-48 overflow-y-auto">
-                        {problem.attachments.filter(attachment => attachment != null).map((attachment, index) => (
+                        {problem.attachments.map((attachment, index) => (
                           <div 
                             key={index} 
                             className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
@@ -779,12 +773,12 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.filter(attachment => attachment != null).map((attachment, index) => (
+                    {selectedProblem.attachments.filter(attachment => attachment && attachment.originalName).map((attachment, index) => (
                       <div 
                         key={index} 
                         className="attachment-item"
                         onClick={() => handleFileClick(attachment)}
-                        title={`Click to download ${typeof attachment === 'string' ? attachment.split('/').pop() : attachment.originalName || 'file'}`}
+                        title={`Click to download ${attachment.originalName}`}
                       >
                         <div className="attachment-icon">
                           <i 
