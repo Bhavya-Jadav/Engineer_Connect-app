@@ -163,35 +163,48 @@ const StudentFeed = ({
   // Function to handle file download
   const handleFileClick = async (attachment) => {
     try {
-      // Handle both string and object attachments
-      let fileName, originalName;
+      // Handle different attachment formats
+      let fileName, displayName;
       
-      if (typeof attachment === 'string') {
-        // If attachment is a string (file path), extract filename
-        fileName = attachment.split('/').pop();
-        originalName = fileName;
-      } else if (attachment && typeof attachment === 'object') {
-        // If attachment is an object with fileName property
-        fileName = attachment.fileName;
-        originalName = attachment.originalName || attachment.fileName;
-      } else {
-        throw new Error('Invalid attachment format');
+      if (!attachment) {
+        console.error('Attachment is null or undefined');
+        alert('File information is missing. Please try again.');
+        return;
       }
-
+      
+      // Check if attachment is a string (just file path) or object
+      if (typeof attachment === 'string') {
+        // Extract filename from path
+        fileName = attachment.split('/').pop();
+        displayName = fileName;
+      } else if (typeof attachment === 'object') {
+        // Object with fileName, originalName properties
+        fileName = attachment.fileName || attachment.filePath || attachment.path;
+        displayName = attachment.originalName || fileName;
+      } else {
+        console.error('Unknown attachment format:', attachment);
+        alert('Unable to process file. Invalid format.');
+        return;
+      }
+      
       if (!fileName) {
-        throw new Error('File name is missing');
+        console.error('Could not determine filename from:', attachment);
+        alert('File name is missing. Please try again.');
+        return;
       }
       
       const baseUrl = API_BASE_URL.replace('/api', '');
       const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
       const downloadUrl = `${cleanBaseUrl}/api/files/download/${fileName}`;
       
+      console.log('📥 Downloading file:', fileName, 'from:', downloadUrl);
+      
       // Fetch the file as a blob
       const response = await fetch(downloadUrl);
       if (!response.ok) {
-        // Handle 404 specifically for Railway ephemeral storage
+        // Handle 404 specifically for Railway/Render ephemeral storage
         if (response.status === 404) {
-          alert(`File "${originalName}" is not available.\n\nThis happens because Railway uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
+          alert(`File "${displayName}" is not available.\n\nThis happens because the backend uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
           return;
         }
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -207,7 +220,7 @@ const StudentFeed = ({
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = originalName;
+      a.download = displayName;
       
       // Append to body, click, and remove
       document.body.appendChild(a);
@@ -216,6 +229,8 @@ const StudentFeed = ({
       
       // Clean up the temporary URL
       window.URL.revokeObjectURL(url);
+      
+      console.log('✅ File downloaded successfully:', displayName);
       
     } catch (error) {
       console.error('Error downloading file:', error);
@@ -628,26 +643,33 @@ const StudentFeed = ({
                         <span className="font-medium text-gray-700 dark:text-gray-300">Attachments</span>
                       </div>
                       <div className="p-3 max-h-48 overflow-y-auto">
-                        {problem.attachments.map((attachment, index) => (
-                          <div 
-                            key={index} 
-                            className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
-                            onClick={() => handleFileClick(attachment)}
-                            title="Click to download file"
-                          >
-                            <div className="flex items-center space-x-3">
-                              <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300">
-                                <i className={`fas ${getFileIcon(attachment)}`}></i>
+                        {problem.attachments.map((attachment, index) => {
+                          // Handle both string and object formats
+                          const fileName = typeof attachment === 'string' 
+                            ? attachment.split('/').pop() 
+                            : (attachment?.originalName || attachment?.fileName || 'Attachment');
+                          
+                          return (
+                            <div 
+                              key={index} 
+                              className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
+                              onClick={() => handleFileClick(attachment)}
+                              title="Click to download file"
+                            >
+                              <div className="flex items-center space-x-3">
+                                <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300">
+                                  <i className={`fas ${getFileIcon(attachment)}`}></i>
+                                </div>
+                                <span className="text-sm text-gray-700 dark:text-gray-300 font-medium truncate max-w-[200px]">
+                                  {fileName}
+                                </span>
                               </div>
-                              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium truncate max-w-[200px]">
-                                {attachment && typeof attachment === 'string' ? attachment.split('/').pop() : 'Attachment'}
-                              </span>
+                              <div className="text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                                <i className="fas fa-download"></i>
+                              </div>
                             </div>
-                            <div className="text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                              <i className="fas fa-download"></i>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -773,31 +795,48 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.filter(attachment => attachment && attachment.originalName).map((attachment, index) => (
-                      <div 
-                        key={index} 
-                        className="attachment-item"
-                        onClick={() => handleFileClick(attachment)}
-                        title={`Click to download ${attachment.originalName}`}
-                      >
-                        <div className="attachment-icon">
-                          <i 
-                            className={getFileIcon(attachment.fileType)}
-                            style={{ color: getFileColor(attachment.fileType) }}
-                          ></i>
-                        </div>
-                        <div className="attachment-details">
-                          <span className="attachment-name">{attachment.originalName}</span>
-                          <div className="attachment-meta">
-                            <span className="attachment-type">{attachment.fileType.toUpperCase()}</span>
-                            <span className="attachment-size">{formatFileSize(attachment.fileSize)}</span>
+                    {selectedProblem.attachments.map((attachment, index) => {
+                      // Handle both string and object formats
+                      let fileName, fileType, fileSize;
+                      
+                      if (typeof attachment === 'string') {
+                        fileName = attachment.split('/').pop();
+                        fileType = fileName.split('.').pop() || 'file';
+                        fileSize = 0; // Unknown size for string attachments
+                      } else if (attachment && typeof attachment === 'object') {
+                        fileName = attachment.originalName || attachment.fileName || 'Attachment';
+                        fileType = attachment.fileType || fileName.split('.').pop() || 'file';
+                        fileSize = attachment.fileSize || 0;
+                      } else {
+                        return null; // Skip invalid attachments
+                      }
+                      
+                      return (
+                        <div 
+                          key={index} 
+                          className="attachment-item"
+                          onClick={() => handleFileClick(attachment)}
+                          title={`Click to download ${fileName}`}
+                        >
+                          <div className="attachment-icon">
+                            <i 
+                              className={getFileIcon(fileType)}
+                              style={{ color: getFileColor(fileType) }}
+                            ></i>
+                          </div>
+                          <div className="attachment-details">
+                            <span className="attachment-name">{fileName}</span>
+                            <div className="attachment-meta">
+                              <span className="attachment-type">{fileType.toUpperCase()}</span>
+                              {fileSize > 0 && <span className="attachment-size">{formatFileSize(fileSize)}</span>}
+                            </div>
+                          </div>
+                          <div className="attachment-action">
+                            <i className="fas fa-download"></i>
                           </div>
                         </div>
-                        <div className="attachment-action">
-                          <i className="fas fa-download"></i>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}
