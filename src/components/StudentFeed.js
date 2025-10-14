@@ -634,7 +634,7 @@ const StudentFeed = ({
                         <span className="font-medium text-gray-700 dark:text-gray-300">Attachments</span>
                       </div>
                       <div className="p-3 max-h-48 overflow-y-auto">
-                        {problem.attachments.map((attachment, index) => (
+                        {problem.attachments.filter(attachment => attachment != null).map((attachment, index) => (
                           <div 
                             key={index} 
                             className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
@@ -779,12 +779,12 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.filter(attachment => attachment && attachment.originalName).map((attachment, index) => (
+                    {selectedProblem.attachments.filter(attachment => attachment != null).map((attachment, index) => (
                       <div 
                         key={index} 
                         className="attachment-item"
                         onClick={() => handleFileClick(attachment)}
-                        title={`Click to download ${attachment.originalName}`}
+                        title={`Click to download ${typeof attachment === 'string' ? attachment.split('/').pop() : attachment.originalName || 'file'}`}
                       >
                         <div className="attachment-icon">
                           <i 
