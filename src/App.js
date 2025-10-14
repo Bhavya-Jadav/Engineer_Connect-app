@@ -400,23 +400,28 @@ function AppContent() {
       const token = localStorage.getItem('token');
       const companyName = currentUser?.companyName || currentUser?.username || 'Anonymous Company';
       
+      const problemPayload = {
+        company: companyName,
+        branch: formData.branch,
+        title: formData.title,
+        description: formData.description,
+        videoUrl: formData.videoUrl, // Include video URL if provided
+        difficulty: formData.difficulty,
+        tags: Array.isArray(formData.tags) ? formData.tags : (formData.tags && typeof formData.tags === 'string' ? formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []),
+        quiz: formData.quiz,
+        attachments: formData.attachments || [] // Include attachments
+      };
+      
+      console.log('📦 FRONTEND: Problem payload:', JSON.stringify(problemPayload, null, 2));
+      console.log('📎 FRONTEND: Attachments array:', formData.attachments);
+      
       const response = await fetch(`${API_BASE_URL}/problems`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          company: companyName,
-          branch: formData.branch,
-          title: formData.title,
-          description: formData.description,
-          videoUrl: formData.videoUrl, // Include video URL if provided
-          difficulty: formData.difficulty,
-          tags: Array.isArray(formData.tags) ? formData.tags : (formData.tags && typeof formData.tags === 'string' ? formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []),
-          quiz: formData.quiz,
-          attachments: formData.attachments || [] // Include attachments
-        }),
+        body: JSON.stringify(problemPayload),
       });
       
       console.log('📡 FRONTEND: Response status:', response.status);

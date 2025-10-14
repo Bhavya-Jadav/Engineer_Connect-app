@@ -643,7 +643,9 @@ const StudentFeed = ({
                         <span className="font-medium text-gray-700 dark:text-gray-300">Attachments</span>
                       </div>
                       <div className="p-3 max-h-48 overflow-y-auto">
-                        {problem.attachments.map((attachment, index) => {
+                        {problem.attachments
+                          .filter(attachment => attachment != null) // Filter out null/undefined attachments
+                          .map((attachment, index) => {
                           // Handle both string and object formats
                           const fileName = typeof attachment === 'string' 
                             ? attachment.split('/').pop() 
@@ -795,7 +797,9 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.map((attachment, index) => {
+                    {selectedProblem.attachments
+                      .filter(attachment => attachment != null) // Filter out null/undefined attachments
+                      .map((attachment, index) => {
                       // Handle both string and object formats
                       let fileName, fileType, fileSize;
                       

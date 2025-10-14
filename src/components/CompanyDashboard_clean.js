@@ -1,6 +1,7 @@
 // src/components/CompanyDashboard.js
 import React, { useState } from 'react';
 import Header from './HeaderWithBack';
+import { API_BASE_URL } from '../utils/api';
 import '../styles/modals.css';
 
 const CompanyDashboard = ({
@@ -273,14 +274,22 @@ const CompanyDashboard = ({
 
   const uploadFiles = async () => {
     if (selectedFiles.length === 0) return [];
-    console.log('Starting file upload...', selectedFiles.length, 'files');
+    console.log('📤 Starting file upload...', selectedFiles.length, 'files');
     setIsUploading(true);
     try {
       const formData = new FormData();
       selectedFiles.forEach(file => {
         formData.append('file', file);
+        console.log('📎 Adding file to FormData:', file.name);
       });
-      const uploadUrl = `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}`.replace(/\/api$/, '') + '/files/upload';
+      
+      // Use API_BASE_URL to ensure correct backend URL (local or production)
+      const baseUrl = API_BASE_URL.replace('/api', '');
+      const uploadUrl = `${baseUrl}/api/files/upload`;
+      
+      console.log('🔍 Upload URL:', uploadUrl);
+      console.log('🔍 Files to upload:', selectedFiles.map(f => f.name));
+      
       const response = await fetch(uploadUrl, {
         method: 'POST',
         headers: {
@@ -288,17 +297,24 @@ const CompanyDashboard = ({
         },
         body: formData
       });
+      
+      console.log('📥 Upload response status:', response.status);
+      
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error('File upload failed');
+        console.error('❌ Upload failed:', errorText);
+        throw new Error(`File upload failed: ${response.status}`);
       }
+      
       const result = await response.json();
+      console.log('✅ Upload result:', result);
+      
       const newAttachments = [...uploadedAttachments, result.file];
       setUploadedAttachments(newAttachments);
       setSelectedFiles([]);
       return newAttachments;
     } catch (error) {
-      console.error('File upload error:', error);
+      console.error('❌ File upload error:', error);
       alert('File upload failed. Please try again.');
       return uploadedAttachments;
     } finally {
