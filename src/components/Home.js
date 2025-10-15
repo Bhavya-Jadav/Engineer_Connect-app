@@ -44,7 +44,7 @@ const Home = ({ isLoggedIn, userRole }) => {
               Bridge Engineering Talent with Industry Challenges
             </h1>
             <p className="hero-description text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-              EngineerConnect is the premier platform where engineering students showcase their problem-solving skills 
+              SKILLINK is the premier platform where engineering students showcase their problem-solving skills 
               and companies discover the next generation of innovative talent. Join thousands of engineers solving 
               real-world challenges.
             </p>
@@ -95,7 +95,7 @@ const Home = ({ isLoggedIn, userRole }) => {
       <section className="features-section py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="features-header text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose EngineerConnect?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose SKILLINK?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">Empowering the future of engineering through collaboration</p>
           </div>
           <div className="features-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -135,7 +135,7 @@ const Home = ({ isLoggedIn, userRole }) => {
       <section className="how-it-works-section py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="how-it-works-header text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How EngineerConnect Works</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How SKILLINK Works</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">A seamless process connecting talent with opportunity</p>
           </div>
           <div className="steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -176,13 +176,13 @@ const Home = ({ isLoggedIn, userRole }) => {
         <div className="max-w-7xl mx-auto">
           <div className="testimonials-header text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">What our partners and users say about EngineerConnect</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">What our partners and users say about SKILLINK</p>
           </div>
           <div className="testimonials-grid grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="testimonial-card bg-white rounded-xl p-8 shadow-lg border border-gray-100 relative">
               <div className="absolute -top-5 left-8 text-6xl text-blue-200">"</div>
               <div className="testimonial-content pt-6 relative z-10">
-                <p className="text-gray-700 italic mb-6">EngineerConnect has revolutionized how we identify and recruit top engineering talent. The quality of solutions we receive is exceptional.</p>
+                <p className="text-gray-700 italic mb-6">SKILLINK has revolutionized how we identify and recruit top engineering talent. The quality of solutions we receive is exceptional.</p>
               </div>
               <div className="testimonial-author flex items-center">
                 <div className="author-avatar w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -212,7 +212,7 @@ const Home = ({ isLoggedIn, userRole }) => {
             <div className="testimonial-card bg-white rounded-xl p-8 shadow-lg border border-gray-100 relative">
               <div className="absolute -top-5 left-8 text-6xl text-purple-200">"</div>
               <div className="testimonial-content pt-6 relative z-10">
-                <p className="text-gray-700 italic mb-6">We've found incredibly talented engineers through EngineerConnect. It's become our go-to platform for technical hiring.</p>
+                <p className="text-gray-700 italic mb-6">We've found incredibly talented engineers through SKILLINK. It's become our go-to platform for technical hiring.</p>
               </div>
               <div className="testimonial-author flex items-center">
                 <div className="author-avatar w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">

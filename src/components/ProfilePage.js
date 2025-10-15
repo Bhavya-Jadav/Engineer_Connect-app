@@ -1635,7 +1635,7 @@ const ProfilePage = ({
                   className="btn-continue-modern"
                   onClick={handleContinue}
                 >
-                  <span>Continue to EngineerConnect</span>
+                  <span>Continue to SKILLINK</span>
                   <i className="fas fa-arrow-right"></i>
                 </button>
                 <p className="continue-note">

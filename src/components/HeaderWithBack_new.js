@@ -30,7 +30,7 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
           </button>
           <div className="logo">
             <i className="fas fa-brain"></i>
-            <span>EngineerConnect</span>
+            <span>SKILLINK</span>
           </div>
         </div>
         

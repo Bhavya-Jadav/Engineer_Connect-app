@@ -27,7 +27,7 @@ const Login = ({ loginData, setLoginData, handleLogin, setCurrentView, handleBac
               <i className="fas fa-code-branch"></i>
             </div>
             <h2 className="login-title">Sign In</h2>
-            <p className="login-subtitle">Welcome back to EngineerConnect</p>
+            <p className="login-subtitle">Welcome back to SKILLINK</p>
           </div>
           
           {/* Login Form */}

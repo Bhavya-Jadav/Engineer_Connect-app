@@ -44,9 +44,9 @@ export default Header;onst Header = ({ isLoggedIn, currentUser, userRole, handle
             <i className="fas fa-arrow-left"></i>
           </button>
         )}
-        <div className="logo" style={{ display: 'flex', alignItems: 'center' }}>
-          <i className="fas fa-code-branch"></i>
-          <span>EngineerConnect</span>
+                <div className="logo">
+          <i className="fas fa-brain"></i>
+          <span>SKILLINK</span>
         </div>
       </div>
       <nav className="header-nav">

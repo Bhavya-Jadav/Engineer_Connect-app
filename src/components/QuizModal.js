@@ -120,7 +120,7 @@ const QuizModal = ({ quiz, problem, onClose, onSubmit }) => {
         </button>
         <div className="quiz-logo">
           <i className="fas fa-code-branch"></i>
-          <span>EngineerConnect</span>
+          <span>SKILLINK</span>
         </div>
       </div>
       <div className="quiz-header-center">

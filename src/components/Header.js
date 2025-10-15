@@ -51,7 +51,7 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
       <div className="header-left">
         <div className="logo">
           <i className="fas fa-brain"></i>
-          <span className="logo-text">EngineerConnect</span>
+          <span className="logo-text">SKILLINK</span>
         </div>
       </div>
       

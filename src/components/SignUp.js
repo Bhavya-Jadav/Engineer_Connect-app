@@ -28,7 +28,7 @@ const SignUp = ({ signupData, setSignupData, handleSignUp, setCurrentView, handl
             <div className="signup-logo">
               <i className="fas fa-users-cog"></i>
             </div>
-            <h1 className="signup-title">Join EngineerConnect</h1>
+            <h1 className="signup-title">Join SKILLINK</h1>
             <p className="signup-subtitle">Create your professional account</p>
           </div>
           

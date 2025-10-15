@@ -364,16 +364,8 @@ function AppContent() {
   };
 
   const handleBack = () => {
-    const currentPath = location.pathname;
-    if (currentPath === '/login' || currentPath === '/signup') {
-      navigate('/');
-    } else if (currentPath === '/feed') {
-      navigate('/');
-    } else if (currentPath === '/dashboard') {
-      navigate('/');
-    } else {
-      navigate('/');
-    }
+    // Use browser's history to go back one step
+    navigate(-1);
   };
 
   const handleProfileClick = () => {

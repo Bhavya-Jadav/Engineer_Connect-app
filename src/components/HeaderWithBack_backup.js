@@ -30,7 +30,7 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
           )}
           <div className="logo">
             <i className="fas fa-code-branch"></i>
-            <span>EngineerConnect</span>
+            <span>SKILLINK</span>
           </div>
         </div>
         <nav className="header-nav">
