@@ -12,7 +12,7 @@ html.profile-page-active body,
   padding: 0 !important;
   min-height: 100vh !important;
   overflow-x: hidden !important;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1) !important;
+  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
 }
 
 /* Force ProfilePage Container Consistency */
@@ -37,7 +37,7 @@ body .profile-page::before {
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1) !important;
+  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
   z-index: -1 !important;
 }
 
@@ -48,11 +48,11 @@ body .profile-page::before {
   background: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(59, 130, 246, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
   border-radius: 24px !important;
   box-shadow: 
-    0 20px 60px rgba(59, 130, 246, 0.12),
-    0 8px 24px rgba(45, 212, 218, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.08),
     inset 0 0 0 1px rgba(255, 255, 255, 0.9) !important;
   overflow: visible !important;
   transition: all 0.3s ease !important;
@@ -63,7 +63,7 @@ body .profile-page::before {
 .profile-page .profile-hero,
 #root .profile-page .profile-hero,
 .App .profile-page .profile-hero {
-  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  background: linear-gradient(135deg, #000000, #333333) !important;
   color: #fff !important;
   border-radius: 20px !important;
   padding: 40px 30px !important;
@@ -339,7 +339,7 @@ body:not(.local-development) .profile-page,
 .production-build .profile-page,
 .vercel-deployment .profile-page {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1) !important;
+  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
 }
 
 /* Final Override for Maximum Compatibility */
@@ -354,9 +354,9 @@ html, body {
 
 /* Ensure CSS Variables are Available in Production */
 :root {
-  --profile-bg: linear-gradient(135deg, #f8fafc, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1);
-  --profile-hero-bg: linear-gradient(135deg, #667eea, #764ba2);
+  --profile-bg: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0);
+  --profile-hero-bg: linear-gradient(135deg, #000000, #333333);
   --profile-card-bg: rgba(255, 255, 255, 0.98);
-  --profile-border: rgba(59, 130, 246, 0.15);
-  --profile-shadow: 0 20px 60px rgba(59, 130, 246, 0.12), 0 8px 24px rgba(45, 212, 218, 0.08);
+  --profile-border: rgba(0, 0, 0, 0.15);
+  --profile-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
 }

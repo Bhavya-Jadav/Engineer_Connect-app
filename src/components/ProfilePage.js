@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
@@ -18,7 +18,7 @@ const ProfilePage = ({
   const criticalStyles = {
     profilePage: {
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%)',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 25%, #eeeeee 75%, #e0e0e0 100%)',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
       paddingTop: '64px',
       overflowX: 'hidden',
@@ -39,7 +39,7 @@ const ProfilePage = ({
       zIndex: 2
     },
     hero: {
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
       color: 'white',
       padding: '40px 30px',
       borderRadius: '20px',
@@ -61,7 +61,7 @@ const ProfilePage = ({
     },
     profileHeader: {
       padding: '30px !important',
-      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%) !important',
       borderBottom: '1px solid #e9ecef !important'
     },
     avatar: {
@@ -87,7 +87,7 @@ const ProfilePage = ({
       gap: '10px'
     },
     btn: {
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #000000, #333333)',
       color: 'white',
       border: 'none',
       borderRadius: '10px',
@@ -170,6 +170,8 @@ const ProfilePage = ({
     projects: currentUser?.projects || []
   });
   const [newSkill, setNewSkill] = useState('');
+  const [profilePicture, setProfilePicture] = useState(currentUser?.profilePicture || null);
+  const fileInputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -184,7 +186,7 @@ const ProfilePage = ({
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       margin: 0 !important;
       padding: 0 !important;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 25%, #eeeeee 75%, #e0e0e0 100%) !important;
       overflow-x: hidden !important;
       min-height: 100vh !important;
     `;
@@ -207,7 +209,7 @@ const ProfilePage = ({
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 25%, #eeeeee 75%, #e0e0e0 100%) !important;
         overflow-x: hidden !important;
         min-height: 100vh !important;
       }
@@ -220,7 +222,7 @@ const ProfilePage = ({
       html body .profile-page,
       #root .profile-page,
       .App .profile-page { 
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 75%, #cbd5e1 100%) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 25%, #eeeeee 75%, #e0e0e0 100%) !important;
         min-height: 100vh !important;
         padding-top: 64px !important;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
@@ -246,7 +248,7 @@ const ProfilePage = ({
       .profile-hero,
       div[class*="profile-hero"],
       .profile-page .profile-hero {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: linear-gradient(135deg, #000000 0%, #333333 100%) !important;
         color: white !important;
         padding: 40px 30px !important;
         border-radius: 20px !important;
@@ -409,6 +411,58 @@ const ProfilePage = ({
     } catch (error) {
       showMessage('error', 'Network error. Please try again.');
     }
+  };
+
+  // Handle profile picture upload
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      showMessage('error', 'Please select an image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showMessage('error', 'Image size should be less than 5MB');
+      return;
+    }
+
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/profile-picture`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setProfilePicture(data.profilePicture);
+        
+        // Update currentUser in localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        user.profilePicture = data.profilePicture;
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        showMessage('success', 'Profile picture updated successfully!');
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        showMessage('error', error.message || 'Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      showMessage('error', 'Network error. Please try again.');
+    }
+    setIsLoading(false);
   };
 
   const handleProfileUpdate = async () => {
@@ -736,9 +790,21 @@ const ProfilePage = ({
                           <i className="fas fa-user"></i>
                         </div>
                       )}
-                      <div className="avatar-badge">
+                      <div 
+                        className="avatar-badge" 
+                        onClick={() => fileInputRef.current?.click()}
+                        style={{ cursor: 'pointer' }}
+                        title="Upload profile picture"
+                      >
                         <i className="fas fa-camera"></i>
                       </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        style={{ display: 'none' }}
+                      />
                     </div>
                     <div className="profile-info-modern">
                       <h2>{currentUser?.name || currentUser?.username || 'User'}</h2>
@@ -1484,9 +1550,21 @@ const ProfilePage = ({
                           <i className="fas fa-user"></i>
                         </div>
                       )}
-                      <div className="avatar-badge">
+                      <div 
+                        className="avatar-badge"
+                        onClick={() => fileInputRef.current?.click()}
+                        style={{ cursor: 'pointer' }}
+                        title="Upload profile picture"
+                      >
                         <i className="fas fa-camera"></i>
                       </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        style={{ display: 'none' }}
+                      />
                     </div>
                     <div className="profile-info-modern">
                       <h2>{currentUser?.name || currentUser?.username || 'User'}</h2>
