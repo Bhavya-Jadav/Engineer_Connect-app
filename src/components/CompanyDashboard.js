@@ -466,25 +466,41 @@ const CompanyDashboard = ({
     setIsLoadingIdeas(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/ideas?problemId=${problemId}`, {
+      
+      // Fetch ideas specifically for this problem only
+      const apiUrl = `${API_BASE_URL}/ideas?problemId=${problemId}`;
+      console.log('🔍 Fetching ideas for problem:', problemId, 'from:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
       });
+      
       if (!response.ok) {
         const errorText = await response.text();
+        console.error('❌ Failed to fetch ideas:', errorText);
         throw new Error(`Error: ${response.status} - ${errorText}`);
       }
+      
       const data = await response.json();
+      console.log('✅ Ideas received for this problem:', data.length, 'ideas');
+      
+      // Find the specific problem from the company's problems list
       const problem = problems.find(p => p._id === problemId);
+      
       if (problem) {
+        // Only show ideas for THIS specific problem
         setSelectedProblemForIdeas({ ...problem, ideas: data });
         setSelectedStudentIdea(null);
+      } else {
+        throw new Error('Problem not found in your problems list');
       }
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      console.error('❌ Error fetching ideas:', error);
+      alert(`Error loading solutions: ${error.message}`);
     } finally {
       setIsLoadingIdeas(false);
     }
