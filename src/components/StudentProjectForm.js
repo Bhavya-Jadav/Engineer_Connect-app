@@ -134,6 +134,49 @@ const StudentProjectForm = ({ onProjectCreated, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Client-side validation
+    if (!formData.title.trim()) {
+      showMessage('error', 'Please enter a project title');
+      return;
+    }
+    
+    if (!formData.description.trim()) {
+      showMessage('error', 'Please enter a project description');
+      return;
+    }
+    
+    if (formData.technologies.length === 0) {
+      showMessage('error', 'Please add at least one technology');
+      return;
+    }
+    
+    // Validate file sizes
+    if (files.videoFile) {
+      const maxVideoSize = 100 * 1024 * 1024; // 100MB
+      if (files.videoFile.size > maxVideoSize) {
+        showMessage('error', 'Video file is too large. Maximum size is 100MB');
+        return;
+      }
+    }
+    
+    if (files.attachments.length > 0) {
+      const maxAttachmentSize = 10 * 1024 * 1024; // 10MB per file
+      for (let file of files.attachments) {
+        if (file.size > maxAttachmentSize) {
+          showMessage('error', `Attachment "${file.name}" is too large. Maximum size is 10MB per file`);
+          return;
+        }
+      }
+      
+      // Check total attachments size
+      const totalSize = files.attachments.reduce((sum, file) => sum + file.size, 0);
+      if (totalSize > 50 * 1024 * 1024) { // 50MB total
+        showMessage('error', 'Total attachments size is too large. Maximum total size is 50MB');
+        return;
+      }
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -166,17 +209,58 @@ const StudentProjectForm = ({ onProjectCreated, onCancel }) => {
         body: submitFormData
       });
 
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      const isJson = contentType && contentType.includes('application/json');
+
       if (response.ok) {
-        const newProject = await response.json();
-        showMessage('success', 'Project created successfully!');
-        onProjectCreated(newProject);
+        if (isJson) {
+          const newProject = await response.json();
+          showMessage('success', 'Project created successfully!');
+          onProjectCreated(newProject);
+        } else {
+          showMessage('error', 'Server error: Invalid response format');
+        }
       } else {
-        const error = await response.json();
-        showMessage('error', error.message || 'Failed to create project');
+        // Handle error responses
+        let errorMessage = 'Failed to create project';
+        
+        if (isJson) {
+          try {
+            const error = await response.json();
+            errorMessage = error.message || errorMessage;
+          } catch (e) {
+            console.error('Error parsing error response:', e);
+          }
+        } else {
+          // Server returned HTML error page
+          const errorText = await response.text();
+          console.error('Server error (HTML response):', errorText.substring(0, 200));
+          
+          if (response.status === 500) {
+            errorMessage = 'Server error. Please check:\n1. All files are valid\n2. Video file size is acceptable\n3. All required fields are filled';
+          } else if (response.status === 413) {
+            errorMessage = 'Files are too large. Please reduce file sizes and try again.';
+          } else if (response.status === 401) {
+            errorMessage = 'Authentication failed. Please login again.';
+          } else {
+            errorMessage = `Server error (${response.status}). Please try again later.`;
+          }
+        }
+        
+        showMessage('error', errorMessage);
       }
     } catch (error) {
       console.error('Create project error:', error);
-      showMessage('error', 'Network error. Please try again.');
+      
+      // More specific error messages
+      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        showMessage('error', 'Network error. Please check your internet connection.');
+      } else if (error instanceof SyntaxError) {
+        showMessage('error', 'Server returned invalid data. Please try again or contact support.');
+      } else {
+        showMessage('error', 'An unexpected error occurred. Please try again.');
+      }
     }
     
     setIsSubmitting(false);
