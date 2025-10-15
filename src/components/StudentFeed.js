@@ -507,113 +507,60 @@ const StudentFeed = ({
               </div>
             ) : (
               filteredProblems.map((problem) => (
-              <div key={problem._id} className="problem-card relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden mb-6 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                {/* Status Ribbon */}
-                <div className="absolute top-0 right-0">
-                  <div className="bg-emerald-500 text-white px-4 py-1 shadow-lg transform rotate-45 translate-x-[30%] translate-y-[-10%] font-semibold">
-                    Open
-                  </div>
-                </div>
-                
-                {/* Card Header with Company Info */}
-                <div className="flex items-start p-6 pb-4">
-                  <div className="company-avatar flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
-                    <i className="fas fa-building text-xl"></i>
-                  </div>
-                  
-                  <div className="ml-4 flex-grow">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 
-                          className="text-lg font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer"
+              <div 
+                key={problem._id} 
+                className="problem-card bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 overflow-hidden border border-gray-200 dark:border-gray-700"
+              >
+                {/* Card Header */}
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 
+                        className="text-lg sm:text-xl font-extrabold text-black dark:text-white mb-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 line-clamp-2 leading-tight px-1 py-0.5 -mx-1 rounded"
+                        onClick={() => handleProblemClick(problem)}
+                        title="Click to view full details"
+                      >
+                        {problem.title || 'Untitled Problem'}
+                      </h3>
+                      <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                        <span 
+                          className="inline-flex items-center gap-1 font-extrabold text-sm sm:text-base text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer transition-all duration-200 px-2 py-1 rounded-md border-2 border-transparent hover:border-black dark:hover:border-white"
                           onClick={() => handleCompanyClick(problem.company)}
                           title={`View all problems from ${problem.company || 'Unknown Company'}`}
                         >
+                          <i className="fas fa-building text-xs"></i>
                           {problem.company || 'Unknown Company'}
-                        </h4>
-                        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          <i className="fas fa-sitemap mr-2"></i>
-                          <span>{problem.branch || 'General'}</span>
-                          <span className="mx-2">•</span>
-                          <i className="far fa-clock mr-2"></i>
-                          <span>{formatDate(problem.createdAt)}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex space-x-1">
-                        {problem.videoUrl && (
-                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                            <i className="fas fa-play-circle mr-1"></i>
-                            Video
-                          </span>
-                        )}
-                        {problem.attachments && problem.attachments.length > 0 && (
-                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-                            <i className="fas fa-paperclip mr-1"></i>
-                            {problem.attachments.length}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Problem Title & Description */}
-                <div className="px-6 pb-4">
-                  <h3 
-                    className="text-xl font-bold text-gray-900 dark:text-white mb-3 group cursor-pointer"
-                    onClick={() => handleProblemClick(problem)}
-                    title="Click to view full details"
-                  >
-                    <span className="inline-block border-b-2 border-transparent group-hover:border-indigo-500 transition-all duration-200">
-                      {problem.title || 'Untitled Problem'}
-                    </span>
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {problem.description && problem.description.length > 140
-                      ? `${problem.description.substring(0, 140)}...`
-                      : problem.description || 'No description available'}
-                  </p>
-                </div>
-                
-                {/* Stats Bar */}
-                <div className="flex justify-between items-center px-6 py-3 bg-gray-50 dark:bg-gray-700 border-t border-b border-gray-100 dark:border-gray-600">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center text-amber-500 dark:text-amber-300 mr-2">
-                        <i className="fas fa-lightbulb"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white">{problem.ideas ? problem.ideas.length : 0}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">Solutions</div>
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <i className="fas fa-code-branch text-xs"></i>
+                          {problem.branch || 'General'}
+                        </span>
+                        <span>•</span>
+                        <span>{formatDate(problem.createdAt)}</span>
                       </div>
                     </div>
                     
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 dark:text-blue-300 mr-2">
-                        <i className="fas fa-eye"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white">{problem.views || 0}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">Views</div>
-                      </div>
+                    {/* Difficulty Badge */}
+                    <div className={`px-2 py-1 rounded-lg text-xs font-semibold whitespace-nowrap border ${
+                      problem.difficulty === 'beginner' ? 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600' :
+                      problem.difficulty === 'advanced' ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-gray-200' :
+                      'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
+                    }`}>
+                      {problem.difficulty || 'intermediate'}
                     </div>
                   </div>
                   
-                  <div className={`px-3 py-1 rounded-lg text-xs font-semibold ${
-                    problem.difficulty === 'Easy' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                    problem.difficulty === 'Hard' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                  }`}>
-                    {problem.difficulty || 'Medium'}
-                  </div>
+                  {/* Description */}
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 line-clamp-2">
+                    {problem.description || 'No description available'}
+                  </p>
                 </div>
-                
-                {/* Media Preview Section */}
+
+                {/* Media Section - Only show if exists */}
                 {problem.videoUrl && problem.videoUrl.trim() !== '' && (
-                  <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700">
-                    <div className="relative rounded-xl overflow-hidden shadow-md">
+                  <div className="px-4 pt-3">
+                    <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
                       <iframe
                         src={getEmbedUrl(problem.videoUrl)}
                         title={`Video for ${problem.title}`}
@@ -622,93 +569,108 @@ const StudentFeed = ({
                         className="w-full aspect-video"
                       ></iframe>
                       <div 
-                        className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-opacity-10" 
+                        className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 flex items-center justify-center cursor-pointer transition-all duration-200" 
                         onClick={() => handleVideoClick(problem.videoUrl)}
-                        title="Click to open video in new tab"
+                        title="Click to open in new tab"
                       >
-                        <div className="bg-white bg-opacity-90 rounded-full w-16 h-16 flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-110">
-                          <i className="fas fa-play text-indigo-600 text-xl"></i>
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                          <i className="fas fa-external-link-alt text-gray-900 dark:text-white text-sm sm:text-base"></i>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
-                
-                {/* Files Preview */}
+
+                {/* Attachments - Compact view */}
                 {problem.attachments && problem.attachments.length > 0 && (
-                  <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
-                      <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center">
-                        <i className="fas fa-paperclip text-purple-500 mr-2"></i>
-                        <span className="font-medium text-gray-700 dark:text-gray-300">Attachments</span>
-                      </div>
-                      <div className="p-3 max-h-48 overflow-y-auto">
-                        {problem.attachments
-                          .filter(attachment => attachment != null) // Filter out null/undefined attachments
-                          .map((attachment, index) => {
-                          // Handle both string and object formats
-                          const fileName = typeof attachment === 'string' 
-                            ? attachment.split('/').pop() 
-                            : (attachment?.originalName || attachment?.fileName || 'Attachment');
-                          
-                          return (
-                            <div 
-                              key={index} 
-                              className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
-                              onClick={() => handleFileClick(attachment)}
-                              title="Click to download file"
-                            >
-                              <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300">
-                                  <i className={`fas ${getFileIcon(attachment)}`}></i>
-                                </div>
-                                <span className="text-sm text-gray-700 dark:text-gray-300 font-medium truncate max-w-[200px]">
-                                  {fileName}
-                                </span>
-                              </div>
-                              <div className="text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                                <i className="fas fa-download"></i>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
+                  <div className="px-4 pt-3">
+                    <div className="flex flex-wrap gap-2">
+                      {problem.attachments.map((attachment, index) => {
+                        const fileName = typeof attachment === 'string' 
+                          ? attachment.split('/').pop() 
+                          : (attachment?.originalName || attachment?.fileName || 'Attachment');
+                        
+                        return (
+                          <button
+                            key={index}
+                            onClick={() => handleFileClick(attachment)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-xs text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                            title={`Download ${fileName}`}
+                          >
+                            <i className={`${getFileIcon(attachment)} text-sm`}></i>
+                            <span className="max-w-[120px] sm:max-w-[150px] truncate">{fileName}</span>
+                            <i className="fas fa-download text-xs"></i>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
-                
-                {/* Tags & Actions */}
-                <div className="px-6 py-4 flex flex-wrap items-center justify-between gap-y-3 border-t border-gray-100 dark:border-gray-700">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {problem.tags && problem.tags.map((tag, index) => (
-                      <span 
-                        key={index} 
-                        className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-                        onClick={() => handleTagClick(tag)}
-                        title={`View all problems with tag: ${tag}`}
-                      >
-                        #{tag}
-                      </span>
-                    ))}
+
+                {/* Tags - Compact */}
+                {problem.tags && problem.tags.length > 0 && (
+                  <div className="px-4 pt-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {problem.tags.slice(0, 3).map((tag, index) => (
+                        <span 
+                          key={index}
+                          onClick={() => handleTagClick(tag)}
+                          className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
+                          title={`View all problems with tag: ${tag}`}
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                      {problem.tags.length > 3 && (
+                        <span className="inline-block px-2 py-0.5 text-gray-500 dark:text-gray-400 text-xs">
+                          +{problem.tags.length - 3}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  
+                )}
+
+                {/* Footer - Stats & Actions */}
+                <div className="px-4 py-3 flex items-center justify-between gap-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-b-lg">
+                  {/* Stats */}
+                  <div className="flex items-center gap-3 sm:gap-4 text-xs text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-1" title="Solutions submitted">
+                      <i className="fas fa-lightbulb"></i>
+                      <span className="font-medium">{problem.ideas ? problem.ideas.length : 0}</span>
+                    </div>
+                    <div className="flex items-center gap-1" title="Views">
+                      <i className="fas fa-eye"></i>
+                      <span className="font-medium">{problem.views || 0}</span>
+                    </div>
+                    {problem.videoUrl && (
+                      <div className="flex items-center gap-1" title="Has video">
+                        <i className="fas fa-play-circle"></i>
+                      </div>
+                    )}
+                    {problem.attachments && problem.attachments.length > 0 && (
+                      <div className="flex items-center gap-1" title={`${problem.attachments.length} attachment(s)`}>
+                        <i className="fas fa-paperclip"></i>
+                        <span className="font-medium">{problem.attachments.length}</span>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Action Buttons */}
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center gap-2">
                     <button 
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                       onClick={() => handleProblemClick(problem)}
-                      title="View full problem details"
+                      className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900 text-xs sm:text-sm font-medium rounded-lg transition-colors flex items-center gap-1.5"
+                      title="View and solve this problem"
                     >
-                      <i className="fas fa-lightbulb mr-2"></i>
-                      Solve Problem
+                      <i className="fas fa-arrow-right"></i>
+                      <span className="hidden sm:inline">Solve</span>
                     </button>
                     <button 
-                      className="inline-flex items-center p-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                       onClick={() => handleShareClick(problem)}
+                      className="p-1.5 sm:p-2 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
                       title="Share this problem"
                     >
-                      <i className="fas fa-share-alt"></i>
+                      <i className="fas fa-share-alt text-sm"></i>
                     </button>
                   </div>
                 </div>
@@ -797,9 +759,7 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments
-                      .filter(attachment => attachment != null) // Filter out null/undefined attachments
-                      .map((attachment, index) => {
+                    {selectedProblem.attachments.map((attachment, index) => {
                       // Handle both string and object formats
                       let fileName, fileType, fileSize;
                       
