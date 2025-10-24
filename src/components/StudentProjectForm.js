@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { API_BASE_URL } from '../utils/api';
 import '../styles/StudentProjectForm.css';
 
-const StudentProjectForm = ({ onProjectCreated, onCancel }) => {
+const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -267,17 +267,19 @@ const StudentProjectForm = ({ onProjectCreated, onCancel }) => {
   };
 
   return (
-    <div className="student-project-form-overlay">
-      <div className="student-project-form-container">
-        <div className="form-header">
-          <h2>
-            <i className="fas fa-project-diagram"></i>
-            Share Your Project
-          </h2>
-          <button className="close-btn" onClick={onCancel}>
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
+    <div className={isInline ? "student-project-form-inline" : "student-project-form-overlay"}>
+      <div className={isInline ? "student-project-form-inline-container" : "student-project-form-container"}>
+        {!isInline && (
+          <div className="form-header">
+            <h2>
+              <i className="fas fa-project-diagram"></i>
+              Share Your Project
+            </h2>
+            <button className="close-btn" onClick={onCancel}>
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+        )}
 
         {message.text && (
           <div className={`message-toast ${message.type}`}>

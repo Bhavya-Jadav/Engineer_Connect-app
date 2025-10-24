@@ -148,8 +148,10 @@ const ProfilePage = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [savingSection, setSavingSection] = useState(null); // Track which section is being saved
   const [message, setMessage] = useState({ type: '', text: '' });
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const [isAddingShowcaseProject, setIsAddingShowcaseProject] = useState(false); // Track if adding showcase project
   const [myProjects, setMyProjects] = useState([]);
   const [profileData, setProfileData] = useState({
     name: currentUser?.name || '',
@@ -387,6 +389,7 @@ const ProfilePage = ({
   const handleProjectCreated = (newProject) => {
     setMyProjects(prev => [newProject, ...prev]);
     setShowProjectForm(false);
+    setIsAddingShowcaseProject(false); // Reset the flag
     showMessage('success', 'Project created successfully!');
   };
 
@@ -491,6 +494,36 @@ const ProfilePage = ({
       showMessage('error', 'Network error. Please try again.');
     }
     setIsLoading(false);
+  };
+
+  // Save individual section
+  const handleSectionSave = async (sectionName, sectionData) => {
+    setSavingSection(sectionName);
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ [sectionName]: sectionData })
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        // Update only the specific section in localStorage
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+        currentUser[sectionName] = sectionData;
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        showMessage('success', `${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)} saved successfully!`);
+      } else {
+        const error = await response.json();
+        showMessage('error', error.message || `Failed to save ${sectionName}`);
+      }
+    } catch (error) {
+      showMessage('error', 'Network error. Please try again.');
+    }
+    setSavingSection(null);
   };
 
   const handleAddSkill = () => {
@@ -859,6 +892,29 @@ const ProfilePage = ({
                         <p>Basic details about yourself</p>
                       </div>
                     </div>
+                    <button 
+                      type="button"
+                      onClick={() => handleSectionSave('personalInfo', {
+                        name: profileData.name,
+                        email: profileData.email,
+                        phone: profileData.phone,
+                        role: profileData.role
+                      })}
+                      className="save-section-btn"
+                      disabled={savingSection === 'personalInfo'}
+                    >
+                      {savingSection === 'personalInfo' ? (
+                        <>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Saving...</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-save"></i>
+                          <span>Save</span>
+                        </>
+                      )}
+                    </button>
                   </div>
                   <div className="form-grid-modern">
                     <div className="form-group-modern">
@@ -942,6 +998,28 @@ const ProfilePage = ({
                           <p>Your educational background</p>
                         </div>
                       </div>
+                      <button 
+                        type="button"
+                        onClick={() => handleSectionSave('academicInfo', {
+                          university: profileData.university,
+                          course: profileData.course,
+                          year: profileData.year
+                        })}
+                        className="save-section-btn"
+                        disabled={savingSection === 'academicInfo'}
+                      >
+                        {savingSection === 'academicInfo' ? (
+                          <>
+                            <i className="fas fa-spinner fa-spin"></i>
+                            <span>Saving...</span>
+                          </>
+                        ) : (
+                          <>
+                            <i className="fas fa-save"></i>
+                            <span>Save</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                     <div className="form-grid-modern">
                       <div className="form-group-modern">
@@ -999,6 +1077,24 @@ const ProfilePage = ({
                           <p>Provide your company details</p>
                         </div>
                       </div>
+                      <button 
+                        type="button"
+                        onClick={() => handleSectionSave('companyName', profileData.companyName)}
+                        className="save-section-btn"
+                        disabled={savingSection === 'companyName'}
+                      >
+                        {savingSection === 'companyName' ? (
+                          <>
+                            <i className="fas fa-spinner fa-spin"></i>
+                            <span>Saving...</span>
+                          </>
+                        ) : (
+                          <>
+                            <i className="fas fa-save"></i>
+                            <span>Save</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                     <div className="form-grid-modern">
                       <div className="form-group-modern">
@@ -1027,6 +1123,24 @@ const ProfilePage = ({
                         <p>Tell us about yourself</p>
                       </div>
                     </div>
+                    <button 
+                      type="button"
+                      onClick={() => handleSectionSave('bio', profileData.bio)}
+                      className="save-section-btn"
+                      disabled={savingSection === 'bio'}
+                    >
+                      {savingSection === 'bio' ? (
+                        <>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Saving...</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-save"></i>
+                          <span>Save</span>
+                        </>
+                      )}
+                    </button>
                   </div>
                   <div className="form-group-modern full-width">
                     <label>Bio</label>
@@ -1052,6 +1166,24 @@ const ProfilePage = ({
                         <p>Showcase your technical skills</p>
                       </div>
                     </div>
+                    <button 
+                      type="button"
+                      onClick={() => handleSectionSave('skills', profileData.skills)}
+                      className="save-section-btn"
+                      disabled={savingSection === 'skills'}
+                    >
+                      {savingSection === 'skills' ? (
+                        <>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Saving...</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-save"></i>
+                          <span>Save</span>
+                        </>
+                      )}
+                    </button>
                   </div>
                   <div className="skills-input-modern">
                     <input
@@ -1113,9 +1245,29 @@ const ProfilePage = ({
                             <p>Your educational background</p>
                           </div>
                         </div>
-                        <button type="button" onClick={addEducation} className="add-section-btn">
-                          <i className="fas fa-plus"></i> Add Education
-                        </button>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('education', profileData.education)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'education'}
+                          >
+                            {savingSection === 'education' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          <button type="button" onClick={addEducation} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Education
+                          </button>
+                        </div>
                       </div>
                       {profileData.education.map((edu) => (
                         <div key={edu.id} className="dynamic-entry" data-education-id={edu.id}>
@@ -1191,9 +1343,29 @@ const ProfilePage = ({
                             <p>Online courses and certifications</p>
                           </div>
                         </div>
-                        <button type="button" onClick={addCourse} className="add-section-btn">
-                          <i className="fas fa-plus"></i> Add Course
-                        </button>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('courses', profileData.courses)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'courses'}
+                          >
+                            {savingSection === 'courses' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          <button type="button" onClick={addCourse} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Course
+                          </button>
+                        </div>
                       </div>
                       {profileData.courses.map((course) => (
                         <div key={course.id} className="dynamic-entry" data-course-id={course.id}>
@@ -1260,9 +1432,29 @@ const ProfilePage = ({
                             <p>Languages you speak</p>
                           </div>
                         </div>
-                        <button type="button" onClick={addLanguage} className="add-section-btn">
-                          <i className="fas fa-plus"></i> Add Language
-                        </button>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('languages', profileData.languages)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'languages'}
+                          >
+                            {savingSection === 'languages' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          <button type="button" onClick={addLanguage} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Language
+                          </button>
+                        </div>
                       </div>
                       {profileData.languages.map((lang) => (
                         <div key={lang.id} className="dynamic-entry">
@@ -1313,9 +1505,29 @@ const ProfilePage = ({
                             <p>Awards, honors, and accomplishments</p>
                           </div>
                         </div>
-                        <button type="button" onClick={addAchievement} className="add-section-btn">
-                          <i className="fas fa-plus"></i> Add Achievement
-                        </button>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('achievements', profileData.achievements)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'achievements'}
+                          >
+                            {savingSection === 'achievements' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          <button type="button" onClick={addAchievement} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Achievement
+                          </button>
+                        </div>
                       </div>
                       {profileData.achievements.map((ach) => (
                         <div key={ach.id} className="dynamic-entry">
@@ -1360,7 +1572,7 @@ const ProfilePage = ({
                       ))}
                     </div>
 
-                    {/* Projects Section */}
+                    {/* Unified Projects Section */}
                     <div className="form-section-modern">
                       <div className="section-header">
                         <div className="section-header-content">
@@ -1369,17 +1581,75 @@ const ProfilePage = ({
                           </div>
                           <div className="section-title">
                             <h3>Projects</h3>
-                            <p>Personal and academic projects</p>
+                            <p>Showcase all your projects in one place</p>
                           </div>
                         </div>
-                        <button type="button" onClick={addProject} className="add-section-btn">
-                          <i className="fas fa-plus"></i> Add Project
-                        </button>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('projects', profileData.projects)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'projects'}
+                          >
+                            {savingSection === 'projects' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          {!isAddingShowcaseProject && (
+                            <>
+                              <button type="button" onClick={addProject} className="add-section-btn">
+                                <i className="fas fa-plus"></i> Add Simple Project
+                              </button>
+                              <button 
+                                type="button" 
+                                onClick={() => setIsAddingShowcaseProject(true)} 
+                                className="add-section-btn showcase-btn"
+                              >
+                                <i className="fas fa-rocket"></i> Add Showcase Project
+                              </button>
+                            </>
+                          )}
+                        </div>
                       </div>
+
+                      {/* Showcase Project Form (Inline) */}
+                      {isAddingShowcaseProject && (
+                        <div className="inline-showcase-form">
+                          <div className="inline-form-header">
+                            <h4>
+                              <i className="fas fa-rocket"></i>
+                              Add Showcase Project
+                            </h4>
+                            <button 
+                              type="button"
+                              onClick={() => setIsAddingShowcaseProject(false)}
+                              className="cancel-inline-form-btn"
+                            >
+                              <i className="fas fa-times"></i>
+                              Cancel
+                            </button>
+                          </div>
+                          <StudentProjectForm
+                            onProjectCreated={handleProjectCreated}
+                            onCancel={() => setIsAddingShowcaseProject(false)}
+                            isInline={true}
+                          />
+                        </div>
+                      )}
+
+                      {/* Simple Projects */}
                       {profileData.projects.map((proj) => (
                         <div key={proj.id} className="dynamic-entry">
                           <div className="entry-header">
-                            <h4>Project Entry</h4>
+                            <h4>Simple Project</h4>
                             <button type="button" onClick={() => removeProject(proj.id)} className="remove-entry-btn">
                               <i className="fas fa-trash"></i>
                             </button>
@@ -1428,43 +1698,19 @@ const ProfilePage = ({
                           </div>
                         </div>
                       ))}
-                    </div>
-
-                    {/* Advanced Student Projects Section */}
-                    <div className="form-section-modern">
-                      <div className="section-header">
-                        <div className="section-header-content">
-                          <div className="section-icon">
-                            <i className="fas fa-rocket"></i>
-                          </div>
-                          <div className="section-title">
-                            <h3>Showcase Projects</h3>
-                            <p>Share your detailed projects with videos and files</p>
-                          </div>
-                        </div>
-                        <button 
-                          type="button" 
-                          onClick={() => setShowProjectForm(true)} 
-                          className="add-section-btn showcase-btn"
-                        >
-                          <i className="fas fa-plus"></i> Add Showcase Project
-                        </button>
-                      </div>
                       
-                      <div className="showcase-projects-container">
-                        {myProjects.length > 0 ? (
+                      {/* Showcase Projects */}
+                      {myProjects.length > 0 && (
+                        <div className="showcase-projects-container">
+                          <h4 className="subsection-title">
+                            <i className="fas fa-rocket"></i> Showcase Projects
+                          </h4>
                           <div className="my-projects-grid">
-                            {myProjects.slice(0, 3).map((project) => (
+                            {myProjects.map((project) => (
                               <div key={project._id} className="my-project-card">
                                 <div className="project-header">
                                   <h4>{project.title}</h4>
                                   <div className="project-actions">
-                                    <button 
-                                      className="edit-project-btn"
-                                      title="Edit Project"
-                                    >
-                                      <i className="fas fa-edit"></i>
-                                    </button>
                                     <button 
                                       className="delete-project-btn"
                                       onClick={() => handleDeleteProject(project._id)}
@@ -1506,32 +1752,18 @@ const ProfilePage = ({
                               </div>
                             ))}
                           </div>
-                        ) : (
-                          <div className="no-projects-state">
-                            <div className="no-projects-icon">
-                              <i className="fas fa-rocket"></i>
-                            </div>
-                            <h4>No showcase projects yet</h4>
-                            <p>Create your first project to showcase your skills with videos, files, and detailed descriptions!</p>
-                            <button 
-                              type="button" 
-                              onClick={() => setShowProjectForm(true)} 
-                              className="create-first-project-btn"
-                            >
-                              <i className="fas fa-plus"></i> Create Your First Project
-                            </button>
+                        </div>
+                      )}
+
+                      {profileData.projects.length === 0 && myProjects.length === 0 && !isAddingShowcaseProject && (
+                        <div className="no-projects-state">
+                          <div className="no-projects-icon">
+                            <i className="fas fa-project-diagram"></i>
                           </div>
-                        )}
-                        
-                        {myProjects.length > 3 && (
-                          <div className="view-all-projects">
-                            <button className="view-all-btn">
-                              View All {myProjects.length} Projects
-                              <i className="fas fa-arrow-right"></i>
-                            </button>
-                          </div>
-                        )}
-                      </div>
+                          <h4>No projects yet</h4>
+                          <p>Add simple projects or create showcase projects with videos and detailed descriptions!</p>
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
@@ -1724,14 +1956,6 @@ const ProfilePage = ({
           </div>
         </div>
       </div>
-      
-      {/* Student Project Form Modal */}
-      {showProjectForm && (
-        <StudentProjectForm
-          onProjectCreated={handleProjectCreated}
-          onCancel={() => setShowProjectForm(false)}
-        />
-      )}
     </div>
   );
 };
