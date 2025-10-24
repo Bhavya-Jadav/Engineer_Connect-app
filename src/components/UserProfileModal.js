@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ConnectionButton from './ConnectionButton';
 import './UserProfileModal.css';
+import './ProjectDetailModal.css';
 
 const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpdate }) => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  
   if (!isOpen || !user) return null;
 
   const formatSkills = (skills) => {
@@ -35,6 +38,14 @@ const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpda
         </div>
       </div>
     );
+  };
+
+  const handleViewProject = (project) => {
+    setSelectedProject(project);
+  };
+
+  const closeProjectDetail = () => {
+    setSelectedProject(null);
   };
 
   return (
@@ -146,11 +157,12 @@ const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpda
                   <h4>{project.title}</h4>
                   <p>{project.description}</p>
                   {project.technologies && <div className="project-tech">Technologies: {project.technologies}</div>}
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-                      <i className="fas fa-external-link-alt"></i> View Project
-                    </a>
-                  )}
+                  <button 
+                    onClick={() => handleViewProject(project)}
+                    className="project-link view-project-btn-modal"
+                  >
+                    <i className="fas fa-external-link-alt"></i> View Project
+                  </button>
                 </div>
               ))}
             </div>
@@ -224,6 +236,75 @@ const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpda
             </div>
           ))}
         </div>
+
+        {/* Project Detail Modal */}
+        {selectedProject && (
+          <div className="project-detail-overlay" onClick={closeProjectDetail}>
+            <div className="project-detail-modal" onClick={(e) => e.stopPropagation()}>
+              {/* Modal Header */}
+              <div className="project-detail-header">
+                <div className="header-top">
+                  <h2>{selectedProject.title}</h2>
+                  <button className="close-detail-btn" onClick={closeProjectDetail}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Content */}
+              <div className="project-detail-content">
+                {/* Description */}
+                <div className="detail-section">
+                  <h3>
+                    <i className="fas fa-info-circle"></i>
+                    Description
+                  </h3>
+                  <p className="project-description-full">{selectedProject.description}</p>
+                </div>
+
+                {/* Technologies */}
+                {selectedProject.technologies && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-code"></i>
+                      Technologies Used
+                    </h3>
+                    <div className="technologies-grid">
+                      {selectedProject.technologies.split(',').map((tech, index) => (
+                        <span key={index} className="tech-badge">{tech.trim()}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Project Link */}
+                {selectedProject.link && (
+                  <div className="detail-section links-section">
+                    <h3>
+                      <i className="fas fa-link"></i>
+                      Project Link
+                    </h3>
+                    <div className="project-links-grid">
+                      <a 
+                        href={selectedProject.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-link-card"
+                      >
+                        <i className="fas fa-external-link-alt"></i>
+                        <div className="link-info">
+                          <span className="link-title">View Project</span>
+                          <span className="link-url">{selectedProject.link}</span>
+                        </div>
+                        <i className="fas fa-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

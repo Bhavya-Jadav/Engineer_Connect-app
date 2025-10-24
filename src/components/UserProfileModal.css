@@ -332,7 +332,8 @@
   letter-spacing: 0.5px;
 }
 
-.project-link {
+.project-link,
+.view-project-btn-modal {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -345,9 +346,12 @@
   border: 2px solid #000000;
   border-radius: 6px;
   background: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-.project-link:hover {
+.project-link:hover,
+.view-project-btn-modal:hover {
   background: #000000;
   color: #ffffff;
   transform: translateY(-2px);

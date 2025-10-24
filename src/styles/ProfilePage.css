@@ -1903,6 +1903,42 @@ body {
   font-size: 0.8rem;
 }
 
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.view-project-btn {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
+  padding: 8px 16px;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.view-project-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateX(3px);
+}
+
+.view-project-btn i {
+  font-size: 0.9rem;
+}
+
 .no-projects-state {
   text-align: center;
   padding: 40px 20px;

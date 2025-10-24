@@ -4,6 +4,7 @@ import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
+import './ProjectDetailModal.css';
 
 const ProfilePage = ({ 
   currentUser, 
@@ -153,6 +154,7 @@ const ProfilePage = ({
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [isAddingShowcaseProject, setIsAddingShowcaseProject] = useState(false); // Track if adding showcase project
   const [myProjects, setMyProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null); // For project detail modal
   const [profileData, setProfileData] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
@@ -391,6 +393,21 @@ const ProfilePage = ({
     setShowProjectForm(false);
     setIsAddingShowcaseProject(false); // Reset the flag
     showMessage('success', 'Project created successfully!');
+  };
+
+  const handleViewProject = (project) => {
+    setSelectedProject(project);
+    // Increment view count
+    fetch(`${API_BASE_URL}/student-projects/${project._id}/view`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }).catch(err => console.error('Error incrementing view:', err));
+  };
+
+  const closeProjectDetail = () => {
+    setSelectedProject(null);
   };
 
   const handleDeleteProject = async (projectId) => {
@@ -1744,10 +1761,19 @@ const ProfilePage = ({
                                   </div>
                                 )}
                                 
-                                <div className="project-stats">
-                                  <span><i className="fas fa-eye"></i> {project.views}</span>
-                                  <span><i className="fas fa-heart"></i> {project.likeCount || 0}</span>
-                                  <span><i className="fas fa-comment"></i> {project.commentCount || 0}</span>
+                                <div className="project-footer">
+                                  <div className="project-stats">
+                                    <span><i className="fas fa-eye"></i> {project.views}</span>
+                                    <span><i className="fas fa-heart"></i> {project.likeCount || 0}</span>
+                                    <span><i className="fas fa-comment"></i> {project.commentCount || 0}</span>
+                                  </div>
+                                  <button 
+                                    className="view-project-btn"
+                                    onClick={() => handleViewProject(project)}
+                                  >
+                                    <i className="fas fa-external-link-alt"></i>
+                                    View Project
+                                  </button>
                                 </div>
                               </div>
                             ))}
@@ -1955,6 +1981,276 @@ const ProfilePage = ({
             </div>
           </div>
         </div>
+
+        {/* Project Detail Modal */}
+        {selectedProject && (
+          <div className="project-detail-overlay" onClick={closeProjectDetail}>
+            <div className="project-detail-modal" onClick={(e) => e.stopPropagation()}>
+              {/* Modal Header */}
+              <div className="project-detail-header">
+                <div className="header-top">
+                  <h2>{selectedProject.title}</h2>
+                  <button className="close-detail-btn" onClick={closeProjectDetail}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+                <div className="header-meta">
+                  <span className={`difficulty-badge ${selectedProject.difficulty.toLowerCase()}`}>
+                    {selectedProject.difficulty}
+                  </span>
+                  <span className="category-badge">{selectedProject.category}</span>
+                  {selectedProject.status && (
+                    <span className="status-badge">{selectedProject.status}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Modal Content */}
+              <div className="project-detail-content">
+                {/* Author Info */}
+                <div className="detail-section author-section">
+                  <div className="author-card">
+                    <div className="author-avatar-large">
+                      {selectedProject.postedBy?.profilePicture ? (
+                        <img src={selectedProject.postedBy.profilePicture} alt={selectedProject.postedBy.name} />
+                      ) : (
+                        <div className="avatar-placeholder-large">
+                          {selectedProject.postedBy?.name?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                      )}
+                    </div>
+                    <div className="author-info-detailed">
+                      <h4>{selectedProject.postedBy?.name || 'Unknown'}</h4>
+                      <p>{selectedProject.postedBy?.university || ''}</p>
+                      <p className="posted-date">
+                        <i className="fas fa-calendar"></i>
+                        Posted on {new Date(selectedProject.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="project-stats-detailed">
+                    <div className="stat-item-detailed">
+                      <i className="fas fa-eye"></i>
+                      <span>{selectedProject.views} views</span>
+                    </div>
+                    <div className="stat-item-detailed">
+                      <i className="fas fa-heart"></i>
+                      <span>{selectedProject.likeCount || 0} likes</span>
+                    </div>
+                    <div className="stat-item-detailed">
+                      <i className="fas fa-comment"></i>
+                      <span>{selectedProject.commentCount || 0} comments</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="detail-section">
+                  <h3>
+                    <i className="fas fa-info-circle"></i>
+                    Description
+                  </h3>
+                  <p className="project-description-full">{selectedProject.description}</p>
+                </div>
+
+                {/* Technologies */}
+                {selectedProject.technologies && selectedProject.technologies.length > 0 && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-code"></i>
+                      Technologies Used
+                    </h3>
+                    <div className="technologies-grid">
+                      {selectedProject.technologies.map((tech, index) => (
+                        <span key={index} className="tech-badge">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Learning Tags */}
+                {selectedProject.learningTags && selectedProject.learningTags.length > 0 && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-lightbulb"></i>
+                      What I Learned
+                    </h3>
+                    <div className="learning-tags-grid">
+                      {selectedProject.learningTags.map((tag, index) => (
+                        <span key={index} className="learning-badge">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Project Links Section - Only show if there are links */}
+                {(selectedProject.githubLink || selectedProject.liveDemo || selectedProject.videoUrl) && (
+                  <div className="detail-section links-section">
+                    <h3>
+                      <i className="fas fa-link"></i>
+                      Project Links
+                    </h3>
+                    <div className="project-links-grid">
+                      {selectedProject.githubLink && (
+                        <a 
+                          href={selectedProject.githubLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="project-link-card"
+                        >
+                          <i className="fab fa-github"></i>
+                          <div className="link-info">
+                            <span className="link-title">GitHub Repository</span>
+                            <span className="link-url">{selectedProject.githubLink}</span>
+                          </div>
+                          <i className="fas fa-external-link-alt"></i>
+                        </a>
+                      )}
+                      {selectedProject.liveDemo && (
+                        <a 
+                          href={selectedProject.liveDemo} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="project-link-card"
+                        >
+                          <i className="fas fa-globe"></i>
+                          <div className="link-info">
+                            <span className="link-title">Live Demo</span>
+                            <span className="link-url">{selectedProject.liveDemo}</span>
+                          </div>
+                          <i className="fas fa-external-link-alt"></i>
+                        </a>
+                      )}
+                      {selectedProject.videoUrl && (
+                        <a 
+                          href={selectedProject.videoUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="project-link-card"
+                        >
+                          <i className="fas fa-video"></i>
+                          <div className="link-info">
+                            <span className="link-title">Project Video</span>
+                            <span className="link-url">{selectedProject.videoUrl}</span>
+                          </div>
+                          <i className="fas fa-external-link-alt"></i>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Video File - Only show if uploaded */}
+                {selectedProject.videoFile && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-play-circle"></i>
+                      Project Video
+                    </h3>
+                    <div className="video-container">
+                      <video controls className="project-video">
+                        <source src={selectedProject.videoFile} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                )}
+
+                {/* Attachments - Only show if there are attachments */}
+                {selectedProject.attachments && selectedProject.attachments.length > 0 && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-paperclip"></i>
+                      Attachments ({selectedProject.attachments.length})
+                    </h3>
+                    <div className="attachments-grid">
+                      {selectedProject.attachments.map((attachment, index) => (
+                        <a 
+                          key={index}
+                          href={attachment.url || attachment}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="attachment-card"
+                        >
+                          <i className="fas fa-file"></i>
+                          <span className="attachment-name">
+                            {attachment.name || `Attachment ${index + 1}`}
+                          </span>
+                          <i className="fas fa-download"></i>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Additional Project Details - Only show if data exists */}
+                {(selectedProject.duration || selectedProject.teamSize || selectedProject.visibility) && (
+                  <div className="detail-section additional-info">
+                    <h3>
+                      <i className="fas fa-info"></i>
+                      Additional Information
+                    </h3>
+                    <div className="info-grid">
+                      {selectedProject.duration && (
+                        <div className="info-item">
+                          <span className="info-label">
+                            <i className="fas fa-clock"></i>
+                            Duration
+                          </span>
+                          <span className="info-value">{selectedProject.duration}</span>
+                        </div>
+                      )}
+                      {selectedProject.teamSize && (
+                        <div className="info-item">
+                          <span className="info-label">
+                            <i className="fas fa-users"></i>
+                            Team Size
+                          </span>
+                          <span className="info-value">{selectedProject.teamSize} {selectedProject.teamSize === 1 ? 'person' : 'people'}</span>
+                        </div>
+                      )}
+                      {selectedProject.visibility && (
+                        <div className="info-item">
+                          <span className="info-label">
+                            <i className="fas fa-eye"></i>
+                            Visibility
+                          </span>
+                          <span className="info-value">{selectedProject.visibility}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Collaborators - Only show if there are collaborators */}
+                {selectedProject.collaborators && selectedProject.collaborators.length > 0 && (
+                  <div className="detail-section">
+                    <h3>
+                      <i className="fas fa-user-friends"></i>
+                      Collaborators
+                    </h3>
+                    <div className="collaborators-list">
+                      {selectedProject.collaborators.map((collaborator, index) => (
+                        <div key={index} className="collaborator-card">
+                          <div className="collaborator-info">
+                            <h4>{collaborator.name}</h4>
+                            <p className="collaborator-role">{collaborator.role}</p>
+                            {collaborator.contact && (
+                              <p className="collaborator-contact">
+                                <i className="fas fa-envelope"></i>
+                                {collaborator.contact}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
