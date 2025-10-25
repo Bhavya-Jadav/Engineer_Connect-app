@@ -9,6 +9,9 @@ const ProjectShowcase = () => {
   const [projects, setProjects] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  
+  // API Base URL
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
   useEffect(() => {
     // Get user data from location state (passed from UserProfileModal)
@@ -94,7 +97,7 @@ const ProjectShowcase = () => {
                   <p className="project-description">{project.description}</p>
 
                   {/* Video Section */}
-                  {(project.videoUrl || project.videoFile) && (
+                  {(project.videoUrl || project.videoFileId || project.videoFile) && (
                     <div className="video-section">
                       <h4><i className="fas fa-video"></i> Project Video</h4>
                       <div className="video-container">
@@ -106,7 +109,17 @@ const ProjectShowcase = () => {
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                           ></iframe>
+                        ) : project.videoFileId ? (
+                          // NEW: MongoDB File reference
+                          <video controls key={project.videoFileId._id}>
+                            <source 
+                              src={`${API_BASE_URL}/files/view/${project.videoFileId._id}`} 
+                              type={project.videoFileId.mimeType || 'video/mp4'} 
+                            />
+                            Your browser does not support the video tag.
+                          </video>
                         ) : project.videoFile && project.videoFile.filename && (
+                          // OLD: Backward compatibility for local files
                           <video controls key={project.videoFile.filename}>
                             <source 
                               src={`http://localhost:5000/uploads/projects/videos/${project.videoFile.filename}`} 
@@ -116,7 +129,12 @@ const ProjectShowcase = () => {
                           </video>
                         )}
                       </div>
-                      {project.videoFile && project.videoFile.filename && (
+                      {project.videoFileId && (
+                        <p style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
+                          Video: {project.videoFileId.originalName} ({(project.videoFileId.fileSize / (1024 * 1024)).toFixed(2)} MB)
+                        </p>
+                      )}
+                      {!project.videoFileId && project.videoFile && project.videoFile.filename && (
                         <p style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
                           Video: {project.videoFile.originalName || project.videoFile.filename}
                         </p>
@@ -125,11 +143,38 @@ const ProjectShowcase = () => {
                   )}
 
                   {/* Attachments Section */}
-                  {project.attachments && project.attachments.length > 0 && (
+                  {((project.attachmentIds && project.attachmentIds.length > 0) || 
+                    (project.attachments && project.attachments.length > 0)) && (
                     <div className="attachments-section">
-                      <h4><i className="fas fa-paperclip"></i> Attachments ({project.attachments.length})</h4>
+                      <h4>
+                        <i className="fas fa-paperclip"></i> Attachments ({
+                          project.attachmentIds?.length || project.attachments?.length || 0
+                        })
+                      </h4>
                       <div className="attachments-list">
-                        {project.attachments.map((file, idx) => (
+                        {/* NEW: MongoDB File references */}
+                        {project.attachmentIds && project.attachmentIds.map((file) => (
+                          <a 
+                            key={file._id}
+                            href={`${API_BASE_URL}/files/download/${file._id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="attachment-item"
+                            download={file.originalName}
+                          >
+                            <i className="fas fa-file"></i>
+                            <div className="file-info">
+                              <span className="file-name">{file.originalName}</span>
+                              <span className="file-size">
+                                {(file.fileSize / 1024).toFixed(2)} KB
+                              </span>
+                            </div>
+                            <i className="fas fa-download"></i>
+                          </a>
+                        ))}
+                        
+                        {/* OLD: Backward compatibility for local files */}
+                        {!project.attachmentIds && project.attachments && project.attachments.map((file, idx) => (
                           <a 
                             key={idx}
                             href={`http://localhost:5000/uploads/projects/files/${file.filename}`}
@@ -328,7 +373,7 @@ const ProjectShowcase = () => {
               </div>
 
               {/* Video Section in Modal */}
-              {(selectedProject.videoUrl || selectedProject.videoFile) && (
+              {(selectedProject.videoUrl || selectedProject.videoFileId || selectedProject.videoFile) && (
                 <div className="detail-section">
                   <h3>
                     <i className="fas fa-video"></i>
@@ -343,7 +388,17 @@ const ProjectShowcase = () => {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       ></iframe>
+                    ) : selectedProject.videoFileId ? (
+                      // NEW: MongoDB File reference
+                      <video controls key={selectedProject.videoFileId._id}>
+                        <source 
+                          src={`${API_BASE_URL}/files/view/${selectedProject.videoFileId._id}`} 
+                          type={selectedProject.videoFileId.mimeType || 'video/mp4'} 
+                        />
+                        Your browser does not support the video tag.
+                      </video>
                     ) : selectedProject.videoFile && selectedProject.videoFile.filename && (
+                      // OLD: Backward compatibility
                       <video controls key={selectedProject.videoFile.filename}>
                         <source 
                           src={`http://localhost:5000/uploads/projects/videos/${selectedProject.videoFile.filename}`} 
@@ -357,14 +412,39 @@ const ProjectShowcase = () => {
               )}
 
               {/* Attachments Section in Modal */}
-              {selectedProject.attachments && selectedProject.attachments.length > 0 && (
+              {((selectedProject.attachmentIds && selectedProject.attachmentIds.length > 0) ||
+                (selectedProject.attachments && selectedProject.attachments.length > 0)) && (
                 <div className="detail-section">
                   <h3>
                     <i className="fas fa-paperclip"></i>
-                    Attachments ({selectedProject.attachments.length})
+                    Attachments ({selectedProject.attachmentIds?.length || selectedProject.attachments?.length || 0})
                   </h3>
                   <div className="attachments-grid-modal">
-                    {selectedProject.attachments.map((file, idx) => (
+                    {/* NEW: MongoDB File references */}
+                    {selectedProject.attachmentIds && selectedProject.attachmentIds.map((file) => (
+                      <a 
+                        key={file._id}
+                        href={`${API_BASE_URL}/files/download/${file._id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="attachment-card"
+                        download={file.originalName}
+                      >
+                        <div className="attachment-icon">
+                          <i className="fas fa-file-alt"></i>
+                        </div>
+                        <div className="attachment-details">
+                          <span className="attachment-name">{file.originalName}</span>
+                          <span className="attachment-size">
+                            {(file.fileSize / 1024).toFixed(2)} KB
+                          </span>
+                        </div>
+                        <i className="fas fa-download download-icon"></i>
+                      </a>
+                    ))}
+                    
+                    {/* OLD: Backward compatibility */}
+                    {!selectedProject.attachmentIds && selectedProject.attachments && selectedProject.attachments.map((file, idx) => (
                       <a 
                         key={idx}
                         href={`http://localhost:5000/uploads/projects/files/${file.filename}`}
