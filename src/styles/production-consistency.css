@@ -1,8 +1,8 @@
-complete/* Production Consistency Fixes - v2.1.0 */
-/* Timestamp: 20241223090000 */
-/* Mobile Hero Section Optimization Update */
+complete/* Production Consistency Fixes - v3.0.0 - BLACK & WHITE THEME */
+/* Timestamp: 20250125000000 */
+/* Professional B&W Theme Update */
 
-/* Critical Production Overrides - Maximum Specificity */
+/* Critical Production Overrides - Maximum Specificity - B&W Theme */
 body.profile-page-active,
 html.profile-page-active body,
 #root .profile-page,
@@ -12,7 +12,7 @@ html.profile-page-active body,
   padding: 0 !important;
   min-height: 100vh !important;
   overflow-x: hidden !important;
-  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
+  background: linear-gradient(135deg, #ffffff, #f8f8f8 25%, #f0f0f0 75%, #e8e8e8) !important;
 }
 
 /* Force ProfilePage Container Consistency */
@@ -27,7 +27,7 @@ body .profile-page .profile-page-container {
   z-index: 1 !important;
 }
 
-/* Production ProfilePage Background */
+/* Production ProfilePage Background - B&W Theme */
 #root .profile-page::before,
 .App .profile-page::before,
 body .profile-page::before {
@@ -37,40 +37,39 @@ body .profile-page::before {
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
+  background: linear-gradient(135deg, #ffffff, #f8f8f8 25%, #f0f0f0 75%, #e8e8e8) !important;
   z-index: -1 !important;
 }
 
-/* Force ProfilePage Cards Consistency */
+/* Force ProfilePage Cards Consistency - B&W Theme */
 .profile-page .profile-card,
 #root .profile-page .profile-card,
 .App .profile-page .profile-card {
-  background: rgba(255, 255, 255, 0.98) !important;
+  background: #ffffff !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(0, 0, 0, 0.15) !important;
-  border-radius: 24px !important;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
   overflow: visible !important;
   transition: all 0.3s ease !important;
   margin-bottom: 30px !important;
 }
 
-/* Force Hero Section Consistency */
+/* Force Hero Section Consistency - B&W Theme */
 .profile-page .profile-hero,
 #root .profile-page .profile-hero,
 .App .profile-page .profile-hero {
-  background: linear-gradient(135deg, #000000, #333333) !important;
+  background: linear-gradient(135deg, #000000, #1a1a1a) !important;
   color: #fff !important;
-  border-radius: 20px !important;
-  padding: 40px 30px !important;
+  border-radius: 0 !important;
+  padding: 50px 40px !important;
   margin-bottom: 30px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Force Hero Content Consistency */
@@ -92,16 +91,18 @@ body .profile-page::before {
   align-items: center !important;
 }
 
-/* Force Hero Text Consistency */
+/* Force Hero Text Consistency - B&W Theme */
 .profile-page .profile-hero-text h1,
 #root .profile-page .profile-hero-text h1,
 .App .profile-page .profile-hero-text h1 {
-  font-size: 2.5rem !important;
-  font-weight: 700 !important;
-  line-height: 1.25 !important;
+  font-size: 2.8rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
   margin: 0 !important;
   color: #fff !important;
   word-wrap: break-word !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
 }
 
 .profile-page .profile-hero-text p,
@@ -110,9 +111,10 @@ body .profile-page::before {
   font-size: 1.1rem !important;
   line-height: 1.6 !important;
   margin: 0 !important;
-  opacity: 0.95 !important;
+  opacity: 0.9 !important;
   color: #fff !important;
   word-wrap: break-word !important;
+  font-weight: 400 !important;
 }
 
 /* Completion Indicator Consistency */
@@ -334,12 +336,19 @@ body .profile-page::before {
   }
 }
 
-/* Critical Production Path Consistency */
+/* Critical Production Path Consistency - B&W Theme */
 body:not(.local-development) .profile-page,
 .production-build .profile-page,
 .vercel-deployment .profile-page {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
-  background: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0) !important;
+  background: linear-gradient(135deg, #ffffff, #f8f8f8 25%, #f0f0f0 75%, #e8e8e8) !important;
+}
+
+/* Production Build Cache Buster - B&W Theme */
+.production-build-v3 {
+  --build-timestamp: '20250125000000';
+  --production-version: '3.0.0';
+    --theme: 'black-white-professional';
 }
 
 /* Final Override for Maximum Compatibility */
@@ -352,11 +361,14 @@ html, body {
   padding: 0 !important;
 }
 
-/* Ensure CSS Variables are Available in Production */
+/* Ensure CSS Variables are Available in Production - B&W Theme */
 :root {
-  --profile-bg: linear-gradient(135deg, #ffffff, #f5f5f5 25%, #eeeeee 75%, #e0e0e0);
-  --profile-hero-bg: linear-gradient(135deg, #000000, #333333);
-  --profile-card-bg: rgba(255, 255, 255, 0.98);
-  --profile-border: rgba(0, 0, 0, 0.15);
-  --profile-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+  --profile-bg: linear-gradient(135deg, #ffffff, #f8f8f8 25%, #f0f0f0 75%, #e8e8e8);
+  --profile-hero-bg: linear-gradient(135deg, #000000, #1a1a1a);
+  --profile-card-bg: #ffffff;
+  --profile-border: #000000;
+  --profile-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --profile-text-primary: #000000;
+  --profile-text-secondary: #666666;
+  --profile-accent: #000000;
 }

@@ -1,0 +1,602 @@
+/* =====================================================
+   🎨 PROFILE PAGE - PROFESSIONAL BLACK & WHITE THEME
+   Complete Redesign for Production
+   ===================================================== */
+
+/* Override all existing color styles with B&W theme */
+
+/* ===== BUTTONS - B&W PROFESSIONAL ===== */
+.btn-edit-profile,
+.btn-save-profile,
+.btn-cancel,
+.add-section-btn,
+.save-section-btn,
+.create-first-project-btn,
+.btn-continue-modern {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+}
+
+.btn-edit-profile:hover,
+.btn-save-profile:hover,
+.add-section-btn:hover,
+.save-section-btn:hover,
+.create-first-project-btn:hover,
+.btn-continue-modern:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-cancel,
+.cancel-inline-form-btn,
+.remove-entry-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.btn-cancel:hover,
+.cancel-inline-form-btn:hover,
+.remove-entry-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.showcase-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.showcase-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* ===== FORM INPUTS - B&W PROFESSIONAL ===== */
+.input-modern,
+.textarea-modern,
+select.input-modern {
+  background: #ffffff !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  color: #000000 !important;
+  padding: 12px 16px !important;
+  font-size: 15px !important;
+  transition: all 0.3s ease !important;
+}
+
+.input-modern:focus,
+.textarea-modern:focus,
+select.input-modern:focus {
+  border-color: #000000 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.input-modern::placeholder,
+.textarea-modern::placeholder {
+  color: #999999 !important;
+}
+
+/* ===== PROFILE HEADER - B&W ===== */
+.profile-header-display-modern,
+.profile-header-modern {
+  background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%) !important;
+  border-bottom: 3px solid #000000 !important;
+  padding: 40px !important;
+}
+
+.profile-avatar-modern {
+  border: 4px solid #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+.avatar-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+.avatar-badge:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+.profile-role-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 6px 16px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* ===== SECTIONS - B&W ===== */
+.profile-section-modern,
+.form-section-modern {
+  background: #ffffff !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  padding: 30px !important;
+  margin-bottom: 25px !important;
+  transition: all 0.3s ease !important;
+}
+
+.profile-section-modern:hover,
+.form-section-modern:hover {
+  border-color: #000000 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.section-header {
+  border-bottom: 2px solid #000000 !important;
+  padding-bottom: 15px !important;
+  margin-bottom: 25px !important;
+}
+
+.section-icon {
+  background: #000000 !important;
+  color: #ffffff !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.section-icon i,
+.section-icon .fas,
+.section-icon .far,
+.section-icon .fab {
+  color: #ffffff !important;
+  font-size: 18px !important;
+}
+
+/* Ensure all FontAwesome icons in section headers are white */
+.section-header i,
+.section-header .fas,
+.section-header .far,
+.section-header .fab {
+  color: #ffffff !important;
+}
+
+/* Profile section modern specific */
+.profile-section-modern .section-icon,
+.form-section-modern .section-icon {
+  background: #000000 !important;
+}
+
+.profile-section-modern .section-icon i,
+.profile-section-modern .section-icon .fas,
+.form-section-modern .section-icon i,
+.form-section-modern .section-icon .fas {
+  color: #ffffff !important;
+}
+
+.section-title h3 {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 18px !important;
+}
+
+.section-title p {
+  color: #666666 !important;
+  font-size: 13px !important;
+}
+
+/* ===== SKILLS & TAGS - B&W ===== */
+.skill-tag-modern,
+.skill-tag {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 8px 16px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-size: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.skill-tag-modern:hover,
+.skill-tag:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+}
+
+.remove-skill-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  margin-left: 8px !important;
+}
+
+.remove-skill-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* ===== PROJECT CARDS - B&W ===== */
+.my-project-card {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 25px !important;
+  transition: all 0.3s ease !important;
+}
+
+.my-project-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-3px) !important;
+  border-color: #000000 !important;
+}
+
+.project-category,
+.project-difficulty {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 4px 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-size: 11px !important;
+}
+
+.tech-tag {
+  background: #f0f0f0 !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 4px 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+}
+
+.view-project-btn {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 10px 20px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+}
+
+.view-project-btn:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  transform: translateX(3px) !important;
+}
+
+.delete-project-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 8px 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.delete-project-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* ===== DYNAMIC ENTRIES - B&W ===== */
+.dynamic-entry {
+  background: #f8f8f8 !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  padding: 25px !important;
+  margin-bottom: 20px !important;
+  transition: all 0.3s ease !important;
+}
+
+.dynamic-entry:hover {
+  border-color: #000000 !important;
+  background: #ffffff !important;
+}
+
+.entry-header {
+  border-bottom: 2px solid #000000 !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 20px !important;
+}
+
+.entry-header h4 {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* ===== MESSAGE TOAST - B&W ===== */
+.message-toast {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.message-toast.success {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.message-toast.error {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ff0000 !important;
+}
+
+/* ===== PROFILE INFO DISPLAY - B&W ===== */
+.detail-item-modern {
+  border-bottom: 1px solid #e0e0e0 !important;
+  padding: 15px 0 !important;
+}
+
+.detail-label-modern {
+  color: #666666 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-size: 12px !important;
+}
+
+.detail-value-modern {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
+
+/* ===== COMPLETION INDICATOR - B&W ===== */
+.completion-percentage {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.completion-label {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.completion-ring circle {
+  stroke: #ffffff !important;
+}
+
+/* ===== INLINE FORMS - B&W ===== */
+.inline-showcase-form {
+  background: #ffffff !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 25px !important;
+}
+
+.inline-form-header {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+  color: #ffffff !important;
+  padding: 20px 30px !important;
+  border-bottom: 3px solid #000000 !important;
+}
+
+.inline-form-header h4 {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* ===== PROFILE ACTIONS - B&W ===== */
+.profile-actions-modern {
+  display: flex !important;
+  gap: 15px !important;
+}
+
+/* ===== NO DATA STATES - B&W ===== */
+.no-projects-state,
+.no-data-message {
+  background: #f8f8f8 !important;
+  border: 2px dashed #cccccc !important;
+  border-radius: 0 !important;
+  padding: 40px !important;
+  text-align: center !important;
+}
+
+.no-projects-icon,
+.no-data-icon {
+  color: #cccccc !important;
+}
+
+/* ===== PROFILE BIO - B&W ===== */
+.profile-bio-modern {
+  color: #333333 !important;
+  line-height: 1.8 !important;
+  font-size: 15px !important;
+  background: #f8f8f8 !important;
+  padding: 20px !important;
+  border-left: 4px solid #000000 !important;
+}
+
+/* ===== CONTINUE SECTION - B&W ===== */
+.profile-continue-section {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+  color: #ffffff !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 50px !important;
+  text-align: center !important;
+}
+
+.continue-icon {
+  background: #ffffff !important;
+  color: #000000 !important;
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50% !important;
+  margin: 0 auto 25px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 36px !important;
+  border: 3px solid #ffffff !important;
+}
+
+.continue-title {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  font-size: 28px !important;
+  margin-bottom: 15px !important;
+}
+
+.continue-description {
+  color: #ffffff !important;
+  opacity: 0.9 !important;
+  font-size: 16px !important;
+  margin-bottom: 30px !important;
+}
+
+.stat-item {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  border-radius: 0 !important;
+  padding: 20px !important;
+}
+
+.stat-number {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 32px !important;
+}
+
+.stat-label {
+  color: #666666 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 12px !important;
+}
+
+/* ===== SUBSECTION TITLE - B&W ===== */
+.subsection-title {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border-bottom: 3px solid #000000 !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 25px !important;
+}
+
+/* ===== LOADING STATES - B&W ===== */
+.loading-spinner,
+.fa-spinner {
+  color: #000000 !important;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS - B&W MAINTAINED ===== */
+@media (max-width: 768px) {
+  .profile-hero {
+    padding: 30px 20px !important;
+    border: 2px solid #000000 !important;
+  }
+  
+  .profile-hero-text h1 {
+    font-size: 2rem !important;
+  }
+  
+  .section-icon {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .btn-edit-profile,
+  .btn-save-profile,
+  .add-section-btn {
+    padding: 10px 16px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-hero {
+    padding: 20px 15px !important;
+  }
+  
+  .profile-hero-text h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .profile-section-modern,
+  .form-section-modern {
+    padding: 20px !important;
+  }
+  
+  .my-project-card {
+    padding: 20px !important;
+  }
+}
+
+/* ===== FORCE B&W THEME OVERRIDES ===== */
+.profile-page * {
+  /* Ensure all text is readable in B&W theme */
+  text-shadow: none !important;
+}
+
+/* Remove any gradient backgrounds except hero */
+.profile-page .profile-card *:not(.profile-hero):not(.profile-hero *):not(.inline-form-header):not(.inline-form-header *):not(.profile-continue-section):not(.profile-continue-section *) {
+  background-image: none !important;
+}
+
+/* ===== PRINT STYLES - B&W ===== */
+@media print {
+  .profile-page {
+    background: white !important;
+  }
+  
+  .profile-hero {
+    background: black !important;
+    color: white !important;
+  }
+  
+  .profile-card {
+    border: 2px solid black !important;
+  }
+}

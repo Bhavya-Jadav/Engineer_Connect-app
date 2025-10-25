@@ -4,6 +4,7 @@ import StudentProjectForm from './StudentProjectForm';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
+import '../styles/ProfilePage-BW-Theme.css';
 import './ProjectDetailModal.css';
 
 const ProfilePage = ({ 
@@ -339,67 +340,6 @@ const ProfilePage = ({
     };
   }, []);
 
-  // Fetch user profile from database on component mount
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/users/profile`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-
-        if (response.ok) {
-          const userData = await response.json();
-          console.log('✅ Profile data fetched from database:', userData);
-          
-          // Update profileData state with fresh data from database
-          setProfileData({
-            name: userData.name || '',
-            email: userData.email || '',
-            bio: userData.bio || '',
-            phone: userData.phone || '',
-            university: userData.university || '',
-            course: userData.course || '',
-            year: userData.year || '',
-            skills: userData.skills || [],
-            role: userData.role || '',
-            companyName: userData.companyName || '',
-            // Extended resume fields
-            education: userData.education || [],
-            courses: userData.courses || [],
-            languages: userData.languages || [],
-            achievements: userData.achievements || [],
-            projects: userData.projects || []
-          });
-
-          // Update localStorage with fresh data
-          const updatedUser = { ...currentUser, ...userData };
-          localStorage.setItem('user', JSON.stringify(updatedUser));
-          
-          // Update profile picture
-          if (userData.profilePicture) {
-            setProfilePicture(userData.profilePicture);
-          }
-        } else {
-          console.error('Failed to fetch profile data from database');
-        }
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    if (currentUser) {
-      fetchUserProfile();
-      
-      // Fetch user's projects if they are a student
-      if (currentUser.role === 'student' || userRole === 'student') {
-        fetchMyProjects();
-      }
-    }
-  }, [currentUser, userRole]);
-
-  // Keep this secondary useEffect for immediate UI updates from currentUser
   useEffect(() => {
     if (currentUser) {
       setProfileData({
@@ -549,8 +489,6 @@ const ProfilePage = ({
   const handleProfileUpdate = async () => {
     setIsLoading(true);
     try {
-      console.log('💾 Updating complete profile:', profileData);
-      
       const response = await fetch(`${API_BASE_URL}/users/profile`, {
         method: 'PUT',
         headers: {
@@ -561,27 +499,16 @@ const ProfilePage = ({
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log('✅ Profile updated successfully:', result);
-        
-        // Update localStorage with complete user data including all extended fields
-        const updatedUser = { ...result.user, token: localStorage.getItem('token') };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        
+        const updatedUser = await response.json();
+        localStorage.setItem('user', JSON.stringify(updatedUser.user));
         showMessage('success', 'Profile updated successfully!');
         setIsEditing(false);
-        
-        // Refresh the page to show updated data
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        window.location.reload();
       } else {
         const error = await response.json();
-        console.error('❌ Failed to update profile:', error);
         showMessage('error', error.message || 'Failed to update profile');
       }
     } catch (error) {
-      console.error('❌ Network error updating profile:', error);
       showMessage('error', 'Network error. Please try again.');
     }
     setIsLoading(false);
@@ -591,8 +518,6 @@ const ProfilePage = ({
   const handleSectionSave = async (sectionName, sectionData) => {
     setSavingSection(sectionName);
     try {
-      console.log(`💾 Saving ${sectionName} to database:`, sectionData);
-      
       const response = await fetch(`${API_BASE_URL}/users/profile`, {
         method: 'PUT',
         headers: {
@@ -603,28 +528,17 @@ const ProfilePage = ({
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log(`✅ ${sectionName} saved successfully:`, result);
-        
-        // Update localStorage with complete updated user data
+        const updatedUser = await response.json();
+        // Update only the specific section in localStorage
         const currentUser = JSON.parse(localStorage.getItem('user'));
-        const updatedUser = { ...currentUser, ...result.user };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        
-        // Update profileData state with the saved data
-        setProfileData(prev => ({
-          ...prev,
-          [sectionName]: sectionData
-        }));
-        
+        currentUser[sectionName] = sectionData;
+        localStorage.setItem('user', JSON.stringify(currentUser));
         showMessage('success', `${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)} saved successfully!`);
       } else {
         const error = await response.json();
-        console.error(`❌ Failed to save ${sectionName}:`, error);
         showMessage('error', error.message || `Failed to save ${sectionName}`);
       }
     } catch (error) {
-      console.error(`❌ Network error saving ${sectionName}:`, error);
       showMessage('error', 'Network error. Please try again.');
     }
     setSavingSection(null);
