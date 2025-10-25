@@ -1603,7 +1603,7 @@ const ProfilePage = ({
                       ))}
                     </div>
 
-                    {/* Unified Projects Section */}
+                    {/* Simple Projects Section */}
                     <div className="form-section-modern">
                       <div className="section-header">
                         <div className="section-header-content">
@@ -1611,8 +1611,8 @@ const ProfilePage = ({
                             <i className="fas fa-project-diagram"></i>
                           </div>
                           <div className="section-title">
-                            <h3>Projects</h3>
-                            <p>Showcase all your projects in one place</p>
+                            <h3>Simple Projects</h3>
+                            <p>Add your personal and academic projects</p>
                           </div>
                         </div>
                         <div className="section-actions-group">
@@ -1634,53 +1634,17 @@ const ProfilePage = ({
                               </>
                             )}
                           </button>
-                          {!isAddingShowcaseProject && (
-                            <>
-                              <button type="button" onClick={addProject} className="add-section-btn">
-                                <i className="fas fa-plus"></i> Add Simple Project
-                              </button>
-                              <button 
-                                type="button" 
-                                onClick={() => setIsAddingShowcaseProject(true)} 
-                                className="add-section-btn showcase-btn"
-                              >
-                                <i className="fas fa-rocket"></i> Add Showcase Project
-                              </button>
-                            </>
-                          )}
+                          <button type="button" onClick={addProject} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Project
+                          </button>
                         </div>
                       </div>
-
-                      {/* Showcase Project Form (Inline) */}
-                      {isAddingShowcaseProject && (
-                        <div className="inline-showcase-form">
-                          <div className="inline-form-header">
-                            <h4>
-                              <i className="fas fa-rocket"></i>
-                              Add Showcase Project
-                            </h4>
-                            <button 
-                              type="button"
-                              onClick={() => setIsAddingShowcaseProject(false)}
-                              className="cancel-inline-form-btn"
-                            >
-                              <i className="fas fa-times"></i>
-                              Cancel
-                            </button>
-                          </div>
-                          <StudentProjectForm
-                            onProjectCreated={handleProjectCreated}
-                            onCancel={() => setIsAddingShowcaseProject(false)}
-                            isInline={true}
-                          />
-                        </div>
-                      )}
 
                       {/* Simple Projects */}
                       {profileData.projects.map((proj) => (
                         <div key={proj.id} className="dynamic-entry">
                           <div className="entry-header">
-                            <h4>Simple Project</h4>
+                            <h4>Project</h4>
                             <button type="button" onClick={() => removeProject(proj.id)} className="remove-entry-btn">
                               <i className="fas fa-trash"></i>
                             </button>
@@ -1729,13 +1693,72 @@ const ProfilePage = ({
                           </div>
                         </div>
                       ))}
+
+                      {profileData.projects.length === 0 && (
+                        <div className="no-projects-state">
+                          <div className="no-projects-icon">
+                            <i className="fas fa-project-diagram"></i>
+                          </div>
+                          <h4>No simple projects yet</h4>
+                          <p>Add your personal and academic projects here!</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Showcase Projects Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-header-content">
+                          <div className="section-icon">
+                            <i className="fas fa-rocket"></i>
+                          </div>
+                          <div className="section-title">
+                            <h3>Showcase Projects</h3>
+                            <p>Feature your best work with detailed presentations</p>
+                          </div>
+                        </div>
+                        <div className="section-actions-group">
+                          {!isAddingShowcaseProject && (
+                            <button 
+                              type="button" 
+                              onClick={() => setIsAddingShowcaseProject(true)} 
+                              className="add-section-btn showcase-btn"
+                            >
+                              <i className="fas fa-rocket"></i> Add Showcase Project
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Showcase Project Form (Inline) */}
+                      {isAddingShowcaseProject && (
+                        <div className="inline-showcase-form">
+                          <div className="inline-form-header">
+                            <h4>
+                              <i className="fas fa-rocket"></i>
+                              Add Showcase Project
+                            </h4>
+                            <button 
+                              type="button"
+                              onClick={() => setIsAddingShowcaseProject(false)}
+                              className="cancel-inline-form-btn"
+                            >
+                              <i className="fas fa-times"></i>
+                              Cancel
+                            </button>
+                          </div>
+                          <StudentProjectForm
+                            onProjectCreated={handleProjectCreated}
+                            onCancel={() => setIsAddingShowcaseProject(false)}
+                            isInline={true}
+                          />
+                        </div>
+                      )}
                       
                       {/* Showcase Projects */}
-                      {myProjects.length > 0 && (
+                      {/* Showcase Projects Display */}
+                      {myProjects.length > 0 ? (
                         <div className="showcase-projects-container">
-                          <h4 className="subsection-title">
-                            <i className="fas fa-rocket"></i> Showcase Projects
-                          </h4>
                           <div className="my-projects-grid">
                             {myProjects.map((project) => (
                               <div key={project._id} className="my-project-card">
@@ -1793,16 +1816,16 @@ const ProfilePage = ({
                             ))}
                           </div>
                         </div>
-                      )}
-
-                      {profileData.projects.length === 0 && myProjects.length === 0 && !isAddingShowcaseProject && (
-                        <div className="no-projects-state">
-                          <div className="no-projects-icon">
-                            <i className="fas fa-project-diagram"></i>
+                      ) : (
+                        !isAddingShowcaseProject && (
+                          <div className="no-projects-state">
+                            <div className="no-projects-icon">
+                              <i className="fas fa-rocket"></i>
+                            </div>
+                            <h4>No showcase projects yet</h4>
+                            <p>Create detailed showcase projects with videos and comprehensive descriptions!</p>
                           </div>
-                          <h4>No projects yet</h4>
-                          <p>Add simple projects or create showcase projects with videos and detailed descriptions!</p>
-                        </div>
+                        )
                       )}
                     </div>
                   </>

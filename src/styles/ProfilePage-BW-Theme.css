@@ -341,23 +341,54 @@ select.input-modern:focus {
 
 /* ===== MESSAGE TOAST - B&W ===== */
 .message-toast {
+  position: fixed !important;
+  top: 100px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1050 !important;
+  min-width: 400px !important;
+  max-width: 600px !important;
   background: #000000 !important;
   color: #ffffff !important;
-  border: 2px solid #000000 !important;
+  border: 3px solid #000000 !important;
   border-radius: 0 !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  animation: toastSlideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
 }
 
 .message-toast.success {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 2px solid #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #000000 !important;
 }
 
 .message-toast.error {
-  background: #000000 !important;
-  color: #ffffff !important;
-  border: 3px solid #ff0000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+}
+
+.message-content i {
+  font-size: 20px !important;
+}
+
+.message-content span {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* ===== PROFILE INFO DISPLAY - B&W ===== */
@@ -405,20 +436,63 @@ select.input-modern:focus {
   border-radius: 0 !important;
   padding: 0 !important;
   margin-bottom: 25px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
 }
 
 .inline-form-header {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+  background: #000000 !important;
   color: #ffffff !important;
   padding: 20px 30px !important;
   border-bottom: 3px solid #000000 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }
 
 .inline-form-header h4 {
   color: #ffffff !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+  letter-spacing: 1.5px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 18px !important;
+}
+
+.inline-form-header h4 i {
+  font-size: 20px !important;
+  color: #ffffff !important;
+}
+
+.cancel-inline-form-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  border-radius: 0 !important;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.cancel-inline-form-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+.cancel-inline-form-btn i {
+  font-size: 14px !important;
+  color: inherit !important;
 }
 
 /* ===== PROFILE ACTIONS - B&W ===== */

@@ -358,6 +358,72 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* View All Projects Button */
+.view-all-projects-btn {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 8px;
+  padding: 18px 32px;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.view-all-projects-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.view-all-projects-btn:hover::before {
+  left: 100%;
+}
+
+.view-all-projects-btn:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  color: #000000;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(0, 0, 0, 0.1);
+  border-color: #000000;
+}
+
+.view-all-projects-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-projects-btn i {
+  font-size: 18px;
+  animation: rocketPulse 2s ease-in-out infinite;
+}
+
+@keyframes rocketPulse {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 /* Education */
 .education-list {
   display: grid;

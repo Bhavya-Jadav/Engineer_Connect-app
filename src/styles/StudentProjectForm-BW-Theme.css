@@ -1,0 +1,657 @@
+/* StudentProjectForm - Professional Black & White Theme */
+/* Overrides StudentProjectForm.css for inline display */
+
+/* ===========================
+   INLINE FORM CONTAINER
+   =========================== */
+.student-project-form-inline {
+  background: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  animation: none !important;
+  padding: 30px !important;
+}
+
+/* ===========================
+   FORM SECTIONS
+   =========================== */
+.student-project-form-inline .form-section {
+  margin-bottom: 30px !important;
+  padding-bottom: 25px !important;
+  border-bottom: 2px solid #e0e0e0 !important;
+}
+
+.student-project-form-inline .form-section:last-child {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+}
+
+.student-project-form-inline .form-section h3 {
+  color: #000000 !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  border-left: 4px solid #000000 !important;
+  padding-left: 12px !important;
+}
+
+.student-project-form-inline .form-section h3 i {
+  color: #000000 !important;
+  font-size: 18px !important;
+}
+
+/* ===========================
+   FORM GROUPS
+   =========================== */
+.student-project-form-inline .form-group {
+  margin-bottom: 20px !important;
+}
+
+.student-project-form-inline .form-group label {
+  display: block !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 8px !important;
+}
+
+.student-project-form-inline .form-group label .required {
+  color: #000000 !important;
+}
+
+/* ===========================
+   INPUT FIELDS
+   =========================== */
+.student-project-form-inline input[type="text"],
+.student-project-form-inline input[type="url"],
+.student-project-form-inline input[type="number"],
+.student-project-form-inline input[type="file"],
+.student-project-form-inline textarea,
+.student-project-form-inline select {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  border: 2px solid #cccccc !important;
+  border-radius: 0 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.student-project-form-inline input[type="text"]:focus,
+.student-project-form-inline input[type="url"]:focus,
+.student-project-form-inline input[type="number"]:focus,
+.student-project-form-inline textarea:focus,
+.student-project-form-inline select:focus {
+  border-color: #000000 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.student-project-form-inline textarea {
+  min-height: 100px !important;
+  resize: vertical !important;
+}
+
+/* ===========================
+   SELECT DROPDOWNS
+   =========================== */
+.student-project-form-inline select {
+  cursor: pointer !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000000' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  padding-right: 40px !important;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.student-project-form-inline .add-tech-btn,
+.student-project-form-inline .add-tag-btn,
+.student-project-form-inline .add-collaborator-btn,
+.student-project-form-inline .quick-add-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 10px 20px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.student-project-form-inline .add-tech-btn:hover,
+.student-project-form-inline .add-tag-btn:hover,
+.student-project-form-inline .add-collaborator-btn:hover,
+.student-project-form-inline .quick-add-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ===========================
+   TAGS & CHIPS
+   =========================== */
+.student-project-form-inline .tags-container,
+.student-project-form-inline .technologies-list,
+.student-project-form-inline .learning-tags-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+
+.student-project-form-inline .tag,
+.student-project-form-inline .tech-tag,
+.student-project-form-inline .learning-tag {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.student-project-form-inline .tag:hover,
+.student-project-form-inline .tech-tag:hover,
+.student-project-form-inline .learning-tag:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.student-project-form-inline .remove-tag-btn,
+.student-project-form-inline .remove-tech-btn {
+  background: none !important;
+  border: none !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin-left: 4px !important;
+  font-size: 14px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.student-project-form-inline .remove-tag-btn:hover,
+.student-project-form-inline .remove-tech-btn:hover {
+  transform: scale(1.2) !important;
+}
+
+/* ===========================
+   QUICK ADD SUGGESTIONS
+   =========================== */
+.student-project-form-inline .quick-add-container {
+  margin-top: 12px !important;
+}
+
+.student-project-form-inline .quick-add-label {
+  color: #666666 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+.student-project-form-inline .quick-add-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.student-project-form-inline .quick-add-btn {
+  background: #f8f8f8 !important;
+  color: #000000 !important;
+  border: 1px solid #cccccc !important;
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+}
+
+.student-project-form-inline .quick-add-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* ===========================
+   COLLABORATORS
+   =========================== */
+.student-project-form-inline .collaborators-list {
+  margin-top: 15px !important;
+}
+
+.student-project-form-inline .collaborator-item {
+  background: #f8f8f8 !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  padding: 15px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.student-project-form-inline .collaborator-item:hover {
+  border-color: #000000 !important;
+}
+
+.student-project-form-inline .remove-collaborator-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.student-project-form-inline .remove-collaborator-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* ===========================
+   FILE UPLOAD
+   =========================== */
+.student-project-form-inline .file-upload-area {
+  border: 2px dashed #cccccc !important;
+  border-radius: 0 !important;
+  padding: 30px !important;
+  text-align: center !important;
+  background: #f8f8f8 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.student-project-form-inline .file-upload-area:hover {
+  border-color: #000000 !important;
+  background: #ffffff !important;
+}
+
+.student-project-form-inline .file-upload-area i {
+  color: #000000 !important;
+  font-size: 36px !important;
+  margin-bottom: 10px !important;
+}
+
+.student-project-form-inline .file-upload-text {
+  color: #666666 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.student-project-form-inline .file-info {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 12px !important;
+  margin-top: 10px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.student-project-form-inline .remove-file-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  border-radius: 0 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.student-project-form-inline .remove-file-btn:hover {
+  background: #cccccc !important;
+}
+
+/* ===========================
+   FORM ACTIONS
+   =========================== */
+.student-project-form-inline .form-actions {
+  display: flex !important;
+  gap: 15px !important;
+  justify-content: flex-end !important;
+  margin-top: 30px !important;
+  padding-top: 25px !important;
+  border-top: 3px solid #000000 !important;
+}
+
+/* ===========================
+   FORM ACTIONS - STRONGER OVERRIDES
+   =========================== */
+
+/* Cancel Button */
+.student-project-form-inline .btn-cancel,
+.student-project-form-inline .cancel-btn,
+.student-project-form-inline button[type="button"]:not(.add-tech-btn):not(.add-tag-btn):not(.add-collaborator-btn):not(.quick-add-btn):not(.remove-tag-btn):not(.remove-tech-btn):not(.remove-collaborator-btn):not(.remove-file-btn) {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 14px 30px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .btn-cancel:hover,
+.student-project-form-inline .cancel-btn:hover,
+.student-project-form-inline button[type="button"]:not(.add-tech-btn):not(.add-tag-btn):not(.add-collaborator-btn):not(.quick-add-btn):not(.remove-tag-btn):not(.remove-tech-btn):not(.remove-collaborator-btn):not(.remove-file-btn):hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  background-image: none !important;
+}
+
+/* Submit Button */
+.student-project-form-inline .btn-submit,
+.student-project-form-inline .submit-btn,
+.student-project-form-inline button[type="submit"] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 14px 30px !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .btn-submit:hover:not(:disabled),
+.student-project-form-inline .submit-btn:hover:not(:disabled),
+.student-project-form-inline button[type="submit"]:hover:not(:disabled) {
+  background: #ffffff !important;
+  color: #000000 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .btn-submit:disabled,
+.student-project-form-inline .submit-btn:disabled,
+.student-project-form-inline button[type="submit"]:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .btn-submit i,
+.student-project-form-inline .submit-btn i,
+.student-project-form-inline button[type="submit"] i {
+  color: inherit !important;
+}
+
+/* ===========================
+   MESSAGES
+   =========================== */
+.student-project-form-inline .form-message {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 12px 16px !important;
+  margin-bottom: 20px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-size: 13px !important;
+}
+
+.student-project-form-inline .form-message.success {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+.student-project-form-inline .form-message.error {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+/* ===========================
+   HELP TEXT
+   =========================== */
+.student-project-form-inline .help-text {
+  color: #666666 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-top: 6px !important;
+  font-style: italic !important;
+}
+
+/* ===========================
+   GRID LAYOUT
+   =========================== */
+.student-project-form-inline .form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+}
+
+.student-project-form-inline .form-grid .full-width {
+  grid-column: 1 / -1 !important;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 768px) {
+  .student-project-form-inline {
+    padding: 20px !important;
+  }
+
+  .student-project-form-inline .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .student-project-form-inline .form-actions {
+    flex-direction: column !important;
+  }
+
+  .student-project-form-inline .submit-btn,
+  .student-project-form-inline .cancel-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .student-project-form-inline .quick-add-buttons {
+    gap: 6px !important;
+  }
+
+  .student-project-form-inline .quick-add-btn {
+    font-size: 10px !important;
+    padding: 5px 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-project-form-inline .form-section h3 {
+    font-size: 14px !important;
+  }
+
+  .student-project-form-inline .tags-container,
+  .student-project-form-inline .technologies-list {
+    gap: 6px !important;
+  }
+
+  .student-project-form-inline .tag,
+  .student-project-form-inline .tech-tag {
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* ===========================
+   ANIMATION
+   =========================== */
+.student-project-form-inline .form-group {
+  animation: fadeInUp 0.3s ease-out !important;
+  animation-fill-mode: both !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   ALL BUTTON OVERRIDES (COMPREHENSIVE)
+   =========================== */
+
+/* Remove ALL gradients and colors from buttons */
+.student-project-form-inline button,
+.student-project-form-inline input[type="button"],
+.student-project-form-inline input[type="submit"] {
+  background-image: none !important;
+  border-radius: 0 !important;
+}
+
+/* Technology & Tag Add Buttons */
+.student-project-form-inline .tag-input-container button,
+.student-project-form-inline .add-tech-btn,
+.student-project-form-inline .add-tag-btn,
+.student-project-form-inline .add-collaborator-btn,
+.student-project-form-inline .quick-add-btn,
+.student-project-form-inline button[type="button"].add-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 10px 20px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .tag-input-container button:hover,
+.student-project-form-inline .add-tech-btn:hover,
+.student-project-form-inline .add-tag-btn:hover,
+.student-project-form-inline .add-collaborator-btn:hover,
+.student-project-form-inline .quick-add-btn:hover,
+.student-project-form-inline button[type="button"].add-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  background-image: none !important;
+}
+
+/* Close/Remove buttons inside tags */
+.student-project-form-inline .tag button,
+.student-project-form-inline .tech-tag button,
+.student-project-form-inline .learning-tag button,
+.student-project-form-inline .remove-tag-btn,
+.student-project-form-inline .remove-tech-btn {
+  background: none !important;
+  border: none !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin-left: 4px !important;
+  font-size: 14px !important;
+  transition: transform 0.2s ease !important;
+  background-image: none !important;
+  border-radius: 0 !important;
+}
+
+.student-project-form-inline .tag button:hover,
+.student-project-form-inline .tech-tag button:hover,
+.student-project-form-inline .learning-tag button:hover,
+.student-project-form-inline .remove-tag-btn:hover,
+.student-project-form-inline .remove-tech-btn:hover {
+  transform: scale(1.2) !important;
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Media upload buttons */
+.student-project-form-inline .media-option button,
+.student-project_form-inline .upload-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .media-option button:hover,
+.student-project_form-inline .upload-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Close button (if present) */
+.student-project-form-inline .close-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  background-image: none !important;
+}
+
+.student-project-form-inline .close-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  background-image: none !important;
+}

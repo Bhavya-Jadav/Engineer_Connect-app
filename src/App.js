@@ -14,6 +14,7 @@ import SignUp from './components/SignUp';
 import QuizModal from './components/QuizModal';
 import UserProfilePanel from './components/UserProfilePanel';
 import ProfilePage from './components/ProfilePage';
+import ProjectShowcase from './components/ProjectShowcase';
 import Home from './components/Home';
 import StudentFeed from './components/StudentFeed';
 import IdeaSubmissionModal from './components/IdeaSubmissionModal';
@@ -732,6 +733,9 @@ function AppContent() {
             onProfileClick={handleProfileClick}
           />
         } />
+
+        {/* Project Showcase Route */}
+        <Route path="/project" element={<ProjectShowcase />} />
       </Routes>
 
       {/* === MODALS === */}

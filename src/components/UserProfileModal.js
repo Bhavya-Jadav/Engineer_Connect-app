@@ -1,10 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ConnectionButton from './ConnectionButton';
 import './UserProfileModal.css';
 import './ProjectDetailModal.css';
 
 const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpdate }) => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [showcaseProjects, setShowcaseProjects] = useState([]);
+  const [loadingShowcase, setLoadingShowcase] = useState(false);
+  const navigate = useNavigate();
+  
+  // Fetch showcase projects when modal opens
+  useEffect(() => {
+    const fetchShowcaseProjects = async () => {
+      if (!user || !isOpen) return;
+      
+      console.log('Fetching showcase projects for user:', user._id);
+      setLoadingShowcase(true);
+      try {
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+        const url = `${API_BASE_URL}/student-projects/user/${user._id}`;
+        console.log('Fetching from URL:', url);
+        
+        const response = await fetch(url);
+        
+        console.log('Response status:', response.status);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Showcase projects fetched:', data);
+          console.log('Number of projects:', data.length);
+          setShowcaseProjects(data);
+        } else {
+          console.error('Failed to fetch showcase projects, status:', response.status);
+          const errorText = await response.text();
+          console.error('Error response:', errorText);
+          setShowcaseProjects([]);
+        }
+      } catch (error) {
+        console.error('Error fetching showcase projects:', error);
+        setShowcaseProjects([]);
+      } finally {
+        setLoadingShowcase(false);
+      }
+    };
+
+    fetchShowcaseProjects();
+  }, [user, isOpen]);
   
   if (!isOpen || !user) return null;
 
@@ -149,22 +191,60 @@ const UserProfileModal = ({ user, isOpen, onClose, currentUser, onConnectionUpda
             </div>
           ))}
 
+          {/* Showcase Projects Section - Always show if user is a student */}
+          {user.role === 'student' && renderSection('Showcase Projects', 'fa-rocket', (
+            <div>
+              {/* Project Showcase Button */}
+              <button 
+                className="view-all-projects-btn"
+                onClick={() => {
+                  console.log('Navigating to showcase with projects:', showcaseProjects);
+                  navigate('/project', {
+                    state: {
+                      user: user,
+                      projects: showcaseProjects // Pass showcase projects (with videos, files, etc.)
+                    }
+                  });
+                  onClose(); // Close modal when navigating
+                }}
+                disabled={loadingShowcase}
+              >
+                <i className="fas fa-rocket"></i>
+                {loadingShowcase ? 'Loading Showcase...' : `View Project Showcase (${showcaseProjects.length})`}
+              </button>
+              
+              {showcaseProjects.length > 0 && (
+                <p style={{ 
+                  marginTop: '10px', 
+                  fontSize: '13px', 
+                  color: '#666', 
+                  textAlign: 'center' 
+                }}>
+                  {showcaseProjects.length} showcase {showcaseProjects.length === 1 ? 'project' : 'projects'} available
+                </p>
+              )}
+            </div>
+          ))}
+
           {/* Projects Section */}
-          {user.projects && user.projects.length > 0 && renderSection('Projects', 'fa-code', (
-            <div className="projects-list">
-              {user.projects.map((project) => (
-                <div key={project.id || project._id} className="project-item">
-                  <h4>{project.title}</h4>
-                  <p>{project.description}</p>
-                  {project.technologies && <div className="project-tech">Technologies: {project.technologies}</div>}
-                  <button 
-                    onClick={() => handleViewProject(project)}
-                    className="project-link view-project-btn-modal"
-                  >
-                    <i className="fas fa-external-link-alt"></i> View Project
-                  </button>
-                </div>
-              ))}
+          {user.projects && user.projects.length > 0 && renderSection('Simple Projects', 'fa-code', (
+            <div>
+              {/* Projects List */}
+              <div className="projects-list">
+                {user.projects.map((project) => (
+                  <div key={project.id || project._id} className="project-item">
+                    <h4>{project.title}</h4>
+                    <p>{project.description}</p>
+                    {project.technologies && <div className="project-tech">Technologies: {project.technologies}</div>}
+                    <button 
+                      onClick={() => handleViewProject(project)}
+                      className="project-link view-project-btn-modal"
+                    >
+                      <i className="fas fa-external-link-alt"></i> View Project
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
 

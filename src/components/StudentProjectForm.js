@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API_BASE_URL } from '../utils/api';
 import '../styles/StudentProjectForm.css';
+import '../styles/StudentProjectForm-BW-Theme.css';
 
 const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) => {
   const [formData, setFormData] = useState({
@@ -134,20 +135,38 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('🚀 Form submit triggered!');
+    console.log('📋 Form data:', formData);
     
-    // Client-side validation
-    if (!formData.title.trim()) {
-      showMessage('error', 'Please enter a project title');
+    // Client-side validation with detailed messages
+    if (!formData.title || !formData.title.trim()) {
+      showMessage('error', '⚠️ Project Title is required!');
+      // Scroll to title field
+      document.querySelector('input[name="title"]')?.focus();
       return;
     }
     
-    if (!formData.description.trim()) {
-      showMessage('error', 'Please enter a project description');
+    if (!formData.description || !formData.description.trim()) {
+      showMessage('error', '⚠️ Project Description is required!');
+      // Scroll to description field
+      document.querySelector('textarea[name="description"]')?.focus();
       return;
     }
     
-    if (formData.technologies.length === 0) {
-      showMessage('error', 'Please add at least one technology');
+    if (!formData.technologies || formData.technologies.length === 0) {
+      showMessage('error', '⚠️ Please add at least one Technology! (e.g., React, Python, Node.js)');
+      // Scroll to technologies section
+      document.querySelector('input[name="newTechnology"]')?.focus();
+      return;
+    }
+    
+    if (!formData.category || formData.category === '') {
+      showMessage('error', '⚠️ Please select a Project Category!');
+      return;
+    }
+    
+    if (!formData.difficulty || formData.difficulty === '') {
+      showMessage('error', '⚠️ Please select a Difficulty Level!');
       return;
     }
     
@@ -201,6 +220,17 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
         submitFormData.append('attachments', file);
       });
 
+      // Log what we're sending
+      console.log('📤 Submitting form data:');
+      console.log('  - Title:', formData.title);
+      console.log('  - Description:', formData.description);
+      console.log('  - Technologies:', formData.technologies);
+      console.log('  - Learning Tags:', formData.learningTags);
+      console.log('  - Video File:', files.videoFile ? files.videoFile.name : 'none');
+      console.log('  - Attachments:', files.attachments.length);
+      console.log('  - Category:', formData.category);
+      console.log('  - Difficulty:', formData.difficulty);
+
       const response = await fetch(`${API_BASE_URL}/student-projects`, {
         method: 'POST',
         headers: {
@@ -215,8 +245,10 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
 
       if (response.ok) {
         if (isJson) {
-          const newProject = await response.json();
-          showMessage('success', 'Project created successfully!');
+          const result = await response.json();
+          // Handle both old format (direct project) and new format (with success field)
+          const newProject = result.project || result;
+          showMessage('success', result.message || 'Project created successfully!');
           onProjectCreated(newProject);
         } else {
           showMessage('error', 'Server error: Invalid response format');
@@ -225,9 +257,13 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
         // Handle error responses
         let errorMessage = 'Failed to create project';
         
+        console.log('❌ Error Response Status:', response.status);
+        console.log('❌ Error Response Headers:', response.headers);
+        
         if (isJson) {
           try {
             const error = await response.json();
+            console.log('❌ Error Response Body:', error);
             errorMessage = error.message || errorMessage;
           } catch (e) {
             console.error('Error parsing error response:', e);
@@ -268,7 +304,7 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
 
   return (
     <div className={isInline ? "student-project-form-inline" : "student-project-form-overlay"}>
-      <div className={isInline ? "student-project-form-inline-container" : "student-project-form-container"}>
+      <div className={isInline ? "student-project-form-inline" : "student-project-form-container"}>
         {!isInline && (
           <div className="form-header">
             <h2>
@@ -282,13 +318,46 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
         )}
 
         {message.text && (
-          <div className={`message-toast ${message.type}`}>
+          <div className={`form-message ${message.type}`}>
             <div className="message-content">
               <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
               <span>{message.text}</span>
             </div>
           </div>
         )}
+
+        {/* Required Fields Info */}
+        <div style={{
+          background: '#f8f9fa',
+          border: '2px solid #000000',
+          borderRadius: '0',
+          padding: '15px 20px',
+          marginBottom: '20px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '10px'
+          }}>
+            <i className="fas fa-info-circle" style={{ fontSize: '20px', color: '#000000' }}></i>
+            <strong style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Required Fields to Submit
+            </strong>
+          </div>
+          <ul style={{
+            margin: '0',
+            paddingLeft: '35px',
+            fontSize: '13px',
+            lineHeight: '1.8'
+          }}>
+            <li><strong>Project Title</strong> - Give your project a name</li>
+            <li><strong>Description</strong> - Explain what your project does</li>
+            <li><strong>Technologies</strong> - Add at least one technology used (e.g., React, Python, Node.js)</li>
+            <li><strong>Category</strong> - Select project category (Web Development, Mobile App, etc.)</li>
+            <li><strong>Difficulty</strong> - Choose difficulty level (Beginner, Intermediate, Advanced)</li>
+          </ul>
+        </div>
 
         <form onSubmit={handleSubmit} className="project-form">
           {/* Basic Information */}
@@ -656,7 +725,16 @@ const StudentProjectForm = ({ onProjectCreated, onCancel, isInline = false }) =>
             <button type="button" className="btn-cancel" onClick={onCancel}>
               Cancel
             </button>
-            <button type="submit" className="btn-submit" disabled={isSubmitting}>
+            <button 
+              type="submit" 
+              className="btn-submit" 
+              disabled={isSubmitting}
+              onClick={(e) => {
+                console.log('🖱️ Submit button clicked!');
+                console.log('Button type:', e.currentTarget.type);
+                console.log('Is submitting:', isSubmitting);
+              }}
+            >
               {isSubmitting ? (
                 <>
                   <i className="fas fa-spinner fa-spin"></i>
