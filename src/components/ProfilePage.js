@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import StudentProjectForm from './StudentProjectForm';
+import ImpactSummary from './ImpactSummary';
 import { API_BASE_URL } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProfilePage.css';
@@ -156,6 +157,7 @@ const ProfilePage = ({
   const [isAddingShowcaseProject, setIsAddingShowcaseProject] = useState(false); // Track if adding showcase project
   const [myProjects, setMyProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null); // For project detail modal
+  const [showImpactSummary, setShowImpactSummary] = useState(false); // For Impact Summary view
   const [profileData, setProfileData] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
@@ -764,6 +766,17 @@ const ProfilePage = ({
     const completedFields = fields.filter(field => profileData[field] && profileData[field].trim() !== '');
     return Math.round((completedFields.length / fields.length) * 100);
   };
+
+  // If showing Impact Summary, render that instead
+  if (showImpactSummary) {
+    return (
+      <ImpactSummary
+        profileData={profileData}
+        currentUser={currentUser}
+        onBack={() => setShowImpactSummary(false)}
+      />
+    );
+  }
 
   return (
     <div className="profile-page" style={criticalStyles.profilePage}>
@@ -1979,6 +1992,21 @@ const ProfilePage = ({
                   You can edit your profile anytime from your account settings
                 </p>
               </div>
+            </div>
+
+            {/* Impact Summary Button */}
+            <div className="impact-summary-section">
+              <button 
+                className="btn-impact-summary"
+                onClick={() => setShowImpactSummary(true)}
+              >
+                <i className="fas fa-file-alt"></i>
+                <span>Impact Summary</span>
+                <i className="fas fa-arrow-right"></i>
+              </button>
+              <p className="impact-summary-note">
+                Generate and download a professional resume-style summary of your profile
+              </p>
             </div>
           </div>
         </div>
