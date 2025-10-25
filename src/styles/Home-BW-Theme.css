@@ -1,0 +1,542 @@
+/* Home Page - Professional Black & White Theme */
+/* Matches ProfilePage B&W design system */
+
+/* ===========================
+   GLOBAL HOME CONTAINER
+   =========================== */
+.home-container {
+  background: linear-gradient(135deg, #ffffff, #f8f8f8 25%, #f0f0f0 75%, #e8e8e8) !important;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+}
+
+/* ===========================
+   HERO SECTION - BLACK THEME
+   =========================== */
+.hero-section {
+  background: linear-gradient(135deg, #000000, #1a1a1a) !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+  padding: 60px 24px !important;
+  margin-bottom: 30px;
+}
+
+.hero-section .bg-grid-pattern {
+  display: none;
+}
+
+/* Hero Badge */
+.hero-badge {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 20px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Hero Title */
+.hero-title {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2 !important;
+  margin-bottom: 24px !important;
+}
+
+/* Hero Description */
+.hero-description {
+  color: #e8e8e8 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 32px !important;
+}
+
+/* Hero Buttons */
+.hero-btn {
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 32px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-primary.hero-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.btn-primary.hero-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.btn-outline.hero-btn {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+.btn-outline.hero-btn:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Hero Stats Card */
+.hero-stats {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  padding: 32px !important;
+}
+
+.stat-icon {
+  background: #000000 !important;
+  border-radius: 0 !important;
+}
+
+.stat-icon i {
+  color: #ffffff !important;
+}
+
+.stat-number {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+
+.stat-label {
+  color: #666666 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+/* ===========================
+   FEATURES SECTION
+   =========================== */
+.features-section {
+  background: #ffffff !important;
+  padding: 80px 24px !important;
+}
+
+.features-header h2 {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px !important;
+}
+
+.features-header p {
+  color: #666666 !important;
+  font-weight: 500 !important;
+}
+
+/* Feature Cards */
+.feature-card {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 32px !important;
+  transition: all 0.3s ease !important;
+}
+
+.feature-card:hover {
+  background: #000000 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.feature-icon {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  width: 64px !important;
+  height: 64px !important;
+  margin-bottom: 24px !important;
+}
+
+.feature-card:hover .feature-icon {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.feature-card h3 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px !important;
+}
+
+.feature-card:hover h3 {
+  color: #ffffff !important;
+}
+
+.feature-card p {
+  color: #666666 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+.feature-card:hover p {
+  color: #e8e8e8 !important;
+}
+
+/* ===========================
+   HOW IT WORKS SECTION
+   =========================== */
+.how-it-works-section {
+  background: #f8f8f8 !important;
+  padding: 80px 24px !important;
+}
+
+.how-it-works-header h2 {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px !important;
+}
+
+.how-it-works-header p {
+  color: #666666 !important;
+  font-weight: 500 !important;
+}
+
+/* Step Cards */
+.step-number {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 800 !important;
+}
+
+.step-content {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-top: 4px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 32px !important;
+  padding-top: 40px !important;
+  transition: all 0.3s ease !important;
+}
+
+.step-content:hover {
+  background: #000000 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.step-content h3 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px !important;
+}
+
+.step-content:hover h3 {
+  color: #ffffff !important;
+}
+
+.step-content p {
+  color: #666666 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+.step-content:hover p {
+  color: #e8e8e8 !important;
+}
+
+/* ===========================
+   TESTIMONIALS SECTION
+   =========================== */
+.testimonials-section {
+  background: #ffffff !important;
+  padding: 80px 24px !important;
+}
+
+.testimonials-header h2 {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px !important;
+}
+
+.testimonials-header p {
+  color: #666666 !important;
+  font-weight: 500 !important;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 32px !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+}
+
+.testimonial-card:hover {
+  background: #f8f8f8 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.testimonial-card .absolute {
+  color: #e8e8e8 !important;
+}
+
+.testimonial-content p {
+  color: #333333 !important;
+  font-weight: 400 !important;
+  line-height: 1.7 !important;
+  font-style: italic;
+}
+
+.author-avatar {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  border: 2px solid #000000 !important;
+  font-weight: 700 !important;
+}
+
+.author-info h4 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+}
+
+.author-info p {
+  color: #666666 !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem;
+}
+
+/* ===========================
+   CTA SECTION - BLACK THEME
+   =========================== */
+.cta-section {
+  background: linear-gradient(135deg, #000000, #1a1a1a) !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  padding: 80px 24px !important;
+  margin-top: 0 !important;
+}
+
+.cta-content h2 {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px !important;
+}
+
+.cta-content p {
+  color: #e8e8e8 !important;
+  font-weight: 400 !important;
+  margin-bottom: 40px !important;
+}
+
+.cta-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 40px !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.cta-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* ===========================
+   ICON OVERRIDES - WHITE ON BLACK
+   =========================== */
+.hero-section i,
+.hero-section .fas,
+.hero-section .far,
+.hero-section .fab {
+  color: inherit !important;
+}
+
+.feature-icon i,
+.feature-icon .fas,
+.feature-icon .far,
+.feature-icon .fab {
+  color: #ffffff !important;
+}
+
+.feature-card:hover .feature-icon i,
+.feature-card:hover .feature-icon .fas,
+.feature-card:hover .feature-icon .far,
+.feature-card:hover .feature-icon .fab {
+  color: #000000 !important;
+}
+
+.stat-icon i,
+.stat-icon .fas,
+.stat-icon .far,
+.stat-icon .fab {
+  color: #ffffff !important;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 48px 24px !important;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section,
+  .cta-section {
+    padding: 60px 20px !important;
+  }
+  
+  .hero-stats {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 20px !important;
+  }
+  
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  
+  .hero-description {
+    font-size: 1rem !important;
+  }
+  
+  .hero-btn {
+    padding: 14px 24px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .hero-stats {
+    padding: 24px !important;
+  }
+  
+  .stat-number {
+    font-size: 2rem !important;
+  }
+  
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section,
+  .cta-section {
+    padding: 48px 16px !important;
+  }
+  
+  .features-header h2,
+  .how-it-works-header h2,
+  .testimonials-header h2,
+  .cta-content h2 {
+    font-size: 2rem !important;
+  }
+  
+  .feature-card,
+  .step-content,
+  .testimonial-card {
+    padding: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 32px 16px !important;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .hero-description {
+    font-size: 0.95rem !important;
+  }
+  
+  .hero-badge {
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .hero-btn {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .features-header h2,
+  .how-it-works-header h2,
+  .testimonials-header h2,
+  .cta-content h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .cta-btn {
+    padding: 14px 32px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ===========================
+   PRINT STYLES
+   =========================== */
+@media print {
+  .home-container {
+    background: white !important;
+  }
+  
+  .hero-section,
+  .cta-section {
+    background: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+  }
+  
+  .hero-btn,
+  .cta-btn {
+    display: none !important;
+  }
+}

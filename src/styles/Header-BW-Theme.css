@@ -1,0 +1,676 @@
+/* Header - Professional Black & White Theme */
+/* Overrides Header-1.css to match ProfilePage B&W design system */
+
+/* ===========================
+   HEADER CONTAINER - B&W THEME
+   =========================== */
+.header {
+  background: #ffffff !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.header::before {
+  background: #000000 !important;
+  opacity: 1 !important;
+  height: 3px !important;
+}
+
+.header:hover::before {
+  opacity: 1 !important;
+}
+
+/* ===========================
+   LOGO & BRANDING - B&W THEME
+   =========================== */
+.logo {
+  border-radius: 0 !important;
+  transition: all 0.3s ease;
+  padding: 8px 16px !important;
+}
+
+.logo::before {
+  background: #000000 !important;
+  border-radius: 0 !important;
+  opacity: 0;
+}
+
+.logo:hover::before {
+  opacity: 0.08;
+}
+
+.logo i {
+  color: #000000 !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #000000 !important;
+  background-clip: unset !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+}
+
+.logo:hover i {
+  transform: scale(1.08) rotate(5deg) !important;
+  color: #000000 !important;
+}
+
+.logo-text {
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  font-size: 24px !important;
+  text-shadow: none !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #000000 !important;
+  background-clip: unset !important;
+}
+
+.logo:hover .logo-text {
+  color: #000000 !important;
+  transform: translateY(-1px);
+  letter-spacing: 2.5px !important;
+  -webkit-text-fill-color: #000000 !important;
+  background: none !important;
+}
+
+/* ===========================
+   USER SECTION - B&W THEME
+   =========================== */
+.user-info {
+  background: #f8f8f8 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+}
+
+.user-info:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.profile-picture {
+  border-radius: 0 !important;
+  border: 2px solid #000000 !important;
+}
+
+.profile-picture-placeholder {
+  border-radius: 0 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.user-info:hover .profile-picture,
+.user-info:hover .profile-picture-placeholder {
+  transform: scale(1.05);
+  border-color: #ffffff !important;
+}
+
+.user-name {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-info:hover .user-name {
+  color: #ffffff !important;
+}
+
+.user-role {
+  color: #666666 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+
+.user-info:hover .user-role {
+  color: #e8e8e8 !important;
+}
+
+/* ===========================
+   BUTTONS - B&W THEME
+   =========================== */
+.btn {
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn i {
+  transition: transform 0.3s ease;
+}
+
+.btn:hover i {
+  transform: translateX(2px);
+}
+
+.btn-primary {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-primary:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-outline {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.btn-outline:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.btn-secondary {
+  background: #f8f8f8 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.btn-secondary:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.logout-btn {
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  background: #ffffff !important;
+}
+
+.logout-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+.edit-profile-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.edit-profile-btn:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+/* ===========================
+   MOBILE MENU - B&W THEME
+   =========================== */
+.mobile-menu-btn {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.mobile-menu-btn::before {
+  background: #000000 !important;
+  opacity: 0;
+}
+
+.mobile-menu-btn:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+.mobile-menu-btn:hover::before {
+  opacity: 0.1;
+}
+
+.mobile-menu-dropdown {
+  background: #ffffff !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-radius: 0 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3) !important;
+  animation: mobileMenuSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-header {
+  border-bottom: 2px solid #000000 !important;
+  background: #f8f8f8 !important;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mobile-profile-picture {
+  border-radius: 0 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mobile-profile-placeholder {
+  border-radius: 0 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.mobile-user-name {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mobile-user-role {
+  color: #666666 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+
+.mobile-menu-actions {
+  padding: 12px;
+}
+
+.mobile-menu-item {
+  border-radius: 0 !important;
+  color: #000000 !important;
+  transition: all 0.3s ease;
+  background: #ffffff !important;
+  margin: 6px 0 !important;
+}
+
+.mobile-menu-item::before {
+  background: #000000 !important;
+  width: 4px;
+  opacity: 0;
+}
+
+.mobile-menu-item:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.mobile-menu-item:hover::before {
+  opacity: 1;
+}
+
+.mobile-menu-item.logout {
+  color: #000000 !important;
+  border-top: 2px solid #000000 !important;
+}
+
+.mobile-menu-item.logout:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.mobile-menu-item.logout::before {
+  background: #000000 !important;
+}
+
+.mobile-menu-item i {
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu-item:hover i {
+  transform: scale(1.1);
+}
+
+/* ===========================
+   BACK BUTTON - B&W THEME
+   =========================== */
+.header-back-btn {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.header-back-btn:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+.header-back-btn i {
+  transition: transform 0.3s ease;
+  color: inherit;
+}
+
+.header-back-btn:hover i {
+  transform: translateX(-2px);
+}
+
+/* ===========================
+   NOTIFICATION BELL - B&W THEME
+   =========================== */
+.notification-bell {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.notification-bell:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.notification-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 0 2px white !important;
+}
+
+.mobile-notification {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+}
+
+.menu-notification-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ===========================
+   ICON OVERRIDES - B&W THEME
+   =========================== */
+.logo i,
+.logo .fas,
+.logo .far,
+.logo .fab {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+.logo:hover i,
+.logo:hover .fas,
+.logo:hover .far,
+.logo:hover .fab {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.btn i,
+.btn .fas,
+.btn .far,
+.btn .fab {
+  color: inherit !important;
+}
+
+.mobile-menu-btn i,
+.mobile-menu-btn .fas,
+.mobile-menu-btn .far,
+.mobile-menu-btn .fab {
+  color: inherit !important;
+}
+
+.header-back-btn i,
+.header-back-btn .fas,
+.header-back-btn .far,
+.header-back-btn .fab {
+  color: inherit !important;
+}
+
+.profile-picture-placeholder i,
+.profile-picture-placeholder .fas,
+.profile-picture-placeholder .far,
+.profile-picture-placeholder .fab {
+  color: #ffffff !important;
+}
+
+.mobile-profile-placeholder i,
+.mobile-profile-placeholder .fas,
+.mobile-profile-placeholder .far,
+.mobile-profile-placeholder .fab {
+  color: #ffffff !important;
+}
+
+/* ===========================
+   RESPONSIVE ADJUSTMENTS
+   =========================== */
+@media (max-width: 768px) {
+  .header {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .header::before {
+    height: 3px !important;
+    opacity: 1 !important;
+  }
+  
+  .logo {
+    padding: 8px 14px !important;
+  }
+  
+  .logo i {
+    font-size: 26px !important;
+  }
+  
+  .logo-text {
+    font-size: 21px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.5px !important;
+  }
+  
+  .logo:hover .logo-text {
+    letter-spacing: 2px !important;
+  }
+  
+  .mobile-menu-btn {
+    border-radius: 0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .mobile-menu-btn:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .mobile-menu-dropdown {
+    border-radius: 0 !important;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.35) !important;
+  }
+  
+  .mobile-menu-item {
+    border-radius: 0 !important;
+  }
+  
+  .header-back-btn {
+    border-radius: 0 !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18) !important;
+  }
+  
+  .header-back-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.18) !important;
+  }
+  
+  .logo {
+    padding: 6px 12px !important;
+  }
+  
+  .logo i {
+    font-size: 22px !important;
+  }
+  
+  .logo-text {
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.2px !important;
+  }
+  
+  .logo:hover .logo-text {
+    letter-spacing: 1.5px !important;
+  }
+  
+  .mobile-menu-dropdown {
+    border-radius: 0 !important;
+  }
+  
+  .header-back-btn {
+    border-radius: 0 !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .logo {
+    padding: 10px 20px !important;
+  }
+  
+  .logo i {
+    font-size: 32px !important;
+  }
+  
+  .logo-text {
+    font-size: 28px !important;
+    letter-spacing: 2.5px !important;
+  }
+  
+  .logo:hover .logo-text {
+    letter-spacing: 3px !important;
+  }
+}
+
+/* ===========================
+   ANIMATIONS - B&W THEME
+   =========================== */
+@keyframes mobileMenuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Remove gradient animations */
+@keyframes gradientShift {
+  0%, 100% { 
+    transform: translateX(0);
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% { 
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY - B&W THEME
+   =========================== */
+.btn:focus-visible,
+.mobile-menu-btn:focus-visible,
+.header-back-btn:focus-visible,
+.logo:focus-visible,
+.user-info:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px;
+}
+
+.mobile-menu-item:focus-visible {
+  outline: 2px solid #000000 !important;
+  outline-offset: -2px;
+  background: #f0f0f0 !important;
+}
+
+/* ===========================
+   HIGH CONTRAST MODE
+   =========================== */
+@media (prefers-contrast: high) {
+  .header {
+    background: white !important;
+    border-bottom: 4px solid #000000 !important;
+  }
+  
+  .btn-outline,
+  .mobile-menu-btn,
+  .header-back-btn,
+  .user-info {
+    border-width: 3px !important;
+  }
+  
+  .header::before {
+    height: 4px !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ===========================
+   PRINT STYLES
+   =========================== */
+@media print {
+  .header {
+    position: static !important;
+    background: white !important;
+    border-bottom: 2px solid #000 !important;
+    box-shadow: none !important;
+  }
+  
+  .mobile-menu-dropdown,
+  .btn:not(.btn-primary) {
+    display: none !important;
+  }
+}
+
+/* ===========================
+   PERFORMANCE OPTIMIZATIONS
+   =========================== */
+.header,
+.logo,
+.btn,
+.user-info,
+.mobile-menu-btn,
+.header-back-btn {
+  will-change: transform;
+}
+
+.header::before,
+.logo::before,
+.btn::before,
+.user-info::before {
+  will-change: opacity;
+}

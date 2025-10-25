@@ -1,6 +1,7 @@
 // src/components/Home.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/Home-BW-Theme.css";
 
 const Home = ({ isLoggedIn, userRole }) => {
   const navigate = useNavigate();
