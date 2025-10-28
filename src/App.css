@@ -4875,6 +4875,22 @@ html {
   .modal {
     padding: 0.75rem;
   }
+  
+  /* Quiz Modal Full-Screen Override */
+  .modal.quiz-modal-overlay-custom {
+    padding: 0 !important;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+  
+  .quiz-modal-overlay-custom .quiz-modal-custom {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -8339,9 +8355,26 @@ html {
 }
 
 @media (max-width: 768px) {
-  .quiz-modal {
-    margin: 1rem;
-    max-height: calc(100vh - 2rem);
+  .modal.quiz-modal-overlay-custom,
+  .quiz-modal-overlay-custom {
+    padding: 0 !important;
+  }
+
+  .quiz-modal,
+  .modal-content.quiz-modal-custom,
+  .quiz-results.quiz-modal-custom,
+  .modal-content.quiz-results {
+    margin: 0 !important;
+    max-height: 100vh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    overflow-y: auto !important;
+  }
+  
+  .quiz-results {
+    max-width: 100% !important;
   }
   
   .quiz-navigation {

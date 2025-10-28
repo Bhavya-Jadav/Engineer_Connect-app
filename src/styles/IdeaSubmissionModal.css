@@ -1,0 +1,419 @@
+/* IdeaSubmissionModal.css - Professional B&W Theme */
+
+/* Modal Overlay */
+.idea-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.idea-modal-container {
+  max-width: 600px;
+  width: 100%;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Content */
+.idea-modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 2px solid #000000;
+  overflow: hidden;
+}
+
+/* Modal Header */
+.idea-modal-header {
+  padding: 24px 28px;
+  background: #000000;
+  border-bottom: 2px solid #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.idea-modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.idea-modal-title i {
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+.idea-modal-close {
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.idea-modal-close:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: rotate(90deg);
+}
+
+/* Form */
+.idea-submission-form {
+  padding: 28px;
+  background: #ffffff;
+}
+
+/* Form Group */
+.idea-form-group {
+  margin-bottom: 24px;
+}
+
+.idea-form-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #000000;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+/* Textarea */
+.idea-form-textarea {
+  width: 100%;
+  padding: 16px;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  color: #000000;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+.idea-form-textarea::placeholder {
+  color: #9e9e9e;
+}
+
+.idea-form-textarea:focus {
+  outline: none;
+  border-color: #000000;
+  background: #f5f5f5;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.idea-form-textarea:hover {
+  border-color: #666666;
+}
+
+/* Submit Button */
+.idea-submit-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.idea-submit-btn i {
+  font-size: 1.2rem;
+}
+
+.idea-submit-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.idea-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .idea-modal-content {
+    background: #1a1a1a;
+    border-color: #ffffff;
+  }
+
+  .idea-modal-header {
+    background: #ffffff;
+    border-bottom-color: #ffffff;
+  }
+
+  .idea-modal-title {
+    color: #000000;
+  }
+
+  .idea-modal-title i {
+    color: #000000;
+  }
+
+  .idea-modal-close {
+    border-color: #000000;
+    color: #000000;
+  }
+
+  .idea-modal-close:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .idea-submission-form {
+    background: #1a1a1a;
+  }
+
+  .idea-form-label {
+    color: #ffffff;
+  }
+
+  .idea-form-textarea {
+    background: #2a2a2a;
+    border-color: #404040;
+    color: #ffffff;
+  }
+
+  .idea-form-textarea::placeholder {
+    color: #808080;
+  }
+
+  .idea-form-textarea:focus {
+    border-color: #ffffff;
+    background: #333333;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+  }
+
+  .idea-form-textarea:hover {
+    border-color: #999999;
+  }
+
+  .idea-submit-btn {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+  }
+
+  .idea-submit-btn:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+/* Mobile Full-Screen */
+@media (max-width: 768px) {
+  .idea-modal-overlay {
+    padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .idea-modal-container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .idea-modal-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .idea-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 20px 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .idea-modal-title {
+    font-size: 1.3rem;
+  }
+
+  .idea-modal-title i {
+    font-size: 1.2rem;
+  }
+
+  .idea-modal-close {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
+
+  .idea-submission-form {
+    flex: 1;
+    padding: 20px 18px;
+    padding-bottom: 40px;
+    overflow-y: auto;
+  }
+
+  .idea-form-group {
+    margin-bottom: 20px;
+  }
+
+  .idea-form-label {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .idea-form-textarea {
+    padding: 14px;
+    font-size: 0.95rem;
+    min-height: 140px;
+  }
+
+  .idea-submit-btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+    position: sticky;
+    bottom: 20px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .idea-modal-header {
+    padding: 16px 14px;
+  }
+
+  .idea-modal-title {
+    font-size: 1.1rem;
+  }
+
+  .idea-modal-title i {
+    font-size: 1.1rem;
+  }
+
+  .idea-modal-close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .idea-submission-form {
+    padding: 18px 14px;
+    padding-bottom: 36px;
+  }
+
+  .idea-form-group {
+    margin-bottom: 18px;
+  }
+
+  .idea-form-label {
+    font-size: 0.9rem;
+  }
+
+  .idea-form-textarea {
+    padding: 12px;
+    font-size: 0.9rem;
+    min-height: 120px;
+  }
+
+  .idea-submit-btn {
+    padding: 13px 18px;
+    font-size: 0.95rem;
+    bottom: 18px;
+  }
+}
+
+/* Accessibility */
+.idea-form-textarea:focus-visible,
+.idea-modal-close:focus-visible,
+.idea-submit-btn:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .idea-form-textarea:focus-visible,
+  .idea-modal-close:focus-visible,
+  .idea-submit-btn:focus-visible {
+    outline-color: #ffffff;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .idea-modal-overlay,
+  .idea-modal-container,
+  .idea-modal-close,
+  .idea-form-textarea,
+  .idea-submit-btn {
+    animation: none;
+    transition: none;
+  }
+
+  .idea-modal-close:hover {
+    transform: none;
+  }
+
+  .idea-submit-btn:hover,
+  .idea-submit-btn:active {
+    transform: none;
+  }
+}
