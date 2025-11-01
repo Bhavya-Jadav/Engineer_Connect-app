@@ -5,7 +5,7 @@ import UserSearchTailwind from './UserSearchTailwind';
 import UserProfileModal from './UserProfileModal';
 import { API_BASE_URL } from '../utils/api';
 import '../styles/modals.css';
-import '../styles/AdminDashboard.css';
+import '../styles/CompanyDashboard.css';
 
 const CompanyDashboard = ({
   problems,

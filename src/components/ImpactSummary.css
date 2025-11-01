@@ -342,6 +342,53 @@
 }
 
 /* ===========================
+   CLICKABLE & DOWNLOADABLE LINKS
+   =========================== */
+.clickable-link {
+  color: #0066cc !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  word-break: break-word;
+}
+
+.clickable-link:hover {
+  color: #004499 !important;
+  text-decoration: underline !important;
+  background-color: #f0f7ff;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #f8f8f8;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.download-link:hover {
+  background: #000000;
+  color: #ffffff !important;
+  transform: translateX(2px);
+}
+
+.download-link i {
+  font-size: 11px;
+}
+
+/* ===========================
    ACADEMIC & COMPANY INFO GRIDS
    =========================== */
 .summary-academic-grid,

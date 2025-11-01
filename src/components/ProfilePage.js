@@ -174,6 +174,7 @@ const ProfilePage = ({
     courses: currentUser?.courses || [],
     languages: currentUser?.languages || [],
     achievements: currentUser?.achievements || [],
+    internships: currentUser?.internships || [],
     projects: currentUser?.projects || []
   });
   const [newSkill, setNewSkill] = useState('');
@@ -360,6 +361,7 @@ const ProfilePage = ({
         courses: currentUser.courses || [],
         languages: currentUser.languages || [],
         achievements: currentUser.achievements || [],
+        internships: currentUser.internships || [],
         projects: currentUser.projects || []
       });
       
@@ -701,6 +703,39 @@ const ProfilePage = ({
       )
     }));
   };
+
+  const addInternship = () => {
+    setProfileData(prev => ({
+      ...prev,
+      internships: [...prev.internships, {
+        id: Date.now(),
+        company: '',
+        role: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+        reportLink: ''
+      }]
+    }));
+  };
+
+  const removeInternship = (id) => {
+    setProfileData(prev => ({
+      ...prev,
+      internships: prev.internships.filter(int => int.id !== id)
+    }));
+  };
+
+  const updateInternship = (id, field, value) => {
+    setProfileData(prev => ({
+      ...prev,
+      internships: prev.internships.map(int => 
+        int.id === id ? { ...int, [field]: value } : int
+      )
+    }));
+  };
+
+  // Removed handleInternshipReportUpload - now using simple link input
 
   const addProject = () => {
     setProfileData(prev => ({
@@ -1603,6 +1638,134 @@ const ProfilePage = ({
                       ))}
                     </div>
 
+                    {/* Internships Section */}
+                    <div className="form-section-modern">
+                      <div className="section-header">
+                        <div className="section-header-content">
+                          <div className="section-icon">
+                            <i className="fas fa-briefcase"></i>
+                          </div>
+                          <div className="section-title">
+                            <h3>Internships</h3>
+                            <p>Your internship experiences and reports</p>
+                          </div>
+                        </div>
+                        <div className="section-actions-group">
+                          <button 
+                            type="button"
+                            onClick={() => handleSectionSave('internships', profileData.internships)}
+                            className="save-section-btn"
+                            disabled={savingSection === 'internships'}
+                          >
+                            {savingSection === 'internships' ? (
+                              <>
+                                <i className="fas fa-spinner fa-spin"></i>
+                                <span>Saving...</span>
+                              </>
+                            ) : (
+                              <>
+                                <i className="fas fa-save"></i>
+                                <span>Save</span>
+                              </>
+                            )}
+                          </button>
+                          <button type="button" onClick={addInternship} className="add-section-btn">
+                            <i className="fas fa-plus"></i> Add Internship
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {profileData.internships.map((internship) => (
+                        <div key={internship.id} className="dynamic-entry" data-internship-id={internship.id}>
+                          <div className="entry-header">
+                            <h4>Internship Entry</h4>
+                            <button type="button" onClick={() => removeInternship(internship.id)} className="remove-entry-btn">
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <div className="form-grid-modern">
+                            <div className="form-group-modern">
+                              <label>Company Name</label>
+                              <input
+                                type="text"
+                                value={internship.company}
+                                onChange={(e) => updateInternship(internship.id, 'company', e.target.value)}
+                                placeholder="e.g., Google, Microsoft, Amazon"
+                                className="input-modern"
+                              />
+                            </div>
+                            
+                            <div className="form-group-modern">
+                              <label>Role/Position</label>
+                              <input
+                                type="text"
+                                value={internship.role}
+                                onChange={(e) => updateInternship(internship.id, 'role', e.target.value)}
+                                placeholder="e.g., Software Engineering Intern"
+                                className="input-modern"
+                              />
+                            </div>
+                            
+                            <div className="form-group-modern">
+                              <label>Start Date</label>
+                              <input
+                                type="month"
+                                value={internship.startDate}
+                                onChange={(e) => updateInternship(internship.id, 'startDate', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            
+                            <div className="form-group-modern">
+                              <label>End Date</label>
+                              <input
+                                type="month"
+                                value={internship.endDate}
+                                onChange={(e) => updateInternship(internship.id, 'endDate', e.target.value)}
+                                className="input-modern"
+                              />
+                            </div>
+                            
+                            <div className="form-group-modern full-width">
+                              <label>Description</label>
+                              <textarea
+                                value={internship.description}
+                                onChange={(e) => updateInternship(internship.id, 'description', e.target.value)}
+                                placeholder="Describe your responsibilities, achievements, and key learnings..."
+                                rows="4"
+                                className="input-modern"
+                              />
+                            </div>
+                            
+                            <div className="form-group-modern full-width">
+                              <label>Report/Certificate Link</label>
+                              <input
+                                type="url"
+                                value={internship.reportLink || ''}
+                                onChange={(e) => updateInternship(internship.id, 'reportLink', e.target.value)}
+                                placeholder="https://drive.google.com/... or any document link"
+                                className="input-modern"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {profileData.internships.length === 0 && (
+                        <div style={{
+                          textAlign: 'center',
+                          padding: '40px 20px',
+                          color: '#666'
+                        }}>
+                          <div style={{fontSize: '48px', marginBottom: '15px'}}>
+                            <i className="fas fa-briefcase"></i>
+                          </div>
+                          <h4 style={{marginBottom: '8px', color: '#333'}}>No internships yet</h4>
+                          <p>Add your internship experiences and reports!</p>
+                        </div>
+                      )}
+                    </div>
+
                     {/* Simple Projects Section */}
                     <div className="form-section-modern">
                       <div className="section-header">
@@ -1970,6 +2133,96 @@ const ProfilePage = ({
                         <span key={index} className="skill-badge-modern">
                           {typeof skill === 'string' ? skill : skill.name || skill}
                         </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Internships Display */}
+                {profileData.internships && profileData.internships.length > 0 && (
+                  <div className="profile-section-modern">
+                    <div className="section-header">
+                      <div className="section-icon">
+                        <i className="fas fa-briefcase"></i>
+                      </div>
+                      <div className="section-title">
+                        <h3>Internships</h3>
+                      </div>
+                    </div>
+                    <div className="internships-display" style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                      {profileData.internships.map((internship, index) => (
+                        <div key={index} style={{
+                          padding: '20px',
+                          backgroundColor: '#f8f9fa',
+                          borderRadius: '8px',
+                          border: '1px solid #e0e0e0'
+                        }}>
+                          <div style={{marginBottom: '10px'}}>
+                            <h4 style={{margin: '0 0 5px 0', color: '#333', fontSize: '18px'}}>
+                              {internship.role || 'Role Not Specified'}
+                            </h4>
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              color: '#666',
+                              fontSize: '14px',
+                              marginBottom: '8px'
+                            }}>
+                              <i className="fas fa-building"></i>
+                              <span style={{fontWeight: '500'}}>{internship.company || 'Company Not Specified'}</span>
+                            </div>
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '5px',
+                              color: '#666',
+                              fontSize: '14px'
+                            }}>
+                              <i className="fas fa-calendar"></i>
+                              <span>
+                                {internship.startDate ? new Date(internship.startDate + '-01').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Start Date'}
+                                {' - '}
+                                {internship.endDate ? new Date(internship.endDate + '-01').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Present'}
+                              </span>
+                            </div>
+                          </div>
+                          {internship.description && (
+                            <p style={{
+                              margin: '12px 0',
+                              color: '#555',
+                              lineHeight: '1.6',
+                              fontSize: '14px'
+                            }}>
+                              {internship.description}
+                            </p>
+                          )}
+                          {internship.reportLink && (
+                            <a 
+                              href={internship.reportLink.startsWith('http') ? internship.reportLink : `https://${internship.reportLink}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '8px 16px',
+                                backgroundColor: '#2196F3',
+                                color: 'white',
+                                textDecoration: 'none',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                transition: 'background-color 0.2s'
+                              }}
+                              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1976D2'}
+                              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#2196F3'}
+                            >
+                              <i className="fas fa-external-link-alt"></i>
+                              View Internship Report
+                            </a>
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>

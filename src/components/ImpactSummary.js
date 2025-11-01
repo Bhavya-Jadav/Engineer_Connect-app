@@ -7,6 +7,7 @@ import './ImpactSummary.css';
 const ImpactSummary = ({ profileData, currentUser, onBack }) => {
   const summaryRef = useRef(null);
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
   const handleDownloadPDF = () => {
     const element = summaryRef.current;
@@ -33,6 +34,23 @@ const ImpactSummary = ({ profileData, currentUser, onBack }) => {
     if (!dateString) return 'Present';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  };
+
+  const isValidUrl = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const formatUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   };
 
   return (
@@ -187,29 +205,16 @@ const ImpactSummary = ({ profileData, currentUser, onBack }) => {
                 {project.description && (
                   <p className="entry-description">{project.description}</p>
                 )}
-                {project.technologies && Array.isArray(project.technologies) && project.technologies.length > 0 && (
-                  <div className="entry-technologies">
-                    <strong>Technologies:</strong>
-                    <div className="tech-tags">
-                      {project.technologies.map((tech, i) => (
-                        <span key={i} className="tech-tag">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {project.githubLink && (
-                  <p className="entry-link">
-                    <i className="fab fa-github"></i>
-                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                      {project.githubLink}
-                    </a>
+                {project.technologies && (
+                  <p className="entry-description">
+                    <strong>Technologies:</strong> {project.technologies}
                   </p>
                 )}
-                {project.liveLink && (
+                {project.link && (
                   <p className="entry-link">
-                    <i className="fas fa-external-link-alt"></i>
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                      {project.liveLink}
+                    <i className="fas fa-link"></i>
+                    <a href={formatUrl(project.link)} target="_blank" rel="noopener noreferrer" className="clickable-link">
+                      {project.link}
                     </a>
                   </p>
                 )}
@@ -239,11 +244,11 @@ const ImpactSummary = ({ profileData, currentUser, onBack }) => {
                 {course.description && (
                   <p className="entry-description">{course.description}</p>
                 )}
-                {course.certificateUrl && (
+                {course.certificateLink && (
                   <p className="entry-link">
                     <i className="fas fa-certificate"></i>
-                    <a href={course.certificateUrl} target="_blank" rel="noopener noreferrer">
-                      View Certificate
+                    <a href={formatUrl(course.certificateLink)} target="_blank" rel="noopener noreferrer" className="clickable-link download-link">
+                      View/Download Certificate
                     </a>
                   </p>
                 )}
@@ -287,6 +292,45 @@ const ImpactSummary = ({ profileData, currentUser, onBack }) => {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Internships Section */}
+        {profileData.internships && Array.isArray(profileData.internships) && profileData.internships.length > 0 && (
+          <div className="summary-section">
+            <h3 className="summary-section-title">
+              <i className="fas fa-briefcase"></i>
+              Internships
+            </h3>
+            {profileData.internships.map((internship, index) => (
+              <div key={index} className="summary-entry">
+                <div className="entry-header">
+                  <div className="entry-main">
+                    <h4 className="entry-title">{internship.role || 'Internship Role'}</h4>
+                    <p className="entry-subtitle">{internship.company || 'Company Name'}</p>
+                  </div>
+                  <div className="entry-date">
+                    {internship.startDate ? formatDate(internship.startDate + '-01') : 'Start'} - {internship.endDate ? formatDate(internship.endDate + '-01') : 'Present'}
+                  </div>
+                </div>
+                {internship.description && (
+                  <p className="entry-description">{internship.description}</p>
+                )}
+                {internship.reportLink && (
+                  <p className="entry-link">
+                    <i className="fas fa-external-link-alt"></i>
+                    <a 
+                      href={formatUrl(internship.reportLink)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="clickable-link"
+                    >
+                      View Internship Report/Certificate
+                    </a>
+                  </p>
+                )}
+              </div>
+            ))}
           </div>
         )}
 

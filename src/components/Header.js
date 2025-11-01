@@ -150,10 +150,6 @@ const Header = ({ isLoggedIn, currentUser, userRole, handleLogout, setCurrentVie
               <i className="fas fa-sign-in-alt"></i>
               <span className="btn-text">Sign In</span>
             </button>
-            <button className="btn btn-primary" onClick={() => navigate('/signup')}>
-              <i className="fas fa-user-plus"></i>
-              <span className="btn-text">Sign Up</span>
-            </button>
           </div>
         )}
       </div>
