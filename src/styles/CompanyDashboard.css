@@ -546,521 +546,95 @@
   margin-top: 1.5rem;
 }
 
+/* ========================================
+   SOLUTION/IDEA CARDS - REDESIGNED
+   Professional B&W Theme with Glassmorphism
+   ======================================== */
+
 .idea-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 1.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
+}
+
+.idea-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 50%, #ffffff 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .idea-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.student-info-compact {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.idea-card:hover::before {
+  opacity: 1;
 }
 
-.student-avatar-small {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.student-name-small {
-  font-weight: 600;
-  color: white;
-  font-size: 1rem;
-}
-
-.student-username-small {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.85rem;
-}
-
-.idea-content h4 {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
-}
-
-.idea-content p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.idea-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.view-btn {
-  background: white;
-  color: #000000;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-}
-
-.view-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-}
-
-/* ========================================
-   PROBLEM DETAIL VIEW
-   ======================================== */
-
-.problem-summary-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  margin-bottom: 2rem;
-}
-
-.problem-info h3 {
-  color: white;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.problem-info p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-/* ========================================
-   SOLUTIONS SECTION
-   ======================================== */
-
-.solutions-section {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 20px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.solutions-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.solutions-header h2 {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.solutions-header h2 i {
-  font-size: 1.3rem;
-}
-
-.solutions-count {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* ========================================
-   SKILLS FILTER
-   ======================================== */
-
-.skills-filter-section {
-  margin-bottom: 2rem;
-}
-
-.skills-search-wrapper {
-  position: relative;
-  max-width: 500px;
-}
-
-.skills-search-input {
-  width: 100%;
-  padding: 0.9rem 1rem 0.9rem 3rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: white;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.skills-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.skills-search-input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-}
-
-.skills-search-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1rem;
-  pointer-events: none;
-}
-
-.skills-search-clear-btn {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0.25rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-}
-
-.skills-search-clear-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-/* ========================================
-   STUDENT DETAIL VIEW
-   ======================================== */
-
-.student-detail-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.detail-header-section {
-  margin-bottom: 2rem;
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.breadcrumb-link {
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-}
-
-.breadcrumb-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.breadcrumb-current {
-  color: white;
-  font-weight: 600;
-}
-
-/* ========================================
-   STUDENT PROFILE CARD
-   ======================================== */
-
-.profile-card-detailed {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  margin-bottom: 2rem;
-}
-
-.profile-header-detailed {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.profile-avatar-large {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  flex-shrink: 0;
-}
-
-.profile-avatar-large img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar-placeholder-large {
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 3rem;
-}
-
-.student-name-large {
-  color: white;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.student-username-large {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.contact-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-.contact-info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.95rem;
-}
-
-.contact-info-item i {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.1rem;
-}
-
-.contact-info-item a {
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-}
-
-.contact-info-item a:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* ========================================
-   SKILLS SECTION
-   ======================================== */
-
-.skills-section {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.skills-section h4 {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.skill-tag {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.skill-tag:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* ========================================
-   SOLUTION DETAILS
-   ======================================== */
-
-.solution-section {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.solution-section h2 {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.solution-section h3 {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 2rem 0 1rem;
-}
-
-.solution-text,
-.implementation-text {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-/* ========================================
-   ENHANCED IDEA CARDS (Solutions View)
-   ======================================== */
-
-.idea-card.enhanced {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 1.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.idea-card.enhanced:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
+/* Student Profile Section */
 .student-profile-section {
   display: flex;
-  gap: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
 }
 
 .student-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
   position: relative;
+  flex-shrink: 0;
 }
 
-.student-avatar img.profile-photo {
-  width: 100%;
-  height: 100%;
+.student-avatar img.profile-photo,
+.student-avatar .default-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transition: all 0.3s ease;
 }
 
 .student-avatar .default-avatar {
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000000;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.idea-card:hover .student-avatar img.profile-photo,
+.idea-card:hover .student-avatar .default-avatar {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
 }
 
 .student-details {
@@ -1068,544 +642,853 @@
   min-width: 0;
 }
 
-.student-details h3.student-name {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.student-name {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .student-info {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 0.75rem;
 }
 
-.student-info .info-item {
+.info-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.student-info .info-item i {
+.info-item i {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8rem;
-  width: 16px;
+  font-size: 0.85rem;
 }
 
 .student-skills {
   margin-top: 0.75rem;
 }
 
-.student-skills .skills-list {
+.skills-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.student-skills .skill-badge {
+.skill-badge {
   background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.student-skills .skill-badge.more {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  font-style: italic;
-}
-
-/* Idea Content Section */
-.idea-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.idea-content .idea-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.idea-content .idea-header h4 {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.idea-content .idea-header h4 i {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.idea-content .submission-date {
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
   font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.idea-content .submission-date i {
-  font-size: 0.75rem;
-}
-
-.idea-description {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.idea-description p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin: 0;
-}
-
-.idea-description p strong {
-  color: white;
   font-weight: 600;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-/* View Details Button */
-.idea-actions .view-details-btn {
-  width: 100%;
-  background: white;
-  color: #000000;
-  border: none;
-  padding: 0.85rem 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-.idea-actions .view-details-btn:hover {
+.skill-badge:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
-.idea-actions .view-details-btn i {
-  font-size: 1rem;
+.skill-badge.more {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
 }
 
-/* ========================================
-   LOADING STATES
-   ======================================== */
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  color: white;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top: 4px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+/* Idea Content */
+.idea-content {
   margin-bottom: 1.5rem;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.idea-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.loading-container p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* ========================================
-   BACK BUTTON
-   ======================================== */
-
-.back-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-flex;
+.idea-header h4 {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
   align-items: center;
   gap: 0.6rem;
+  margin: 0;
+}
+
+.idea-header h4 i {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.submission-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.submission-date i {
+  font-size: 0.8rem;
+}
+
+.idea-description {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.idea-description p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0 0 1rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.idea-description p:last-child {
+  margin-bottom: 0;
+}
+
+.idea-description strong {
+  color: #ffffff;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.4rem;
+}
+
+/* Idea Actions */
+.idea-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-details-btn,
+.view-btn {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 
+    0 6px 20px rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-details-btn::before,
+.view-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.view-details-btn:hover::before,
+.view-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.view-details-btn:hover,
+.view-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 10px 30px rgba(255, 255, 255, 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+}
+
+.view-details-btn:active,
+.view-btn:active {
+  transform: translateY(-1px);
+}
+
+.view-details-btn i,
+.view-btn i {
+  position: relative;
+  z-index: 1;
+}
+
+/* Compact Student Info (for list view) */
+
+.student-info-compact {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.student-avatar-small {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transition: all 0.3s ease;
+}
+
+.idea-card:hover .student-avatar-small {
+  transform: scale(1.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.student-name-small {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+
+.student-username-small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.idea-content h4 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.idea-content p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Enhanced Card Variant */
+.idea-card.enhanced {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 2.25rem;
+}
+
+.idea-card.enhanced:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-10px);
+}
+
+/* Admin Idea Card (for cross-company view) */
+.admin-idea-card {
+  position: relative;
+}
+
+.idea-card-header {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.problem-info {
+  margin-bottom: 0.75rem;
+}
+
+.problem-title-link {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  line-height: 1.3;
+}
+
+.problem-title-link i {
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
 }
 
-.back-btn:hover {
+.branch-badge {
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateX(-5px);
+  color: #ffffff;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.idea-content-preview {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.idea-content-preview h4 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.idea-text-preview {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.implementation-preview {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.implementation-preview h5 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.implementation-preview h5 i {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.implementation-preview p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.student-skills-compact {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.student-skills-compact strong {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.35rem 0.85rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.skill-tag.more {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 700;
 }
 
 /* ========================================
-   RESPONSIVE DESIGN - TABLET
+   PROBLEM CARD STYLES (Enhanced Display)
    ======================================== */
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .admin-content {
-    padding: 1.5rem;
-  }
-  
-  .admin-header h1 {
-    font-size: 2rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .problems-grid,
-  .ideas-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.idea-card.problem-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+  border: 2px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Force dark theme on all problem card children */
+.idea-card.problem-card,
+.idea-card.problem-card *:not(.difficulty-badge):not(.branch-badge):not(.view-details-btn) {
+  color: #ffffff !important;
+}
+
+.problem-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.problem-title {
+  color: #ffffff !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.02em !important;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.problem-title i {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+}
+
+.problem-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.difficulty-badge {
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  backdrop-filter: blur(10px);
+}
+
+.difficulty-badge.difficulty-beginner,
+.difficulty-badge.beginner {
+  background: rgba(76, 175, 80, 0.25);
+  color: #a5d6a7;
+  border: 1.5px solid rgba(76, 175, 80, 0.4);
+}
+
+.difficulty-badge.difficulty-intermediate,
+.difficulty-badge.intermediate {
+  background: rgba(255, 193, 7, 0.25);
+  color: #ffe082;
+  border: 1.5px solid rgba(255, 193, 7, 0.4);
+}
+
+.difficulty-badge.difficulty-advanced,
+.difficulty-badge.advanced {
+  background: rgba(244, 67, 54, 0.25);
+  color: #ef9a9a;
+  border: 1.5px solid rgba(244, 67, 54, 0.4);
+}
+
+.branch-badge {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.problem-content {
+  margin-bottom: 1.5rem;
+}
+
+.problem-description {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.problem-description p {
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+  margin: 0 !important;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+.problem-tags {
+  margin-bottom: 1.25rem;
+}
+
+.tag-badge {
+  background: rgba(33, 150, 243, 0.2);
+  color: #90caf9;
+  border: 1.5px solid rgba(33, 150, 243, 0.35);
+}
+
+.tag-badge:hover {
+  background: rgba(33, 150, 243, 0.3);
+  border-color: rgba(33, 150, 243, 0.45);
+}
+
+.problem-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.stat-item i {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.problem-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.problem-actions .btn,
+.problem-actions .view-details-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.problem-actions .view-details-btn {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 
+    0 6px 20px rgba(255, 255, 255, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+}
+
+.problem-actions .view-details-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 10px 30px rgba(255, 255, 255, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+}
+
+.problem-actions .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.problem-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.problem-actions .btn-danger {
+  background: rgba(244, 67, 54, 0.2);
+  color: #ef9a9a;
+  border: 1.5px solid rgba(244, 67, 54, 0.35);
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+}
+
+.problem-actions .btn-danger:hover {
+  background: rgba(244, 67, 54, 0.3);
+  border-color: rgba(244, 67, 54, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(244, 67, 54, 0.3);
 }
 
 /* ========================================
-   RESPONSIVE DESIGN - MOBILE
+   PROBLEM CARD RESPONSIVE DESIGN
    ======================================== */
 
 @media (max-width: 768px) {
-  .company-dashboard {
-    padding-top: calc(var(--header-height-mobile, 56px) + 1rem);
+  .problem-title {
+    font-size: 1.2rem !important;
   }
-  
-  .admin-content {
+
+  .problem-description {
     padding: 1rem;
   }
-  
-  .admin-header {
-    margin-bottom: 2rem;
+
+  .problem-description p {
+    font-size: 0.95rem !important;
   }
-  
-  .admin-header h1 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .admin-header p {
-    font-size: 1rem;
-  }
-  
-  /* Tab Navigation */
-  .search-tab-navigation {
-    margin-bottom: 1.5rem;
-    padding: 3px;
-  }
-  
-  .search-tab-btn {
-    padding: 12px 15px;
-    font-size: 13px;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .search-tab-btn i {
-    font-size: 14px;
-  }
-  
-  /* Stats Grid */
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .stat-card {
-    padding: 1.5rem;
-  }
-  
-  .stat-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.25rem;
-  }
-  
-  .stat-info h3 {
-    font-size: 2rem;
-  }
-  
-  .stat-info p {
-    font-size: 0.9rem;
-  }
-  
-  /* Dashboard Content */
-  .dashboard-content {
-    padding: 1.5rem;
-  }
-  
-  /* Dashboard Actions */
-  .dashboard-actions {
+
+  .problem-stats {
     flex-direction: column;
     gap: 0.75rem;
+    padding: 0.85rem;
   }
-  
-  .dashboard-actions .btn {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  /* Problems Grid */
-  .problems-grid,
-  .ideas-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .problem-card,
-  .idea-card {
-    padding: 1.5rem;
-  }
-  
-  .problem-header h3 {
-    font-size: 1.2rem;
-  }
-  
-  .problem-description {
-    font-size: 0.9rem;
-  }
-  
-  .problem-meta {
-    gap: 0.5rem;
-  }
-  
-  .difficulty-badge,
-  .branch-badge,
-  .ideas-count {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.75rem;
-  }
-  
+
   .problem-actions {
     flex-direction: column;
   }
-  
-  .problem-actions .btn {
+
+  .problem-actions .btn,
+  .problem-actions .view-details-btn {
     width: 100%;
+    min-width: auto;
   }
-  
-  /* Student Detail */
-  .student-detail-container {
-    padding: 1rem;
+
+  .difficulty-badge,
+  .branch-badge {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.75rem;
   }
-  
-  .breadcrumb {
-    font-size: 0.85rem;
-    gap: 0.5rem;
-  }
-  
-  .profile-card-detailed {
-    padding: 1.5rem;
-  }
-  
-  .profile-header-detailed {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-  
-  .profile-avatar-large {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .student-name-large {
-    font-size: 1.5rem;
-  }
-  
-  .student-username-large {
-    font-size: 1rem;
-  }
-  
-  .contact-info {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .contact-info-item {
+
+  .stat-item {
     font-size: 0.9rem;
   }
-  
-  /* Skills */
-  .skills-section h4 {
-    font-size: 1.1rem;
-  }
-  
-  .skills-list {
-    gap: 0.5rem;
-  }
-  
-  .skill-tag {
-    font-size: 0.85rem;
-    padding: 0.5rem 1rem;
-  }
-  
-  /* Solutions */
-  .solutions-section {
-    padding: 1.5rem;
-  }
-  
-  .solutions-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .solutions-header h2 {
-    font-size: 1.3rem;
-  }
-  
-  .solution-section {
-    padding: 1.5rem;
-  }
-  
-  .solution-section h2 {
-    font-size: 1.3rem;
-  }
-  
-  .solution-text,
-  .implementation-text {
-    font-size: 0.95rem;
-  }
-  
-  /* Skills Filter */
-  .skills-search-wrapper {
-    max-width: 100%;
-  }
-  
-  .skills-search-input {
-    font-size: 0.95rem;
-    padding: 0.8rem 0.9rem 0.8rem 2.8rem;
-  }
 }
-
-/* ========================================
-   RESPONSIVE DESIGN - SMALL MOBILE
-   ======================================== */
 
 @media (max-width: 480px) {
-  .admin-header h1 {
-    font-size: 1.5rem;
+  .problem-title {
+    font-size: 1.1rem !important;
+    gap: 0.5rem;
   }
-  
-  .admin-header p {
-    font-size: 0.95rem;
+
+  .problem-title i {
+    font-size: 1rem;
   }
-  
-  .stat-card {
-    padding: 1.25rem;
+
+  .problem-description {
+    padding: 0.85rem;
   }
-  
-  .stat-icon {
-    width: 45px;
-    height: 45px;
-    font-size: 1.1rem;
+
+  .problem-description p {
+    font-size: 0.9rem !important;
   }
-  
-  .stat-info h3 {
-    font-size: 1.75rem;
+
+  .difficulty-badge,
+  .branch-badge {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
   }
-  
-  .stat-info p {
+
+  .stat-item {
     font-size: 0.85rem;
   }
-  
-  .dashboard-content {
-    padding: 1.25rem;
-  }
-  
-  .problem-card,
-  .idea-card {
-    padding: 1.25rem;
-  }
-  
-  .problem-header h3 {
-    font-size: 1.1rem;
-  }
-  
-  .difficulty-badge,
-  .branch-badge,
-  .ideas-count {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.65rem;
-  }
-  
-  .student-avatar-small {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .student-name-small {
-    font-size: 0.95rem;
-  }
-  
-  .student-username-small {
-    font-size: 0.8rem;
-  }
-  
-  .profile-avatar-large {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .student-name-large {
-    font-size: 1.3rem;
-  }
-  
-  .student-username-large {
-    font-size: 0.95rem;
-  }
-  
-  .skill-tag {
-    font-size: 0.8rem;
-    padding: 0.45rem 0.85rem;
-  }
-  
-  .solution-section h2 {
-    font-size: 1.2rem;
-  }
-  
-  .solution-text,
-  .implementation-text {
+
+  .problem-actions .btn,
+  .problem-actions .view-details-btn {
+    padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
   }
 }
 
-/* ========================================
-   LANDSCAPE MOBILE OPTIMIZATION
-   ======================================== */
+@media (max-width: 360px) {
+  .problem-title {
+    font-size: 1.05rem !important;
+  }
 
+  .problem-description p {
+    font-size: 0.875rem !important;
+  }
+
+  .stat-item {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small Mobile (max-width: 480px) - Solution Cards */
+@media (max-width: 480px) {
+  .idea-card {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .student-avatar img.profile-photo,
+  .student-avatar .default-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .student-name {
+    font-size: 1.1rem;
+  }
+
+  .info-item {
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+
+  .info-item i {
+    font-size: 0.75rem;
+  }
+
+  .skill-badge {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  .idea-header h4 {
+    font-size: 1rem;
+  }
+
+  .idea-description {
+    padding: 0.85rem;
+  }
+
+  .idea-description p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .view-details-btn,
+  .view-btn {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .student-avatar-small {
+    width: 48px;
+    height: 48px;
+  }
+
+  .idea-card-header {
+    padding: 0.85rem;
+  }
+
+  .problem-title-link {
+    font-size: 0.95rem;
+    gap: 0.5rem;
+  }
+
+  .idea-content-preview {
+    padding: 0.85rem;
+  }
+}
+
+/* Extra Small Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+  .idea-card {
+    padding: 1rem;
+  }
+
+  .student-avatar img.profile-photo,
+  .student-avatar .default-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .student-name {
+    font-size: 1.05rem;
+  }
+
+  .info-item {
+    font-size: 0.75rem;
+  }
+
+  .skill-badge {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.65rem;
+  }
+
+  .idea-header h4 {
+    font-size: 0.95rem;
+  }
+
+  .submission-date {
+    font-size: 0.75rem;
+  }
+
+  .idea-description p {
+    font-size: 0.85rem;
+  }
+
+  .view-details-btn,
+  .view-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
 @media (max-height: 500px) and (orientation: landscape) and (max-width: 1024px) {
   .company-dashboard {
     padding-top: calc(var(--header-height-mobile, 56px) + 0.5rem);
@@ -1727,3 +1610,1254 @@
 .stat-card:nth-child(3) { animation-delay: 0.3s; }
 .stat-card:nth-child(4) { animation-delay: 0.4s; }
 .stat-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* ========================================
+   PROBLEM POSTING MODAL - B&W THEME
+   Modern & Professional Design
+   ======================================== */
+
+/* Modal Overlay - Override modals.css */
+.company-dashboard .modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999999 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  animation: fadeIn 0.3s ease-out !important;
+  cursor: default !important;
+  isolation: isolate !important;
+}
+
+/* Modal Container - Full Screen - Override modals.css */
+.company-dashboard .modal.problem-form-modal {
+  background: #ffffff !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  max-width: 100% !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  animation: slideInUp 0.4s ease-out !important;
+  border: none !important;
+  margin: 0 !important;
+  position: relative !important;
+  transform: none !important;
+  z-index: 99999999 !important;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Header */
+.company-dashboard .modal.problem-form-modal .modal-header {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: white;
+  padding: 2rem 2.5rem;
+  border-bottom: 3px solid #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000000 !important;
+  flex-shrink: 0;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-header h2 i {
+  font-size: 1.5rem;
+  color: #ffffff;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.company-dashboard .modal.problem-form-modal .modal-header .close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  line-height: 1;
+  position: relative;
+  z-index: 1000001 !important;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-header .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: rotate(90deg);
+}
+
+/* Modal Content */
+.company-dashboard .modal.problem-form-modal .modal-content {
+  padding: 2.5rem;
+  overflow-y: auto;
+  flex: 1;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+}
+
+.company-dashboard .modal.problem-form-modal .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-content::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.company-dashboard .modal.problem-form-modal .modal-content::-webkit-scrollbar-thumb:hover {
+  background: #e0e0e0;
+}
+
+/* Form Styles */
+.company-dashboard .problem-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Form Group */
+.company-dashboard .problem-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.company-dashboard .problem-form .form-group label {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.company-dashboard .problem-form .form-group label::before {
+  content: '';
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #cccccc 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Input Fields */
+.company-dashboard .problem-form input[type="text"],
+.company-dashboard .problem-form input[type="file"],
+.company-dashboard .problem-form select,
+.company-dashboard .problem-form textarea {
+  padding: 0.9rem 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-family: inherit;
+  backdrop-filter: blur(10px);
+}
+
+.company-dashboard .problem-form input[type="text"]::placeholder,
+.company-dashboard .problem-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.company-dashboard .problem-form input[type="text"]:focus,
+.company-dashboard .problem-form select:focus,
+.company-dashboard .problem-form textarea:focus {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.company-dashboard .problem-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.company-dashboard .problem-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+.company-dashboard .problem-form select option {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Tags Input */
+.company-dashboard .problem-form .tags-input {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.company-dashboard .problem-form .tags-input input {
+  flex: 1;
+}
+
+.company-dashboard .problem-form .tags-input button {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 0 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.company-dashboard .problem-form .tags-input button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Tags List */
+.company-dashboard .problem-form .tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.company-dashboard .problem-form .tag {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000000;
+  padding: 0.5rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.company-dashboard .problem-form .tag:hover {
+  background: linear-gradient(135deg, #f5f5f5 0%, #cccccc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.company-dashboard .problem-form .tag button {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: #000000;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.company-dashboard .problem-form .tag button:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Quiz Questions Section */
+.company-dashboard .problem-form .quiz-question {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.75rem;
+  margin-top: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.company-dashboard .problem-form .quiz-question:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+}
+
+.company-dashboard .problem-form .quiz-question::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #cccccc 100%);
+  border-radius: 16px 0 0 16px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.company-dashboard .problem-form .quiz-question .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.company-dashboard .problem-form .quiz-question .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.company-dashboard .problem-form .quiz-question button[type="button"] {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.company-dashboard .problem-form .quiz-question button[type="button"]:hover {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Add Question Button */
+.company-dashboard .problem-form > button[type="button"] {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000000;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  align-self: flex-start;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.company-dashboard .problem-form > button[type="button"]:hover {
+  background: linear-gradient(135deg, #f5f5f5 0%, #cccccc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* File Upload */
+.company-dashboard .problem-form input[type="file"] {
+  padding: 1.2rem;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.company-dashboard .problem-form input[type="file"]:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* File List */
+.company-dashboard .problem-form .file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.company-dashboard .problem-form .file-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.company-dashboard .problem-form .file-item:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.company-dashboard .problem-form .file-item.uploaded {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.company-dashboard .problem-form .file-item i {
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+  color: #ffffff;
+}
+
+.company-dashboard .problem-form .file-item span {
+  flex: 1;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.company-dashboard .problem-form .file-item button {
+  background: rgba(220, 53, 69, 0.1);
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  color: #dc3545;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.company-dashboard .problem-form .file-item button:hover {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.5);
+  transform: rotate(90deg);
+}
+
+/* Form Actions */
+.company-dashboard .problem-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.company-dashboard .problem-form .form-actions .btn {
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.company-dashboard .problem-form .form-actions .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.company-dashboard .problem-form .form-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.company-dashboard .problem-form .form-actions .btn-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.company-dashboard .problem-form .form-actions .btn-primary:hover {
+  background: linear-gradient(135deg, #f5f5f5 0%, #cccccc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.company-dashboard .problem-form .form-actions .btn-primary:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   FORM RESPONSIVE DESIGN
+   ======================================== */
+
+/* Desktop and Large Screens (default styles already optimized) */
+@media (min-width: 1025px) {
+  .company-dashboard .modal.problem-form-modal {
+    max-width: 1200px;
+    width: 90%;
+    height: 95vh;
+    max-height: 95vh;
+    border-radius: 24px;
+    margin: auto;
+  }
+  
+  .company-dashboard .modal-overlay {
+    padding: 2rem;
+  }
+}
+
+/* Tablet Landscape */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .company-dashboard .modal.problem-form-modal {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header {
+    padding: 1.75rem 2rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-content {
+    padding: 2rem 1.75rem;
+  }
+}
+
+/* Tablet Portrait and Mobile */
+@media (max-width: 768px) {
+  .company-dashboard .modal-overlay {
+    padding: 0 !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+  }
+  
+  .company-dashboard .modal.problem-form-modal {
+    width: 100% !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    animation: slideInUpMobile 0.4s ease-out !important;
+  }
+  
+  @keyframes slideInUpMobile {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Professional Mobile Header */
+  .company-dashboard .modal.problem-form-modal .modal-header {
+    padding: 1rem 1.25rem !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    border-bottom: 2px solid #ffffff !important;
+    min-height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header h2 {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    flex: 1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header h2 i {
+    font-size: 1rem !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  /* Professional Close Button */
+  .company-dashboard .modal.problem-form-modal .modal-header .close-btn {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.75rem !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: all 0.3s ease !important;
+    font-weight: 300 !important;
+    line-height: 1 !important;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header .close-btn:active {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(0.95) !important;
+  }
+  
+  /* Content Area */
+  .company-dashboard .modal.problem-form-modal .modal-content {
+    padding: 1.5rem 1.25rem 180px 1.25rem !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    background: #fafafa !important;
+  }
+  
+  /* Form Styling */
+  .company-dashboard .problem-form {
+    gap: 1.25rem !important;
+  }
+  
+  .company-dashboard .problem-form .form-group {
+    gap: 0.5rem !important;
+  }
+  
+  .company-dashboard .problem-form .form-group label {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+  }
+  
+  .company-dashboard .problem-form input[type="text"],
+  .company-dashboard .problem-form select,
+  .company-dashboard .problem-form textarea {
+    padding: 0.9rem 1rem !important;
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    border-radius: 10px !important;
+    border: 2px solid #e0e0e0 !important;
+    background: white !important;
+  }
+  
+  .company-dashboard .problem-form textarea {
+    min-height: 120px !important;
+  }
+  
+  /* Tags Input */
+  .company-dashboard .problem-form .tags-input {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  .company-dashboard .problem-form .tags-input input {
+    width: 100% !important;
+  }
+  
+  .company-dashboard .problem-form .tags-input button {
+    width: 100% !important;
+    padding: 0.9rem 1.5rem !important;
+    min-height: 44px !important;
+  }
+  
+  /* Quiz Questions */
+  .company-dashboard .problem-form .quiz-question {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    background: white !important;
+  }
+  
+  /* Sticky Footer with Actions */
+  .company-dashboard .problem-form .form-actions {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom)) 1.25rem !important;
+    margin: 0 !important;
+    border-top: 2px solid #e0e0e0 !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15) !important;
+    z-index: 1000 !important;
+    display: flex !important;
+  }
+  
+  .company-dashboard .problem-form .form-actions .btn {
+    width: 100% !important;
+    min-height: 50px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+  
+  .company-dashboard .problem-form .form-actions .btn-secondary {
+    background: #f5f5f5 !important;
+    color: #1a1a1a !important;
+    border: 2px solid #e0e0e0 !important;
+  }
+  
+  .company-dashboard .problem-form .form-actions .btn-primary {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  /* File Upload Mobile */
+  .company-dashboard .problem-form input[type="file"] {
+    padding: 1rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .company-dashboard .problem-form .file-item {
+    padding: 0.85rem 1rem !important;
+    flex-wrap: wrap !
+  }
+  
+  .company-dashboard .problem-form .file-item span {
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .company-dashboard .modal.problem-form-modal .modal-header {
+    padding: 1rem 1.25rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header h2 {
+    font-size: 1.2rem;
+    gap: 0.5rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header h2 i {
+    font-size: 1.3rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header .close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-content {
+    padding: 1.25rem 1rem 100px 1rem;
+  }
+  
+  .company-dashboard .problem-form {
+    gap: 1.25rem;
+  }
+  
+  .company-dashboard .problem-form .form-group label {
+    font-size: 0.85rem;
+  }
+  
+  .company-dashboard .problem-form .form-group label::before {
+    width: 2px;
+    height: 14px;
+  }
+  
+  .company-dashboard .problem-form input[type="text"],
+  .company-dashboard .problem-form select,
+  .company-dashboard .problem-form textarea {
+    padding: 0.75rem 0.9rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .company-dashboard .problem-form .tags-list {
+    gap: 0.5rem;
+  }
+  
+  .company-dashboard .problem-form .tag {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .company-dashboard .problem-form .quiz-question {
+    padding: 1rem;
+  }
+  
+  .company-dashboard .problem-form .form-actions {
+    padding: 1rem 1.25rem;
+    margin: 0 -1rem -100px -1rem;
+  }
+  
+  .company-dashboard .problem-form .form-actions .btn {
+    min-height: 46px;
+    font-size: 0.95rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .company-dashboard .problem-form .file-item {
+    padding: 0.75rem 0.85rem;
+  }
+  
+  .company-dashboard .problem-form .file-item i {
+    font-size: 1.1rem;
+  }
+  
+  .company-dashboard .problem-form .file-item span {
+    font-size: 0.8rem;
+  }
+  
+  .company-dashboard .problem-form .file-item button {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 1024px) {
+  .company-dashboard .modal.problem-form-modal .modal-header {
+    padding: 0.85rem 1.25rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-header .close-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+  
+  .company-dashboard .modal.problem-form-modal .modal-content {
+    padding: 1rem 1.25rem 80px 1.25rem;
+  }
+  
+  .company-dashboard .problem-form {
+    gap: 1rem;
+  }
+  
+  .company-dashboard .problem-form .form-group label {
+    font-size: 0.85rem;
+  }
+  
+  .company-dashboard .problem-form input[type="text"],
+  .company-dashboard .problem-form select,
+  .company-dashboard .problem-form textarea {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
+  
+  .company-dashboard .problem-form textarea {
+    min-height: 80px;
+  }
+  
+  .company-dashboard .problem-form .quiz-question {
+    padding: 0.85rem;
+  }
+  
+  .company-dashboard .problem-form .form-actions {
+    padding: 0.85rem 1.25rem;
+    margin: 0 -1.25rem -80px -1.25rem;
+  }
+  
+  .company-dashboard .problem-form .form-actions .btn {
+    min-height: 42px;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.25rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .company-dashboard .problem-form input[type="text"],
+  .company-dashboard .problem-form select,
+  .company-dashboard .problem-form textarea,
+  .company-dashboard .problem-form .tags-input button,
+  .company-dashboard .problem-form .form-actions .btn {
+    min-height: 44px; /* Apple's recommended touch target */
+  }
+  
+  .company-dashboard .problem-form .tag button,
+  .company-dashboard .problem-form .file-item button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Prevent body scroll when modal is open */
+.company-dashboard .modal-overlay ~ body,
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* ========================================
+   STUDENT DETAIL VIEW STYLES
+   ======================================== */
+
+.student-detail-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail-header-section {
+  margin-bottom: 2rem;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.breadcrumb-link {
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumb-link:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.breadcrumb-separator {
+  color: rgba(255,255,255,0.5);
+}
+
+.breadcrumb-current {
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+}
+
+.profile-card-detailed {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.profile-header-detailed {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.profile-avatar-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder-large {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  color: #000000;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.profile-info-detailed {
+  flex: 1;
+}
+
+.student-name-large {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.student-username-large {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+}
+
+.contact-item i {
+  color: rgba(255,255,255,0.6);
+}
+
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-card {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.detail-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+.detail-label {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bio-section,
+.skills-section,
+.impact-summary-section {
+  margin-top: 1.5rem;
+}
+
+.bio-section h3,
+.skills-section h3,
+.impact-summary-section h3 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1rem 0;
+}
+
+.bio-text,
+.impact-summary-text {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.solution-detail-section {
+  margin-top: 2rem;
+}
+
+.solution-card-detailed {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.solution-header-detailed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.solution-header-detailed h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.submission-date-detailed {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.solution-content-detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.idea-section,
+.implementation-section {
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.idea-section h3,
+.implementation-section h3 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.idea-text-detailed,
+.implementation-text-detailed {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Impact Summary Styles */
+.impact-summary-section {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+  border-radius: 14px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+.impact-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .student-detail-container {
+    padding: 1rem;
+  }
+  
+  .profile-header-detailed {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-avatar-large {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .student-name-large {
+    font-size: 1.5rem;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .profile-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .solution-header-detailed {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+

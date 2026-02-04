@@ -910,8 +910,8 @@ const QuizModal = ({ quiz, problem, onClose, onSubmit }) => {
         }
       `}</style>
       
-      <div className="quiz-modal-overlay-custom">
-        <div className="quiz-modal-custom">
+      <div className="modal active quiz-modal-overlay-custom">
+        <div className="modal-content quiz-modal quiz-modal-custom">
         <QuizHeader 
           title={quiz.title || 'Knowledge Assessment'} 
           showTimer={true} 

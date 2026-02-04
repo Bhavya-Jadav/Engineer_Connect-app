@@ -51,12 +51,15 @@ const AdminDashboard = ({
   });
   const [newTag, setNewTag] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [editingProblem, setEditingProblem] = useState(null);
   
   // Ideas and solutions state
   const [allProblems, setAllProblems] = useState([]);
   const [allIdeas, setAllIdeas] = useState([]);
   const [ideasLoading, setIdeasLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAllProblems, setShowAllProblems] = useState(false);
+  const [problemsLoading, setProblemsLoading] = useState(false);
 
   useEffect(() => {
     // Test basic API connectivity first
@@ -264,6 +267,107 @@ const AdminDashboard = ({
     }
   };
 
+  const fetchAllProblems = async () => {
+    setProblemsLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/problems`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('All problems received:', data);
+        setAllProblems(data);
+      } else {
+        console.error('Failed to fetch problems:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching problems:', error);
+    } finally {
+      setProblemsLoading(false);
+    }
+  };
+
+  const handleDeleteProblem = async (problemId, problemTitle) => {
+    if (!window.confirm(`Are you sure you want to delete "${problemTitle}"?`)) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/problems/${problemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        // Remove from local state
+        setAllProblems(prevProblems => prevProblems.filter(problem => problem._id !== problemId));
+        alert('Problem deleted successfully!');
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Failed to delete problem');
+      }
+    } catch (error) {
+      console.error('Delete problem error:', error);
+      alert('Error deleting problem');
+    }
+  };
+
+  const handleEditProblem = (problem) => {
+    setEditingProblem(problem);
+    setProblemFormData({
+      branch: problem.branch || '',
+      title: problem.title || '',
+      description: problem.description || '',
+      company: problem.company || '',
+      videoUrl: problem.videoUrl || '',
+      difficulty: problem.difficulty || 'beginner',
+      tags: problem.tags || [],
+      quiz: problem.quiz || {
+        questions: [{ question: '', options: ['', '', '', ''], correctAnswer: 0 }]
+      }
+    });
+    setShowProblemForm(true);
+    setShowAllProblems(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleUpdateProblem = async (problemId, problemData) => {
+    try {
+      const token = localStorage.getItem('token');
+      const updateUrl = `${API_BASE_URL}/problems/${problemId}`;
+      const response = await fetch(updateUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(problemData),
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to update problem: ${response.status} ${response.statusText}`);
+      }
+      
+      alert('Problem updated successfully!');
+      setShowProblemForm(false);
+      setEditingProblem(null);
+      fetchAllProblems();
+    } catch (error) {
+      console.error('Update problem error:', error);
+      alert(`Error updating problem: ${error.message}`);
+    }
+  };
+
   const handleAddTag = () => {
     if (newTag.trim() && !problemFormData.tags.includes(newTag.trim())) {
       setProblemFormData({
@@ -403,7 +507,7 @@ const AdminDashboard = ({
       };
       
       const problemData = {
-        company: 'Admin',
+        company: problemFormData.company || 'Admin',
         branch: problemFormData.branch,
         title: problemFormData.title,
         description: problemFormData.description,
@@ -414,36 +518,41 @@ const AdminDashboard = ({
         attachments: attachments
       };
 
-      const response = await fetch(`${API_BASE_URL}/problems`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(problemData)
-      });
-
-      if (response.ok) {
-        alert('Problem posted successfully!');
-        // Reset form
-        setProblemFormData({
-          company: 'Admin',
-          branch: '',
-          title: '',
-          description: '',
-          videoUrl: '',
-          difficulty: 'beginner',
-          tags: [],
-          quiz: {
-            questions: [{ question: '', options: ['', '', '', ''], correctAnswer: 0 }]
-          }
-        });
-        setSelectedFiles([]);
-        setNewTag('');
-        setShowProblemForm(false);
+      // Check if we're editing or creating
+      if (editingProblem) {
+        await handleUpdateProblem(editingProblem._id, problemData);
       } else {
-        const error = await response.json();
-        alert(error.message || 'Failed to post problem');
+        const response = await fetch(`${API_BASE_URL}/problems`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(problemData)
+        });
+
+        if (response.ok) {
+          alert('Problem posted successfully!');
+          // Reset form
+          setProblemFormData({
+            company: 'Admin',
+            branch: '',
+            title: '',
+            description: '',
+            videoUrl: '',
+            difficulty: 'beginner',
+            tags: [],
+            quiz: {
+              questions: [{ question: '', options: ['', '', '', ''], correctAnswer: 0 }]
+            }
+          });
+          setSelectedFiles([]);
+          setNewTag('');
+          setShowProblemForm(false);
+        } else {
+          const error = await response.json();
+          alert(error.message || 'Failed to post problem');
+        }
       }
     } catch (error) {
       console.error('Error posting problem:', error);
@@ -797,7 +906,10 @@ const AdminDashboard = ({
                 </button>
                 <button 
                   className="action-btn secondary"
-                  onClick={() => setCurrentView('problemsList')}
+                  onClick={() => {
+                    setShowAllProblems(true);
+                    fetchAllProblems();
+                  }}
                 >
                   <i className="fas fa-list"></i>
                   <span>View All Problems</span>
@@ -863,20 +975,144 @@ const AdminDashboard = ({
                   </div>
 
                   <div className="form-actions">
-                    <button type="button" onClick={() => setShowProblemForm(false)} className="cancel-btn">
+                    <button type="button" onClick={() => {
+                      setShowProblemForm(false);
+                      setEditingProblem(null);
+                    }} className="cancel-btn">
                       Cancel
                     </button>
                     <button type="submit" disabled={isSubmitting} className="submit-btn">
                       {isSubmitting ? (
-                        <><i className="fas fa-spinner fa-spin"></i> Posting...</>
+                        <><i className="fas fa-spinner fa-spin"></i> {editingProblem ? 'Updating...' : 'Posting...'}</>
                       ) : (
-                        <><i className="fas fa-plus"></i> Post Problem</>
+                        <><i className={editingProblem ? "fas fa-save" : "fas fa-plus"}></i> {editingProblem ? 'Update Problem' : 'Post Problem'}</>
                       )}
                     </button>
                   </div>
                 </form>
               </div>
             )}
+          </div>
+        )}
+
+        {/* View All Problems Modal/View */}
+        {showAllProblems && (
+          <div className="all-problems-overlay">
+            <div className="all-problems-container">
+              <div className="all-problems-header">
+                <h2>
+                  <i className="fas fa-list-alt"></i>
+                  All Problems
+                </h2>
+                <button
+                  className="close-btn"
+                  onClick={() => setShowAllProblems(false)}
+                  title="Close"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+
+              {problemsLoading ? (
+                <div className="loading-container">
+                  <i className="fas fa-spinner fa-spin"></i>
+                  <p>Loading problems...</p>
+                </div>
+              ) : allProblems.length > 0 ? (
+                <div className="problems-list">
+                  {allProblems.map((problem) => (
+                    <div key={problem._id} className="problem-card">
+                      <div className="problem-card-header">
+                        <div className="problem-title-section">
+                          <h3>{problem.title}</h3>
+                          <div className="problem-badges">
+                            <span className={`difficulty-badge difficulty-${problem.difficulty}`}>
+                              {problem.difficulty}
+                            </span>
+                            <span className="branch-badge">
+                              <i className="fas fa-code-branch"></i>
+                              {problem.branch}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="problem-meta">
+                          <span className="company-name">
+                            <i className="fas fa-building"></i>
+                            {problem.company}
+                          </span>
+                          <span className="problem-date">
+                            <i className="fas fa-calendar"></i>
+                            {new Date(problem.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="problem-card-body">
+                        <p className="problem-description">{problem.description}</p>
+                        
+                        {problem.tags && problem.tags.length > 0 && (
+                          <div className="problem-tags">
+                            {problem.tags.map((tag, index) => (
+                              <span key={index} className="tag-badge">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {problem.videoUrl && (
+                          <div className="problem-video-link">
+                            <i className="fas fa-video"></i>
+                            <a href={problem.videoUrl} target="_blank" rel="noopener noreferrer">
+                              Watch Video
+                            </a>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="problem-card-footer">
+                        <div className="problem-stats">
+                          <span>
+                            <i className="fas fa-lightbulb"></i>
+                            {problem.submissions || 0} Solutions
+                          </span>
+                          {problem.quiz && problem.quiz.enabled && (
+                            <span>
+                              <i className="fas fa-question-circle"></i>
+                              Quiz: {problem.quiz.questions?.length || 0} Questions
+                            </span>
+                          )}
+                        </div>
+                        <div className="problem-actions">
+                          <button
+                            className="edit-btn"
+                            onClick={() => handleEditProblem(problem)}
+                            title="Edit Problem"
+                          >
+                            <i className="fas fa-edit"></i>
+                            Edit
+                          </button>
+                          <button
+                            className="delete-btn"
+                            onClick={() => handleDeleteProblem(problem._id, problem.title)}
+                            title="Delete Problem"
+                          >
+                            <i className="fas fa-trash"></i>
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-problems">
+                  <i className="fas fa-inbox"></i>
+                  <h3>No Problems Found</h3>
+                  <p>No problems have been posted yet.</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 

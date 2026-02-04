@@ -25,13 +25,13 @@ const CompanyDashboard = ({
   const [selectedStudentIdea, setSelectedStudentIdea] = useState(null);
   const [editingProblem, setEditingProblem] = useState(null);
   const [formData, setFormData] = useState({
-    company: '',
     branch: '',
     title: '',
     description: '',
     videoUrl: '',
     difficulty: 'beginner',
     tags: [],
+    quizTimeLimit: 30,
     quiz: {
       questions: [
         { question: '', options: ['', '', '', ''], correctAnswer: 0 }
@@ -204,13 +204,13 @@ const CompanyDashboard = ({
   const handleEditProblem = (problem) => {
     setEditingProblem(problem);
     setFormData({
-      company: problem.company || '',
       branch: problem.branch || '',
       title: problem.title || '',
       description: problem.description || '',
       videoUrl: problem.videoUrl || '',
       difficulty: problem.difficulty || 'beginner',
       tags: Array.isArray(problem.tags) ? problem.tags : (problem.tags ? problem.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []),
+      quizTimeLimit: problem.quiz?.timeLimit || 30,
       quiz: {
         questions: problem.quiz?.questions?.map(q => ({
           question: q.question || '',
@@ -231,13 +231,13 @@ const CompanyDashboard = ({
   const handleCancelEdit = () => {
     setEditingProblem(null);
     setFormData({
-      company: '',
       branch: '',
       title: '',
       description: '',
       videoUrl: '',
       difficulty: 'beginner',
       tags: [],
+      quizTimeLimit: 30,
       quiz: {
         questions: [
           { question: '', options: ['', '', '', ''], correctAnswer: 0 }
@@ -398,11 +398,11 @@ const CompanyDashboard = ({
         })),
       title: `${formData.title} Quiz`,
       description: 'Complete this quiz to submit your idea',
-      timeLimit: 30,
+      timeLimit: parseInt(formData.quizTimeLimit) || 30,
       passingScore: 70
     };
     const problemData = {
-      company: formData.company,
+      company: currentUser?.name || currentUser?.username || 'Unknown Company',
       branch: formData.branch,
       title: formData.title,
       description: formData.description,
@@ -418,13 +418,13 @@ const CompanyDashboard = ({
       onSubmitProblem(problemData);
     }
     setFormData({
-      company: '',
       branch: '',
       title: '',
       description: '',
       videoUrl: '',
       difficulty: 'beginner',
       tags: [],
+      quizTimeLimit: 30,
       quiz: {
         questions: [
           { question: '', options: ['', '', '', ''], correctAnswer: 0 }
@@ -489,7 +489,7 @@ const CompanyDashboard = ({
       console.log('✅ Ideas received for this problem:', data.length, 'ideas');
       
       // Find the specific problem from the company's problems list
-      const problem = problems.find(p => p._id === problemId);
+      const problem = companyProblems.find(p => p._id === problemId);
       
       if (problem) {
         // Only show ideas for THIS specific problem
@@ -613,6 +613,43 @@ const CompanyDashboard = ({
       setIsLoadingAllIdeas(false);
     }
   };
+
+  // Filter problems to show only those posted by the current company
+  const companyProblems = problems.filter(problem => {
+    // Get the company identifier from current user (username is the unique identifier)
+    const currentCompanyUsername = currentUser?.username || '';
+    const currentCompanyName = currentUser?.name || '';
+    
+    console.log('🔍 Filtering Problem:', {
+      problemTitle: problem.title,
+      problemCompany: problem.company,
+      currentUsername: currentCompanyUsername,
+      currentName: currentCompanyName
+    });
+    
+    // Check if the problem was posted by this company (compare with username OR name)
+    const problemCompany = (problem.company || '').toString().trim().toLowerCase();
+    const userUsername = (currentCompanyUsername || '').toString().trim().toLowerCase();
+    const userName = (currentCompanyName || '').toString().trim().toLowerCase();
+    
+    const matchesUsername = problemCompany === userUsername;
+    const matchesName = problemCompany === userName;
+    
+    console.log('🔎 Comparison:', {
+      problemCompany,
+      userUsername,
+      userName,
+      matchesUsername,
+      matchesName,
+      finalMatch: matchesUsername || matchesName
+    });
+    
+    return matchesUsername || matchesName;
+  });
+
+  console.log('✅ Filtered Problems:', companyProblems.length, companyProblems);
+  console.log('📊 Current User:', currentUser);
+  console.log('📝 All Problems:', problems.length, problems);
 
   const renderStudentProfile = (student) => {
     if (!student) {
@@ -744,6 +781,16 @@ const CompanyDashboard = ({
           onProfileClick={onProfileClick}
         />
         <div className="student-detail-container">
+          {console.log('🔍 STUDENT DETAIL DEBUG:', {
+            hasStudent: !!selectedStudentIdea.student,
+            studentData: selectedStudentIdea.student,
+            hasImpactSummary: !!selectedStudentIdea.student?.impactSummary,
+            impactSummaryValue: selectedStudentIdea.student?.impactSummary,
+            impactSummaryLength: selectedStudentIdea.student?.impactSummary?.length,
+            allStudentKeys: Object.keys(selectedStudentIdea.student || {}),
+            studentName: selectedStudentIdea.student?.name,
+            studentEmail: selectedStudentIdea.student?.email
+          })}
           <div className="detail-header-section">
             <div className="breadcrumb">
               <span onClick={() => setSelectedStudentIdea(null)} className="breadcrumb-link">
@@ -753,99 +800,21 @@ const CompanyDashboard = ({
               <span className="breadcrumb-current">Student Profile & Solution</span>
             </div>
           </div>
+          {/* Impact Summary Section - Replaces Profile Card */}
           <div className="student-profile-section">
             <div className="profile-card-detailed">
-              <div className="profile-header-detailed">
-                <div className="profile-avatar-large">
-                  {selectedStudentIdea.student?.profilePicture ? (
-                    <img
-                      src={selectedStudentIdea.student.profilePicture.startsWith('data:') || selectedStudentIdea.student.profilePicture.startsWith('http') ? selectedStudentIdea.student.profilePicture : `data:image/jpeg;base64,${selectedStudentIdea.student.profilePicture}`}
-                      alt={selectedStudentIdea.student.name || selectedStudentIdea.student.username}
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        const placeholder = e.target.parentNode.querySelector('.avatar-placeholder-large');
-                        if (placeholder) {
-                          placeholder.style.display = 'flex';
-                        }
-                      }}
-                    />
-                  ) : null}
-                  <div className="avatar-placeholder-large" style={{ display: selectedStudentIdea.student?.profilePicture ? 'none' : 'flex' }}>
-                    <i className="fas fa-user"></i>
-                  </div>
-                </div>
-                <div className="profile-info-detailed">
-                  <h1 className="student-name-large">
-                    {selectedStudentIdea.student?.name || selectedStudentIdea.student?.username || 'Unknown Student'}
-                  </h1>
-                  <div className="student-username-large">@{selectedStudentIdea.student?.username}</div>
-                  <div className="contact-info">
-                    {selectedStudentIdea.student?.email && (
-                      <div className="contact-item">
-                        <i className="fas fa-envelope"></i>
-                        <span>{selectedStudentIdea.student.email}</span>
-                      </div>
-                    )}
-                    {selectedStudentIdea.student?.phone && (
-                      <div className="contact-item">
-                        <i className="fas fa-phone"></i>
-                        <span>{selectedStudentIdea.student.phone}</span>
-                      </div>
-                    )}
-                  </div>
+              <div className="impact-summary-section">
+                <h3><i className="fas fa-chart-line"></i> Impact Summary</h3>
+                <div className="impact-summary-content">
+                  {selectedStudentIdea.student?.impactSummary ? (
+                    <p className="impact-summary-text">{selectedStudentIdea.student.impactSummary}</p>
+                  ) : (
+                    <p className="impact-summary-text" style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}>
+                      <i className="fas fa-info-circle"></i> This student has not added an Impact Summary to their profile yet.
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="profile-details-grid">
-                {selectedStudentIdea.student?.university && (
-                  <div className="detail-card">
-                    <div className="detail-icon">
-                      <i className="fas fa-university"></i>
-                    </div>
-                    <div className="detail-content">
-                      <div className="detail-label">University</div>
-                      <div className="detail-value">{selectedStudentIdea.student.university}</div>
-                    </div>
-                  </div>
-                )}
-                {selectedStudentIdea.student?.course && (
-                  <div className="detail-card">
-                    <div className="detail-icon">
-                      <i className="fas fa-graduation-cap"></i>
-                    </div>
-                    <div className="detail-content">
-                      <div className="detail-label">Course</div>
-                      <div className="detail-value">{selectedStudentIdea.student.course}</div>
-                    </div>
-                  </div>
-                )}
-                {selectedStudentIdea.student?.year && (
-                  <div className="detail-card">
-                    <div className="detail-icon">
-                      <i className="fas fa-calendar"></i>
-                    </div>
-                    <div className="detail-content">
-                      <div className="detail-label">Academic Year</div>
-                      <div className="detail-value">Year {selectedStudentIdea.student.year}</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {selectedStudentIdea.student?.bio && (
-                <div className="bio-section">
-                  <h3><i className="fas fa-info-circle"></i> About</h3>
-                  <p className="bio-text">{selectedStudentIdea.student.bio}</p>
-                </div>
-              )}
-              {selectedStudentIdea.student?.skills && selectedStudentIdea.student.skills.length > 0 && (
-                <div className="skills-section">
-                  <h3><i className="fas fa-cogs"></i> Skills & Expertise</h3>
-                  <div className="skills-grid">
-                    {selectedStudentIdea.student.skills.map((skill, index) => (
-                      <span key={index} className="skill-badge">{typeof skill === 'string' ? skill : skill.name || skill}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
           <div className="solution-detail-section">
@@ -1048,7 +1017,7 @@ const CompanyDashboard = ({
     ) || [];
 
     return (
-      <div className="company-dashboard admin-dashboard">
+      <div className="company-dashboard">
         <Header
           isLoggedIn={isLoggedIn}
           currentUser={currentUser}
@@ -1237,7 +1206,7 @@ const CompanyDashboard = ({
   }
 
   return (
-    <div className="company-dashboard admin-dashboard">
+    <div className="company-dashboard">
       <Header
         isLoggedIn={isLoggedIn}
         currentUser={currentUser}
@@ -1318,12 +1287,12 @@ const CompanyDashboard = ({
           <div className="section-header">
             <h2>
               <i className="fas fa-tasks"></i>
-              Your Problems ({problems.length})
+              Your Problems ({companyProblems.length})
             </h2>
           </div>
           <div className="ideas-grid">
-            {problems.length > 0 ? (
-              problems.map((problem) => (
+            {companyProblems.length > 0 ? (
+              companyProblems.map((problem) => (
                 <div key={problem._id} className="idea-card enhanced problem-card">
                   <div className="problem-header">
                     <h3 className="problem-title">
@@ -1467,16 +1436,6 @@ const CompanyDashboard = ({
               <div className="modal-content">
                 <form onSubmit={handleSubmit} className="problem-form">
                   <div className="form-group">
-                    <label>Company Name</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
                     <label>Branch/Department</label>
                     <select
                       name="branch"
@@ -1601,6 +1560,25 @@ const CompanyDashboard = ({
                       </div>
                     ))}
                     <button type="button" onClick={addQuestion}>Add Question</button>
+                  </div>
+                  <div className="form-group">
+                    <label>Quiz Time Limit (minutes)</label>
+                    <select
+                      name="quizTimeLimit"
+                      value={formData.quizTimeLimit}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="5">5 minutes</option>
+                      <option value="10">10 minutes</option>
+                      <option value="15">15 minutes</option>
+                      <option value="20">20 minutes</option>
+                      <option value="30">30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">60 minutes</option>
+                      <option value="90">90 minutes</option>
+                      <option value="120">120 minutes</option>
+                    </select>
                   </div>
                   <div className="form-group">
                     <label>Attachments</label>

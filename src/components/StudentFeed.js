@@ -32,7 +32,6 @@ const StudentFeed = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [activeTab, setActiveTab] = useState('problems'); // 'problems' or 'users'
-  const [selectedTag, setSelectedTag] = useState(null);
 
   // Available branches - using the same values as stored in database
   const branches = [
@@ -103,15 +102,8 @@ const StudentFeed = ({
   };
 
   // Function to get file icon based on file type
-  const getFileIcon = (filePath) => {
-    if (!filePath || typeof filePath !== 'string') {
-      return 'fas fa-file'; // Default icon for non-string values
-    }
-    
-    // Extract file extension from the path
-    const fileExt = filePath.split('.').pop()?.toLowerCase();
-    
-    switch (fileExt) {
+  const getFileIcon = (fileType) => {
+    switch (fileType?.toLowerCase()) {
       case 'pdf':
         return 'fas fa-file-pdf';
       case 'doc':
@@ -163,48 +155,16 @@ const StudentFeed = ({
   // Function to handle file download
   const handleFileClick = async (attachment) => {
     try {
-      // Handle different attachment formats
-      let fileName, displayName;
-      
-      if (!attachment) {
-        console.error('Attachment is null or undefined');
-        alert('File information is missing. Please try again.');
-        return;
-      }
-      
-      // Check if attachment is a string (just file path) or object
-      if (typeof attachment === 'string') {
-        // Extract filename from path
-        fileName = attachment.split('/').pop();
-        displayName = fileName;
-      } else if (typeof attachment === 'object') {
-        // Object with fileName, originalName properties
-        fileName = attachment.fileName || attachment.filePath || attachment.path;
-        displayName = attachment.originalName || fileName;
-      } else {
-        console.error('Unknown attachment format:', attachment);
-        alert('Unable to process file. Invalid format.');
-        return;
-      }
-      
-      if (!fileName) {
-        console.error('Could not determine filename from:', attachment);
-        alert('File name is missing. Please try again.');
-        return;
-      }
-      
       const baseUrl = API_BASE_URL.replace('/api', '');
       const cleanBaseUrl = baseUrl.replace(/\/api$/, '');
-      const downloadUrl = `${cleanBaseUrl}/api/files/download/${fileName}`;
-      
-      console.log('📥 Downloading file:', fileName, 'from:', downloadUrl);
+      const downloadUrl = `${cleanBaseUrl}/api/files/download/${attachment.fileName}`;
       
       // Fetch the file as a blob
       const response = await fetch(downloadUrl);
       if (!response.ok) {
-        // Handle 404 specifically for Railway/Render ephemeral storage
+        // Handle 404 specifically for Railway ephemeral storage
         if (response.status === 404) {
-          alert(`File "${displayName}" is not available.\n\nThis happens because the backend uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
+          alert(`File "${attachment.originalName || attachment.fileName}" is not available.\n\nThis happens because Railway uses ephemeral storage - files are lost when the backend redeploys.\n\nSolution: Ask the company to re-upload the file, or contact support.`);
           return;
         }
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -220,7 +180,7 @@ const StudentFeed = ({
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = displayName;
+      a.download = attachment.originalName || attachment.fileName;
       
       // Append to body, click, and remove
       document.body.appendChild(a);
@@ -229,8 +189,6 @@ const StudentFeed = ({
       
       // Clean up the temporary URL
       window.URL.revokeObjectURL(url);
-      
-      console.log('✅ File downloaded successfully:', displayName);
       
     } catch (error) {
       console.error('Error downloading file:', error);
@@ -270,40 +228,6 @@ const StudentFeed = ({
       // Filter problems by company
       setSearchTerm(companyName);
       setActiveFilter('all');
-    }
-  };
-  
-  const handleTagClick = (tag) => {
-    console.log(`Tag clicked: ${tag}`);
-    // Set the tag filter
-    setSelectedTag(tag);
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleShareClick = (problem) => {
-    // Create a shareable URL for this problem
-    const shareUrl = `${window.location.origin}/problem/${problem._id}`;
-    
-    // Try to use the Web Share API if available
-    if (navigator.share) {
-      navigator.share({
-        title: problem.title || 'Engineering Problem',
-        text: `Check out this engineering problem: ${problem.title}`,
-        url: shareUrl,
-      })
-      .then(() => console.log('Shared successfully'))
-      .catch((error) => console.log('Error sharing:', error));
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(shareUrl)
-        .then(() => {
-          // Show a toast or alert that the link was copied
-          alert('Link copied to clipboard!');
-        })
-        .catch(err => {
-          console.error('Failed to copy link: ', err);
-        });
     }
   };
 
@@ -507,172 +431,215 @@ const StudentFeed = ({
               </div>
             ) : (
               filteredProblems.map((problem) => (
-              <div 
-                key={problem._id} 
-                className="problem-card bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 mb-4 overflow-hidden border border-gray-200 dark:border-gray-700"
-              >
-                {/* Card Header */}
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <h3 
-                        className="text-lg sm:text-xl font-extrabold text-black dark:text-white mb-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 line-clamp-2 leading-tight px-1 py-0.5 -mx-1 rounded"
-                        onClick={() => handleProblemClick(problem)}
-                        title="Click to view full details"
-                      >
-                        {problem.title || 'Untitled Problem'}
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                        <span 
-                          className="inline-flex items-center gap-1 font-extrabold text-sm sm:text-base text-black dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer transition-all duration-200 px-2 py-1 rounded-md border-2 border-transparent hover:border-black dark:hover:border-white"
-                          onClick={() => handleCompanyClick(problem.company)}
-                          title={`View all problems from ${problem.company || 'Unknown Company'}`}
-                        >
-                          <i className="fas fa-building text-xs"></i>
-                          {problem.company || 'Unknown Company'}
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <i className="fas fa-code-branch text-xs"></i>
-                          {problem.branch || 'General'}
-                        </span>
-                        <span>•</span>
-                        <span>{formatDate(problem.createdAt)}</span>
-                      </div>
+              <div key={problem._id} className="problem-card professional-card">
+                {/* Problem Status Badge */}
+                <div className="problem-status-header">
+                  <div className="status-indicators">
+                    <span className="problem-status open">
+                      <i className="fas fa-circle"></i>
+                      Open
+                    </span>
+                    {problem.videoUrl && (
+                      <span className="media-badge video-badge">
+                        <i className="fas fa-play-circle"></i>
+                        Video
+                      </span>
+                    )}
+                    {problem.attachments && problem.attachments.length > 0 && (
+                      <span className="media-badge files-badge">
+                        <i className="fas fa-paperclip"></i>
+                        {problem.attachments.length} Files
+                      </span>
+                    )}
+                  </div>
+                  <div className="problem-date">
+                    <i className="fas fa-clock"></i>
+                    {formatDate(problem.createdAt)}
+                  </div>
+                </div>
+
+                {/* Company Header */}
+                <div className="company-header">
+                  <div className="company-info">
+                    <div className="company-logo">
+                      <i className="fas fa-building"></i>
                     </div>
-                    
-                    {/* Difficulty Badge */}
-                    <div className={`px-2 py-1 rounded-lg text-xs font-semibold whitespace-nowrap border ${
-                      problem.difficulty === 'beginner' ? 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600' :
-                      problem.difficulty === 'advanced' ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-gray-200' :
-                      'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-                    }`}>
-                      {problem.difficulty || 'intermediate'}
+                    <div className="company-details">
+                      <h4 
+                        className="company-name clickable"
+                        onClick={() => handleCompanyClick(problem.company)}
+                        title={`View all problems from ${problem.company || 'Unknown Company'}`}
+                      >
+                        {problem.company || 'Unknown Company'}
+                      </h4>
+                      <span className="department-info">
+                        <i className="fas fa-sitemap"></i>
+                        {problem.branch || 'General'}
+                      </span>
                     </div>
                   </div>
-                  
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 line-clamp-2">
-                    {problem.description || 'No description available'}
+                  <div className="engagement-stats">
+                    <div className="stat-item">
+                      <i className="fas fa-lightbulb"></i>
+                      <span>{problem.ideas ? problem.ideas.length : 0}</span>
+                      <small>Solutions</small>
+                    </div>
+                    <div className="stat-item">
+                      <i className="fas fa-eye"></i>
+                      <span>{problem.views || 0}</span>
+                      <small>Views</small>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Problem Content */}
+                <div className="problem-main-content">
+                  <h3 
+                    className="problem-title clickable" 
+                    onClick={() => handleProblemClick(problem)}
+                    title="Click to view full details"
+                  >
+                    {problem.title || 'Untitled Problem'}
+                  </h3>
+                  <p className="problem-description">
+                    {problem.description && problem.description.length > 140
+                      ? `${problem.description.substring(0, 140)}...`
+                      : problem.description || 'No description available'}
                   </p>
                 </div>
 
-                {/* Media Section - Only show if exists */}
-                {problem.videoUrl && problem.videoUrl.trim() !== '' && (
-                  <div className="px-4 pt-3">
-                    <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
-                      <iframe
-                        src={getEmbedUrl(problem.videoUrl)}
-                        title={`Video for ${problem.title}`}
-                        frameBorder="0"
-                        allowFullScreen
-                        className="w-full aspect-video"
-                      ></iframe>
-                      <div 
-                        className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 flex items-center justify-center cursor-pointer transition-all duration-200" 
-                        onClick={() => handleVideoClick(problem.videoUrl)}
-                        title="Click to open in new tab"
-                      >
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                          <i className="fas fa-external-link-alt text-gray-900 dark:text-white text-sm sm:text-base"></i>
+                {/* Media Preview Section */}
+                {((problem.videoUrl && problem.videoUrl.trim() !== '') || (problem.attachments && problem.attachments.length > 0)) && (
+                  <div className="media-preview-section">
+                    {/* Video Preview */}
+                    {problem.videoUrl && problem.videoUrl.trim() !== '' && (
+                      <div className="video-preview-card">
+                        <div className="video-thumbnail-wrapper">
+                          <iframe
+                            src={getEmbedUrl(problem.videoUrl)}
+                            title={`Video for ${problem.title}`}
+                            frameBorder="0"
+                            allowFullScreen
+                            className="video-preview-iframe"
+                          ></iframe>
+                          <div 
+                            className="video-overlay" 
+                            onClick={() => handleVideoClick(problem.videoUrl)}
+                            title="Click to open video in new tab"
+                          >
+                            <div className="play-button-large">
+                              <i className="fas fa-play"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="video-info">
+                          <span className="media-label">
+                            <i className="fas fa-play-circle"></i>
+                            Watch Explanation
+                          </span>
                         </div>
                       </div>
-                    </div>
+                    )}
+                    
+                    {/* Files Preview */}
+                    {problem.attachments && problem.attachments.length > 0 && (
+                      <div className="files-preview-section">
+                        <div className="files-header">
+                          <i className="fas fa-folder-open"></i>
+                          <span>Attachments ({problem.attachments.length})</span>
+                        </div>
+                        <div className="files-grid">
+                          {problem.attachments.slice(0, 3).map((attachment, index) => {
+                            // Skip if attachment is null or missing originalName
+                            if (!attachment || !attachment.originalName) {
+                              return null;
+                            }
+                            
+                            return (
+                            <div 
+                              key={index} 
+                              className="file-card"
+                              onClick={() => handleFileClick(attachment)}
+                              title={`Download ${attachment.originalName}`}
+                            >
+                              <div className="file-icon-wrapper">
+                                <i 
+                                  className={getFileIcon(attachment.fileType)}
+                                  style={{ color: getFileColor(attachment.fileType) }}
+                                ></i>
+                              </div>
+                              <div className="file-details">
+                                <span className="file-name-truncated">
+                                  {attachment.originalName.length > 12 
+                                    ? `${attachment.originalName.substring(0, 12)}...` 
+                                    : attachment.originalName
+                                  }
+                                </span>
+                                <span className="file-size-small">
+                                  {formatFileSize(attachment.fileSize)}
+                                </span>
+                              </div>
+                            </div>
+                            );
+                          })}
+                          {problem.attachments.length > 3 && (
+                            <div className="more-files-card">
+                              <i className="fas fa-ellipsis-h"></i>
+                              <span>+{problem.attachments.length - 3}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {/* Attachments - Compact view */}
-                {problem.attachments && problem.attachments.length > 0 && (
-                  <div className="px-4 pt-3">
-                    <div className="flex flex-wrap gap-2">
-                      {problem.attachments.map((attachment, index) => {
-                        const fileName = typeof attachment === 'string' 
-                          ? attachment.split('/').pop() 
-                          : (attachment?.originalName || attachment?.fileName || 'Attachment');
-                        
-                        return (
-                          <button
-                            key={index}
-                            onClick={() => handleFileClick(attachment)}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-xs text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                            title={`Download ${fileName}`}
-                          >
-                            <i className={`${getFileIcon(attachment)} text-sm`}></i>
-                            <span className="max-w-[120px] sm:max-w-[150px] truncate">{fileName}</span>
-                            <i className="fas fa-download text-xs"></i>
-                          </button>
-                        );
-                      })}
-                    </div>
+                {/* Tags & Difficulty */}
+                <div className="problem-metadata">
+                  <div className="difficulty-section">
+                    <span
+                      className={`difficulty-badge difficulty-${problem.difficulty?.toLowerCase() || 'unknown'}`}
+                    >
+                      <i className="fas fa-signal"></i>
+                      {problem.difficulty || 'Unknown'}
+                    </span>
                   </div>
-                )}
-
-                {/* Tags - Compact */}
-                {problem.tags && problem.tags.length > 0 && (
-                  <div className="px-4 pt-3">
-                    <div className="flex flex-wrap gap-1.5">
-                      {problem.tags.slice(0, 3).map((tag, index) => (
-                        <span 
-                          key={index}
-                          onClick={() => handleTagClick(tag)}
-                          className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
-                          title={`View all problems with tag: ${tag}`}
-                        >
-                          #{tag}
-                        </span>
+                  {problem.tags && problem.tags.length > 0 && (
+                    <div className="tags-section">
+                      {problem.tags.slice(0, 4).map((tag, index) => (
+                        <span key={index} className="tech-tag">{tag}</span>
                       ))}
-                      {problem.tags.length > 3 && (
-                        <span className="inline-block px-2 py-0.5 text-gray-500 dark:text-gray-400 text-xs">
-                          +{problem.tags.length - 3}
-                        </span>
+                      {problem.tags.length > 4 && (
+                        <span className="tech-tag more-indicator">+{problem.tags.length - 4}</span>
                       )}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                {/* Footer - Stats & Actions */}
-                <div className="px-4 py-3 flex items-center justify-between gap-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-b-lg">
-                  {/* Stats */}
-                  <div className="flex items-center gap-3 sm:gap-4 text-xs text-gray-600 dark:text-gray-400">
-                    <div className="flex items-center gap-1" title="Solutions submitted">
-                      <i className="fas fa-lightbulb"></i>
-                      <span className="font-medium">{problem.ideas ? problem.ideas.length : 0}</span>
-                    </div>
-                    <div className="flex items-center gap-1" title="Views">
-                      <i className="fas fa-eye"></i>
-                      <span className="font-medium">{problem.views || 0}</span>
-                    </div>
-                    {problem.videoUrl && (
-                      <div className="flex items-center gap-1" title="Has video">
-                        <i className="fas fa-play-circle"></i>
-                      </div>
-                    )}
-                    {problem.attachments && problem.attachments.length > 0 && (
-                      <div className="flex items-center gap-1" title={`${problem.attachments.length} attachment(s)`}>
-                        <i className="fas fa-paperclip"></i>
-                        <span className="font-medium">{problem.attachments.length}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex items-center gap-2">
-                    <button 
-                      onClick={() => handleProblemClick(problem)}
-                      className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900 text-xs sm:text-sm font-medium rounded-lg transition-colors flex items-center gap-1.5"
-                      title="View and solve this problem"
-                    >
-                      <i className="fas fa-arrow-right"></i>
-                      <span className="hidden sm:inline">Solve</span>
-                    </button>
-                    <button 
-                      onClick={() => handleShareClick(problem)}
-                      className="p-1.5 sm:p-2 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
-                      title="Share this problem"
-                    >
-                      <i className="fas fa-share-alt text-sm"></i>
-                    </button>
-                  </div>
+                {/* Action Buttons */}
+                <div className="problem-actions-section">
+                  <button
+                    className="action-btn secondary-action"
+                    onClick={() => handleProblemClick(problem)}
+                  >
+                    <i className="fas fa-info-circle"></i>
+                    <span>Details</span>
+                  </button>
+                  <button
+                    className="action-btn primary-action"
+                    onClick={() => {
+                      console.log('✅ Submit Solution button clicked!', problem);
+                      console.log('✅ onOpenIdeaModal function:', onOpenIdeaModal);
+                      if (onOpenIdeaModal) {
+                        onOpenIdeaModal(problem);
+                      } else {
+                        console.error('❌ onOpenIdeaModal is not defined!');
+                      }
+                    }}
+                  >
+                    <i className="fas fa-rocket"></i>
+                    <span>Submit Solution</span>
+                  </button>
                 </div>
               </div>
             ))
@@ -759,48 +726,31 @@ const StudentFeed = ({
                 <div className="problem-attachments-section">
                   <h3>Attachments</h3>
                   <div className="attachments-container">
-                    {selectedProblem.attachments.map((attachment, index) => {
-                      // Handle both string and object formats
-                      let fileName, fileType, fileSize;
-                      
-                      if (typeof attachment === 'string') {
-                        fileName = attachment.split('/').pop();
-                        fileType = fileName.split('.').pop() || 'file';
-                        fileSize = 0; // Unknown size for string attachments
-                      } else if (attachment && typeof attachment === 'object') {
-                        fileName = attachment.originalName || attachment.fileName || 'Attachment';
-                        fileType = attachment.fileType || fileName.split('.').pop() || 'file';
-                        fileSize = attachment.fileSize || 0;
-                      } else {
-                        return null; // Skip invalid attachments
-                      }
-                      
-                      return (
-                        <div 
-                          key={index} 
-                          className="attachment-item"
-                          onClick={() => handleFileClick(attachment)}
-                          title={`Click to download ${fileName}`}
-                        >
-                          <div className="attachment-icon">
-                            <i 
-                              className={getFileIcon(fileType)}
-                              style={{ color: getFileColor(fileType) }}
-                            ></i>
-                          </div>
-                          <div className="attachment-details">
-                            <span className="attachment-name">{fileName}</span>
-                            <div className="attachment-meta">
-                              <span className="attachment-type">{fileType.toUpperCase()}</span>
-                              {fileSize > 0 && <span className="attachment-size">{formatFileSize(fileSize)}</span>}
-                            </div>
-                          </div>
-                          <div className="attachment-action">
-                            <i className="fas fa-download"></i>
+                    {selectedProblem.attachments.filter(attachment => attachment && attachment.originalName).map((attachment, index) => (
+                      <div 
+                        key={index} 
+                        className="attachment-item"
+                        onClick={() => handleFileClick(attachment)}
+                        title={`Click to download ${attachment.originalName}`}
+                      >
+                        <div className="attachment-icon">
+                          <i 
+                            className={getFileIcon(attachment.fileType)}
+                            style={{ color: getFileColor(attachment.fileType) }}
+                          ></i>
+                        </div>
+                        <div className="attachment-details">
+                          <span className="attachment-name">{attachment.originalName}</span>
+                          <div className="attachment-meta">
+                            <span className="attachment-type">{attachment.fileType.toUpperCase()}</span>
+                            <span className="attachment-size">{formatFileSize(attachment.fileSize)}</span>
                           </div>
                         </div>
-                      );
-                    })}
+                        <div className="attachment-action">
+                          <i className="fas fa-download"></i>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
